@@ -1,0 +1,24 @@
+2016-07-11 10:00:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《暗黑黎明2》1元代金券
+    [buyer_email] => 1149874672@qq.com
+    [buyer_id] => 2088702379530442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 972,1,d810658847
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYPJKKQzR8nhddFGUCyNBM%2Bw%2Ff9I3he9G0Hedp%2Fw3VA2Cqos
+    [notify_time] => 2016-07-11 10:00:15
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146820239411349
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《暗黑黎明2》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016071121001004440233626333
+    [trade_status] => TRADE_SUCCESS
+    [sign] => d1318393e89a3ca8466362492f74d942
+    [sign_type] => MD5
+)
+

@@ -1,0 +1,3189 @@
+2016-10-03 00:01:37订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100203522144
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 20:36:28
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541174948576
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 00:01:37
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 20:36:31
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 6b3b7d8a0310b8ee0b841b6d62fa195gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ae7210c613a10646cdfb45f7c4e6db8b
+)
+
+2016-10-03 00:01:51订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100203443169
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 20:37:15
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541183168773
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 00:01:50
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 20:37:17
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 9f20266db1949ee238ea201a1552987gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 36dfd799c87131712c5389e25be030df
+)
+
+2016-10-03 00:37:38订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 30
+    [payment_type] => 1
+    [subject] => 《龙战于野》30元代金券
+    [trade_no] => 2016100221001004440261415315
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:13:10
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542116515478
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 00:37:38
+    [body] => 《龙战于野》30元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 12.00
+    [gmt_payment] => 2016-10-02 23:13:14
+    [seller_email] => 867672678@qq.com
+    [price] => 12.00
+    [buyer_id] => 2088312127602442
+    [notify_id] => dc9e26862e1bb0bbcec3135eb137309jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ddda12498f3275f970855bf7694ab3ec
+)
+
+2016-10-03 00:38:38订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440263234130
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:14:34
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542126370303
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 00:38:38
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 23:14:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 148b10e2669f202623eae9037e956a5jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 14013b444bbc327272fe00a43bcfcdc8
+)
+
+2016-10-03 00:55:13订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2000元代金券
+    [trade_no] => 2016100221001004800203847445
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-02 15:30:54
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147539338515254
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 00:55:11
+    [body] => 《诛仙yw》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 960.00
+    [gmt_payment] => 2016-10-02 15:31:00
+    [seller_email] => 867672678@qq.com
+    [price] => 960.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 56a62910173f304832ad354976eac53m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 405cb1d9c9b7798beeeafb3ff2eabd2d
+)
+
+2016-10-03 01:34:40订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100288162078
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 22:10:15
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541738786954
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 01:34:40
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 22:10:17
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 318310c4a71a6e7e6a9637434129e5fgru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ad72d89916e732b0bdf11f906f791898
+)
+
+2016-10-03 02:37:43订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 30
+    [payment_type] => 1
+    [subject] => 《龙战于野》30元代金券
+    [trade_no] => 2016100221001004440261415315
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:13:10
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542116515478
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 02:37:43
+    [body] => 《龙战于野》30元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 12.00
+    [gmt_payment] => 2016-10-02 23:13:14
+    [seller_email] => 867672678@qq.com
+    [price] => 12.00
+    [buyer_id] => 2088312127602442
+    [notify_id] => dc9e26862e1bb0bbcec3135eb137309jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f81527068ea8fb4de0e2e2ca7798fa7e
+)
+
+2016-10-03 02:38:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440263234130
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:14:34
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542126370303
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 02:38:46
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 23:14:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 148b10e2669f202623eae9037e956a5jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ca2507c14aa04dfca0a8e3a207b9ed5a
+)
+
+2016-10-03 02:56:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 500
+    [payment_type] => 1
+    [subject] => 《诛仙yw》500元代金券
+    [trade_no] => 2016100221001004800206773017
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-02 17:32:44
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147540075992149
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 02:56:46
+    [body] => 《诛仙yw》500元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 240.00
+    [gmt_payment] => 2016-10-02 17:32:48
+    [seller_email] => 867672678@qq.com
+    [price] => 240.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 227515c841bba10ceaadc41a0fff809m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 18b5e3a1f4cb75d64e17269d15c611a2
+)
+
+2016-10-03 06:00:28订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100203522144
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 20:36:28
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541174948576
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 06:00:28
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 20:36:31
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 6b3b7d8a0310b8ee0b841b6d62fa195gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 611b7357d05ac5a13fdcf10df2580ecf
+)
+
+2016-10-03 06:01:35订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100203443169
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 20:37:15
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541183168773
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 06:01:35
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 20:37:17
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 9f20266db1949ee238ea201a1552987gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 3d3ad48ef8881d2208273630021e2aeb
+)
+
+2016-10-03 07:34:37订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100288162078
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 22:10:15
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541738786954
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 07:34:36
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 22:10:17
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 318310c4a71a6e7e6a9637434129e5fgru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 18e16c057b341dcd08869751830cc731
+)
+
+2016-10-03 08:09:01订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440252399559
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 08:08:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147545332911877
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 08:09:01
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 08:09:01
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => a8e020f03a742aa4ece102e6e23a18djea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => d08a8e0d100c8ee906f323874e944ed6
+)
+
+2016-10-03 08:13:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440252399559
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 08:08:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147545332911877
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 08:13:18
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 08:09:01
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => a8e020f03a742aa4ece102e6e23a18djea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => af695a33f89312d075a9dd2f72876b38
+)
+
+2016-10-03 08:23:28订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440252399559
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 08:08:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147545332911877
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 08:23:28
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 08:09:01
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => a8e020f03a742aa4ece102e6e23a18djea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => eb27ec6aaf1fff7aad506346cb3be39f
+)
+
+2016-10-03 08:34:36订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440252399559
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 08:08:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147545332911877
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 08:34:36
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 08:09:01
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => a8e020f03a742aa4ece102e6e23a18djea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 88527f526c595e1ed7b25c89639f7d1d
+)
+
+2016-10-03 08:37:21订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 30
+    [payment_type] => 1
+    [subject] => 《龙战于野》30元代金券
+    [trade_no] => 2016100221001004440261415315
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:13:10
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542116515478
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 08:37:21
+    [body] => 《龙战于野》30元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 12.00
+    [gmt_payment] => 2016-10-02 23:13:14
+    [seller_email] => 867672678@qq.com
+    [price] => 12.00
+    [buyer_id] => 2088312127602442
+    [notify_id] => dc9e26862e1bb0bbcec3135eb137309jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => cdf0419b5e9290e5b369053b6cd6ae81
+)
+
+2016-10-03 08:38:50订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440263234130
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:14:34
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542126370303
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 08:38:50
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 23:14:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 148b10e2669f202623eae9037e956a5jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 33361c4227754d57b798bfaafe65b04b
+)
+
+2016-10-03 09:34:36订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440252399559
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 08:08:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147545332911877
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 09:34:36
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 08:09:01
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => a8e020f03a742aa4ece102e6e23a18djea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 448d73b31f91f1f36f67ff03ebf554be
+)
+
+2016-10-03 10:45:16订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435431
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:45:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546270512085
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:45:15
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:45:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 29ab7ef1f1a657c9b923cf21217edfejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 974f9db54875f8a0c863927c0b47a2eb
+)
+
+2016-10-03 10:46:38订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435469
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:46:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546278979866
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:46:38
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:46:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => f56bb27ed8323472548833f5693e1fbjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 6632a5846415a54a245291a100fdd8fc
+)
+
+2016-10-03 10:49:04订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435431
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:45:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546270512085
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:49:04
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:45:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 29ab7ef1f1a657c9b923cf21217edfejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 23d238490d144d8642e5c71d6eab7627
+)
+
+2016-10-03 10:50:04订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435469
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:46:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546278979866
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:50:03
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:46:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => f56bb27ed8323472548833f5693e1fbjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => b4244b1793dc1d274dccddf04cecc24c
+)
+
+2016-10-03 10:51:50订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440260163528
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 10:27:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147537523237042
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:51:50
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 10:27:23
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => ab6ae314e1d5a7eb4d8007c48b8910ajea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 30a35ae0b9c09a78675ec1580d49261a
+)
+
+2016-10-03 10:52:20订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440263212300
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 10:28:08
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147537528398759
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:52:20
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 10:28:11
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => c4ef7479e868de90c04e943da4420c7jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 10e70871378871968c1ee39c83319011
+)
+
+2016-10-03 10:53:14订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440262754963
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 10:29:11
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147537534605778
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:53:14
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 10:29:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => da54485577064f95cbe40432392e6dejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => d1547b000db22e5c506001afd0ccb47c
+)
+
+2016-10-03 10:54:31订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440260089489
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 10:30:00
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147537539547947
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:54:31
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 10:30:05
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => d0086e3052fbaa30c9627f69588cd42jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => dfab477ad89dae845853865cdd594880
+)
+
+2016-10-03 10:59:44订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435431
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:45:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546270512085
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 10:59:44
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:45:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 29ab7ef1f1a657c9b923cf21217edfejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ccc20d7d669c9ef8b0fa8b571b89ccb6
+)
+
+2016-10-03 11:00:06订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435469
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:46:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546278979866
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:00:06
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:46:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => f56bb27ed8323472548833f5693e1fbjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => d0b63233b033431335d6fa5f0be91755
+)
+
+2016-10-03 11:10:38订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435431
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:45:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546270512085
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:10:37
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:45:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 29ab7ef1f1a657c9b923cf21217edfejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => d743cad8af1134bcdab4bc5f53a57abb
+)
+
+2016-10-03 11:10:40订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435469
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:46:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546278979866
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:10:40
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:46:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => f56bb27ed8323472548833f5693e1fbjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ff8bb8267996713b1959c9eed0e06972
+)
+
+2016-10-03 11:13:59订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440256871673
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 11:13:55
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546443142852
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:13:58
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 11:13:58
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 359c89ee810cd296e23f9c070099506jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => cadd09b893f2160024f6c80ab74a61c3
+)
+
+2016-10-03 11:17:10订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440256871673
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 11:13:55
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546443142852
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:17:09
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 11:13:58
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 359c89ee810cd296e23f9c070099506jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c1f69e2f91a3da06bd447f714480b7f3
+)
+
+2016-10-03 11:27:39订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440256871673
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 11:13:55
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546443142852
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:27:39
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 11:13:58
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 359c89ee810cd296e23f9c070099506jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f57afd70825032f22fe1fb26a508728f
+)
+
+2016-10-03 11:34:43订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440252399559
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 08:08:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147545332911877
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:34:42
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 08:09:01
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => a8e020f03a742aa4ece102e6e23a18djea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 084eb58fe9c0a3f7b5f7cb921b641fa7
+)
+
+2016-10-03 11:37:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440256871673
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 11:13:55
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546443142852
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 11:37:45
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 11:13:58
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 359c89ee810cd296e23f9c070099506jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 9b0762d58f8bfeeaa786884ad88ba362
+)
+
+2016-10-03 12:02:12订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004440255012943
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 11:38:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147537953153051
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 12:02:12
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 11:38:59
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 1477222b83d998cecdfd47fe7d2fec5jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f749416eb71f16efbc1510ba154e9cd6
+)
+
+2016-10-03 12:02:34订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440256121049
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 11:37:59
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147537947214056
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 12:02:34
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 11:38:02
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => bb198a37604b174a8838505a9018d9cjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 9b3844120f35e17a964d359471fadfbf
+)
+
+2016-10-03 12:10:24订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435469
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:46:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546278979866
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 12:10:24
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:46:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => f56bb27ed8323472548833f5693e1fbjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => bbd05f888108452f6391d3f7db60f4a8
+)
+
+2016-10-03 12:10:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435431
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:45:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546270512085
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 12:10:30
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:45:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 29ab7ef1f1a657c9b923cf21217edfejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 1415de15ee168520bb2258c872093ee8
+)
+
+2016-10-03 12:37:28订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440256871673
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 11:13:55
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546443142852
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 12:37:28
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 11:13:58
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 359c89ee810cd296e23f9c070099506jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => b3f0945cbad4836320ef7c35ce143f50
+)
+
+2016-10-03 13:27:31订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276184649
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 13:27:27
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147547243867026
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 13:27:30
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 13:27:30
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 42f570d1f25b20124338a04d30335ecjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 4ec6f123ab04754bc284516ad6aa8acb
+)
+
+2016-10-03 13:31:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276184649
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 13:27:27
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147547243867026
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 13:31:45
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 13:27:30
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 42f570d1f25b20124338a04d30335ecjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 259e5b0921f23ad04d1d797c561f475c
+)
+
+2016-10-03 13:42:32订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276184649
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 13:27:27
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147547243867026
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 13:42:31
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 13:27:30
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 42f570d1f25b20124338a04d30335ecjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 31dc822c5af357d2ad12d72a3a031249
+)
+
+2016-10-03 13:51:34订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276184649
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 13:27:27
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147547243867026
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 13:51:33
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 13:27:30
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 42f570d1f25b20124338a04d30335ecjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 265f03536a3d29eefc91c129500cea82
+)
+
+2016-10-03 14:10:16订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435469
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:46:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546278979866
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 14:10:16
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:46:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => f56bb27ed8323472548833f5693e1fbjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ededc4d1a041d3d7f2aae50143fd2b14
+)
+
+2016-10-03 14:10:47订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435431
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:45:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546270512085
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 14:10:45
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:45:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 29ab7ef1f1a657c9b923cf21217edfejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 4108c7e3fd84830fb6ea91595e5b97b8
+)
+
+2016-10-03 14:37:08订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440256871673
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 11:13:55
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546443142852
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 14:37:08
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 11:13:58
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 359c89ee810cd296e23f9c070099506jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => e2d27d25d48841e3ba715066ee9aa9de
+)
+
+2016-10-03 14:51:34订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276184649
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 13:27:27
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147547243867026
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 14:51:34
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 13:27:30
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 42f570d1f25b20124338a04d30335ecjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 433d2f84175aa99e87c19ea9de2eb5f9
+)
+
+2016-10-03 15:55:41订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《龙战于野》100元代金券
+    [trade_no] => 2016100321001004100282203140
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 15:55:38
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548132105488
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 15:55:40
+    [body] => 《龙战于野》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 40.00
+    [gmt_payment] => 2016-10-03 15:55:40
+    [seller_email] => 867672678@qq.com
+    [price] => 40.00
+    [buyer_id] => 2088002293236104
+    [notify_id] => df6838cece53d32f9724a054cb37ef7gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 80282fc088ffb246676a0beddddbfd21
+)
+
+2016-10-03 15:55:49订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2000元代金券
+    [trade_no] => 2016100221001004800203847445
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-02 15:30:54
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147539338515254
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 15:55:49
+    [body] => 《诛仙yw》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 960.00
+    [gmt_payment] => 2016-10-02 15:31:00
+    [seller_email] => 867672678@qq.com
+    [price] => 960.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 56a62910173f304832ad354976eac53m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 72eb012f6e43a7d42f29f5abba28a7ac
+)
+
+2016-10-03 15:55:54订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》100元代金券
+    [buyer_email] => zhengwanyi@hotmail.com
+    [buyer_id] => 2088002293236104
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 100
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWe2r5qYeQg%2FIGwqd%2FFBS4U3%2B5WH8eFzHsXu7VSoNTSiHzdqaf
+    [notify_time] => 2016-10-03 15:55:50
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147548132105488
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》100元代金券
+    [total_fee] => 40.00
+    [trade_no] => 2016100321001004100282203140
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 1e5d85593ba34235a16cb9156b3291b4
+    [sign_type] => MD5
+)
+
+2016-10-03 15:59:08订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《龙战于野》100元代金券
+    [trade_no] => 2016100321001004100282203140
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 15:55:38
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548132105488
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 15:59:07
+    [body] => 《龙战于野》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 40.00
+    [gmt_payment] => 2016-10-03 15:55:40
+    [seller_email] => 867672678@qq.com
+    [price] => 40.00
+    [buyer_id] => 2088002293236104
+    [notify_id] => df6838cece53d32f9724a054cb37ef7gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c6e959f6aa2259b8825eefb3893df2b6
+)
+
+2016-10-03 16:09:05订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《龙战于野》100元代金券
+    [trade_no] => 2016100321001004100282203140
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 15:55:38
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548132105488
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 16:09:04
+    [body] => 《龙战于野》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 40.00
+    [gmt_payment] => 2016-10-03 15:55:40
+    [seller_email] => 867672678@qq.com
+    [price] => 40.00
+    [buyer_id] => 2088002293236104
+    [notify_id] => df6838cece53d32f9724a054cb37ef7gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 8fc273507aeab5599b1b515a2f506bb8
+)
+
+2016-10-03 16:19:09订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《龙战于野》100元代金券
+    [trade_no] => 2016100321001004100282203140
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 15:55:38
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548132105488
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 16:19:09
+    [body] => 《龙战于野》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 40.00
+    [gmt_payment] => 2016-10-03 15:55:40
+    [seller_email] => 867672678@qq.com
+    [price] => 40.00
+    [buyer_id] => 2088002293236104
+    [notify_id] => df6838cece53d32f9724a054cb37ef7gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 539a3c7dbdbb903b1a4353a2c1665666
+)
+
+2016-10-03 16:45:29订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 200
+    [payment_type] => 1
+    [subject] => 《御剑情缘》200元代金券
+    [trade_no] => 2016100321001004910297205549
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-10-03 16:45:20
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548431370413
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 16:45:29
+    [body] => 《御剑情缘》200元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 100.00
+    [gmt_payment] => 2016-10-03 16:45:29
+    [seller_email] => 867672678@qq.com
+    [price] => 100.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9010c49bda9386b02893ec908319241n0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => a785fd3dec7e1c1c15941d59292b07d8
+)
+
+2016-10-03 16:46:03订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》200元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 200
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWe2r5rOmIVA59prAEw7Nfh98lK6pl%2FdzsorcVk8l0MijDlDDt
+    [notify_time] => 2016-10-03 16:46:00
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147548431370413
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》200元代金券
+    [total_fee] => 100.00
+    [trade_no] => 2016100321001004910297205549
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 2b93f2c93305ddc157ca5e316c66dbd2
+    [sign_type] => MD5
+)
+
+2016-10-03 16:49:23订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 200
+    [payment_type] => 1
+    [subject] => 《御剑情缘》200元代金券
+    [trade_no] => 2016100321001004910297205549
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-10-03 16:45:20
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548431370413
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 16:49:22
+    [body] => 《御剑情缘》200元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 100.00
+    [gmt_payment] => 2016-10-03 16:45:29
+    [seller_email] => 867672678@qq.com
+    [price] => 100.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9010c49bda9386b02893ec908319241n0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 0272517172be7f7610c31513e08dea19
+)
+
+2016-10-03 16:51:39订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276184649
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 13:27:27
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147547243867026
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 16:51:39
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 13:27:30
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 42f570d1f25b20124338a04d30335ecjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 1be53364c52527d819d8ff9b76ebe4d2
+)
+
+2016-10-03 17:00:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 200
+    [payment_type] => 1
+    [subject] => 《御剑情缘》200元代金券
+    [trade_no] => 2016100321001004910297205549
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-10-03 16:45:20
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548431370413
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 17:00:44
+    [body] => 《御剑情缘》200元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 100.00
+    [gmt_payment] => 2016-10-03 16:45:29
+    [seller_email] => 867672678@qq.com
+    [price] => 100.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9010c49bda9386b02893ec908319241n0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ae2be4d0e75961b0bbaf34ddfafe7b7d
+)
+
+2016-10-03 17:09:08订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 200
+    [payment_type] => 1
+    [subject] => 《御剑情缘》200元代金券
+    [trade_no] => 2016100321001004910297205549
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-10-03 16:45:20
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548431370413
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 17:09:08
+    [body] => 《御剑情缘》200元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 100.00
+    [gmt_payment] => 2016-10-03 16:45:29
+    [seller_email] => 867672678@qq.com
+    [price] => 100.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9010c49bda9386b02893ec908319241n0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => bc954e4566bc9224ace982b80737ec82
+)
+
+2016-10-03 17:19:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《龙战于野》100元代金券
+    [trade_no] => 2016100321001004100282203140
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 15:55:38
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548132105488
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 17:19:45
+    [body] => 《龙战于野》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 40.00
+    [gmt_payment] => 2016-10-03 15:55:40
+    [seller_email] => 867672678@qq.com
+    [price] => 40.00
+    [buyer_id] => 2088002293236104
+    [notify_id] => df6838cece53d32f9724a054cb37ef7gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 912f841f639b16443fb7ae77f8978f7d
+)
+
+2016-10-03 17:34:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440252399559
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 08:08:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147545332911877
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 17:34:45
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 08:09:01
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => a8e020f03a742aa4ece102e6e23a18djea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c5d32fd433e8537d5d063f7513a2842d
+)
+
+2016-10-03 17:56:52订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 500
+    [payment_type] => 1
+    [subject] => 《诛仙yw》500元代金券
+    [trade_no] => 2016100221001004800206773017
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-02 17:32:44
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147540075992149
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 17:56:51
+    [body] => 《诛仙yw》500元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 240.00
+    [gmt_payment] => 2016-10-02 17:32:48
+    [seller_email] => 867672678@qq.com
+    [price] => 240.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 227515c841bba10ceaadc41a0fff809m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c9d085195a5e6e00481594b5e7a5e90c
+)
+
+2016-10-03 18:09:34订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 200
+    [payment_type] => 1
+    [subject] => 《御剑情缘》200元代金券
+    [trade_no] => 2016100321001004910297205549
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-10-03 16:45:20
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548431370413
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 18:09:34
+    [body] => 《御剑情缘》200元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 100.00
+    [gmt_payment] => 2016-10-03 16:45:29
+    [seller_email] => 867672678@qq.com
+    [price] => 100.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9010c49bda9386b02893ec908319241n0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => d3a05ca6c548932b37a139121889e29b
+)
+
+2016-10-03 19:19:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《龙战于野》100元代金券
+    [trade_no] => 2016100321001004100282203140
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 15:55:38
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548132105488
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 19:19:27
+    [body] => 《龙战于野》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 40.00
+    [gmt_payment] => 2016-10-03 15:55:40
+    [seller_email] => 867672678@qq.com
+    [price] => 40.00
+    [buyer_id] => 2088002293236104
+    [notify_id] => df6838cece53d32f9724a054cb37ef7gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => cf3702192dbad7f4764e269cb1ea0fb3
+)
+
+2016-10-03 19:48:52订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2982
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2982元代金券
+    [trade_no] => 2016100321001004800219577845
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 19:48:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549531022177
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 19:48:52
+    [body] => 《诛仙yw》2982元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1431.40
+    [gmt_payment] => 2016-10-03 19:48:52
+    [seller_email] => 867672678@qq.com
+    [price] => 1431.40
+    [buyer_id] => 2088702663816803
+    [notify_id] => d30aac1fd0a905dcc362215992aaee1m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ee8c45fa4d5c9a6c9a75c4b05882e58f
+)
+
+2016-10-03 19:49:04订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《诛仙yw》2982元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 2982
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWe2r4zo2Hs5foJOnBu%2Fp2fEsZjk1wDg6zutG8LEayeksuATWV
+    [notify_time] => 2016-10-03 19:49:01
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147549531022177
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《诛仙yw》2982元代金券
+    [total_fee] => 1431.40
+    [trade_no] => 2016100321001004800219577845
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 62a2bb20d941a0a8bb424e419dea786c
+    [sign_type] => MD5
+)
+
+2016-10-03 19:52:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2982
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2982元代金券
+    [trade_no] => 2016100321001004800219577845
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 19:48:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549531022177
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 19:52:46
+    [body] => 《诛仙yw》2982元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1431.40
+    [gmt_payment] => 2016-10-03 19:48:52
+    [seller_email] => 867672678@qq.com
+    [price] => 1431.40
+    [buyer_id] => 2088702663816803
+    [notify_id] => d30aac1fd0a905dcc362215992aaee1m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => e848e501d33a07f3767604632a34439d
+)
+
+2016-10-03 19:53:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 202
+    [payment_type] => 1
+    [subject] => 《龙战于野》202元代金券
+    [trade_no] => 2016100321001004440276545609
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:53:18
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549559024604
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 19:53:30
+    [body] => 《龙战于野》202元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 80.80
+    [gmt_payment] => 2016-10-03 19:53:29
+    [seller_email] => 867672678@qq.com
+    [price] => 80.80
+    [buyer_id] => 2088312127602442
+    [notify_id] => e9bbea45fc8830123ef90b4d8f7af90jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c58027f5994aaa748dcd73dd0970fed3
+)
+
+2016-10-03 19:54:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 426
+    [payment_type] => 1
+    [subject] => 《龙战于野》426元代金券
+    [trade_no] => 2016100321001004440277094153
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:54:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549567112020
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 19:54:45
+    [body] => 《龙战于野》426元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 170.40
+    [gmt_payment] => 2016-10-03 19:54:45
+    [seller_email] => 867672678@qq.com
+    [price] => 170.40
+    [buyer_id] => 2088312127602442
+    [notify_id] => bc6e244f119fc6e7935b1354ea6be9cjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f2af89dd56ffb850d41d0b5d05154ff6
+)
+
+2016-10-03 19:57:22订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 202
+    [payment_type] => 1
+    [subject] => 《龙战于野》202元代金券
+    [trade_no] => 2016100321001004440276545609
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:53:18
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549559024604
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 19:57:21
+    [body] => 《龙战于野》202元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 80.80
+    [gmt_payment] => 2016-10-03 19:53:29
+    [seller_email] => 867672678@qq.com
+    [price] => 80.80
+    [buyer_id] => 2088312127602442
+    [notify_id] => e9bbea45fc8830123ef90b4d8f7af90jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f7f133682b392ebc7ad353f988df2564
+)
+
+2016-10-03 19:58:05订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 426
+    [payment_type] => 1
+    [subject] => 《龙战于野》426元代金券
+    [trade_no] => 2016100321001004440277094153
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:54:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549567112020
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 19:58:05
+    [body] => 《龙战于野》426元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 170.40
+    [gmt_payment] => 2016-10-03 19:54:45
+    [seller_email] => 867672678@qq.com
+    [price] => 170.40
+    [buyer_id] => 2088312127602442
+    [notify_id] => bc6e244f119fc6e7935b1354ea6be9cjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 1107fd9fcb9e156c8eff045dcdfdc0c9
+)
+
+2016-10-03 20:02:48订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2982
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2982元代金券
+    [trade_no] => 2016100321001004800219577845
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 19:48:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549531022177
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:02:46
+    [body] => 《诛仙yw》2982元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1431.40
+    [gmt_payment] => 2016-10-03 19:48:52
+    [seller_email] => 867672678@qq.com
+    [price] => 1431.40
+    [buyer_id] => 2088702663816803
+    [notify_id] => d30aac1fd0a905dcc362215992aaee1m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ce615fdc2af4ec70234b77a9d1e8eb61
+)
+
+2016-10-03 20:03:41订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1425
+    [payment_type] => 1
+    [subject] => 《诛仙yw》1425元代金券
+    [trade_no] => 2016100321001004800219492084
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 20:03:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549621071719
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:03:41
+    [body] => 《诛仙yw》1425元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 684.00
+    [gmt_payment] => 2016-10-03 20:03:40
+    [seller_email] => 867672678@qq.com
+    [price] => 684.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 5fe78c0077f58ae78093e828493bd3dm6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 7cdccf699b6d721f20d233f201fc2ef3
+)
+
+2016-10-03 20:03:52订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《诛仙yw》1425元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1425
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWe2r4zTTEU8jI3ppwdsS3HNdYzZCP%2BPGEZOhyadIbGOmEj4Jw
+    [notify_time] => 2016-10-03 20:03:49
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147549621071719
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《诛仙yw》1425元代金券
+    [total_fee] => 684.00
+    [trade_no] => 2016100321001004800219492084
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5865ba882a99afa3de93bf6252f591c6
+    [sign_type] => MD5
+)
+
+2016-10-03 20:07:06订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 202
+    [payment_type] => 1
+    [subject] => 《龙战于野》202元代金券
+    [trade_no] => 2016100321001004440276545609
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:53:18
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549559024604
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:07:06
+    [body] => 《龙战于野》202元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 80.80
+    [gmt_payment] => 2016-10-03 19:53:29
+    [seller_email] => 867672678@qq.com
+    [price] => 80.80
+    [buyer_id] => 2088312127602442
+    [notify_id] => e9bbea45fc8830123ef90b4d8f7af90jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => af6e5a3ab1eb0ce2cefc463f9510a5f0
+)
+
+2016-10-03 20:07:39订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1425
+    [payment_type] => 1
+    [subject] => 《诛仙yw》1425元代金券
+    [trade_no] => 2016100321001004800219492084
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 20:03:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549621071719
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:07:39
+    [body] => 《诛仙yw》1425元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 684.00
+    [gmt_payment] => 2016-10-03 20:03:40
+    [seller_email] => 867672678@qq.com
+    [price] => 684.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 5fe78c0077f58ae78093e828493bd3dm6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 2120760e5067568ba319372a32fa9444
+)
+
+2016-10-03 20:09:27订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 426
+    [payment_type] => 1
+    [subject] => 《龙战于野》426元代金券
+    [trade_no] => 2016100321001004440277094153
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:54:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549567112020
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:09:25
+    [body] => 《龙战于野》426元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 170.40
+    [gmt_payment] => 2016-10-03 19:54:45
+    [seller_email] => 867672678@qq.com
+    [price] => 170.40
+    [buyer_id] => 2088312127602442
+    [notify_id] => bc6e244f119fc6e7935b1354ea6be9cjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 1e6d92798a0b882c70e175ca4482fa2d
+)
+
+2016-10-03 20:09:27订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 200
+    [payment_type] => 1
+    [subject] => 《御剑情缘》200元代金券
+    [trade_no] => 2016100321001004910297205549
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-10-03 16:45:20
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147548431370413
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:09:27
+    [body] => 《御剑情缘》200元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 100.00
+    [gmt_payment] => 2016-10-03 16:45:29
+    [seller_email] => 867672678@qq.com
+    [price] => 100.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9010c49bda9386b02893ec908319241n0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 2dee3eca254cdfca31014d996c373cb6
+)
+
+2016-10-03 20:10:10订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435469
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:46:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546278979866
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:10:10
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:46:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => f56bb27ed8323472548833f5693e1fbjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f4b01e1ddf0f0f112522477ff9aa42a8
+)
+
+2016-10-03 20:10:23订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276435431
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 10:45:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546270512085
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:10:23
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 10:45:15
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 29ab7ef1f1a657c9b923cf21217edfejea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f2aecc43d8ac469f0b890e3d33f58da4
+)
+
+2016-10-03 20:12:48订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2982
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2982元代金券
+    [trade_no] => 2016100321001004800219577845
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 19:48:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549531022177
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:12:48
+    [body] => 《诛仙yw》2982元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1431.40
+    [gmt_payment] => 2016-10-03 19:48:52
+    [seller_email] => 867672678@qq.com
+    [price] => 1431.40
+    [buyer_id] => 2088702663816803
+    [notify_id] => d30aac1fd0a905dcc362215992aaee1m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 28228426d6bca02717d3b6db2b06b3c2
+)
+
+2016-10-03 20:17:39订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 202
+    [payment_type] => 1
+    [subject] => 《龙战于野》202元代金券
+    [trade_no] => 2016100321001004440276545609
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:53:18
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549559024604
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:17:39
+    [body] => 《龙战于野》202元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 80.80
+    [gmt_payment] => 2016-10-03 19:53:29
+    [seller_email] => 867672678@qq.com
+    [price] => 80.80
+    [buyer_id] => 2088312127602442
+    [notify_id] => e9bbea45fc8830123ef90b4d8f7af90jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c29d6a23d21938114011c37f555f4b54
+)
+
+2016-10-03 20:18:05订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 426
+    [payment_type] => 1
+    [subject] => 《龙战于野》426元代金券
+    [trade_no] => 2016100321001004440277094153
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:54:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549567112020
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:18:05
+    [body] => 《龙战于野》426元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 170.40
+    [gmt_payment] => 2016-10-03 19:54:45
+    [seller_email] => 867672678@qq.com
+    [price] => 170.40
+    [buyer_id] => 2088312127602442
+    [notify_id] => bc6e244f119fc6e7935b1354ea6be9cjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 2040ddc69a40daff892e5754afcd5e70
+)
+
+2016-10-03 20:18:33订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1425
+    [payment_type] => 1
+    [subject] => 《诛仙yw》1425元代金券
+    [trade_no] => 2016100321001004800219492084
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 20:03:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549621071719
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:18:33
+    [body] => 《诛仙yw》1425元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 684.00
+    [gmt_payment] => 2016-10-03 20:03:40
+    [seller_email] => 867672678@qq.com
+    [price] => 684.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 5fe78c0077f58ae78093e828493bd3dm6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 0c872216e99534f68d9a41847dbba6bf
+)
+
+2016-10-03 20:27:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1425
+    [payment_type] => 1
+    [subject] => 《诛仙yw》1425元代金券
+    [trade_no] => 2016100321001004800219492084
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 20:03:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549621071719
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:27:18
+    [body] => 《诛仙yw》1425元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 684.00
+    [gmt_payment] => 2016-10-03 20:03:40
+    [seller_email] => 867672678@qq.com
+    [price] => 684.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 5fe78c0077f58ae78093e828493bd3dm6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 3ce001ec40bbf38f9247f73b3dc47881
+)
+
+2016-10-03 20:37:14订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440256871673
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 11:13:55
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147546443142852
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:37:13
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 11:13:58
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 359c89ee810cd296e23f9c070099506jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => a14f77033a765a728cf39f912940f7a0
+)
+
+2016-10-03 20:59:48订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004100203469604
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 20:59:45
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549954846675
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 20:59:48
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 20:59:48
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 0470723c8c6f72abd03be8c4b717fa5gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 3a7ff1db93530bb35dd6cde7819e68f8
+)
+
+2016-10-03 21:00:03订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》98元代金券
+    [buyer_email] => zhengwanyi@hotmail.com
+    [buyer_id] => 2088002293236104
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 98
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWe2r4wgHtoSr52DI46UkjIbbWOYI1R8eIIA0PLuPHnoESvE8K
+    [notify_time] => 2016-10-03 20:59:58
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147549954846675
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》98元代金券
+    [total_fee] => 39.20
+    [trade_no] => 2016100321001004100203469604
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 963a0aa564475a1ef10ce5af631709ac
+    [sign_type] => MD5
+)
+
+2016-10-03 21:01:14订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100203443169
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 20:37:15
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541183168773
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:01:14
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 20:37:17
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 9f20266db1949ee238ea201a1552987gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 4eba1d14ce9ac4716f5455e90ba81c11
+)
+
+2016-10-03 21:01:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100203522144
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 20:36:28
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541174948576
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:01:30
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 20:36:31
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 6b3b7d8a0310b8ee0b841b6d62fa195gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => fc6bf540b6c229a0ea0bc24bb5bd2242
+)
+
+2016-10-03 21:03:42订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004100203469604
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 20:59:45
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549954846675
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:03:42
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 20:59:48
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 0470723c8c6f72abd03be8c4b717fa5gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ac89f3b2ae5a9e3b5db3823b1a47e1fd
+)
+
+2016-10-03 21:12:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2982
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2982元代金券
+    [trade_no] => 2016100321001004800219577845
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 19:48:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549531022177
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:12:46
+    [body] => 《诛仙yw》2982元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1431.40
+    [gmt_payment] => 2016-10-03 19:48:52
+    [seller_email] => 867672678@qq.com
+    [price] => 1431.40
+    [buyer_id] => 2088702663816803
+    [notify_id] => d30aac1fd0a905dcc362215992aaee1m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 86c845ac1f490c59a89fb495b5fc9db1
+)
+
+2016-10-03 21:15:35订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004100203469604
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 20:59:45
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549954846675
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:15:35
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 20:59:48
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 0470723c8c6f72abd03be8c4b717fa5gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 105901dc86fc56ab5be03d70793e5e6f
+)
+
+2016-10-03 21:17:23订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 202
+    [payment_type] => 1
+    [subject] => 《龙战于野》202元代金券
+    [trade_no] => 2016100321001004440276545609
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:53:18
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549559024604
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:17:23
+    [body] => 《龙战于野》202元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 80.80
+    [gmt_payment] => 2016-10-03 19:53:29
+    [seller_email] => 867672678@qq.com
+    [price] => 80.80
+    [buyer_id] => 2088312127602442
+    [notify_id] => e9bbea45fc8830123ef90b4d8f7af90jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 0e0e9c37f3c1bed9edde5a897d0af7b2
+)
+
+2016-10-03 21:18:05订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 426
+    [payment_type] => 1
+    [subject] => 《龙战于野》426元代金券
+    [trade_no] => 2016100321001004440277094153
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:54:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549567112020
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:18:05
+    [body] => 《龙战于野》426元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 170.40
+    [gmt_payment] => 2016-10-03 19:54:45
+    [seller_email] => 867672678@qq.com
+    [price] => 170.40
+    [buyer_id] => 2088312127602442
+    [notify_id] => bc6e244f119fc6e7935b1354ea6be9cjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => e514a2a4fd6d1ce8ea2385371eeb6e40
+)
+
+2016-10-03 21:23:24订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004100203469604
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 20:59:45
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549954846675
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:23:24
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 20:59:48
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 0470723c8c6f72abd03be8c4b717fa5gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 829ce3405f7dcb8f5a70bd79ef3085ee
+)
+
+2016-10-03 21:27:18订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1425
+    [payment_type] => 1
+    [subject] => 《诛仙yw》1425元代金券
+    [trade_no] => 2016100321001004800219492084
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 20:03:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549621071719
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 21:27:18
+    [body] => 《诛仙yw》1425元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 684.00
+    [gmt_payment] => 2016-10-03 20:03:40
+    [seller_email] => 867672678@qq.com
+    [price] => 684.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 5fe78c0077f58ae78093e828493bd3dm6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c19d814376213d20e0267d5584e14324
+)
+
+2016-10-03 22:23:32订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004100203469604
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-03 20:59:45
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549954846675
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 22:23:32
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 20:59:48
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 0470723c8c6f72abd03be8c4b717fa5gru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 5aa5642902d49ae2f8aad22cf78093c7
+)
+
+2016-10-03 22:34:13订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 68
+    [payment_type] => 1
+    [subject] => 《龙战于野》68元代金券
+    [trade_no] => 2016100221001004100288162078
+    [buyer_email] => zhengwanyi@hotmail.com
+    [gmt_create] => 2016-10-02 22:10:15
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147541738786954
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 22:34:13
+    [body] => 《龙战于野》68元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 27.20
+    [gmt_payment] => 2016-10-02 22:10:17
+    [seller_email] => 867672678@qq.com
+    [price] => 27.20
+    [buyer_id] => 2088002293236104
+    [notify_id] => 318310c4a71a6e7e6a9637434129e5fgru
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => abc4cfed66dd6dbd188c618f8ce52293
+)
+
+2016-10-03 22:51:07订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100321001004440276184649
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 13:27:27
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147547243867026
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 22:51:06
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-03 13:27:30
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 42f570d1f25b20124338a04d30335ecjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c5ccb0556f5fa6e152a87bd13b857c2f
+)
+
+2016-10-03 23:12:17订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2982
+    [payment_type] => 1
+    [subject] => 《诛仙yw》2982元代金券
+    [trade_no] => 2016100321001004800219577845
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 19:48:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549531022177
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:12:16
+    [body] => 《诛仙yw》2982元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1431.40
+    [gmt_payment] => 2016-10-03 19:48:52
+    [seller_email] => 867672678@qq.com
+    [price] => 1431.40
+    [buyer_id] => 2088702663816803
+    [notify_id] => d30aac1fd0a905dcc362215992aaee1m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => a1d0c5c466fa97f0d041d5f970b26d00
+)
+
+2016-10-03 23:17:15订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 202
+    [payment_type] => 1
+    [subject] => 《龙战于野》202元代金券
+    [trade_no] => 2016100321001004440276545609
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:53:18
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549559024604
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:17:14
+    [body] => 《龙战于野》202元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 80.80
+    [gmt_payment] => 2016-10-03 19:53:29
+    [seller_email] => 867672678@qq.com
+    [price] => 80.80
+    [buyer_id] => 2088312127602442
+    [notify_id] => e9bbea45fc8830123ef90b4d8f7af90jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 1bc1de1d4ecd9a3c5b12320410d00b1a
+)
+
+2016-10-03 23:18:12订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 426
+    [payment_type] => 1
+    [subject] => 《龙战于野》426元代金券
+    [trade_no] => 2016100321001004440277094153
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-03 19:54:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549567112020
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:18:12
+    [body] => 《龙战于野》426元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 170.40
+    [gmt_payment] => 2016-10-03 19:54:45
+    [seller_email] => 867672678@qq.com
+    [price] => 170.40
+    [buyer_id] => 2088312127602442
+    [notify_id] => bc6e244f119fc6e7935b1354ea6be9cjea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 417e4d480d85e878fe7ffcdf9aa59b6a
+)
+
+2016-10-03 23:27:12订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1425
+    [payment_type] => 1
+    [subject] => 《诛仙yw》1425元代金券
+    [trade_no] => 2016100321001004800219492084
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 20:03:35
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147549621071719
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:27:12
+    [body] => 《诛仙yw》1425元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 684.00
+    [gmt_payment] => 2016-10-03 20:03:40
+    [seller_email] => 867672678@qq.com
+    [price] => 684.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 5fe78c0077f58ae78093e828493bd3dm6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 4acb6f0f96e39256dd3d689093db1b39
+)
+
+2016-10-03 23:37:50订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 30
+    [payment_type] => 1
+    [subject] => 《龙战于野》30元代金券
+    [trade_no] => 2016100221001004440261415315
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:13:10
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542116515478
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:37:49
+    [body] => 《龙战于野》30元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 12.00
+    [gmt_payment] => 2016-10-02 23:13:14
+    [seller_email] => 867672678@qq.com
+    [price] => 12.00
+    [buyer_id] => 2088312127602442
+    [notify_id] => dc9e26862e1bb0bbcec3135eb137309jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 82b8c1fb476d403388f1b5d704930c0e
+)
+
+2016-10-03 23:38:31订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 98
+    [payment_type] => 1
+    [subject] => 《龙战于野》98元代金券
+    [trade_no] => 2016100221001004440263234130
+    [buyer_email] => 283266479@qq.com
+    [gmt_create] => 2016-10-02 23:14:34
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147542126370303
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:38:30
+    [body] => 《龙战于野》98元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 39.20
+    [gmt_payment] => 2016-10-02 23:14:37
+    [seller_email] => 867672678@qq.com
+    [price] => 39.20
+    [buyer_id] => 2088312127602442
+    [notify_id] => 148b10e2669f202623eae9037e956a5jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 774b93bb8474925e7fb489c7ecad5bb7
+)
+
+2016-10-03 23:50:59订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 172
+    [payment_type] => 1
+    [subject] => 《诛仙yw》172元代金券
+    [trade_no] => 2016100321001004800219247078
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 23:50:39
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147550983658721
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:50:58
+    [body] => 《诛仙yw》172元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 82.60
+    [gmt_payment] => 2016-10-03 23:50:58
+    [seller_email] => 867672678@qq.com
+    [price] => 82.60
+    [buyer_id] => 2088702663816803
+    [notify_id] => ef773b83d536fe61b12d65fa31ed02em6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 97bda28d0972625bc58348aeaea979a9
+)
+
+2016-10-03 23:51:10订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《诛仙yw》172元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 172
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWe2sKVRlsC1Z1SCYr00ql9yJxzPPc4beN6E5rnyPXZ8dDze%2Fu
+    [notify_time] => 2016-10-03 23:51:07
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147550983658721
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《诛仙yw》172元代金券
+    [total_fee] => 82.60
+    [trade_no] => 2016100321001004800219247078
+    [trade_status] => TRADE_SUCCESS
+    [sign] => fc3eda65ae181c32f22db0769a703264
+    [sign_type] => MD5
+)
+
+2016-10-03 23:54:27订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 172
+    [payment_type] => 1
+    [subject] => 《诛仙yw》172元代金券
+    [trade_no] => 2016100321001004800219247078
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-10-03 23:50:39
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147550983658721
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-10-03 23:54:26
+    [body] => 《诛仙yw》172元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 82.60
+    [gmt_payment] => 2016-10-03 23:50:58
+    [seller_email] => 867672678@qq.com
+    [price] => 82.60
+    [buyer_id] => 2088702663816803
+    [notify_id] => ef773b83d536fe61b12d65fa31ed02em6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 47d6c7cbefd1e2ba32b61b16ae704d7c
+)
+

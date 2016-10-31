@@ -1,0 +1,48 @@
+.pagination > li {
+	margin: 0 !important;
+}
+
+.holder {
+	margin: 15px 0;
+}
+
+.holder a {
+	margin: 0 2px;
+	cursor: pointer;
+}
+
+.holder a.jp-first > i.zmdi {
+	position: relative;
+	z-index: -1;
+}
+
+.holder a.jp-current {
+	color: #ffffff !important;
+	background-color: #00bcd4 !important;
+	cursor: pointer; 
+}
+
+.holder a.jp-current:hover {
+	color: #ffffff;
+	background-color: #00bcd4;
+	cursor: pointer;
+}
+
+.holder a.jp-disabled {
+	color: #777777;
+	background-color: #e2e2e2;
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+
+.holder a.jp-disabled:hover {
+	color: #777777;
+	background-color: #e2e2e2;
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+
+.holder span {
+	font-size: 12px;
+	margin: 0 5px;
+}

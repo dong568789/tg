@@ -1,0 +1,120 @@
+2016-07-20 09:30:59订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》400元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1101,400,zz85321
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYiViN1JvtNpB6%2BHHImw7A6KtkE%2BBO2XzGkhB8ZG3%2Fc1yLsT
+    [notify_time] => 2016-07-20 09:30:55
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146897823363119
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》400元代金券
+    [total_fee] => 200.00
+    [trade_no] => 2016072021001004910202975135
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 13ffe2d5671be154df1c04ceefb2d1fe
+    [sign_type] => MD5
+)
+
+2016-07-20 09:58:41订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》400元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1101,400,zz85321
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYiViUK9nLiX4qktB%2BfwLIX741jm7JzS%2B%2FmLuqE4hVEmarKC
+    [notify_time] => 2016-07-20 09:58:38
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146897989015762
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》400元代金券
+    [total_fee] => 200.00
+    [trade_no] => 2016072021001004910201658648
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 60579453979424390964ac4730131430
+    [sign_type] => MD5
+)
+
+2016-07-20 10:39:39订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》400元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1101,400,lsj888
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYiatcrDsMZQD%2BTQB7Krd%2BWf8VZ1gX0wPjmGwpbPxSxD5SOT
+    [notify_time] => 2016-07-20 10:39:35
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146898235365861
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》400元代金券
+    [total_fee] => 200.00
+    [trade_no] => 2016072021001004910284027215
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 04edec18639f5de869ee659e233397c7
+    [sign_type] => MD5
+)
+
+2016-07-20 11:26:41订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》400元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1101,400,lsj888
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYiasufa9B12JKpmI%2FBk2pciaNzPuTsZnacUBMB0T96MyUp7
+    [notify_time] => 2016-07-20 11:26:37
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146898516932541
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》400元代金券
+    [total_fee] => 200.00
+    [trade_no] => 2016072021001004910206494732
+    [trade_status] => TRADE_SUCCESS
+    [sign] => dd636ce794958a5f20c13929379d2119
+    [sign_type] => MD5
+)
+
+2016-07-20 15:09:38订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》100元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1101,100,lsj888
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYibfhiwLoJMI45k5pzCAvKAHStA2pei%2F31tLvAGHkyGALGd
+    [notify_time] => 2016-07-20 15:09:34
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146899853416650
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》100元代金券
+    [total_fee] => 50.00
+    [trade_no] => 2016072021001004910206259791
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 37fa8af94afcddaa6b8c86e743253168
+    [sign_type] => MD5
+)
+

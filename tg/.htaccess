@@ -1,0 +1,48 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+
+   RewriteRule ^(login)/$					            index.php?m=user&a=login					[N,L]
+   RewriteRule ^(register)/$						    index.php?m=user&a=register					[N,L]
+   RewriteRule ^(forgetpassword)/$					    index.php?m=user&a=forgetpassword				[N,L]
+   RewriteRule ^(verifying)/$						    index.php?m=user&a=verifying					[N,L]
+   RewriteRule ^(refused)/$						        index.php?m=user&a=refused					[N,L]
+
+   RewriteRule ^(channel)/$					            index.php?m=channel&a=index					[N,L]
+   RewriteRule ^(new_channel)/$						    index.php?m=channel&a=new_channel				[N,L]
+
+   RewriteRule ^(source)/$					            index.php?m=source&a=index					[N,L]
+   RewriteRule ^(publicdownload)/([\w-]+)$				index.php?m=source&a=publicdownload&sourcesn=$2			[N,L]
+   RewriteRule ^(llq)$				                    index.php?m=source&a=llq			[N,L]
+   RewriteRule ^(material)/([0-9]+?)/$             index.php?m=source&a=material&sourceid=$2              [N,L]
+   RewriteRule ^(page)/([0-9]+?)/$              index.php?m=source&a=page&sourceid=$2           [N,L]
+
+
+   RewriteRule ^(statistics)/$						    index.php?m=statistics&a=index					[N,L]
+   RewriteRule ^(balance)/$					            index.php?m=balance&a=index					[N,L]
+   RewriteRule ^(withdraw)/$						    index.php?m=balance&a=withdraw					[N,L]
+   RewriteRule ^(balancedetail)/([0-9]+?)/$             index.php?m=balance&a=balancedetail&balanceid=$2      [N,L]
+   RewriteRule ^(accountdetail)/([0-9]+?)/([0-9]+?)/$   index.php?m=balance&a=accountdetail&balanceid=$2&sourceid=$3   [N,L]
+
+   RewriteRule ^(coin)/$                           index.php?m=coin&a=index               [N,L]
+   RewriteRule ^(voucher)/$                           index.php?m=voucher&a=index               [N,L]
+   RewriteRule ^(recharge)/$					        index.php?m=recharge&a=index					[N,L]
+   RewriteRule ^(registration)/$					    index.php?m=registration&a=index				[N,L]
+
+   RewriteRule ^(guide)/$					            index.php?m=guide&a=index					[N,L]
+   RewriteRule ^(guide)/([0-9]+?)/$					    index.php?m=guide&a=index&guideid=$2				[N,L]
+   RewriteRule ^(guide_unlogged)/$					    index.php?m=guide&a=guide_unlogged				[N,L]
+   RewriteRule ^(guide_unlogged)/([0-9]+?)/$			index.php?m=guide&a=guide_unlogged&guideid=$2			[N,L]
+
+   RewriteRule ^(announce)/$						    index.php?m=announce&a=index					[N,L]
+   RewriteRule ^(announcedetail)/([0-9]+?)/$			index.php?m=announce&a=announcedetail&id=$2			[N,L]
+   RewriteRule ^(announce_unlogged)/$					index.php?m=announce&a=announce_unlogged			[N,L]
+   RewriteRule ^(announcedetail_unlogged)/([0-9]+?)/$	index.php?m=announce&a=announcedetail_unlogged&id=$2		[N,L]
+
+   RewriteRule ^(profile)/$					        index.php?m=member&a=index					[N,L]
+   RewriteRule ^(message)/$					        index.php?m=member&a=message					[N,L]
+   RewriteRule ^(account)/$						index.php?m=member&a=account					[N,L]
+   RewriteRule ^(settings)/$						index.php?m=member&a=settings					[N,L]
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]  
+</IfModule>

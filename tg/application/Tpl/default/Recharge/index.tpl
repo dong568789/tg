@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<?php
+$page_title = "充值查询";
+$page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css";
+$page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
+$page_css[] = "vendors/bower_components/jpages/css/jPages.css";
+$page_css[] = "vendors/bower_components/jpages/css/animate.css";
+$page_css[] = "vendors/bower_components/jpages/css/github.css";
+$page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
+
+?>
+
+<include file="Inc:head" />
+<body>
+<include file="Inc:logged-header" />
+
+<section id="main" data-layout="layout-1">
+    <include file="Inc:sidemenuconfig" />
+    <?php
+    //功能页面用$page_nav
+    $page_nav["用户查询"]["active"] = true;
+    $page_nav["用户查询"]["sub"]["充值查询"]["active"] = true;
+    ?>
+    <include file="Inc:sidemenu" />
+
+    <section id="content">
+        <div class="container">
+            <!--内容-->
+            <div class="block-header">
+                <h2>充值查询</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card p-b-25">
+                        <div class="card-header ch-alt text-center">
+                        </div>
+                        <div class="card-body ">
+                            <div class="row p-20">
+                                <div id="data-table-basic-header" class="bootgrid-header container-fluid">
+                                    <div class="actionBar">
+                                        <div class="search form-group col-sm-9 m-0 p-l-0">
+                                            <div class="input-group">
+                                                <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                                <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
+                                            </div>
+                                        </div>
+                                        <div class="actions btn-group">
+                                            <div class="dropdown btn-group">
+                                                <a class="btn btn-default" href="javascript:void(0);" id="searchRecharge">搜索</a>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary pull-right" id="export" data-result="">导出EXCEL</button>
+                                    </div>
+                                </div>
+
+                                <div class="" style="position: relative;left: 2%;top: 20px;">
+                                    <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
+                                        <option value="0">选择渠道</option>
+                                        <foreach name="channel" item="vo" key="k">
+                                            <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                                <div class="" style="position: relative;left: 3%;top:20px;">
+                                    <select class="btn btn-default dropdown-menu f-14" id="gameselect">
+                                        <option value="0">选择游戏</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row m-l-25"><h3 id="person">以下是账号<span id="username"></span>的充值记录</h3></div>
+                            <div  class="p-20">
+                                <div id="loading" class="col-sm-12 text-center" style="display: none;">
+                                    <img src="__ROOT__/plus/public/img/progress.gif" alt=""/>
+                                    <p class="m-t-10">正在加载数据，请稍后</p>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="data-table-basic" class="table table-hover table-vmiddle">
+                                        <thead>
+                                        <tr>
+                                            <th data-column-id="orderid" data-type="numeric" data-order="desc" data-visible="false">订单号</th>
+                                            <th data-column-id="gamename">游戏</th>
+                                            <th data-column-id="channelname">渠道</th>
+                                            <th data-column-id="username">账号</th>
+                                            <th data-column-id="amount">金额（汇总：）</th>
+                                            <th data-column-id="status">状态</th>
+                                            <th data-column-id="serverid">游戏区服</th>
+                                            <th data-column-id="create_time" data-formatter="create_time">时间</th>
+                                            <th data-column-id="payname">充值方式</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="rechargecontainer">
+                                        <foreach name="recharge" item="vo" key="k">
+                                            <tr>
+                                                <!-- <td><{$vo['orderid']}></td>
+                                                <td><{$vo['gamename']}></td>
+                                                <td><{$vo['channelname']}></td>
+                                                <td><{$vo['username']}></td>
+                                                <td><{$vo['amount']}></td>
+                                                <td><{$vo['statusStr']}></td>
+                                                <td><{$vo['serverid']}></td>
+                                                <td><{$vo['create_time']}></td>
+                                                <td><{$vo['payname']}></td> -->
+                                            </tr>
+                                        </foreach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row m-l-25 m-t-20"><h3 id="totalmoney">金额汇总：<span id="allmoney"></span>元</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+
+<include file="Inc:footer" />
+<include file="Inc:scripts" />
+
+<script src="__ROOT__/plus/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+<script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/jpages/js/jPages.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
+
+<style>
+    .table > thead > tr > td.info, .table > tbody > tr > td.info, .table > tfoot > tr > td.info, .table > thead > tr > th.info, .table > tbody > tr > th.info, .table > tfoot > tr > th.info, .table > thead > tr.info > td, .table > tbody > tr.info > td, .table > tfoot > tr.info > td, .table > thead > tr.info > th, .table > tbody > tr.info > th, .table > tfoot > tr.info > th {
+        background-color: #fff;
+    }
+</style>
+<script type="text/javascript">
+    var search_data=''; //搜索之后的数据
+
+    //回车绑定事件
+    document.onkeydown=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if(e && e.keyCode==13){ // enter 键
+            //要做的事情
+            document.getElementById("searchRecharge").click();
+        }
+    };
+
+    function notify(message, type){
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: '取消',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            delay: 3000,
+            animate: {
+                enter: 'animated bounceIn',
+                exit: 'animated bounceOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
+    }
+
+    // 搜索
+    function search_page () {
+        var date = $('#daterange').val();
+        if (date != "") {
+            var start = date.substr(0, 10);
+            var end = date.substr(-10, 10);
+        }
+        var channelid = $('#channelselect').val();
+        var username = $('#account').val().trim();
+        var gameid = $('#gameselect').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=recharge&a=search",
+            data: {username:username, gameid:gameid,channelid:channelid, startdate:start, enddate:end},
+            cache: false,
+            dataType: 'json',
+            beforeSend: function () {
+                $(".table-responsive").hide();
+                $("#data-table-basic-footer").hide();
+                $("#loading").show();
+            },
+            success: function (data) {
+                // console.log(data);
+                $("#loading").hide();
+                $(".table-responsive").show();
+                $("#data-table-basic-footer").show();
+                $("#data-table-basic").bootgrid("clear");
+                if (data.info == "success") {
+                    $("#data-table-basic").bootgrid("append", data.data.getmoney);
+
+                    $('#gameselect').html("");
+                    $('#gameselect').html(data.data.game);
+                    $('th[data-column-id=amount] .text').html('金额（汇总：'+data.data.allmoney+'）');
+                    search_data=data.data;
+                } else {
+                    $('#rechargecontainer').html("");
+                    $('#gameselect').html("");
+                    $('#gameselect').html(data.data.game);
+                    $('th[data-column-id=amount] .text').html('金额（汇总：0）');
+                    search_data=data.data;
+                    notify('没有符合条件的数据', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        $("#person").hide();
+        $("#totalmoney").hide();
+        $("#data-table-basic").bootgrid({
+            css: {
+                icon: 'zmdi',
+                iconColumns: 'zmdi-menu',
+                iconDown: 'zmdi-caret-down-circle',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-caret-up-circle'
+            },
+            formatters: {
+            },
+            templates: {
+                header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"p-b-25 actionBar\" style=\"position:absolute;top:122px;right: 2%;\">" +
+                "<div class=\"daterange form-group pull-right\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查询</a></div></div>" +
+                "</div></div></div>"
+            }
+        });
+
+        $(".bootgrid-header").css("padding","0 2% 0 2%");
+        $(".bootgrid-header").css("margin","0");
+
+        //综合筛选
+        $('#daterange').daterangepicker({
+            format: 'YYYY-MM-DD',
+            minDate: '2016-01-01',
+            drops: 'down',
+            opens: 'left',
+            buttonClasses: ['btn', 'btn-default'],
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-default',
+            locale: moment.locale('zh-cn')
+        });
+
+        $('#viewdaterange').click(function() {
+            search_page();
+        });
+        $('#searchRecharge').click(function() {
+            search_page();
+        });
+        $('#channelselect').change(function(){
+            search_page();
+        });
+        $('#gameselect').change(function(){
+            search_page();
+        });
+        window.onload=function() {
+            search_page();
+        };
+
+        //下拉框区分大小写
+        $(".btn").css("text-transform","none");
+
+        // 导出excel表
+        $('#export').click(function() {
+            // alert(search_data.allmoney);
+            if(search_data.allmoney==''){
+                swal({
+                    title: "记录为空，不能导出",
+                    // text: "确认导出excel。",
+                    // showCancelButton: true,
+                    confirmButtonColor: "#00ccff",
+                    confirmButtonText: "确认",
+                });
+            }else{
+                swal({
+                    title: "确认导出excel？",
+                    // text: "确认导出excel。",
+                    showCancelButton: true,
+                    confirmButtonColor: "#00ccff",
+                    confirmButtonText: "确认",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true
+                }, function(){
+                    $.ajax({
+                        type : 'POST',
+                        url : "index.php?m=recharge&a=export",
+                        data : {search_data : search_data},
+                        cache : false,
+                        dataType : 'json',
+                        success : function (data) {
+                            console.log(data);
+                            if (data.info == "success") {
+                                notify('导出结算单成功', 'success');
+                                location.href = '__ROOT__/'+data.url;
+                            } else {
+                                notify(data.data, 'danger');
+                            }
+                            return false;
+                        },
+                        error : function (xhr) {
+                            notify('系统错误！', 'danger');
+                            return false;
+                        }
+                    });
+                })
+            }
+        });
+    });
+</script>
+</body>
+</html>

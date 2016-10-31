@@ -1,0 +1,14 @@
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: transparent;
+}
+.operations-pwd, .operations-mail{
+    height: 80px;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+.operations-phone{
+    padding: 20px 0;
+}

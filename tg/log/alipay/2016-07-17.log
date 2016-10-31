@@ -1,0 +1,2616 @@
+2016-07-17 09:50:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》31元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,31,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyjToGbBtHn4Lr%2F82SvIJiY92ZCUM19NgQ9QDzrK6hIHX7
+    [notify_time] => 2016-07-17 09:50:15
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872019832428
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》31元代金券
+    [total_fee] => 12.40
+    [trade_no] => 2016071721001004440251364178
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ae0c366ed839a58e149c3870d9189aff
+    [sign_type] => MD5
+)
+
+2016-07-17 09:50:22
+Array
+(
+    [body] => 《龙战于野》31元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,31,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyjToGbBtHn4Lr/82SvIJiY92ZCUM19NgQ9QDzrK6hIHX7
+    [notify_time] => 2016-07-17 09:50:15
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872019832428
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》31元代金券
+    [total_fee] => 12.40
+    [trade_no] => 2016071721001004440251364178
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ae0c366ed839a58e149c3870d9189aff
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 09:50:27
+Array
+(
+    [body] => 《龙战于野》31元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,31,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyjToGbBtHn4Lr/82SvIJiY92ZCUM19NgQ9QDzrK6hIHX7
+    [notify_time] => 2016-07-17 09:50:15
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872019832428
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》31元代金券
+    [total_fee] => 12.40
+    [trade_no] => 2016071721001004440251364178
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ae0c366ed839a58e149c3870d9189aff
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 10:28:20订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》648元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,648,d268508353
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyj8NH8tH3S79xuo3kf51WIY%2BJa6wNaScGPA5WoWQVJHRm
+    [notify_time] => 2016-07-17 10:28:17
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872243302739
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》648元代金券
+    [total_fee] => 311.00
+    [trade_no] => 2016071721001004290245214796
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 002355020625b08b85e61676d2a10fe2
+    [sign_type] => MD5
+)
+
+2016-07-17 10:28:21
+Array
+(
+    [body] => 《永恒纪元戒》648元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,648,d268508353
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyj8NH8tH3S79xuo3kf51WIY+Ja6wNaScGPA5WoWQVJHRm
+    [notify_time] => 2016-07-17 10:28:17
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872243302739
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》648元代金券
+    [total_fee] => 311.00
+    [trade_no] => 2016071721001004290245214796
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 002355020625b08b85e61676d2a10fe2
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 10:28:21
+Array
+(
+    [body] => 《永恒纪元戒》648元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,648,d268508353
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyj8NH8tH3S79xuo3kf51WIY+Ja6wNaScGPA5WoWQVJHRm
+    [notify_time] => 2016-07-17 10:28:17
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872243302739
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》648元代金券
+    [total_fee] => 311.00
+    [trade_no] => 2016071721001004290245214796
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 002355020625b08b85e61676d2a10fe2
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:16:14订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyiEf9ILPh1zwWAlq4Eo%2Fa0%2BezJJliNvFtVHheaeFZxd1N
+    [notify_time] => 2016-07-17 11:16:11
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872530322956
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 97.90
+    [trade_no] => 2016071721001004290232607215
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 71fa548f5db8582ab6cbed647dd16270
+    [sign_type] => MD5
+)
+
+2016-07-17 11:16:14
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiEf9ILPh1zwWAlq4Eo/a0+ezJJliNvFtVHheaeFZxd1N
+    [notify_time] => 2016-07-17 11:16:11
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872530322956
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 97.90
+    [trade_no] => 2016071721001004290232607215
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 71fa548f5db8582ab6cbed647dd16270
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:16:22
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiEf9ILPh1zwWAlq4Eo/a0+ezJJliNvFtVHheaeFZxd1N
+    [notify_time] => 2016-07-17 11:16:11
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872530322956
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 97.90
+    [trade_no] => 2016071721001004290232607215
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 71fa548f5db8582ab6cbed647dd16270
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:21:18
+Array
+(
+    [body] => 《永恒纪元戒》196元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,196,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiEJckPL6PzKU0Pqem5a0lpeTffJauenN4+qKc8ZYzjKT
+    [notify_time] => 2016-07-17 11:21:14
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872563843977
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》196元代金券
+    [total_fee] => 94.10
+    [trade_no] => 2016071721001004290233006700
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9698290b4cb8cf880cbc49247dde6321
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:21:18订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》196元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,196,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyiEJckPL6PzKU0Pqem5a0lpeTffJauenN4%2BqKc8ZYzjKT
+    [notify_time] => 2016-07-17 11:21:14
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872563843977
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》196元代金券
+    [total_fee] => 94.10
+    [trade_no] => 2016071721001004290233006700
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9698290b4cb8cf880cbc49247dde6321
+    [sign_type] => MD5
+)
+
+2016-07-17 11:21:25
+Array
+(
+    [body] => 《永恒纪元戒》196元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,196,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiEJckPL6PzKU0Pqem5a0lpeTffJauenN4+qKc8ZYzjKT
+    [notify_time] => 2016-07-17 11:21:14
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872563843977
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》196元代金券
+    [total_fee] => 94.10
+    [trade_no] => 2016071721001004290233006700
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9698290b4cb8cf880cbc49247dde6321
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:23:57订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyiExu%2FpkLzPWtiX9Mxvv3sHnLi%2FEBzina8149kl1P1jOd
+    [notify_time] => 2016-07-17 11:23:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872580789117
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004290232314512
+    [trade_status] => TRADE_SUCCESS
+    [sign] => e5811a81faf129c3dc8e73e16322580c
+    [sign_type] => MD5
+)
+
+2016-07-17 11:23:57
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiExu/pkLzPWtiX9Mxvv3sHnLi/EBzina8149kl1P1jOd
+    [notify_time] => 2016-07-17 11:23:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872580789117
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004290232314512
+    [trade_status] => TRADE_SUCCESS
+    [sign] => e5811a81faf129c3dc8e73e16322580c
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:23:57
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiExu/pkLzPWtiX9Mxvv3sHnLi/EBzina8149kl1P1jOd
+    [notify_time] => 2016-07-17 11:23:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872580789117
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004290232314512
+    [trade_status] => TRADE_SUCCESS
+    [sign] => e5811a81faf129c3dc8e73e16322580c
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:24:27
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 18671580543
+    [buyer_id] => 2088802853702298
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiExu/pkLzPWtiX9Mxvv3sHnLi/EBzina8149kl1P1jOd
+    [notify_time] => 2016-07-17 11:23:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872580789117
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004290232314512
+    [trade_status] => TRADE_SUCCESS
+    [sign] => e5811a81faf129c3dc8e73e16322580c
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:27:01订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyix5RE42hYTKvlAEouGZPUDz5VHzrlmzBiDl8M5SkgER1
+    [notify_time] => 2016-07-17 11:26:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872599268853
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004230239059005
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8743a022b4a65681aa3e271fba58557b
+    [sign_type] => MD5
+)
+
+2016-07-17 11:27:01
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyix5RE42hYTKvlAEouGZPUDz5VHzrlmzBiDl8M5SkgER1
+    [notify_time] => 2016-07-17 11:26:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872599268853
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004230239059005
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8743a022b4a65681aa3e271fba58557b
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:27:10
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyix5RE42hYTKvlAEouGZPUDz5VHzrlmzBiDl8M5SkgER1
+    [notify_time] => 2016-07-17 11:26:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872599268853
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004230239059005
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8743a022b4a65681aa3e271fba58557b
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:30:20订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyixy4XqLLqEr54rfA7ZgsVN7cvSCDtGMjRZT14%2Bfk0Cmu
+    [notify_time] => 2016-07-17 11:30:16
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872619571585
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 97.90
+    [trade_no] => 2016071721001004230238833986
+    [trade_status] => TRADE_SUCCESS
+    [sign] => af1b89c17de8d69031765c5e681f7b4a
+    [sign_type] => MD5
+)
+
+2016-07-17 11:30:20
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyixy4XqLLqEr54rfA7ZgsVN7cvSCDtGMjRZT14+fk0Cmu
+    [notify_time] => 2016-07-17 11:30:16
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872619571585
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 97.90
+    [trade_no] => 2016071721001004230238833986
+    [trade_status] => TRADE_SUCCESS
+    [sign] => af1b89c17de8d69031765c5e681f7b4a
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:30:26
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyixy4XqLLqEr54rfA7ZgsVN7cvSCDtGMjRZT14+fk0Cmu
+    [notify_time] => 2016-07-17 11:30:16
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872619571585
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 97.90
+    [trade_no] => 2016071721001004230238833986
+    [trade_status] => TRADE_SUCCESS
+    [sign] => af1b89c17de8d69031765c5e681f7b4a
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:32:29订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyix3B8WhB%2FjiW4cJtRfDwdy7UUaZgZYy5wm3wgNr8CyXu
+    [notify_time] => 2016-07-17 11:32:25
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872632260023
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004230236284522
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9c0394052c7fc528d3ed30a1a5fe3a1e
+    [sign_type] => MD5
+)
+
+2016-07-17 11:32:29
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyix3B8WhB/jiW4cJtRfDwdy7UUaZgZYy5wm3wgNr8CyXu
+    [notify_time] => 2016-07-17 11:32:25
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872632260023
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004230236284522
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9c0394052c7fc528d3ed30a1a5fe3a1e
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:32:32
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d711206147
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyix3B8WhB/jiW4cJtRfDwdy7UUaZgZYy5wm3wgNr8CyXu
+    [notify_time] => 2016-07-17 11:32:25
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872632260023
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 95.00
+    [trade_no] => 2016071721001004230236284522
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9c0394052c7fc528d3ed30a1a5fe3a1e
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:53:51订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》104元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,104,d899810670
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbyiplBTtEArsZD8oDasmsGJKQlyD8%2FJk9OCAWpT5Ln%2F%2Fxb
+    [notify_time] => 2016-07-17 11:53:47
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872759444757
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》104元代金券
+    [total_fee] => 49.90
+    [trade_no] => 2016071721001004230231666371
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5ffab7df52e129ac611645e31f21ed9a
+    [sign_type] => MD5
+)
+
+2016-07-17 11:53:51
+Array
+(
+    [body] => 《永恒纪元戒》104元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,104,d899810670
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiplBTtEArsZD8oDasmsGJKQlyD8/Jk9OCAWpT5Ln//xb
+    [notify_time] => 2016-07-17 11:53:47
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872759444757
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》104元代金券
+    [total_fee] => 49.90
+    [trade_no] => 2016071721001004230231666371
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5ffab7df52e129ac611645e31f21ed9a
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 11:54:00
+Array
+(
+    [body] => 《永恒纪元戒》104元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,104,d899810670
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbyiplBTtEArsZD8oDasmsGJKQlyD8/Jk9OCAWpT5Ln//xb
+    [notify_time] => 2016-07-17 11:53:47
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146872759444757
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》104元代金券
+    [total_fee] => 49.90
+    [trade_no] => 2016071721001004230231666371
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5ffab7df52e129ac611645e31f21ed9a
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 13:29:04
+Array
+(
+    [body] => 《永恒纪元戒》1000元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,1000,d207665127
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzCBhDN8Q4bcdxcCs3vAFhaXVZjCfDy4CPmYaXeQS9GaF+
+    [notify_time] => 2016-07-17 13:29:01
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873329283698
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》1000元代金券
+    [total_fee] => 440.00
+    [trade_no] => 2016071721001004230232340902
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 3b746309bf3069363d925937b12a1719
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 13:29:04订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》1000元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,1000,d207665127
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbzCBhDN8Q4bcdxcCs3vAFhaXVZjCfDy4CPmYaXeQS9GaF%2B
+    [notify_time] => 2016-07-17 13:29:01
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873329283698
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》1000元代金券
+    [total_fee] => 440.00
+    [trade_no] => 2016071721001004230232340902
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 3b746309bf3069363d925937b12a1719
+    [sign_type] => MD5
+)
+
+2016-07-17 13:29:05
+Array
+(
+    [body] => 《永恒纪元戒》1000元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,1000,d207665127
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzCBhDN8Q4bcdxcCs3vAFhaXVZjCfDy4CPmYaXeQS9GaF+
+    [notify_time] => 2016-07-17 13:29:01
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873329283698
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》1000元代金券
+    [total_fee] => 440.00
+    [trade_no] => 2016071721001004230232340902
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 3b746309bf3069363d925937b12a1719
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 13:39:42订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbzCBL1w7PsT3vQaUfs%2BxDGWgNAkId4Vd8TA1g82xTjnGGT
+    [notify_time] => 2016-07-17 13:39:39
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873395139505
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230246414292
+    [trade_status] => TRADE_SUCCESS
+    [sign] => bc748bb2b947c21f09fe8a4d3a1c6419
+    [sign_type] => MD5
+)
+
+2016-07-17 13:39:42
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzCBL1w7PsT3vQaUfs+xDGWgNAkId4Vd8TA1g82xTjnGGT
+    [notify_time] => 2016-07-17 13:39:39
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873395139505
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230246414292
+    [trade_status] => TRADE_SUCCESS
+    [sign] => bc748bb2b947c21f09fe8a4d3a1c6419
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 13:39:52
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzCBL1w7PsT3vQaUfs+xDGWgNAkId4Vd8TA1g82xTjnGGT
+    [notify_time] => 2016-07-17 13:39:39
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873395139505
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230246414292
+    [trade_status] => TRADE_SUCCESS
+    [sign] => bc748bb2b947c21f09fe8a4d3a1c6419
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:01:57订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》68元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbzA4067ja6%2B4fot5ikn7gN5GT9ZlEfICa1qM1EJGKiWOdp
+    [notify_time] => 2016-07-17 15:01:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873889219654
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》68元代金券
+    [total_fee] => 27.20
+    [trade_no] => 2016071721001004440254442128
+    [trade_status] => TRADE_SUCCESS
+    [sign] => c64e67df136146182be737ca1b7b0c22
+    [sign_type] => MD5
+)
+
+2016-07-17 15:02:00
+Array
+(
+    [body] => 《龙战于野》68元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzA4067ja6+4fot5ikn7gN5GT9ZlEfICa1qM1EJGKiWOdp
+    [notify_time] => 2016-07-17 15:01:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873889219654
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》68元代金券
+    [total_fee] => 27.20
+    [trade_no] => 2016071721001004440254442128
+    [trade_status] => TRADE_SUCCESS
+    [sign] => c64e67df136146182be737ca1b7b0c22
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:02:00
+Array
+(
+    [body] => ???��??????o?��?????68?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzA4067ja6+4fot5ikn7gN5GT9ZlEfICa1qM1EJGKiWOdp
+    [notify_time] => 2016-07-17 15:01:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873889219654
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????68?????�ꨦ?????
+    [total_fee] => 27.20
+    [trade_no] => 2016071721001004440254442128
+    [trade_status] => TRADE_SUCCESS
+    [sign] => c64e67df136146182be737ca1b7b0c22
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:02:03
+Array
+(
+    [body] => ???��??????o?��?????68?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzA4067ja6+4fot5ikn7gN5GT9ZlEfICa1qM1EJGKiWOdp
+    [notify_time] => 2016-07-17 15:01:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873889219654
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????68?????�ꨦ?????
+    [total_fee] => 27.20
+    [trade_no] => 2016071721001004440254442128
+    [trade_status] => TRADE_SUCCESS
+    [sign] => c64e67df136146182be737ca1b7b0c22
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:02:04
+Array
+(
+    [body] => 《龙战于野》68元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzA4067ja6+4fot5ikn7gN5GT9ZlEfICa1qM1EJGKiWOdp
+    [notify_time] => 2016-07-17 15:01:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873889219654
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》68元代金券
+    [total_fee] => 27.20
+    [trade_no] => 2016071721001004440254442128
+    [trade_status] => TRADE_SUCCESS
+    [sign] => c64e67df136146182be737ca1b7b0c22
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:02:26
+Array
+(
+    [body] => 《龙战于野》68元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,shsy8780
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzA4067ja6+4fot5ikn7gN5GT9ZlEfICa1qM1EJGKiWOdp
+    [notify_time] => 2016-07-17 15:01:54
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873889219654
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》68元代金券
+    [total_fee] => 27.20
+    [trade_no] => 2016071721001004440254442128
+    [trade_status] => TRADE_SUCCESS
+    [sign] => c64e67df136146182be737ca1b7b0c22
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:17:39订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d408455382
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYbzAoY4IqsU7Gg8U4txM45ca81pp77u%2Fp6CkDq1o8an6XRd
+    [notify_time] => 2016-07-17 15:17:35
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873981509544
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230235850188
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 4192007c2630cf483fbefef8059da07e
+    [sign_type] => MD5
+)
+
+2016-07-17 15:17:39
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d408455382
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzAoY4IqsU7Gg8U4txM45ca81pp77u/p6CkDq1o8an6XRd
+    [notify_time] => 2016-07-17 15:17:35
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873981509544
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230235850188
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 4192007c2630cf483fbefef8059da07e
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:17:46
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d408455382
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYbzAoY4IqsU7Gg8U4txM45ca81pp77u/p6CkDq1o8an6XRd
+    [notify_time] => 2016-07-17 15:17:35
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146873981509544
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230235850188
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 4192007c2630cf483fbefef8059da07e
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:23:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》104元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,104,d806809374
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0ABTV8q7PnkQYS2eCDvbjUVVnPknIYWeU6Tp8qw%2FFpUO8
+    [notify_time] => 2016-07-17 15:23:15
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874017193666
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》104元代金券
+    [total_fee] => 45.80
+    [trade_no] => 2016071721001004230238835321
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ef575f02d1c867c8e5e4c070ab47e3f2
+    [sign_type] => MD5
+)
+
+2016-07-17 15:23:19
+Array
+(
+    [body] => 《永恒纪元戒》104元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,104,d806809374
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0ABTV8q7PnkQYS2eCDvbjUVVnPknIYWeU6Tp8qw/FpUO8
+    [notify_time] => 2016-07-17 15:23:15
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874017193666
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》104元代金券
+    [total_fee] => 45.80
+    [trade_no] => 2016071721001004230238835321
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ef575f02d1c867c8e5e4c070ab47e3f2
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:23:26
+Array
+(
+    [body] => 《永恒纪元戒》104元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,104,d806809374
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0ABTV8q7PnkQYS2eCDvbjUVVnPknIYWeU6Tp8qw/FpUO8
+    [notify_time] => 2016-07-17 15:23:15
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874017193666
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》104元代金券
+    [total_fee] => 45.80
+    [trade_no] => 2016071721001004230238835321
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ef575f02d1c867c8e5e4c070ab47e3f2
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:30:14
+Array
+(
+    [body] => ???��??????o?��?????100?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,100,hu520183
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0ABPwH3MMBdj4duMRCkufgUv0PFL/RXqcODsdCw6HbXrN
+    [notify_time] => 2016-07-17 15:30:09
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874058995057
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????100?????�ꨦ?????
+    [total_fee] => 40.00
+    [trade_no] => 2016071721001004440258024052
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 0df97de5adf70b3baf05ec1a3fa1980d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:30:14订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》100元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,100,hu520183
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0ABPwH3MMBdj4duMRCkufgUv0PFL%2FRXqcODsdCw6HbXrN
+    [notify_time] => 2016-07-17 15:30:09
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874058995057
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》100元代金券
+    [total_fee] => 40.00
+    [trade_no] => 2016071721001004440258024052
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 0df97de5adf70b3baf05ec1a3fa1980d
+    [sign_type] => MD5
+)
+
+2016-07-17 15:30:14
+Array
+(
+    [body] => 《龙战于野》100元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,100,hu520183
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0ABPwH3MMBdj4duMRCkufgUv0PFL/RXqcODsdCw6HbXrN
+    [notify_time] => 2016-07-17 15:30:09
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874058995057
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》100元代金券
+    [total_fee] => 40.00
+    [trade_no] => 2016071721001004440258024052
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 0df97de5adf70b3baf05ec1a3fa1980d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:30:14
+Array
+(
+    [body] => 《龙战于野》100元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,100,hu520183
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0ABPwH3MMBdj4duMRCkufgUv0PFL/RXqcODsdCw6HbXrN
+    [notify_time] => 2016-07-17 15:30:09
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874058995057
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》100元代金券
+    [total_fee] => 40.00
+    [trade_no] => 2016071721001004440258024052
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 0df97de5adf70b3baf05ec1a3fa1980d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:30:19
+Array
+(
+    [body] => ???��??????o?��?????100?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,100,hu520183
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0ABPwH3MMBdj4duMRCkufgUv0PFL/RXqcODsdCw6HbXrN
+    [notify_time] => 2016-07-17 15:30:09
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874058995057
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????100?????�ꨦ?????
+    [total_fee] => 40.00
+    [trade_no] => 2016071721001004440258024052
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 0df97de5adf70b3baf05ec1a3fa1980d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:54:43订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》328元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,328,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0Ak%2B0VV5e2yRo0AUJ3W6bzD8mgp%2FnS6YdrXRTuZ4piweE
+    [notify_time] => 2016-07-17 15:54:39
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874204371685
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》328元代金券
+    [total_fee] => 144.30
+    [trade_no] => 2016071721001004230237061424
+    [trade_status] => TRADE_SUCCESS
+    [sign] => b0c5c235d47756cb037e9672543ae783
+    [sign_type] => MD5
+)
+
+2016-07-17 15:54:45
+Array
+(
+    [body] => 《永恒纪元戒》328元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,328,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0Ak+0VV5e2yRo0AUJ3W6bzD8mgp/nS6YdrXRTuZ4piweE
+    [notify_time] => 2016-07-17 15:54:39
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874204371685
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》328元代金券
+    [total_fee] => 144.30
+    [trade_no] => 2016071721001004230237061424
+    [trade_status] => TRADE_SUCCESS
+    [sign] => b0c5c235d47756cb037e9672543ae783
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:54:51
+Array
+(
+    [body] => 《永恒纪元戒》328元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,328,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0Ak+0VV5e2yRo0AUJ3W6bzD8mgp/nS6YdrXRTuZ4piweE
+    [notify_time] => 2016-07-17 15:54:39
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874204371685
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》328元代金券
+    [total_fee] => 144.30
+    [trade_no] => 2016071721001004230237061424
+    [trade_status] => TRADE_SUCCESS
+    [sign] => b0c5c235d47756cb037e9672543ae783
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:55:36订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》98元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,98,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0Ak5ZoIu4igT4jbLmI6vwhibMrhJERkKzqOvUtD0013Cu
+    [notify_time] => 2016-07-17 15:55:32
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874210249647
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》98元代金券
+    [total_fee] => 43.10
+    [trade_no] => 2016071721001004230244801948
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 60b13673fee02f9622d18caa61c6c1cb
+    [sign_type] => MD5
+)
+
+2016-07-17 15:58:10订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》30元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,30,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0Ak1KPKXe2IxC8y6W1pg%2FXgO2qrsjeFRlTA8HcbBBCF9X
+    [notify_time] => 2016-07-17 15:58:06
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874215569794
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》30元代金券
+    [total_fee] => 13.20
+    [trade_no] => 2016071721001004230244566561
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8404f3101b889602c631627da3e01057
+    [sign_type] => MD5
+)
+
+2016-07-17 15:58:10
+Array
+(
+    [body] => 《永恒纪元戒》30元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,30,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0Ak1KPKXe2IxC8y6W1pg/XgO2qrsjeFRlTA8HcbBBCF9X
+    [notify_time] => 2016-07-17 15:58:06
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874215569794
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》30元代金券
+    [total_fee] => 13.20
+    [trade_no] => 2016071721001004230244566561
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8404f3101b889602c631627da3e01057
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 15:58:10
+Array
+(
+    [body] => 《永恒纪元戒》30元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,30,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0Ak1KPKXe2IxC8y6W1pg/XgO2qrsjeFRlTA8HcbBBCF9X
+    [notify_time] => 2016-07-17 15:58:06
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874215569794
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》30元代金券
+    [total_fee] => 13.20
+    [trade_no] => 2016071721001004230244566561
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8404f3101b889602c631627da3e01057
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 16:34:27
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d775997323
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0BMNs38dKkdw6BtZGVbMAnRP53KpSmcSq/9PO/lOeyEnc
+    [notify_time] => 2016-07-17 16:34:23
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874443487223
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230230218755
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a006ef92b1aca377e40562d22e494f8a
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 16:34:27订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d775997323
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0BMNs38dKkdw6BtZGVbMAnRP53KpSmcSq%2F9PO%2FlOeyEnc
+    [notify_time] => 2016-07-17 16:34:23
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874443487223
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230230218755
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a006ef92b1aca377e40562d22e494f8a
+    [sign_type] => MD5
+)
+
+2016-07-17 16:34:32
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d775997323
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0BMNs38dKkdw6BtZGVbMAnRP53KpSmcSq/9PO/lOeyEnc
+    [notify_time] => 2016-07-17 16:34:23
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874443487223
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230230218755
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a006ef92b1aca377e40562d22e494f8a
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 16:35:00订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d775997323
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0BMNjjfLGfg29YrNEAVU5B%2B1uyg%2BzFIjYGDZDAdob8No3
+    [notify_time] => 2016-07-17 16:34:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874447853069
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230232267431
+    [trade_status] => TRADE_SUCCESS
+    [sign] => d31e489265b26ab2583ea350ca7077dc
+    [sign_type] => MD5
+)
+
+2016-07-17 16:35:03
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d775997323
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0BMNjjfLGfg29YrNEAVU5B+1uyg+zFIjYGDZDAdob8No3
+    [notify_time] => 2016-07-17 16:34:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874447853069
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230232267431
+    [trade_status] => TRADE_SUCCESS
+    [sign] => d31e489265b26ab2583ea350ca7077dc
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 16:35:09
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d775997323
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0BMNjjfLGfg29YrNEAVU5B+1uyg+zFIjYGDZDAdob8No3
+    [notify_time] => 2016-07-17 16:34:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874447853069
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230232267431
+    [trade_status] => TRADE_SUCCESS
+    [sign] => d31e489265b26ab2583ea350ca7077dc
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:25:09订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》396元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,396,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0B7jGoOXRLKx%2Fz2Lg%2FuaRQ8PtRFbZzLnEFE2e21G8NZJi
+    [notify_time] => 2016-07-17 17:25:05
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874748725211
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》396元代金券
+    [total_fee] => 174.20
+    [trade_no] => 2016071721001004230232801594
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 58109b13243503b70a5a0a32c3f6a167
+    [sign_type] => MD5
+)
+
+2016-07-17 17:25:09
+Array
+(
+    [body] => 《永恒纪元戒》396元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,396,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7jGoOXRLKx/z2Lg/uaRQ8PtRFbZzLnEFE2e21G8NZJi
+    [notify_time] => 2016-07-17 17:25:05
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874748725211
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》396元代金券
+    [total_fee] => 174.20
+    [trade_no] => 2016071721001004230232801594
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 58109b13243503b70a5a0a32c3f6a167
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:25:15
+Array
+(
+    [body] => 《永恒纪元戒》396元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,396,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7jGoOXRLKx/z2Lg/uaRQ8PtRFbZzLnEFE2e21G8NZJi
+    [notify_time] => 2016-07-17 17:25:05
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874748725211
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》396元代金券
+    [total_fee] => 174.20
+    [trade_no] => 2016071721001004230232801594
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 58109b13243503b70a5a0a32c3f6a167
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:25:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》104元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,104,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0B7jCnTZBqFOMgp9i7zg54EdcSLzDXjbtaBMUWDK67vCd
+    [notify_time] => 2016-07-17 17:25:43
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874752226915
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》104元代金券
+    [total_fee] => 45.80
+    [trade_no] => 2016071721001004230231511319
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 7d606f85ffc2d90a9a5fdd0ee79eb5a5
+    [sign_type] => MD5
+)
+
+2016-07-17 17:28:06订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》42元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,42,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0B7takr3l2QCx8WvPQ3Y5DIBeFTYzAzHUx2fvAfJmOx9L
+    [notify_time] => 2016-07-17 17:28:03
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874765894763
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》42元代金券
+    [total_fee] => 18.50
+    [trade_no] => 2016071721001004230231672214
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 69c1f39f0692abf0dc4267efceb25b13
+    [sign_type] => MD5
+)
+
+2016-07-17 17:28:06
+Array
+(
+    [body] => 《永恒纪元戒》42元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,42,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7takr3l2QCx8WvPQ3Y5DIBeFTYzAzHUx2fvAfJmOx9L
+    [notify_time] => 2016-07-17 17:28:03
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874765894763
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》42元代金券
+    [total_fee] => 18.50
+    [trade_no] => 2016071721001004230231672214
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 69c1f39f0692abf0dc4267efceb25b13
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:28:07
+Array
+(
+    [body] => 《永恒纪元戒》42元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,42,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7takr3l2QCx8WvPQ3Y5DIBeFTYzAzHUx2fvAfJmOx9L
+    [notify_time] => 2016-07-17 17:28:03
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874765894763
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》42元代金券
+    [total_fee] => 18.50
+    [trade_no] => 2016071721001004230231672214
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 69c1f39f0692abf0dc4267efceb25b13
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:28:35
+Array
+(
+    [body] => 《永恒纪元戒》42元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,42,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7takr3l2QCx8WvPQ3Y5DIBeFTYzAzHUx2fvAfJmOx9L
+    [notify_time] => 2016-07-17 17:28:03
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874765894763
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》42元代金券
+    [total_fee] => 18.50
+    [trade_no] => 2016071721001004230231672214
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 69c1f39f0692abf0dc4267efceb25b13
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:28:42
+Array
+(
+    [body] => 《永恒纪元戒》42元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,42,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7takr3l2QCx8WvPQ3Y5DIBeFTYzAzHUx2fvAfJmOx9L
+    [notify_time] => 2016-07-17 17:28:03
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874765894763
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》42元代金券
+    [total_fee] => 18.50
+    [trade_no] => 2016071721001004230231672214
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 69c1f39f0692abf0dc4267efceb25b13
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:29:00订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》12元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,12,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb0B7qh%2BlIJn%2F6avcBogm%2BB7A%2Bt8p2pwOl%2F9Jq869y3eI6L
+    [notify_time] => 2016-07-17 17:28:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874771910688
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》12元代金券
+    [total_fee] => 5.30
+    [trade_no] => 2016071721001004230232344985
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a4f76e08f92303b309f6aae197cea3ed
+    [sign_type] => MD5
+)
+
+2016-07-17 17:29:00
+Array
+(
+    [body] => 《永恒纪元戒》12元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,12,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7qh+lIJn/6avcBogm+B7A+t8p2pwOl/9Jq869y3eI6L
+    [notify_time] => 2016-07-17 17:28:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874771910688
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》12元代金券
+    [total_fee] => 5.30
+    [trade_no] => 2016071721001004230232344985
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a4f76e08f92303b309f6aae197cea3ed
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:29:07
+Array
+(
+    [body] => 《永恒纪元戒》12元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,12,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7qh+lIJn/6avcBogm+B7A+t8p2pwOl/9Jq869y3eI6L
+    [notify_time] => 2016-07-17 17:28:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874771910688
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》12元代金券
+    [total_fee] => 5.30
+    [trade_no] => 2016071721001004230232344985
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a4f76e08f92303b309f6aae197cea3ed
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 17:29:35
+Array
+(
+    [body] => 《永恒纪元戒》12元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,12,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb0B7qh+lIJn/6avcBogm+B7A+t8p2pwOl/9Jq869y3eI6L
+    [notify_time] => 2016-07-17 17:28:57
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146874771910688
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》12元代金券
+    [total_fee] => 5.30
+    [trade_no] => 2016071721001004230232344985
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a4f76e08f92303b309f6aae197cea3ed
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 19:42:34订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d207665127
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb1Tz4Ib0aNeARvyQmw9zlwV9ZrmRxkikXZLGiB%2FFAWLGrV
+    [notify_time] => 2016-07-17 19:42:30
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875572693400
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230244633273
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9a6b8342a8289901dc2a6139330c787b
+    [sign_type] => MD5
+)
+
+2016-07-17 19:42:34
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d207665127
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1Tz4Ib0aNeARvyQmw9zlwV9ZrmRxkikXZLGiB/FAWLGrV
+    [notify_time] => 2016-07-17 19:42:30
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875572693400
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230244633273
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9a6b8342a8289901dc2a6139330c787b
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 19:42:44
+Array
+(
+    [body] => 《永恒纪元戒》204元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,204,d207665127
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1Tz4Ib0aNeARvyQmw9zlwV9ZrmRxkikXZLGiB/FAWLGrV
+    [notify_time] => 2016-07-17 19:42:30
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875572693400
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》204元代金券
+    [total_fee] => 89.80
+    [trade_no] => 2016071721001004230244633273
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 9a6b8342a8289901dc2a6139330c787b
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 20:19:50
+Array
+(
+    [body] => 《永恒纪元戒》98元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,98,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1TfhMQZxAJmOXcd4ahWrr4fPsTWXSYUrTFS+ONTJCcseN
+    [notify_time] => 2016-07-17 20:19:47
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875796000485
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》98元代金券
+    [total_fee] => 43.10
+    [trade_no] => 2016071721001004230231890856
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 7a1d959546207a077491c893aec60485
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 20:19:50订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》98元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,98,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb1TfhMQZxAJmOXcd4ahWrr4fPsTWXSYUrTFS%2BONTJCcseN
+    [notify_time] => 2016-07-17 20:19:47
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875796000485
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》98元代金券
+    [total_fee] => 43.10
+    [trade_no] => 2016071721001004230231890856
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 7a1d959546207a077491c893aec60485
+    [sign_type] => MD5
+)
+
+2016-07-17 20:19:57
+Array
+(
+    [body] => 《永恒纪元戒》98元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,98,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1TfhMQZxAJmOXcd4ahWrr4fPsTWXSYUrTFS+ONTJCcseN
+    [notify_time] => 2016-07-17 20:19:47
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875796000485
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》98元代金券
+    [total_fee] => 43.10
+    [trade_no] => 2016071721001004230231890856
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 7a1d959546207a077491c893aec60485
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 20:20:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》98元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,98,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb1QqyDFGl1uDzsz046Rv1f7lRinOuh2seSrSpmeLKByutN
+    [notify_time] => 2016-07-17 20:20:16
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875799910111
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》98元代金券
+    [total_fee] => 43.10
+    [trade_no] => 2016071721001004230245904389
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a199a00d52ad4c7e70451cf214d8e1c9
+    [sign_type] => MD5
+)
+
+2016-07-17 20:20:20
+Array
+(
+    [body] => 《永恒纪元戒》98元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,98,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1QqyDFGl1uDzsz046Rv1f7lRinOuh2seSrSpmeLKByutN
+    [notify_time] => 2016-07-17 20:20:16
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875799910111
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》98元代金券
+    [total_fee] => 43.10
+    [trade_no] => 2016071721001004230245904389
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a199a00d52ad4c7e70451cf214d8e1c9
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 20:20:20
+Array
+(
+    [body] => 《永恒纪元戒》98元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,98,d454366215
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1QqyDFGl1uDzsz046Rv1f7lRinOuh2seSrSpmeLKByutN
+    [notify_time] => 2016-07-17 20:20:16
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875799910111
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》98元代金券
+    [total_fee] => 43.10
+    [trade_no] => 2016071721001004230245904389
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a199a00d52ad4c7e70451cf214d8e1c9
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 20:22:28订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》196元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,196,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb1Qq3T%2F4k172Sp%2FGmH0Z5RH6mxexWkLDGztOs2ZV%2B941mx
+    [notify_time] => 2016-07-17 20:22:25
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875811878095
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》196元代金券
+    [total_fee] => 86.20
+    [trade_no] => 2016071721001004230232711730
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 734153fc791e359cb0beb9fb91c15eee
+    [sign_type] => MD5
+)
+
+2016-07-17 20:22:30
+Array
+(
+    [body] => 《永恒纪元戒》196元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,196,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1Qq3T/4k172Sp/GmH0Z5RH6mxexWkLDGztOs2ZV+941mx
+    [notify_time] => 2016-07-17 20:22:25
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875811878095
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》196元代金券
+    [total_fee] => 86.20
+    [trade_no] => 2016071721001004230232711730
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 734153fc791e359cb0beb9fb91c15eee
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 20:22:35
+Array
+(
+    [body] => 《永恒纪元戒》196元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,196,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb1Qq3T/4k172Sp/GmH0Z5RH6mxexWkLDGztOs2ZV+941mx
+    [notify_time] => 2016-07-17 20:22:25
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146875811878095
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》196元代金券
+    [total_fee] => 86.20
+    [trade_no] => 2016071721001004230232711730
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 734153fc791e359cb0beb9fb91c15eee
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 21:05:54订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb2EqJEdlJS0doYoBWqVvfN%2FhsCOgnMGlYBzdgd3tW1Xyx%2F
+    [notify_time] => 2016-07-17 21:05:51
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876072326385
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230245847497
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ea0c4be1d0ab109c71581c9d6e90b1ae
+    [sign_type] => MD5
+)
+
+2016-07-17 21:05:57
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2EqJEdlJS0doYoBWqVvfN/hsCOgnMGlYBzdgd3tW1Xyx/
+    [notify_time] => 2016-07-17 21:05:51
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876072326385
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230245847497
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ea0c4be1d0ab109c71581c9d6e90b1ae
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 21:06:02
+Array
+(
+    [body] => 《永恒纪元戒》198元代金券
+    [buyer_email] => 721015659@qq.com
+    [buyer_id] => 2088912753220238
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1116,198,d169437889
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2EqJEdlJS0doYoBWqVvfN/hsCOgnMGlYBzdgd3tW1Xyx/
+    [notify_time] => 2016-07-17 21:05:51
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876072326385
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《永恒纪元戒》198元代金券
+    [total_fee] => 87.10
+    [trade_no] => 2016071721001004230245847497
+    [trade_status] => TRADE_SUCCESS
+    [sign] => ea0c4be1d0ab109c71581c9d6e90b1ae
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 21:53:50
+Array
+(
+    [body] => ???��??????o?��?????300?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,300,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2EaP7etRI6IuviXJQRLu2eWplV91JhzU6wSFaavZd0Rdu
+    [notify_time] => 2016-07-17 21:53:46
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876354111887
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????300?????�ꨦ?????
+    [total_fee] => 120.00
+    [trade_no] => 2016071721001004440250727526
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5a3628430f89f9e93f09367b59a5f921
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 21:53:50订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》300元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,300,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb2EaP7etRI6IuviXJQRLu2eWplV91JhzU6wSFaavZd0Rdu
+    [notify_time] => 2016-07-17 21:53:46
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876354111887
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》300元代金券
+    [total_fee] => 120.00
+    [trade_no] => 2016071721001004440250727526
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5a3628430f89f9e93f09367b59a5f921
+    [sign_type] => MD5
+)
+
+2016-07-17 21:53:52
+Array
+(
+    [body] => 《龙战于野》300元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,300,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2EaP7etRI6IuviXJQRLu2eWplV91JhzU6wSFaavZd0Rdu
+    [notify_time] => 2016-07-17 21:53:46
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876354111887
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》300元代金券
+    [total_fee] => 120.00
+    [trade_no] => 2016071721001004440250727526
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5a3628430f89f9e93f09367b59a5f921
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 21:53:57
+Array
+(
+    [body] => 《龙战于野》300元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,300,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2EaP7etRI6IuviXJQRLu2eWplV91JhzU6wSFaavZd0Rdu
+    [notify_time] => 2016-07-17 21:53:46
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876354111887
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》300元代金券
+    [total_fee] => 120.00
+    [trade_no] => 2016071721001004440250727526
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5a3628430f89f9e93f09367b59a5f921
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 21:53:58
+Array
+(
+    [body] => ???��??????o?��?????300?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,300,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2EaP7etRI6IuviXJQRLu2eWplV91JhzU6wSFaavZd0Rdu
+    [notify_time] => 2016-07-17 21:53:46
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876354111887
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????300?????�ꨦ?????
+    [total_fee] => 120.00
+    [trade_no] => 2016071721001004440250727526
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 5a3628430f89f9e93f09367b59a5f921
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:00:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb2Fp4pKm%2F4Q9o6yaUOOm9Q22onqa6FG5KV7Fwd%2FljMoy77
+    [notify_time] => 2016-07-17 22:00:27
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876401030255
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440251141590
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8c5eb63234a065e518d3aefcb97ff029
+    [sign_type] => MD5
+)
+
+2016-07-17 22:00:30
+Array
+(
+    [body] => ???��??????o?��?????6?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp4pKm/4Q9o6yaUOOm9Q22onqa6FG5KV7Fwd/ljMoy77
+    [notify_time] => 2016-07-17 22:00:27
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876401030255
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????6?????�ꨦ?????
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440251141590
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8c5eb63234a065e518d3aefcb97ff029
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:00:36
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp4pKm/4Q9o6yaUOOm9Q22onqa6FG5KV7Fwd/ljMoy77
+    [notify_time] => 2016-07-17 22:00:27
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876401030255
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440251141590
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8c5eb63234a065e518d3aefcb97ff029
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:00:36
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp4pKm/4Q9o6yaUOOm9Q22onqa6FG5KV7Fwd/ljMoy77
+    [notify_time] => 2016-07-17 22:00:27
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876401030255
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440251141590
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8c5eb63234a065e518d3aefcb97ff029
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:00:37
+Array
+(
+    [body] => ???��??????o?��?????6?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp4pKm/4Q9o6yaUOOm9Q22onqa6FG5KV7Fwd/ljMoy77
+    [notify_time] => 2016-07-17 22:00:27
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876401030255
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????6?????�ꨦ?????
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440251141590
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8c5eb63234a065e518d3aefcb97ff029
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:02:07订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYb2Fp9uh3L33FPjPbMmyppjYa7KQIUNGM1DhH2oEbF6QVpe
+    [notify_time] => 2016-07-17 22:02:04
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876410969272
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440265319123
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 438ab371a7e1f6514e52f7e7c277e39d
+    [sign_type] => MD5
+)
+
+2016-07-17 22:02:07
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp9uh3L33FPjPbMmyppjYa7KQIUNGM1DhH2oEbF6QVpe
+    [notify_time] => 2016-07-17 22:02:04
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876410969272
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440265319123
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 438ab371a7e1f6514e52f7e7c277e39d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:02:07
+Array
+(
+    [body] => ???��??????o?��?????6?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp9uh3L33FPjPbMmyppjYa7KQIUNGM1DhH2oEbF6QVpe
+    [notify_time] => 2016-07-17 22:02:04
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876410969272
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????6?????�ꨦ?????
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440265319123
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 438ab371a7e1f6514e52f7e7c277e39d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:02:14
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp9uh3L33FPjPbMmyppjYa7KQIUNGM1DhH2oEbF6QVpe
+    [notify_time] => 2016-07-17 22:02:04
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876410969272
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440265319123
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 438ab371a7e1f6514e52f7e7c277e39d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:02:16
+Array
+(
+    [body] => ???��??????o?��?????6?????�ꨦ?????
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp9uh3L33FPjPbMmyppjYa7KQIUNGM1DhH2oEbF6QVpe
+    [notify_time] => 2016-07-17 22:02:04
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876410969272
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ???��??????o?��?????6?????�ꨦ?????
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440265319123
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 438ab371a7e1f6514e52f7e7c277e39d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:02:31
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp9uh3L33FPjPbMmyppjYa7KQIUNGM1DhH2oEbF6QVpe
+    [notify_time] => 2016-07-17 22:02:04
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876410969272
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440265319123
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 438ab371a7e1f6514e52f7e7c277e39d
+    [sign_type] => MD5
+)
+支付宝验证失败
+2016-07-17 22:02:37
+Array
+(
+    [body] => 《龙战于野》6元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,6,d468631017
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InXQYb2Fp9uh3L33FPjPbMmyppjYa7KQIUNGM1DhH2oEbF6QVpe
+    [notify_time] => 2016-07-17 22:02:04
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146876410969272
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》6元代金券
+    [total_fee] => 2.40
+    [trade_no] => 2016071721001004440265319123
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 438ab371a7e1f6514e52f7e7c277e39d
+    [sign_type] => MD5
+)
+支付宝验证失败

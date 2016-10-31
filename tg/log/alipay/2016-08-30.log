@@ -1,0 +1,1854 @@
+2016-08-30 07:22:44订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《全民斗战神》200元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1457,200,d238506339
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPt998Mzl6Upg%2BIeJ1UG%2BoO631W6U20lfuFfQ6VWhz35Rpr
+    [notify_time] => 2016-08-30 07:22:40
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147251293502957
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《全民斗战神》200元代金券
+    [total_fee] => 96.00
+    [trade_no] => 2016083021001004800206172093
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 32b8dc9f05fd097977bf384be7fc04d8
+    [sign_type] => MD5
+)
+
+2016-08-30 07:25:43支付宝验证失败
+Array
+(
+    [body] => 《全民斗战神》200元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1457,200,d238506339
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPt998Mzl6Upg%2BIeJ1UG%2BoO631W6U20lfuFfQ6VWhz35Rpr
+    [notify_time] => 2016-08-30 07:22:40
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147251293502957
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《全民斗战神》200元代金券
+    [total_fee] => 96.00
+    [trade_no] => 2016083021001004800206172093
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 32b8dc9f05fd097977bf384be7fc04d8
+    [sign_type] => MD5
+)
+
+2016-08-30 11:56:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》68元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,d932618680
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPuEGUVBCdTD%2FIomsuoUwosmIRF2JbXvn6C5llIal4DQQtd
+    [notify_time] => 2016-08-30 11:56:27
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147252935663942
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》68元代金券
+    [total_fee] => 27.20
+    [trade_no] => 2016083021001004440284489779
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 477b3608d0f5ec596b1e9cdd01cccd2c
+    [sign_type] => MD5
+)
+
+2016-08-30 11:59:39支付宝验证失败
+Array
+(
+    [body] => 《龙战于野》68元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,68,d932618680
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InWfIPuEGUVBCdTD/IomsuoUwosmIRF2JbXvn6C5llIal4DQQtd
+    [notify_time] => 2016-08-30 11:56:27
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147252935663942
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》68元代金券
+    [total_fee] => 27.20
+    [trade_no] => 2016083021001004440284489779
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 477b3608d0f5ec596b1e9cdd01cccd2c
+    [sign_type] => MD5
+)
+
+2016-08-30 13:52:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1612,1,d810658847
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050216946793
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 11:52:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147252902370019
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 13:17:10
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 11:52:31
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 7fdee61992b11387ff862ad902d3efbgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => acd9fc73bb42febf22818ab487ffc171
+)
+
+2016-08-30 13:55:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1612,1,d810658847
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050216946793
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 11:52:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147252902370019
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 13:17:10
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 11:52:31
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 7fdee61992b11387ff862ad902d3efbgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => acd9fc73bb42febf22818ab487ffc171
+)
+
+2016-08-30 14:00:24订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1612,1,d810658847
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050216946793
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 11:52:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147252902370019
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 13:17:10
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 11:52:31
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 7fdee61992b11387ff862ad902d3efbgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => acd9fc73bb42febf22818ab487ffc171
+)
+
+2016-08-30 14:08:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1612,1,d810658847
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050216946793
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 11:52:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147252902370019
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 13:17:10
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 11:52:31
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 7fdee61992b11387ff862ad902d3efbgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => acd9fc73bb42febf22818ab487ffc171
+)
+
+2016-08-30 14:13:54订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1612,1,d810658847
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050216946793
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 11:52:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147252902370019
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 13:17:10
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 11:52:31
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 7fdee61992b11387ff862ad902d3efbgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => acd9fc73bb42febf22818ab487ffc171
+)
+
+2016-08-30 14:22:04订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1516,1,d810658847
+    [payment_type] => 1
+    [subject] => 《诛仙KF》1元代金券
+    [trade_no] => 2016083021001004050214385094
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:21:57
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253808898496
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:22:03
+    [body] => 《诛仙KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:22:03
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 69c903da35e0a27eecaa8cf76c97205gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 3b78752fd2d2633136acc57af163b84a
+)
+
+2016-08-30 14:26:41订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1516,1,d810658847
+    [payment_type] => 1
+    [subject] => 《诛仙KF》1元代金券
+    [trade_no] => 2016083021001004050214385094
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:21:57
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253808898496
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:26:41
+    [body] => 《诛仙KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:22:03
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 69c903da35e0a27eecaa8cf76c97205gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 1c1dccbcd43dd40696e7fe2aef388a88
+)
+
+2016-08-30 14:31:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1576,1,d810658847
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050207668542
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:31:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253860599160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:31:18
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:31:18
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 3c1287059cc47626b59acfe46a7296egdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => eb70ba6bc52ed0ad687239b44f7b384d
+)
+
+2016-08-30 14:35:06订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1576,1,d810658847
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050207668542
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:31:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253860599160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:35:06
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:31:18
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 3c1287059cc47626b59acfe46a7296egdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 38ce7bcc79f61dc12aa7a38a3112cd07
+)
+
+2016-08-30 14:36:07订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1516,1,d810658847
+    [payment_type] => 1
+    [subject] => 《诛仙KF》1元代金券
+    [trade_no] => 2016083021001004050214385094
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:21:57
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253808898496
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:36:07
+    [body] => 《诛仙KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:22:03
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 69c903da35e0a27eecaa8cf76c97205gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ae76efd24343e6f0706577a2bf61810c
+)
+
+2016-08-30 14:52:44订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 972,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《暗黑黎明2》1元代金券
+    [trade_no] => 2016083021001004050217014033
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:52:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253989361051
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:52:43
+    [body] => 《暗黑黎明2》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:52:43
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => a940f0eee990a24b4bf4ae441b2211bgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => cbfc2baed5905d27ed15b3e2d364db22
+)
+
+2016-08-30 14:53:02订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《暗黑黎明2》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 972,1,d810658847,a
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPvRNw%2BEN6KSArfEIegbSF%2F6UwMLgrq7V494G9O4cDY62tT
+    [notify_time] => 2016-08-30 14:52:58
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147253989361051
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《暗黑黎明2》1元代金券
+    [total_fee] => 0.01
+    [trade_no] => 2016083021001004050217014033
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 080424f1195eebd707da198e001374fa
+    [sign_type] => MD5
+)
+
+2016-08-30 14:53:34订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1320,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《巨龙之战》1元代金券
+    [trade_no] => 2016083021001004440286168665
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 14:48:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253970906520
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:53:34
+    [body] => 《巨龙之战》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:49:02
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => c50fd50a4450df466f2bb1559e3fc32jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => bf8b2ba6c684bba942051f83287dccd9
+)
+
+2016-08-30 14:55:18订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1576,1,d810658847
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050207668542
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:31:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253860599160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:55:18
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:31:18
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 3c1287059cc47626b59acfe46a7296egdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 68babd607563dd4e1b0d60e16680b4c2
+)
+
+2016-08-30 14:56:07支付宝验证失败
+Array
+(
+    [body] => ??????��??��?????2???1?????�ꨦ?????
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 972,1,d810658847,a
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InWfIPvRNw+EN6KSArfEIegbSF/6UwMLgrq7V494G9O4cDY62tT
+    [notify_time] => 2016-08-30 14:52:58
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147253989361051
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ??????��??��?????2???1?????�ꨦ?????
+    [total_fee] => 0.01
+    [trade_no] => 2016083021001004050217014033
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 080424f1195eebd707da198e001374fa
+    [sign_type] => MD5
+)
+
+2016-08-30 14:56:26订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 972,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《暗黑黎明2》1元代金券
+    [trade_no] => 2016083021001004050217014033
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:52:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253989361051
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 14:56:26
+    [body] => 《暗黑黎明2》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:52:43
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => a940f0eee990a24b4bf4ae441b2211bgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 46772f2ffc156b00a738db8733f77562
+)
+
+2016-08-30 15:04:16订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1320,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《巨龙之战》1元代金券
+    [trade_no] => 2016083021001004440286168665
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 14:48:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253970906520
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:04:15
+    [body] => 《巨龙之战》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:49:02
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => c50fd50a4450df466f2bb1559e3fc32jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => a60393504e85f1eaf4eea8c010946ae1
+)
+
+2016-08-30 15:06:04订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 972,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《暗黑黎明2》1元代金券
+    [trade_no] => 2016083021001004050217014033
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:52:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253989361051
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:06:04
+    [body] => 《暗黑黎明2》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:52:43
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => a940f0eee990a24b4bf4ae441b2211bgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 4c271c45612d7989896fb0de291d27dc
+)
+
+2016-08-30 15:13:25订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1320,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《巨龙之战》1元代金券
+    [trade_no] => 2016083021001004440286168665
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 14:48:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253970906520
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:13:25
+    [body] => 《巨龙之战》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:49:02
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => c50fd50a4450df466f2bb1559e3fc32jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c3fde3cb030c78e190bc5dffb92d290f
+)
+
+2016-08-30 15:16:47订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 972,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《暗黑黎明2》1元代金券
+    [trade_no] => 2016083021001004050217014033
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:52:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253989361051
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:16:47
+    [body] => 《暗黑黎明2》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:52:43
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => a940f0eee990a24b4bf4ae441b2211bgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ff2ff53c035f9fcd4453c31e51329bf7
+)
+
+2016-08-30 15:17:49订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1612,1,d810658847
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050216946793
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 11:52:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147252902370019
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:17:49
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 11:52:31
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 7fdee61992b11387ff862ad902d3efbgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 4d616df9bc4096a9f4af6dfdb138aa94
+)
+
+2016-08-30 15:23:55订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《天子传奇》1元代金券
+    [trade_no] => 2016083021001004440285533759
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 15:23:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254181968895
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:23:55
+    [body] => 《天子传奇》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 15:23:55
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => fefd412d6b68dbf24a9934074a69629jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 01371c2d4a9970876bcf16821fcea02b
+)
+
+2016-08-30 15:27:03订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《天子传奇》1元代金券
+    [trade_no] => 2016083021001004440285533759
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 15:23:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254181968895
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:27:03
+    [body] => 《天子传奇》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 15:23:55
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => fefd412d6b68dbf24a9934074a69629jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => c795df823ef5f26b9a651ff0fea37c0d
+)
+
+2016-08-30 15:36:25订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《东方不败》1元代金券
+    [trade_no] => 2016083021001004050217811016
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:36:16
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254256532160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:36:25
+    [body] => 《东方不败》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 15:36:25
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => 8720a8fd81fae555d0bcf10853b2bf0gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 6e5d8f2737c3883cf4acefbeb59e4428
+)
+
+2016-08-30 15:36:38订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《东方不败》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPoMOfQsKapEH7aGhQI1tWrA0Rl8ijPCqZYJeqmdGpYN1in
+    [notify_time] => 2016-08-30 15:36:34
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147254256532160
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《东方不败》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016083021001004050217811016
+    [trade_status] => TRADE_SUCCESS
+    [sign] => d7298cb39f1e08a1e6a3ce4a0093584b
+    [sign_type] => MD5
+)
+
+2016-08-30 15:37:48订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《天子传奇》1元代金券
+    [trade_no] => 2016083021001004440285533759
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 15:23:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254181968895
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:37:48
+    [body] => 《天子传奇》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 15:23:55
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => fefd412d6b68dbf24a9934074a69629jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 17a844f696ae9828738a2bea968888a9
+)
+
+2016-08-30 15:38:19订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050217324895
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:38:09
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254268162405
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:38:19
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.60
+    [gmt_payment] => 2016-08-30 15:38:19
+    [seller_email] => 867672678@qq.com
+    [price] => 0.60
+    [buyer_id] => 2088122604012057
+    [notify_id] => f5920d2c61939e809c6f667ae63a30cgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 35dc1912bf4cf8d429cf2565881fb5a3
+)
+
+2016-08-30 15:39:43支付宝验证失败
+Array
+(
+    [body] => ????????1???���䣤???1?????�ꨦ?????
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9/vwbh3InWfIPoMOfQsKapEH7aGhQI1tWrA0Rl8ijPCqZYJeqmdGpYN1in
+    [notify_time] => 2016-08-30 15:36:34
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147254256532160
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => ????????1???���䣤???1?????�ꨦ?????
+    [total_fee] => 0.50
+    [trade_no] => 2016083021001004050217811016
+    [trade_status] => TRADE_SUCCESS
+    [sign] => d7298cb39f1e08a1e6a3ce4a0093584b
+    [sign_type] => MD5
+)
+
+2016-08-30 15:40:16订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《东方不败》1元代金券
+    [trade_no] => 2016083021001004050217811016
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:36:16
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254256532160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:40:15
+    [body] => 《东方不败》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 15:36:25
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => 8720a8fd81fae555d0bcf10853b2bf0gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 3cd000c4fb8661ccdb94a083f96f3e2a
+)
+
+2016-08-30 15:42:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050217324895
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:38:09
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254268162405
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:42:45
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.60
+    [gmt_payment] => 2016-08-30 15:38:19
+    [seller_email] => 867672678@qq.com
+    [price] => 0.60
+    [buyer_id] => 2088122604012057
+    [notify_id] => f5920d2c61939e809c6f667ae63a30cgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 21c75fb926f8a9d51217dc184da73671
+)
+
+2016-08-30 15:46:07订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1516,1,d810658847
+    [payment_type] => 1
+    [subject] => 《诛仙KF》1元代金券
+    [trade_no] => 2016083021001004050214385094
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:21:57
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253808898496
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:46:07
+    [body] => 《诛仙KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:22:03
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 69c903da35e0a27eecaa8cf76c97205gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ca744d4b6f9972de661557a07118bdb1
+)
+
+2016-08-30 15:48:51订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《天子传奇》1元代金券
+    [trade_no] => 2016083021001004440285533759
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 15:23:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254181968895
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:48:51
+    [body] => 《天子传奇》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 15:23:55
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => fefd412d6b68dbf24a9934074a69629jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 644ae536327d3f3f671b3c1d169e68d4
+)
+
+2016-08-30 15:50:36订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《东方不败》1元代金券
+    [trade_no] => 2016083021001004050217811016
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:36:16
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254256532160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:50:34
+    [body] => 《东方不败》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 15:36:25
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => 8720a8fd81fae555d0bcf10853b2bf0gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 64c246ce281356a27bf7e2754ff7b247
+)
+
+2016-08-30 15:53:13订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050217324895
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:38:09
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254268162405
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:53:13
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.60
+    [gmt_payment] => 2016-08-30 15:38:19
+    [seller_email] => 867672678@qq.com
+    [price] => 0.60
+    [buyer_id] => 2088122604012057
+    [notify_id] => f5920d2c61939e809c6f667ae63a30cgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 77517442f1d6a14457005b77be0e9b43
+)
+
+2016-08-30 15:55:21订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1576,1,d810658847
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050207668542
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:31:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253860599160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 15:55:21
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:31:18
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 3c1287059cc47626b59acfe46a7296egdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 7e768eeabaa86f1ebe9e92efeb34fd62
+)
+
+2016-08-30 16:00:44订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《东方不败》1元代金券
+    [trade_no] => 2016083021001004050217811016
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:36:16
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254256532160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 16:00:44
+    [body] => 《东方不败》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 15:36:25
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => 8720a8fd81fae555d0bcf10853b2bf0gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 80b94cc647ff360acea40197770d2908
+)
+
+2016-08-30 16:02:52订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050217324895
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:38:09
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254268162405
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 16:02:52
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.60
+    [gmt_payment] => 2016-08-30 15:38:19
+    [seller_email] => 867672678@qq.com
+    [price] => 0.60
+    [buyer_id] => 2088122604012057
+    [notify_id] => f5920d2c61939e809c6f667ae63a30cgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => d6f20d2447f54d8c9d1be36193f9dae4
+)
+
+2016-08-30 16:13:43订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1320,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《巨龙之战》1元代金券
+    [trade_no] => 2016083021001004440286168665
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 14:48:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253970906520
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 16:13:43
+    [body] => 《巨龙之战》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:49:02
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => c50fd50a4450df466f2bb1559e3fc32jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => a571a48e30a030162af83b4c4363aa03
+)
+
+2016-08-30 16:17:27订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 972,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《暗黑黎明2》1元代金券
+    [trade_no] => 2016083021001004050217014033
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:52:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253989361051
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 16:17:27
+    [body] => 《暗黑黎明2》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:52:43
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => a940f0eee990a24b4bf4ae441b2211bgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => bed611ce12ec912b99891916c4df5eb9
+)
+
+2016-08-30 16:47:06订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《天子传奇》1元代金券
+    [trade_no] => 2016083021001004440285533759
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 15:23:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254181968895
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 16:47:06
+    [body] => 《天子传奇》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 15:23:55
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => fefd412d6b68dbf24a9934074a69629jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 9c7de41e626dcf12cc0d651a43fba855
+)
+
+2016-08-30 17:00:26订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《东方不败》1元代金券
+    [trade_no] => 2016083021001004050217811016
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:36:16
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254256532160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 17:00:26
+    [body] => 《东方不败》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 15:36:25
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => 8720a8fd81fae555d0bcf10853b2bf0gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 2d0c82167fe5db5c3533fdda3defa01a
+)
+
+2016-08-30 17:02:29订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050217324895
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:38:09
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254268162405
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 17:02:29
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.60
+    [gmt_payment] => 2016-08-30 15:38:19
+    [seller_email] => 867672678@qq.com
+    [price] => 0.60
+    [buyer_id] => 2088122604012057
+    [notify_id] => f5920d2c61939e809c6f667ae63a30cgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f8174adc15c20ae471e1d03e89ef2acd
+)
+
+2016-08-30 17:45:01订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050214826833
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 17:44:53
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147255015331196
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 17:45:01
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 17:45:00
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => a9c34cbcf456a9142c95828e49855a4gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 2a8f9a6db0d00bd5a24cd50065a790ed
+)
+
+2016-08-30 17:45:33订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《巅峰战舰》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPpk4iFbBayo4Fql14o%2B7VKlBpe6c38O2qhqfNolDHSuURu
+    [notify_time] => 2016-08-30 17:45:19
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147255015331196
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《巅峰战舰》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016083021001004050214826833
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 571d56064221d69ba37468ec2c8cca60
+    [sign_type] => MD5
+)
+
+2016-08-30 17:46:18订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1516,1,d810658847
+    [payment_type] => 1
+    [subject] => 《诛仙KF》1元代金券
+    [trade_no] => 2016083021001004050214385094
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:21:57
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253808898496
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 17:46:18
+    [body] => 《诛仙KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:22:03
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 69c903da35e0a27eecaa8cf76c97205gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 4fead5aa5cffa54e3061c602a9ea615a
+)
+
+2016-08-30 17:48:41支付宝验证失败
+Array
+(
+    [body] => 《巅峰战舰》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPpk4iFbBayo4Fql14o%2B7VKlBpe6c38O2qhqfNolDHSuURu
+    [notify_time] => 2016-08-30 17:45:19
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147255015331196
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《巅峰战舰》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016083021001004050214826833
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 571d56064221d69ba37468ec2c8cca60
+    [sign_type] => MD5
+)
+
+2016-08-30 17:48:42支付宝验证失败
+Array
+(
+    [body] => 《巅峰战舰》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPpk4iFbBayo4Fql14o%2B7VKlBpe6c38O2qhqfNolDHSuURu
+    [notify_time] => 2016-08-30 17:45:19
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147255015331196
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《巅峰战舰》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016083021001004050214826833
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 571d56064221d69ba37468ec2c8cca60
+    [sign_type] => MD5
+)
+
+2016-08-30 17:49:31订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050214826833
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 17:44:53
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147255015331196
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 17:49:31
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 17:45:00
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => a9c34cbcf456a9142c95828e49855a4gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => fb21f90736ac25fd9cb43edba9c91d61
+)
+
+2016-08-30 17:55:06订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1576,1,d810658847
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050207668542
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:31:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253860599160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 17:55:06
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:31:18
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 3c1287059cc47626b59acfe46a7296egdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ac5a6406a4943b814e50ea80ffc2938c
+)
+
+2016-08-30 17:55:42支付宝验证失败
+Array
+(
+    [body] => 《巅峰战舰》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfIPpk4iFbBayo4Fql14o%2B7VKlBpe6c38O2qhqfNolDHSuURu
+    [notify_time] => 2016-08-30 17:45:19
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147255015331196
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《巅峰战舰》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016083021001004050214826833
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 571d56064221d69ba37468ec2c8cca60
+    [sign_type] => MD5
+)
+
+2016-08-30 17:59:32订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050214826833
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 17:44:53
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147255015331196
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 17:59:32
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 17:45:00
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => a9c34cbcf456a9142c95828e49855a4gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 110aa515a14f71285ad11a135271dcbc
+)
+
+2016-08-30 18:09:03订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050214826833
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 17:44:53
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147255015331196
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 18:09:03
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 17:45:00
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => a9c34cbcf456a9142c95828e49855a4gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 31e5711c27e7afa41796ee5c7c3d2528
+)
+
+2016-08-30 18:13:02订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1320,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《巨龙之战》1元代金券
+    [trade_no] => 2016083021001004440286168665
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 14:48:56
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253970906520
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 18:13:02
+    [body] => 《巨龙之战》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:49:02
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => c50fd50a4450df466f2bb1559e3fc32jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 255f7d7e6529d081989873a6e6123f3c
+)
+
+2016-08-30 18:17:18订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 972,1,d810658847,a
+    [payment_type] => 1
+    [subject] => 《暗黑黎明2》1元代金券
+    [trade_no] => 2016083021001004050217014033
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:52:36
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253989361051
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 18:17:18
+    [body] => 《暗黑黎明2》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:52:43
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => a940f0eee990a24b4bf4ae441b2211bgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 26b050a8fa74d59e8809eca23ed110f2
+)
+
+2016-08-30 18:47:29订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《天子传奇》1元代金券
+    [trade_no] => 2016083021001004440285533759
+    [buyer_email] => 1149874672@qq.com
+    [gmt_create] => 2016-08-30 15:23:48
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254181968895
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 18:47:28
+    [body] => 《天子传奇》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 15:23:55
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088702379530442
+    [notify_id] => fefd412d6b68dbf24a9934074a69629jea
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => e934ae797820475228c817db7c7fa6e0
+)
+
+2016-08-30 19:00:21订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《东方不败》1元代金券
+    [trade_no] => 2016083021001004050217811016
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:36:16
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254256532160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 19:00:20
+    [body] => 《东方不败》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 15:36:25
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => 8720a8fd81fae555d0bcf10853b2bf0gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f9f75506b98bab77bcea187a4f78ec72
+)
+
+2016-08-30 19:02:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050217324895
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 15:38:09
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147254268162405
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 19:02:44
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.60
+    [gmt_payment] => 2016-08-30 15:38:19
+    [seller_email] => 867672678@qq.com
+    [price] => 0.60
+    [buyer_id] => 2088122604012057
+    [notify_id] => f5920d2c61939e809c6f667ae63a30cgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 1db70664b0386e1838ae06b9e053ad8f
+)
+
+2016-08-30 19:09:10订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050214826833
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 17:44:53
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147255015331196
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 19:09:10
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 17:45:00
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => a9c34cbcf456a9142c95828e49855a4gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => bc4921ad7bde1c2f9b6f12b5a02409e9
+)
+
+2016-08-30 21:11:36订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050214826833
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 17:44:53
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147255015331196
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 21:11:35
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.50
+    [gmt_payment] => 2016-08-30 17:45:00
+    [seller_email] => 867672678@qq.com
+    [price] => 0.50
+    [buyer_id] => 2088122604012057
+    [notify_id] => a9c34cbcf456a9142c95828e49855a4gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => f3d0627b470b27ffe932dfdc41d2a3a9
+)
+
+2016-08-30 21:16:46订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1612,1,d810658847
+    [payment_type] => 1
+    [subject] => 《巅峰战舰》1元代金券
+    [trade_no] => 2016083021001004050216946793
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 11:52:19
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147252902370019
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 21:16:46
+    [body] => 《巅峰战舰》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 11:52:31
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 7fdee61992b11387ff862ad902d3efbgdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 04cedb3dd837e79339a25617b956ae1d
+)
+
+2016-08-30 23:46:44订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1516,1,d810658847
+    [payment_type] => 1
+    [subject] => 《诛仙KF》1元代金券
+    [trade_no] => 2016083021001004050214385094
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:21:57
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253808898496
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 23:46:43
+    [body] => 《诛仙KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:22:03
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 69c903da35e0a27eecaa8cf76c97205gdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => d6d21644d391b481e950223269005756
+)
+
+2016-08-30 23:55:38订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 1576,1,d810658847
+    [payment_type] => 1
+    [subject] => 《永恒KF》1元代金券
+    [trade_no] => 2016083021001004050207668542
+    [buyer_email] => service@youxia-inc.com
+    [gmt_create] => 2016-08-30 14:31:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147253860599160
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-08-30 23:55:38
+    [body] => 《永恒KF》1元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 0.01
+    [gmt_payment] => 2016-08-30 14:31:18
+    [seller_email] => 867672678@qq.com
+    [price] => 0.01
+    [buyer_id] => 2088122604012057
+    [notify_id] => 3c1287059cc47626b59acfe46a7296egdy
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 82cee65841b327bf2f518da309826c10
+)
+

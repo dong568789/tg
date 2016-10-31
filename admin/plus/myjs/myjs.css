@@ -1,0 +1,118 @@
+/*弹出界面*/
+.wbox_bg {
+    position:fixed;
+    z-index:998;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background:#000;
+    opacity: 0.3;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
+}
+.wbox { 
+    position:fixed;
+    z-index:999;
+    background:#fff;
+    display: none;
+    color:#666;
+}
+/*带有确定、取消内容*/
+.wbox {
+	width: 350px;
+	height:160px;
+}
+.wbox h1{
+	line-height: 40px;
+	height: 40px;
+	background: #F4F4F4;
+	/*border-bottom: 2px #ddd solid; */
+	color: #fff;
+	margin: 0px;
+}
+.wbox h1 em {
+	font-size: 16px;
+	font-weight: bold;
+	color: #555;
+	font-weight: normal;
+	padding-left: 15px;
+	font-style: normal;
+	display: block;
+	float: left;
+}
+.wbox h1 .wclose{
+	cursor: pointer;
+	font-size: 20px;
+	color: #555;
+	float: right;
+	padding-right: 10px;
+}
+.wbox .wfooter{
+	text-align: center;
+}
+.wbox .wfooter .mybutton{
+	background: #1cb78c;
+	height: 28px;
+	line-height: 28px;
+	font-size: 14px;
+}
+.wbox .wfooter .mybutton.wquxiao{
+	background: #aaa;
+	color: #fff;
+	margin-right: 10px;
+}
+/*弹出具体内容：只有一句话提示的*/
+.wbox .overf p{
+	font-size: 15px;
+	color:#666;
+	text-align: center;
+	padding:18px;
+}
+
+/*自定义下拉列*/
+.my_droplist {
+	position: relative;
+	float: left;
+}
+.my_droplist .xiala input {
+	margin: 0px;
+	cursor: pointer;
+	background: #fff;
+}
+.my_droplist .xiala .xia_tri {	
+ 	display:block;
+    width:0;
+    height:0;
+    border-width:6px 6px 0;
+    border-style:solid;
+    border-color:#ccc transparent transparent;/*黄 透明 透明 */
+    position:absolute;
+    top:16px;
+    left:240px;
+}
+.my_droplist ul {
+	background: #fff;
+	border: 1px solid #dcdcdc;
+	padding: 10px 0;
+	margin: 0px;
+	/*border-radius: 4px;*/
+	display: none;
+	position: absolute;
+	top: 35px;
+	width:264px;
+	z-index: 999;
+	margin-top: 2px;
+}
+.my_droplist ul li {
+	float: left;
+	width: 120px;
+	line-height:30px;
+	text-align: center;
+}
+.my_droplist ul li a {
+	color: #57636c;
+}
+.my_droplist ul li a:hover {
+	text-decoration: none;
+	color: #0a94c5;
+}

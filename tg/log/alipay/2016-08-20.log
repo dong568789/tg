@@ -1,0 +1,168 @@
+2016-08-20 10:58:42订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《全民斗战神》50元代金券
+    [buyer_email] => 243037040@qq.com
+    [buyer_id] => 2088202937943920
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1459,50,d313728353
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWf0tFUgODDqhwyJyEZYLXglfFNUa3Dc%2BzOPlJvCqFNg2DB2mS
+    [notify_time] => 2016-08-20 10:58:39
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147166189247499
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《全民斗战神》50元代金券
+    [total_fee] => 25.00
+    [trade_no] => 2016082021001004920273494465
+    [trade_status] => TRADE_SUCCESS
+    [sign] => c4eae218b94fe7de7671b1638e5ccb50
+    [sign_type] => MD5
+)
+
+2016-08-20 11:21:45订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《全民斗战神》1000元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1457,1000,d230642599
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWf0tFUBLJaBtTrf1bm%2F8Ee12%2Btb0db4h2U%2FPewswxEVGq0Q4Z
+    [notify_time] => 2016-08-20 11:21:41
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147166325145541
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《全民斗战神》1000元代金券
+    [total_fee] => 480.00
+    [trade_no] => 2016082021001004800246931627
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 93142d47781f7f22da5cdf19b55b536c
+    [sign_type] => MD5
+)
+
+2016-08-20 11:24:54支付宝验证失败
+Array
+(
+    [body] => 《全民斗战神》1000元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1457,1000,d230642599
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWf0tFUBLJaBtTrf1bm%2F8Ee12%2Btb0db4h2U%2FPewswxEVGq0Q4Z
+    [notify_time] => 2016-08-20 11:21:41
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147166325145541
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《全民斗战神》1000元代金券
+    [total_fee] => 480.00
+    [trade_no] => 2016082021001004800246931627
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 93142d47781f7f22da5cdf19b55b536c
+    [sign_type] => MD5
+)
+
+2016-08-20 12:45:22订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》200元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,200,NOHU1130
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWf0tFW2FFHzpwhCCJQlUH5Hnu7rIpEEVEUb9uHI%2BNhmSqZBw8
+    [notify_time] => 2016-08-20 12:45:19
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147166829122531
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》200元代金券
+    [total_fee] => 80.00
+    [trade_no] => 2016082021001004440222826553
+    [trade_status] => TRADE_SUCCESS
+    [sign] => caff4403d3509d6d338d08ded88ace38
+    [sign_type] => MD5
+)
+
+2016-08-20 12:46:16订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《龙战于野》100元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,100,NOHU911
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWf0tFW2FD6SVh9kDl80ScgySmTicQvJudvV26Xi6e7UCNz8Jt
+    [notify_time] => 2016-08-20 12:46:13
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147166835084237
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》100元代金券
+    [total_fee] => 40.00
+    [trade_no] => 2016082021001004440223920104
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8b0eacff978b8e40270065a3dfb7bac6
+    [sign_type] => MD5
+)
+
+2016-08-20 12:48:22支付宝验证失败
+Array
+(
+    [body] => 《龙战于野》200元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,200,NOHU1130
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWf0tFW2FFHzpwhCCJQlUH5Hnu7rIpEEVEUb9uHI%2BNhmSqZBw8
+    [notify_time] => 2016-08-20 12:45:19
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147166829122531
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》200元代金券
+    [total_fee] => 80.00
+    [trade_no] => 2016082021001004440222826553
+    [trade_status] => TRADE_SUCCESS
+    [sign] => caff4403d3509d6d338d08ded88ace38
+    [sign_type] => MD5
+)
+
+2016-08-20 12:49:23支付宝验证失败
+Array
+(
+    [body] => 《龙战于野》100元代金券
+    [buyer_email] => 283266479@qq.com
+    [buyer_id] => 2088312127602442
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 871,100,NOHU911
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWf0tFW2FD6SVh9kDl80ScgySmTicQvJudvV26Xi6e7UCNz8Jt
+    [notify_time] => 2016-08-20 12:46:13
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147166835084237
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《龙战于野》100元代金券
+    [total_fee] => 40.00
+    [trade_no] => 2016082021001004440223920104
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 8b0eacff978b8e40270065a3dfb7bac6
+    [sign_type] => MD5
+)
+

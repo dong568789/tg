@@ -1,0 +1,48 @@
+2016-07-14 17:05:47订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《山口山战记》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1170,1,capple
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYUp%2BJPIPgiLHunu6P300z2enhLIttL7dOlWezQRUJJtSCJ8
+    [notify_time] => 2016-07-14 17:05:44
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146848710186686
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《山口山战记》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016071421001004050290492453
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 6b8117b9753a6324e5ccde30368c80f7
+    [sign_type] => MD5
+)
+
+2016-07-14 17:06:27订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《新大主宰》1元代金券
+    [buyer_email] => service@youxia-inc.com
+    [buyer_id] => 2088122604012057
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1169,1,capple
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQYUp%2BJPESk%2BX3k9zbpdIGzZr2jwut5%2BXdEioJcOWyGAWbZvt
+    [notify_time] => 2016-07-14 17:06:24
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146848716501805
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《新大主宰》1元代金券
+    [total_fee] => 0.50
+    [trade_no] => 2016071421001004050292423750
+    [trade_status] => TRADE_SUCCESS
+    [sign] => d3f96fba0d8b9cdca340a48328903187
+    [sign_type] => MD5
+)
+

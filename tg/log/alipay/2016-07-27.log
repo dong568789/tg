@@ -1,0 +1,24 @@
+2016-07-27 17:41:54订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》5000元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 1101,5000,d559188080
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InXQBnadgXfJoFjVLi1obdFq%2BVwm8ZN3laj4mPi%2Bkyf78Z25JSB
+    [notify_time] => 2016-07-27 17:41:50
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 146961242167739
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》5000元代金券
+    [total_fee] => 2500.00
+    [trade_no] => 2016072721001004910240422999
+    [trade_status] => TRADE_SUCCESS
+    [sign] => a123342fc0ecc4f6dfdf1c6039f0d843
+    [sign_type] => MD5
+)
+

@@ -1,0 +1,449 @@
+2016-09-03 11:26:30订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《御剑情缘》2000元代金券
+    [trade_no] => 2016090321001004910226868440
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-09-03 11:26:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147287313592235
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 11:26:29
+    [body] => 《御剑情缘》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1000.00
+    [gmt_payment] => 2016-09-03 11:26:29
+    [seller_email] => 867672678@qq.com
+    [price] => 1000.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9b1ea842aabb6b4fc9b28a12de94facn0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 7bc5dff248cb1a79ff5b523fe40bfabc
+)
+
+2016-09-03 11:26:53订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《御剑情缘》2000元代金券
+    [buyer_email] => 13922211245
+    [buyer_id] => 2088312643761911
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 2000
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfI5SEwPW%2BapCr4q3NGLeQWQ2yN2HA9GGsDw8NQIH91G2532I
+    [notify_time] => 2016-09-03 11:26:49
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147287313592235
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《御剑情缘》2000元代金券
+    [total_fee] => 1000.00
+    [trade_no] => 2016090321001004910226868440
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 7064ba802174e61f861c001a2464cdfb
+    [sign_type] => MD5
+)
+
+2016-09-03 11:30:51订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《御剑情缘》2000元代金券
+    [trade_no] => 2016090321001004910226868440
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-09-03 11:26:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147287313592235
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 11:30:51
+    [body] => 《御剑情缘》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1000.00
+    [gmt_payment] => 2016-09-03 11:26:29
+    [seller_email] => 867672678@qq.com
+    [price] => 1000.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9b1ea842aabb6b4fc9b28a12de94facn0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 08350338de2628527ab9d3619ea635d9
+)
+
+2016-09-03 11:40:37订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《御剑情缘》2000元代金券
+    [trade_no] => 2016090321001004910226868440
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-09-03 11:26:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147287313592235
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 11:40:36
+    [body] => 《御剑情缘》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1000.00
+    [gmt_payment] => 2016-09-03 11:26:29
+    [seller_email] => 867672678@qq.com
+    [price] => 1000.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9b1ea842aabb6b4fc9b28a12de94facn0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 73873132b620c5b132c2a9bf7054d7b1
+)
+
+2016-09-03 11:52:11订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《御剑情缘》2000元代金券
+    [trade_no] => 2016090321001004910226868440
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-09-03 11:26:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147287313592235
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 11:52:11
+    [body] => 《御剑情缘》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1000.00
+    [gmt_payment] => 2016-09-03 11:26:29
+    [seller_email] => 867672678@qq.com
+    [price] => 1000.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9b1ea842aabb6b4fc9b28a12de94facn0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => a99b2b07f0ab8ae80c6f68a432d3aa8b
+)
+
+2016-09-03 12:50:10订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《御剑情缘》2000元代金券
+    [trade_no] => 2016090321001004910226868440
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-09-03 11:26:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147287313592235
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 12:50:09
+    [body] => 《御剑情缘》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1000.00
+    [gmt_payment] => 2016-09-03 11:26:29
+    [seller_email] => 867672678@qq.com
+    [price] => 1000.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9b1ea842aabb6b4fc9b28a12de94facn0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => fce094986c99278a0aacaaf7e4aec971
+)
+
+2016-09-03 14:52:14订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《御剑情缘》2000元代金券
+    [trade_no] => 2016090321001004910226868440
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-09-03 11:26:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147287313592235
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 14:52:14
+    [body] => 《御剑情缘》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1000.00
+    [gmt_payment] => 2016-09-03 11:26:29
+    [seller_email] => 867672678@qq.com
+    [price] => 1000.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9b1ea842aabb6b4fc9b28a12de94facn0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 0caca48a5725d6bdb960b09ee5ca558d
+)
+
+2016-09-03 18:39:41订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《全民斗战神》100元代金券
+    [trade_no] => 2016090321001004800217689801
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-09-03 18:39:30
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147289914865656
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 18:39:38
+    [body] => 《全民斗战神》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 48.00
+    [gmt_payment] => 2016-09-03 18:39:38
+    [seller_email] => 867672678@qq.com
+    [price] => 48.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 4daca03725b5446d7e17be096a4b304m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 86e9f46bf485053d38467460cf5aef49
+)
+
+2016-09-03 18:39:49订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [body] => 《全民斗战神》100元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 100
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfI5c53PUh4uBmN2c2eE6116KS%2BvIawq0H%2B8UsdcKThAeNf3e
+    [notify_time] => 2016-09-03 18:39:45
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147289914865656
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《全民斗战神》100元代金券
+    [total_fee] => 48.00
+    [trade_no] => 2016090321001004800217689801
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 78b49a966c78121cb655bf43b20c9df1
+    [sign_type] => MD5
+)
+
+2016-09-03 18:42:55支付宝验证失败
+Array
+(
+    [body] => 《全民斗战神》100元代金券
+    [buyer_email] => 174960848@qq.com
+    [buyer_id] => 2088702663816803
+    [exterface] => create_direct_pay_by_user
+    [extra_common_param] => 100
+    [is_success] => T
+    [notify_id] => RqPnCoPT3K9%2Fvwbh3InWfI5c53PUh4uBmN2c2eE6116KS%2BvIawq0H%2B8UsdcKThAeNf3e
+    [notify_time] => 2016-09-03 18:39:45
+    [notify_type] => trade_status_sync
+    [out_trade_no] => 147289914865656
+    [payment_type] => 1
+    [seller_email] => 867672678@qq.com
+    [seller_id] => 2088021266234053
+    [subject] => 《全民斗战神》100元代金券
+    [total_fee] => 48.00
+    [trade_no] => 2016090321001004800217689801
+    [trade_status] => TRADE_SUCCESS
+    [sign] => 78b49a966c78121cb655bf43b20c9df1
+    [sign_type] => MD5
+)
+
+2016-09-03 18:43:35订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《全民斗战神》100元代金券
+    [trade_no] => 2016090321001004800217689801
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-09-03 18:39:30
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147289914865656
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 18:43:35
+    [body] => 《全民斗战神》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 48.00
+    [gmt_payment] => 2016-09-03 18:39:38
+    [seller_email] => 867672678@qq.com
+    [price] => 48.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 4daca03725b5446d7e17be096a4b304m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 5bc6008fa54cceb9d8bc46c8532bc47f
+)
+
+2016-09-03 18:55:50订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《全民斗战神》100元代金券
+    [trade_no] => 2016090321001004800217689801
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-09-03 18:39:30
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147289914865656
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 18:55:50
+    [body] => 《全民斗战神》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 48.00
+    [gmt_payment] => 2016-09-03 18:39:38
+    [seller_email] => 867672678@qq.com
+    [price] => 48.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 4daca03725b5446d7e17be096a4b304m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 9c95d5974b950c3a78640618d8ea0507
+)
+
+2016-09-03 19:03:25订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《全民斗战神》100元代金券
+    [trade_no] => 2016090321001004800217689801
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-09-03 18:39:30
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147289914865656
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 19:03:24
+    [body] => 《全民斗战神》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 48.00
+    [gmt_payment] => 2016-09-03 18:39:38
+    [seller_email] => 867672678@qq.com
+    [price] => 48.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 4daca03725b5446d7e17be096a4b304m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 532027516789eeff4c00880aece3051f
+)
+
+2016-09-03 20:03:14订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《全民斗战神》100元代金券
+    [trade_no] => 2016090321001004800217689801
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-09-03 18:39:30
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147289914865656
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 20:03:13
+    [body] => 《全民斗战神》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 48.00
+    [gmt_payment] => 2016-09-03 18:39:38
+    [seller_email] => 867672678@qq.com
+    [price] => 48.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 4daca03725b5446d7e17be096a4b304m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => ee0bba18b03480ff9f005e8d75af6d71
+)
+
+2016-09-03 20:50:08订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 2000
+    [payment_type] => 1
+    [subject] => 《御剑情缘》2000元代金券
+    [trade_no] => 2016090321001004910226868440
+    [buyer_email] => 13922211245
+    [gmt_create] => 2016-09-03 11:26:12
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147287313592235
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 20:50:07
+    [body] => 《御剑情缘》2000元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 1000.00
+    [gmt_payment] => 2016-09-03 11:26:29
+    [seller_email] => 867672678@qq.com
+    [price] => 1000.00
+    [buyer_id] => 2088312643761911
+    [notify_id] => 9b1ea842aabb6b4fc9b28a12de94facn0u
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => dcf73b034c7a975ec3c8dfceecafb5aa
+)
+
+2016-09-03 22:04:43订单：付款成功，给了玩家相应的代金券
+Array
+(
+    [discount] => 0.00
+    [extra_common_param] => 100
+    [payment_type] => 1
+    [subject] => 《全民斗战神》100元代金券
+    [trade_no] => 2016090321001004800217689801
+    [buyer_email] => 174960848@qq.com
+    [gmt_create] => 2016-09-03 18:39:30
+    [notify_type] => trade_status_sync
+    [quantity] => 1
+    [out_trade_no] => 147289914865656
+    [seller_id] => 2088021266234053
+    [notify_time] => 2016-09-03 22:04:42
+    [body] => 《全民斗战神》100元代金券
+    [trade_status] => TRADE_SUCCESS
+    [is_total_fee_adjust] => N
+    [total_fee] => 48.00
+    [gmt_payment] => 2016-09-03 18:39:38
+    [seller_email] => 867672678@qq.com
+    [price] => 48.00
+    [buyer_id] => 2088702663816803
+    [notify_id] => 4daca03725b5446d7e17be096a4b304m6a
+    [use_coupon] => N
+    [sign_type] => MD5
+    [sign] => 21a44987fea4feabb3fd64e336f51334
+)
+
