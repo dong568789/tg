@@ -1,0 +1,44 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteRule ^(newgame)/$						index.php?m=game&a=newgame					[N,L]
+   RewriteRule ^(gameall)/$						index.php?m=game&a=gameall					[N,L]
+   RewriteRule ^(gamedetail)/([0-9]+?)/$				index.php?m=game&a=gamedetail&gameid=$2				[N,L]
+
+   RewriteRule ^(newuser)/$					 	index.php?m=user&a=newuser					[N,L]
+   RewriteRule ^(userall)/$						index.php?m=user&a=userall					[N,L]
+   RewriteRule ^(userdetail)/([0-9]+?)/$				index.php?m=user&a=userdetail&userid=$2				[N,L]
+   RewriteRule ^(sendmail)/$					        index.php?m=user&a=sendmail					[N,L]
+   RewriteRule ^(userpreauth)/([0-9]+?)/$				index.php?m=user&a=userpreauth&userid=$2			[N,L]
+   RewriteRule ^(usersource)/([0-9]+?)/$				index.php?m=user&a=usersource&userid=$2				[N,L]
+   RewriteRule ^(userrate)/([0-9]+?)/$					index.php?m=user&a=userrate&sourceid=$2				[N,L]
+   RewriteRule ^(error505)/$					        index.php?m=user&a=error505					[N,L]
+   RewriteRule ^(welcome)/$					        index.php?m=user&a=welcome					[N,L]
+   RewriteRule ^(material)/([0-9]+?)/$             index.php?m=user&a=material&sourceid=$2              [N,L]
+   RewriteRule ^(page)/([0-9]+?)/$              index.php?m=user&a=page&sourceid=$2           [N,L]
+   
+   RewriteRule ^(newannounce)/$						index.php?m=announce&a=newannounce				[N,L]
+   RewriteRule ^(announceall)/$						index.php?m=announce&&a=announceall				[N,L]
+   RewriteRule ^(announcedetail)/([0-9]+?)/$		index.php?m=announce&a=announcedetail&id=$2			[N,L]
+   RewriteRule ^(announcetype)/$		            index.php?m=announce&a=announcetype		[N,L]
+
+   RewriteRule ^(newguide)/$						index.php?m=guide&a=newguide					[N,L]
+   RewriteRule ^(guidedetail)/$						index.php?m=guide&a=guidedetail					[N,L]
+
+   RewriteRule ^(gamecategory)/$					index.php?m=other&a=gamecategory				[N,L]
+   RewriteRule ^(gametag)/$						index.php?m=other&a=gametag					[N,L]
+
+   RewriteRule ^(balanceall)/$						index.php?m=balance&a=balanceall				[N,L]
+   RewriteRule ^(balancedetail)/([0-9]+?)/$				index.php?m=balance&a=balancedetail&balanceid=$2		[N,L]
+   RewriteRule ^(accountdetail)/([0-9]+?)/([0-9]+?)/$			index.php?m=balance&a=accountdetail&balanceid=$2&sourceid=$3	[N,L]
+
+   RewriteRule ^(login)/$						    index.php?m=index&a=login					[N,L]
+   RewriteRule ^(uploadphoto)/$						index.php?m=uploadphoto&a=index					[N,L]
+
+    RewriteRule ^(log)/$						    index.php?m=log&a=index					[N,L]
+    RewriteRule ^(operate)/$					    index.php?m=log&a=operate					[N,L]
+
+
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]  
+</IfModule>

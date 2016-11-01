@@ -29,12 +29,19 @@ class CommonAction extends Action {
         $this->admindomain = "http://tgadmin.yxgames.com";
 		$this->domainhost = "http://www.yxgames.com";
 		$this->apkstoreurl = "http://tgadmin.yxgames.com/DataGames/upfiles/basicpackage/";
-		$this->apkdownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/downloadpackage/";
-		$this->texturedownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/texture/";
-		$this->iconurl = "http://tgadmin.yxgames.com/upfiles/gameicon/";
-                 $this->gamebgurl = "http://img.yxgames.com/images/upfiles/gamebg/";
-                 $this->screenshoturl = "http://img.yxgames.com/images/upfiles/screenshot/";
-              $this->packageStoreFolder = "../admin/DataGames/upfiles/basicpackage/";
+		$this->apkdownloadurl = "http://download.yxgames.com/DataGames/apk/upfiles/downloadpackage/";
+		$this->texturedownloadurl = "http://download.yxgames.com/DataGames/apk/upfiles/texture/";
+        $this->iconurl = "http://tgadmin.yxgames.com/upfiles/gameicon/";
+
+        // 测试服务器上使用
+        $this->gamebgurl = "http://tgadmin.yxgames.com/DataGames/upfiles/gamebg/";
+		$this->screenshoturl = "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/";
+
+        // 正式服务器上使用
+        // $this->gamebgurl = "http://img.yxgames.com/images/upfiles/gamebg/";
+        // $this->screenshoturl = "http://img.yxgames.com/images/upfiles/screenshot/";
+
+		$this->packageStoreFolder = "../admin/DataGames/upfiles/basicpackage/";
 		$this->downloadStoreFolder = "../admin/DataGames/upfiles/downloadpackage/";
 		$this->textureStoreFolder = "../admin/DataGames/upfiles/texture/";
         $this->iconStoreFolder = "../admin/upfiles/gameicon/";

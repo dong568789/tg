@@ -17,16 +17,6 @@ class BalanceAction extends CommonAction {
 		$this->assign('balance', $balance);
         $this->assign('money',$Index->money());
 
-        $userid = $_SESSION['userid'];
-        $channelmodel = M('tg_channel');
-        $map['userid'] =$userid;
-        $map["activeflag"] = 1;
-        $channel = $channelmodel->where($map)->select();
-        $log_content=date('Y-m-d H:i:s')."\n";
-$log_content.='exsitsn1：'.print_r($exsitsn,1)."\n";
-$log_content.='sql：'.$channelmodel->getlastsql()."\n";
-error_log($log_content, 3, 'test.log');
-
         $this->display();
     }
 
