@@ -26,11 +26,12 @@ class StatisticsModel extends Model
     }
 
 	public function getTodayData($userid, $channelid, $gameid){
+
 		// 32服务器
-		//$SDKdbhost = '192.168.1.32';
-		//$SDKdbuser = 'root';
-		//$SDKdbpw   = 'hy123456';
-		//$SDKdbname = 'db_youxia_new';
+		/*$SDKdbhost = '192.168.1.32';
+		$SDKdbuser = 'root';
+		$SDKdbpw   = 'hy123456';
+		$SDKdbname = 'db_youxia_new';*/
 
 		// 正式服务器
 		$SDKdbhost = '10.13.58.56';
@@ -43,31 +44,31 @@ class StatisticsModel extends Model
 
 		mysql_query("SET NAMES 'utf8'");
 
-		$starttime = strtotime(date('Y-m-d 00:00:00')); 
+		$starttime = mktime(0, 0, 0);
 		$endtime = time(); 
 
 		// 找出 昨天 支付成功的 注册渠道
 		// group by 去重复，只取出一条
-		$channelquery = "select * from yx_all_pay where create_time >= '".$starttime."' and create_time <= '".$endtime."' and status = 1 group by regagent order by id desc";
+		$channelquery = "select * from yx_all_pay where create_time >= '".$starttime."' and status = 1 group by regagent order by id desc";
 
         $result = mysql_query($channelquery);
 		while ($row = mysql_fetch_assoc($result)) {
 			$channellist[]=$row["regagent"];
 		}
 		// 找出 昨天 支付成功的 支付
-		$dataquery = "select * from yx_all_pay where create_time >= '".$starttime."' and create_time <= '".$endtime."' and status = 1 order by id desc";
+		$dataquery = "select * from yx_all_pay where create_time >= '".$starttime."' and status = 1 order by id desc";
 		$result = mysql_query($dataquery);
 		while ($row = mysql_fetch_assoc($result)) {
 			$data[]=$row;
 		}
 		// 找出 昨天 登录sdk的 渠道
-		$activechannelquery = "select * from yx_sdk_logininfo where login_time >= '".$starttime."' and login_time <= '".$endtime."' group by agent order by id desc";
+		$activechannelquery = "select agent from yx_sdk_logininfo where login_time >= '".$starttime."' group by agent order by id desc";
 		$result = mysql_query($activechannelquery);
 		while ($row = mysql_fetch_assoc($result)) {
 			$channellist[]=$row["agent"];
 		}
 		// 找出 昨天 登录的 sdk
-		$activequery = "select * from yx_sdk_logininfo where login_time >= '".$starttime."' and login_time <= '".$endtime."' order by id desc";
+		$activequery = "select * from yx_sdk_logininfo where login_time >= '".$starttime."' order by id desc";
 		$result = mysql_query($activequery);
 		while ($row = mysql_fetch_assoc($result)) {
 			$active[]=$row;
@@ -75,13 +76,13 @@ class StatisticsModel extends Model
 
 
 		// 找出 昨天 注册玩家的 渠道
-		$userchannelquery = "select * from yx_all_user where reg_time >= '".$starttime."' and reg_time <= '".$endtime."' group by agent order by id desc";
+		$userchannelquery = "select agent from yx_all_user where reg_time >= '".$starttime."' group by agent order by id desc";
 		$result = mysql_query($userchannelquery);
 		while ($row = mysql_fetch_assoc($result)) {
-			$channellist[]=$row["agent"];
+			$channellist[]= strtolower($row["agent"]);
 		}
 		// 找出 昨天 注册的 玩家
-		$userquery = "select * from yx_all_user where reg_time >= '".$starttime."' and reg_time <= '".$endtime."' order by id desc";
+		$userquery = "select * from yx_all_user where reg_time >= '".$starttime."' order by id desc";
 		$result = mysql_query($userquery);
 		while ($row = mysql_fetch_assoc($result)) {
 				$user[]=$row;
@@ -110,7 +111,6 @@ class StatisticsModel extends Model
 
 		// 找出统计之前的所有登录信息
 		// group by user,agent 可以去重
-		//S('cache_before_login', null);
 		$before_login = array();
 		if(!empty($itemSource)){
 			$strSource = '\''.str_replace(',', '\',\'', implode(',', $itemSource)).'\'';
@@ -137,7 +137,7 @@ class StatisticsModel extends Model
 			$sourcelist = array();
 			for ($j=0;$j<sizeof($allsource);$j++) {
 				if ($sourcerow["userid"] == $allsource[$j]["userid"]) {
-					$sourcelist[] = $allsource[$j]["sourcesn"];
+					$sourcelist[] = strtolower($allsource[$j]["sourcesn"]);
 				}
 			}
 		
@@ -162,7 +162,7 @@ class StatisticsModel extends Model
 				}
 			}*/
 
-			$exsitsn = in_array($sourcerow["sourcesn"], $channellist) ? $sourcerow["sourcesn"] : '';
+			$exsitsn = in_array(strtolower($sourcerow["sourcesn"]), $channellist) ? strtolower($sourcerow["sourcesn"]) : '';
 			$dailyjournal = 0;
 			$dailyactive = 0;
 			$newpeople = 0;
@@ -178,7 +178,7 @@ class StatisticsModel extends Model
 
 				// 以前在该渠道上登录的用户
 				foreach ($before_login as $key => $value) {
-					if($value['agent']==$exsitsn && !in_array($value['userid'],$before_login_user)){
+					if(strtolower($value['agent']) == $exsitsn && !in_array($value['userid'],$before_login_user)){
 						$before_login_user[]=$value['userid'];
 					}
 				}
@@ -187,7 +187,7 @@ class StatisticsModel extends Model
 				// $row["regagent"] == $exsitsn，因为要计算当前渠道的流水
 				for ($j=0;$j<sizeof($data);$j++) {
 					$row = $data[$j];
-					if (($row["agent"] == $exsitsn) && (in_array($row["regagent"],$sourcelist))) { 
+					if ((strtolower($row["agent"]) == $exsitsn) && (in_array(strtolower($row["regagent"]),$sourcelist))) {
 						$dailyjournal += $row["amount"];
 						$dailyjournal -= $row["voucherje"]; //减去代金券金额
 						$voucherje += $row["voucherje"]; //代金券统计
@@ -201,7 +201,7 @@ class StatisticsModel extends Model
 				// 统计 昨天 当前渠道中 每日活跃用户。（昨天登录的sdk的 渠道 等于 当前渠道的 渠道）
 				for ($j=0;$j<sizeof($active);$j++) {
 					$row = $active[$j];
-					if ($row["agent"] == $exsitsn) {
+					if (strtolower($row["agent"]) == $exsitsn) {
 						if (!in_array($row["userid"],$activeuser)) {
 							$dailyactive += 1;
 							$activeuser[] = $row["userid"];
@@ -222,7 +222,7 @@ class StatisticsModel extends Model
 
 				for ($j=0;$j<sizeof($active);$j++) {
 					$row = $active[$j];
-					if ($row["agent"] == $exsitsn) {
+					if (strtolower($row["agent"]) == $exsitsn) {
 						if (!in_array($row["userid"],$before_login_user)) {
 							$newpeople += 1;
 							$before_login_user[] = $row["userid"];
