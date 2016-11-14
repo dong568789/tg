@@ -33,10 +33,10 @@ class StatisticsModel extends Model
 		//$SDKdbname = 'db_youxia_new';
 
 		// 正式服务器
-		 $SDKdbhost = '10.13.58.56';
-         $SDKdbuser = 'User_youxia_tg';
-         $SDKdbpw   = 'YOUxiadb@2016';
-         $SDKdbname = 'db_youxia_new';
+		$SDKdbhost = '10.13.58.56';
+		$SDKdbuser = 'User_youxia_tg';
+		$SDKdbpw   = 'YOUxiadb@2016';
+		$SDKdbname = 'db_youxia_new';
 
 		mysql_connect($SDKdbhost,$SDKdbuser,$SDKdbpw);
 		mysql_select_db($SDKdbname);
@@ -72,13 +72,7 @@ class StatisticsModel extends Model
 		while ($row = mysql_fetch_assoc($result)) {
 			$active[]=$row;
 		}
-		// 找出统计之前的所有登录信息
-		// group by user,agent 可以去重
-		$before_login_query = "select * from yx_sdk_logininfo where login_time < '".$starttime."' group by userid,agent order by id desc";
-		$before_login_result = mysql_query($before_login_query);
-		while ($row = mysql_fetch_assoc($before_login_result)) {
-			$before_login[]=$row;
-		}
+
 
 		// 找出 昨天 注册玩家的 渠道
 		$userchannelquery = "select * from yx_all_user where reg_time >= '".$starttime."' and reg_time <= '".$endtime."' group by agent order by id desc";
@@ -108,8 +102,23 @@ class StatisticsModel extends Model
 		// 取出所有渠道（用户，游戏，渠道）
 		$sourcequery = "select * from yx_tg_source S left join yx_tg_game G on S.gameid = G.gameid left join yx_tg_channel C on S.channelid = C.channelid ".$conditionstr." order by S.id desc";
         $result = mysql_query($sourcequery);
+		$itemSource = array();
 		while ($row = mysql_fetch_assoc($result)) {
 			$source[]=$row;
+			$itemSource[] = $row['sourcesn'];
+		}
+
+		// 找出统计之前的所有登录信息
+		// group by user,agent 可以去重
+		//S('cache_before_login', null);
+		$before_login = array();
+		if(!empty($itemSource)){
+			$strSource = '\''.str_replace(',', '\',\'', implode(',', $itemSource)).'\'';
+			$before_login_query = "select  userid,agent from yx_sdk_logininfo where login_time < '".$starttime."' AND agent in({$strSource})  group by userid,agent order by id desc";
+			$before_login_result = mysql_query($before_login_query);
+			while ($row = mysql_fetch_assoc($before_login_result)) {
+				$before_login[]=$row;
+			}
 		}
 
 		// 获取当前的所有渠道
@@ -143,7 +152,7 @@ class StatisticsModel extends Model
 				$channelrate = 0;
 			}
 			// $exsitsn，如果当前渠道没有人玩游戏，为空。如果有人玩游戏，则为原来的值
-			$exsitsn = "";
+			/*$exsitsn = "";
 			foreach ($channellist as $k => $v) {
 				if ($sourcerow["sourcesn"] == $channellist[$k]) {
 					$exsitsn = $sourcerow["sourcesn"];
@@ -151,7 +160,9 @@ class StatisticsModel extends Model
 				} else {
 					continue;
 				}
-			}
+			}*/
+
+			$exsitsn = in_array($sourcerow["sourcesn"], $channellist) ? $sourcerow["sourcesn"] : '';
 			$dailyjournal = 0;
 			$dailyactive = 0;
 			$newpeople = 0;
@@ -208,6 +219,7 @@ class StatisticsModel extends Model
 				// 	}
 				// }
 				// 统计 昨天 当前渠道中 新增用户数。（昨天注册的玩家的 渠道 等于 当前渠道的 渠道）
+
 				for ($j=0;$j<sizeof($active);$j++) {
 					$row = $active[$j];
 					if ($row["agent"] == $exsitsn) {
@@ -234,6 +246,7 @@ class StatisticsModel extends Model
 			$todaydata[$i]["dailyjournal"] = $dailyjournal;
 			$todaydata[$i]["dailyincome"] = $dailyincome;
 		}
+
 		return $todaydata;
 	}
 
@@ -243,19 +256,6 @@ class StatisticsModel extends Model
         $map['userid'] =$userid;
         $map["activeflag"] = 1;
         $channel = $channelmodel->where($map)->select();
-//                 $log_content=date('Y-m-d H:i:s')."\n";
-// $log_content.='exsitsn2：'.print_r($channel,1)."\n";
-// $log_content.='sql：'.$channelmodel->getlastsql()."\n";
-// error_log($log_content, 3, 'test.log');
-
-//         $userModel = M('tg_user');
-//         $user = $userModel->where('account="app123"')->find();
-//         $log_content=date('Y-m-d H:i:s')."\n";
-// $log_content.='exsitsn3：'.print_r($user,1)."\n";
-// $log_content.='sql：'.$userModel->getlastsql()."\n";
-// error_log($log_content, 3, 'test.log');
-
-
         return $channel;
     }
 }
