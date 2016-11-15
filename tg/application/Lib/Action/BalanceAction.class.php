@@ -222,13 +222,19 @@ class BalanceAction extends CommonAction {
 			$where=array(
 				'userid'=>$userid,
 			);
-			$balance_one = $balanceModel->field('createtime')->where($where)->order('createtime desc')->find();
+			$balance_one = $balanceModel->field('createtime,enddate')->where($where)->order('createtime desc')->find();
 			if( ( time()-strtotime($balance_one['createtime']) )<10){
 				$this->ajaxReturn('fail','请稍后再提交。',0);
             	exit();
 			}
 
+			// 如果提交的开始时间 小于 上次订单的截止日期，说明结算单已经提交过，错误结算单
 			$startdate = $_POST["start"];
+			if( strtotime($startdate) <= strtotime($balance_one['enddate']) ){
+				$this->ajaxReturn('fail','该结算单已提交，进入结算中心查看',0);
+            	exit();
+			}
+
 			$enddate = $_POST["end"];
 			$data["startdate"] = $startdate;
 			$data["enddate"] = $enddate;

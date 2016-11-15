@@ -474,7 +474,7 @@ class SourceAction extends CommonAction {
     }
 
 	public function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"."ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
 		$str = ""; 
 		while(strlen($str) < $length) {
 			$str .= substr($possible, (rand() % strlen($possible)), 1);

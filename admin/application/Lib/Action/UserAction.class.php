@@ -34,6 +34,7 @@ class UserAction extends CommonAction {
 
         $model= M('tg_user');
         $condition["activeflag"] = 1;
+        $condition['isverified'] = array('neq',2);
         $users = $model->where($condition)->order("createtime desc")->select();
         foreach ($users as $key => $value) {
         	if($value['sourcetype'] == 1){
@@ -932,7 +933,7 @@ class UserAction extends CommonAction {
 	}
 
     private function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"."ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
 		$str = ""; 
 		while(strlen($str) < $length) {
 			$str .= substr($possible, (rand() % strlen($possible)), 1);

@@ -874,6 +874,13 @@ class GameAction extends CommonAction {
 							$packagedata['isforced'] = 0;
 							$packagedata['forcetime'] = $forcetime.":00";
 							$packageresult = $packageModel->add($packagedata);
+
+							$log_content=date('Y-m-d H:i:s')."\n";
+							$log_content.='以前存在包的情况下,新增包信息sql：'.$packageModel->getlastsql()."\n";
+							$log_content.='packageresult：'.print_r($packageresult,1)."\n";
+							$log_content.= mysql_error()."\n";
+							error_log($log_content, 3, 'test.log');
+
 							if ($packageresult) {
 								$packageid = $packageresult;
 								$package = $packageModel->find($packageid);
@@ -911,6 +918,13 @@ class GameAction extends CommonAction {
 								$forcedata["lastupver"] = $latestversion;
 								$forcecondition["id"] = $game["sdkgameid"];
 								$forceresult = $forceModel->where($forcecondition)->save($forcedata);
+
+								$log_content=date('Y-m-d H:i:s')."\n";
+								$log_content.='以前存在包的情况下,更新all_game的游戏信息sql：'.$forceModel->getlastsql()."\n";
+								$log_content.='forceresult'.print_r($forceresult,1)."\n";
+								$log_content.= mysql_error()."\n";
+								error_log($log_content, 3, 'test.log');
+
 								if ($forceresult && $oldactiveresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
 									$this->ajaxReturn('force','force',1);
 									exit();
@@ -1071,6 +1085,13 @@ class GameAction extends CommonAction {
 						$packagedata['isforced'] = 0;
 						$packagedata['forcetime'] = $forcetime.":00";
 						$packageresult = $packageModel->add($packagedata);
+
+						$log_content=date('Y-m-d H:i:s')."\n";
+						$log_content.='以前不存在包的情况下,更新包信息sql：'.$packageModel->getlastsql()."\n";
+						$log_content.='packageresult：'.print_r($packageresult,1)."\n";
+						$log_content.= mysql_error()."\n";
+						error_log($log_content, 3, 'test.log');
+
 						if ($packageresult) {
 							$packageid = $packageresult;
 							$package = $packageModel->find($packageid);
@@ -1114,6 +1135,13 @@ class GameAction extends CommonAction {
 							$forcedata["lastupver"] = $latestversion;
 							$forcecondition["id"] = $game["sdkgameid"];
 							$forceresult = $forceModel->where($forcecondition)->save($forcedata);
+
+							$log_content=date('Y-m-d H:i:s')."\n";
+							$log_content.='以前不存在包的情况下,更新all_game的游戏信息sql：'.$forceModel->getlastsql()."\n";
+							$log_content.='forceresult'.print_r($forceresult,1)."\n";
+							$log_content.= mysql_error()."\n";
+							error_log($log_content, 3, 'test.log');
+
 							if ($forceresult && $oldactiveresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
 								$this->ajaxReturn('force','force',1);
 								exit();
@@ -1509,7 +1537,7 @@ class GameAction extends CommonAction {
 	}
 
 	public function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"."ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
 		$str = ""; 
 		while(strlen($str) < $length) {
 			$str .= substr($possible, (rand() % strlen($possible)), 1);

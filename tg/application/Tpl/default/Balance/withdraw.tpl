@@ -184,7 +184,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 											<div class="col-sm-4">
 											</div>
 											<div class="col-sm-4">
-												<a href="javascript:" id="submitApply" class="btn btn-primary btn-lg col-md-12">提交申请</a>
+												<button type="button" id="submitApply" class="btn btn-primary btn-lg col-md-12">提交申请</button>
 											</div>
 											<div class="col-sm-4">
 											</div>
@@ -375,6 +375,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
         });
 		
 		//提现(提交申请)
+		$('#submitApply').removeAttr("disabled");
         $('#submitApply').click(function() {
         	$('#submitApply').attr("disabled","disabled");
 			var withdrawlimit = $("#hiddenwithdrawlimit").val();
@@ -414,57 +415,62 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 						confirmButtonText: "确认",
 						cancelButtonText: "取消",
 						closeOnConfirm: false
-					}, function(){
-						isdoingwithdraw = 1;
-						swal({
-							title: "请稍侯...",   
-							text: "正在生成结算单，请稍后", 
-							type: "hold",
-							showConfirmButton: false
-						});
-						$.ajax({
-							type : 'POST',
-							url : "index.php?m=balance&a=dowithdraw",
-							data : {password : password, type : type, accountid : accountid, start : startdate, end : enddate},
-							cache : false,
-							dataType : 'json',
-							success : function (data) {
-								if (data.data == "success") {
-									swal({
-										title: "已提交",   
-										text: "提现申请已成功提交", 
-										type: "success",
-										showConfirmButton: true
-									}, function(isConfirm){   
-										if (isConfirm) {     
-											self.location.href = "/balance/";   
-										}
-									});
-								} else {
+					}, function(isConfirm){
+						if(isConfirm){
+							isdoingwithdraw = 1;
+							swal({
+								title: "请稍侯...",   
+								text: "正在生成结算单，请稍后", 
+								type: "hold",
+								showConfirmButton: false
+							});
+							$.ajax({
+								type : 'POST',
+								url : "index.php?m=balance&a=dowithdraw",
+								data : {password : password, type : type, accountid : accountid, start : startdate, end : enddate},
+								cache : false,
+								dataType : 'json',
+								success : function (data) {
+									if (data.data == "success") {
+										swal({
+											title: "已提交",   
+											text: "提现申请已成功提交", 
+											type: "success",
+											showConfirmButton: true
+										}, function(isConfirm){   
+											if (isConfirm) {     
+												self.location.href = "/balance/";   
+											}
+										});
+									} else {
+										isdoingwithdraw = 0;
+										$('#submitApply').removeAttr("disabled");
+										swal({
+											title: "出错了",   
+											text: data.info, 
+											type: "error",
+											confirmButtonText: "确认"
+										});
+									}
+									return false;
+								},
+								error : function (xhr) {
 									isdoingwithdraw = 0;
 									$('#submitApply').removeAttr("disabled");
 									swal({
 										title: "出错了",   
-										text: data.info, 
+										text: "系统错误", 
 										type: "error",
 										confirmButtonText: "确认"
 									});
+									return false;
 								}
-								return false;
-							},
-							error : function (xhr) {
-								isdoingwithdraw = 0;
-								$('#submitApply').removeAttr("disabled");
-								swal({
-									title: "出错了",   
-									text: "系统错误", 
-									type: "error",
-									confirmButtonText: "确认"
-								});
-								return false;
-							}
-						});
+							});
+						}else{
+							$('#submitApply').removeAttr("disabled");
+						}
 					});
+					return false;
                 }
             }
         });
