@@ -1,14 +1,14 @@
 <?php
 //连接数据库
 //正式服务器
-$SDKdbhost = '10.13.58.56';
-$SDKdbuser = 'User_youxia_tg';
-$SDKdbpw   = 'YOUxiadb@2016';
+$SDKdbhost = '192.168.1.32';
+$SDKdbuser = 'root';
+$SDKdbpw   = 'hy123456';
 $SDKdbname = 'db_youxia_new';
 
 //测试服务器暂时不使用IP判定
-$outIP = "106.75.137.57";
-$inIP = "10.13.25,185";
+// $outIP = "106.75.137.57";
+// $inIP = "10.13.25,185";
 
 mysql_connect($SDKdbhost,$SDKdbuser,$SDKdbpw);
 mysql_select_db($SDKdbname);

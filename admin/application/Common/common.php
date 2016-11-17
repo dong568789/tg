@@ -448,5 +448,15 @@ function numbers_transform_capital($number){
     return $str;
 }
 
+// 生成一个不重复的字符串
+// 为了和其他控制器中的makeStr名字区分,是一个函数
+function createstr($length) { 
+    $possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
+    $str = ""; 
+    while(strlen($str) < $length) {
+        $str .= substr($possible, (rand() % strlen($possible)), 1);
+    }
+    return($str); 
+}
 
 ?>

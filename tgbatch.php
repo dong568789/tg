@@ -1,25 +1,14 @@
 <?php
 // 连接数据库
 // 测试服务器
-//$SDKdbhost = '192.168.1.32';
-//$SDKdbuser = 'root';
-//$SDKdbpw   = 'hy123456';
-//$SDKdbname = 'db_youxia_new';
-
-/*$SDKdbhost = '192.168.1.32';
+$SDKdbhost = '192.168.1.32';
 $SDKdbuser = 'root';
 $SDKdbpw   = 'hy123456';
-$SDKdbname = 'db_youxia_new';*/
+$SDKdbname = 'db_youxia_new';
 
-// //正式服务器
- $SDKdbhost = '10.13.58.56';
- $SDKdbuser = 'User_youxia_tg';
- $SDKdbpw   = 'YOUxiadb@2016';
- $SDKdbname = 'db_youxia_new';
-
-// //测试服务器暂时不使用IP判定
-$outIP = "106.75.141.169";
-$inIP = "10.13.14.83";
+// 测试服务器暂时不使用IP判定
+// $outIP = "106.75.141.169";
+// $inIP = "10.13.14.83";
 
 //取1天内所有的数据，不可循环取多天
 mysql_connect($SDKdbhost,$SDKdbuser,$SDKdbpw);

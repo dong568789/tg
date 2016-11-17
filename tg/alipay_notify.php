@@ -100,9 +100,9 @@ if($verify_result) {//验证成功
         //调试用，写文本函数记录程序运行情况是否正常
         //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
 
-    	$SDKdbhost = '10.13.58.56';
-		$SDKdbuser = 'User_youxia_tg';
-		$SDKdbpw   = 'YOUxiadb@2016';
+    	$SDKdbhost = '192.168.1.32';
+		$SDKdbuser = 'root';
+		$SDKdbpw   = 'hy123456';
 		$SDKdbname = 'db_youxia_new';
 
         mysql_connect($SDKdbhost,$SDKdbuser,$SDKdbpw);

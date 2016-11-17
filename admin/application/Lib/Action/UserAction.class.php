@@ -385,12 +385,16 @@ class UserAction extends CommonAction {
                 $diy_logo = $cacheFileName;
             }
         }
-        $data['diy_logo'] = $diy_logo;
+        
+        if($diy_logo!= ""){
+            $data['diy_logo'] = $diy_logo;
+        }
+        
         $data['diy_webname'] = $_POST['diy_webname'];
         $data['diy_isshow_homeheader'] = $_POST['diy_isshow_homeheader'];
 
-        $this->ajaxReturn('fail',$_FILES["diy_logo"]["tmp_name"],0);
-        exit();
+        // $this->ajaxReturn('fail',$_FILES["diy_logo"]["tmp_name"],0);
+        // exit();
 
         $model = M('tg_user');
 		$condition["userid"] = $userid;
