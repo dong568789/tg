@@ -36,16 +36,19 @@ class CommonAction extends Action {
         // 测试服务器上使用
         $this->gamebgurl = "http://tgadmin.yxgames.com/DataGames/upfiles/gamebg/";
 		$this->screenshoturl = "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/";
+        $this->diylogoourl = "http://tgadmin.yxgames.com/DataGames/upfiles/diylogo/";
 
         // 正式服务器上使用
         // $this->gamebgurl = "http://img.yxgames.com/images/upfiles/gamebg/";
         // $this->screenshoturl = "http://img.yxgames.com/images/upfiles/screenshot/";
+        // $this->diylogourl = "http://img.yxgames.com/images/upfiles/diylogo/";
 
 		$this->packageStoreFolder = "../admin/DataGames/upfiles/basicpackage/";
 		$this->downloadStoreFolder = "../admin/DataGames/upfiles/downloadpackage/";
 		$this->textureStoreFolder = "../admin/DataGames/upfiles/texture/";
         $this->iconStoreFolder = "../admin/upfiles/gameicon/";
         $this->gamebgStoreFolder = "../admin/DataGames/upfiles/gamebg/";
+        $this->diylogoStoreFolder = "../admin/DataGames/upfiles/diylogo/";
         $this->screenshotStoreFolder = "../admin/DataGames/upfiles/screenshot/";
 		$this->signCheckFolder = "/var/www/admin/DataGames/upfiles/basicpackage/";
 		$this->assign("DOMAINHOST",$this->domainhost);

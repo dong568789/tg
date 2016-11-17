@@ -151,6 +151,47 @@ class UserAction extends CommonAction {
         $data['createtime'] = date('Y-m-d H:i:s',time());
         $data['createuser'] = "Admin";
         $data['projectname'] = $_POST['projectname'];
+
+        $max_file_size = '1000000000'; //文件小于1GB
+        $max_image_size = '5000000'; //图片小于5MB
+        $img_extension_list = array("jpg", "jpeg", "gif", "png");
+        if (!empty($_FILES)) {
+            if (is_uploaded_file($_FILES["diy_logo"]["tmp_name"])) {
+                $tempFile = $_FILES["diy_logo"]["tmp_name"];
+                $targetPath = $this->diylogoStoreFolder;
+                $filesize = $_FILES["diy_logo"]["size"];
+                $packagesize = floor($filesize/1000000);
+                if ($filesize > $max_file_size) {
+                    $this->ajaxReturn('fail',"上传自定义logo不能大于1GB。",0);
+                    exit();
+                }
+                $ftypearr = explode('.',$_FILES["diy_logo"]["name"]);
+                $cacheindex = sizeof($ftypearr) - 1;
+                if ($cacheindex >= 0) {
+                    $ftype = strtolower($ftypearr[$cacheindex]); //文件类型拓展名
+                }
+                if (!in_array($ftype,$img_extension_list)) {
+                    $this->ajaxReturn('fail',"上传自定义logo格式不正确。",0);
+                    exit();
+                }
+                $cacheFileName = createstr(30).".".$ftype;
+                $packageFile = $targetPath.$cacheFileName;
+                if (!move_uploaded_file($tempFile,$packageFile)) {  
+                    $this->ajaxReturn('fail',"上传自定义logo包失败。",0);
+                    exit();
+                }
+                $diy_logo = $cacheFileName;
+            }
+        }
+
+
+        // var_dump($_FILES);
+        // exit();
+        $data['diy_logo'] = $diy_logo;
+        $data['diy_webname'] = $_POST['diy_webname'];
+        $data['diy_isshow_homeheader'] = $_POST['diy_isshow_homeheader'];
+
+
         $model = M('tg_user');
 
         $users = $model->add($data);
@@ -312,6 +353,45 @@ class UserAction extends CommonAction {
 				}
 			}
 		}
+
+        $max_file_size = '1000000000'; //文件小于1GB
+        $max_image_size = '5000000'; //图片小于5MB
+        $img_extension_list = array("jpg", "jpeg", "gif", "png");
+        if (!empty($_FILES)) {
+            if (is_uploaded_file($_FILES["diy_logo"]["tmp_name"])) {
+                $tempFile = $_FILES["diy_logo"]["tmp_name"];
+                $targetPath = $this->diylogoStoreFolder;
+                $filesize = $_FILES["diy_logo"]["size"];
+                $packagesize = floor($filesize/1000000);
+                if ($filesize > $max_file_size) {
+                    $this->ajaxReturn('fail',"上传自定义logo不能大于1GB。",0);
+                    exit();
+                }
+                $ftypearr = explode('.',$_FILES["diy_logo"]["name"]);
+                $cacheindex = sizeof($ftypearr) - 1;
+                if ($cacheindex >= 0) {
+                    $ftype = strtolower($ftypearr[$cacheindex]); //文件类型拓展名
+                }
+                if (!in_array($ftype,$img_extension_list)) {
+                    $this->ajaxReturn('fail',"上传自定义logo格式不正确。",0);
+                    exit();
+                }
+                $cacheFileName = createstr(30).".".$ftype;
+                $packageFile = $targetPath.$cacheFileName;
+                if (!move_uploaded_file($tempFile,$packageFile)) {  
+                    $this->ajaxReturn('fail',"上传自定义logo包失败。",0);
+                    exit();
+                }
+                $diy_logo = $cacheFileName;
+            }
+        }
+        $data['diy_logo'] = $diy_logo;
+        $data['diy_webname'] = $_POST['diy_webname'];
+        $data['diy_isshow_homeheader'] = $_POST['diy_isshow_homeheader'];
+
+        $this->ajaxReturn('fail',$_FILES["diy_logo"]["tmp_name"],0);
+        exit();
+
         $model = M('tg_user');
 		$condition["userid"] = $userid;
         $user = $model->where($condition)->save($data);

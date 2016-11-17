@@ -4,6 +4,7 @@
 $page_title = "新增用户";
 $page_css[] = "";
 $page_css[] = "vendors/bower_components/chosen/chosen.min.css";
+$page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css";
 ?>
 
 <include file="Inc:head" />
@@ -46,7 +47,7 @@ $page_css[] = "vendors/bower_components/chosen/chosen.min.css";
                         <input type="hidden" value="<{$authoritycheck}>" id="authoritycheck">
                         <div class="card-body">
                             <div class="p-20">
-								<form id="adduser" class="form-horizontal" role="form" action="index.php?m=user&a=adduser" method="post">
+								<form id="adduser" enctype="multipart/form-data" class="form-horizontal" role="form" action="index.php?m=user&a=adduser" method="post">
 									<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">用户名</label>
 										<div class="col-sm-7">
@@ -223,6 +224,55 @@ $page_css[] = "vendors/bower_components/chosen/chosen.min.css";
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="form-group m-t-25">
+                                        <label class="col-sm-3 control-label f-15">合作会员的自定义网站名称</label>
+                                        <div class="col-sm-7">
+                                            <div class="fg-line">
+                                                <input type="text" class="form-control" id="diy_webname" name="diy_webname" placeholder="请自定义网站名称" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 f-15 control-label">合作会员的自定义logo(200*50)</label>
+                                        <div class="col-sm-9 p-t-5">
+                                            <div class="fg-line">
+                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                                                    </div>
+                                                    <div>
+                                                        <span class="btn btn-info btn-file">
+                                                            <span class="fileinput-new">选择一张图片</span>
+                                                            <span class="fileinput-exists">更改</span>
+                                                            <input type="file" name="diy_logo" id="diy_logo" class="radioclass">
+                                                        </span>
+                                                        <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">移除</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group m-t-25">
+                                        <label class="col-sm-3 control-label f-15">合作会员的自定义是否显示首页头</label>
+                                        <div class="col-sm-7">
+                                            <div class="fg-line">
+                                                <label class="radio radio-inline m-r-20">
+                                                    <input class="radioclass" type="radio" name="diy_isshow_homeheader" value="1" >
+                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                    是
+                                                </label>
+
+                                                <label class="radio radio-inline m-r-20">
+                                                    <input class="radioclass" type="radio" name="diy_isshow_homeheader" value="-1">
+                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                    否
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
 									<div class="form-group m-t-25">
 										<div class="col-sm-12 text-center">
 											<button id="addusersubmit" type="submit" class="btn btn-primary btn-lg m-r-15">新增用户</button>
@@ -241,6 +291,10 @@ $page_css[] = "vendors/bower_components/chosen/chosen.min.css";
 <include file="Inc:footer" />
 <include file="Inc:scripts" />
 <script src="__ROOT__/plus/vendors/bower_components/chosen/chosen.jquery.min.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="__ROOT__/plus/vendors/fileinput/fileinput.min.js"></script>
+
 <script type="text/javascript">
 
     $(document).ready(function() {
