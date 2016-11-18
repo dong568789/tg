@@ -24,7 +24,11 @@ if ($checkbalance == 'ok') {
         $page_nav["财务管理"]["sub"]["所有结算单"]["url"] = "/balanceall/";
 
     }
+    if ($checkChannel == 'ok') {
+        $page_nav["财务管理"]["sub"]["渠道流水汇总"]["title"] = "渠道流水汇总";
+        $page_nav["财务管理"]["sub"]["渠道流水汇总"]["url"] = U('/Statistics/index');
 
+    }
 }
 
 if ($checkuser == 'ok') {
