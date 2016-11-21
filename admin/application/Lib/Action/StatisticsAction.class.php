@@ -121,7 +121,7 @@ class StatisticsAction extends CommonAction
         foreach($dailCount as $key => &$value){
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
 
-            $yx_amount = $sumAmount - $value['sum_dailyjournal'];
+            $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
             $value['yx_amount'] = number_format($yx_amount,0, '', '');
             $value['sum_voucherje'] = number_format($itemData[$value['userid']]['sum_voucherje'], 0, '', '');
             $value['yx_countamount'] =  number_format($value['sum_dailyjournal'] + $yx_amount, 0, '', '');
