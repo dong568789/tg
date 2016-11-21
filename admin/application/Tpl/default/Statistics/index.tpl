@@ -24,7 +24,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         <div class="container">
             <!--内容-->
             <div class="block-header">
-                <h2>所有结算单</h2>
+                <h2渠道流水汇总</h2>
             </div>
 
             <div class="row">
@@ -40,11 +40,12 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                         <tr>
                                             <th data-column-id="timeZone">日期</th>
                                             <th data-column-id="realname">用户名</th>
-                                            <!--<th data-column-id="channelname">渠道</th>-->
+                                            <th data-column-id="sum_newpeople" data-type="numeric" data-identifier="true">注册数</th>
                                             <th data-column-id="sum_dailyjournal">渠道流水</th>
-                                            <th data-column-id="yx_amount">平台流水</th>
-                                            <th data-column-id="yx_countamount">总流水</th>
-                                            <th data-column-id="unsettled">未结算金额</th>
+                                            <th data-column-id="yx_amount" data-sortable=false>平台流水</th>
+                                            <th data-column-id="yx_countamount" data-sortable=false>总流水</th>
+                                            <th data-column-id="sum_voucherje">优惠金额</th>
+                                            <th data-column-id="unwithdraw">未提现金额</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -105,10 +106,6 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 iconUp: 'zmdi-caret-up-circle'
             },
             formatters: {
-                "link": function(column, row)
-                {
-                    return "<a href=\"/balancedetail/"+row.id+"/\">查看详情</a>";
-                },
                 "balancestatus": function(column, row){
                     if(row.balancestatus=="账单有误"){
                         return "<span style='color:red;'>账单有误</span>";
@@ -121,7 +118,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 actionBar\">"+
                 "<p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p>" +
                 "<div class=\"daterange form-group\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查看</a></div></div>" +
-                "<div class='form-group col-sm-3'></div>"+
+                "<div class=\"daterange form-group\" style=\"width:50px;\"><div class=\"input-group\"> <a href=\"javascript:void(0);\" id=\"export\" class=\"input-group-addon btn-info\">导出</a></div></div>" +
                 "</div></div></div>"
             }
         });
@@ -145,12 +142,38 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             }
         });
 
-        $('#select-balancestatus').change(function(){
-            search();
+        $('#export').on('click', function(){
+            var url = "<{:U('Statistics/export')}>";
+            var date = $('#daterange').val();
+            var start = '',end = '';
+            if (date != "") {
+                start = date.substr(0, 10);
+                end = date.substr(-10, 10);
+            }
+
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data : {startdate : start, enddate : end},
+                cache : false,
+                dataType : 'json',
+                success : function (data) {
+                    if (data.status == "1") {
+                        window.location.href = '/' + data.url;
+                    } else {
+                        notify('数据获取失败，没有符合条件的数据', 'danger');
+                    }
+                    return false;
+                },
+                error : function (xhr) {
+                    notify('系统错误！', 'danger');
+                    return false;
+                }
+            });
         })
     });
 
-    function loadData(start,end)
+    function loadData(start, end, sort)
     {
         $.ajax({
             type : 'POST',
