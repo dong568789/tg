@@ -135,7 +135,6 @@ class StatisticsAction extends CommonAction
             $balance = $balancemodel->money($value['userid']);
             $value['unwithdraw'] = (int)$balance['unwithdraw'];
             $value['sum_dailyjournal'] = intval(number_format($value['sum_dailyjournal'], 0, '', ''));
-            $value['realname'] = $value['channelbusiness'].'/'.$value['realname'];
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
@@ -174,7 +173,7 @@ class StatisticsAction extends CommonAction
             'unwithdraw' => number_format($unwithdraw, 0, '', ''),
 
         );
-        $title = array('timeZone' => '日期', 'realname' => '用户名', 'sum_newpeople' => '新增注册数', 'sum_dailyjournal' => '渠道流水', 'yx_amount' => '平台流水', 'yx_countamount' => '总流水', 'sum_voucherje' => '优惠金额', 'unwithdraw' => '未提现金额');
+        $title = array('timeZone' => '日期','channelbusiness' => '维护人' ,'realname' => '用户名', 'sum_newpeople' => '新增注册数', 'sum_dailyjournal' => '渠道流水', 'yx_amount' => '平台流水', 'yx_countamount' => '总流水', 'sum_voucherje' => '优惠金额', 'unwithdraw' => '未提现金额');
         $this->exportFile($title, $dailCount);
     }
 

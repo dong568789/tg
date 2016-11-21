@@ -39,7 +39,8 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                         <thead>
                                         <tr>
                                             <th data-column-id="timeZone" data-sortable=false>日期</th>
-                                            <th data-column-id="realname">维护人/用户名</th>
+                                            <th data-column-id="channelbusiness">维护人</th>
+                                            <th data-column-id="realname">用户名</th>
                                             <th data-column-id="sum_newpeople" ddata-type="numeric">注册数</th>
                                             <th data-column-id="sum_dailyjournal" data-type="numeric">渠道流水</th>
                                             <th data-column-id="yx_amount" data-type="numeric"</th>
