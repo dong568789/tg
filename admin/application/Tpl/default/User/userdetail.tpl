@@ -46,6 +46,18 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 										</div>
 									</div>
 
+									<if condition="!$user['projectname']">
+										<div class="form-group m-t-25">
+											<label class="col-sm-3 control-label f-15">项目名称拼音首字母缩写</label>
+											<div class="col-sm-7">
+												<div class="fg-line">
+													<input type="text" class="form-control" id="projectname" name="projectname" placeholder="请项目名称拼音首字母缩写，用来做域名参数" value="<{$user['projectname']}>">
+													<span style="color:red">*添加之后不能修改</span>
+												</div>
+											</div>
+										</div>
+									</if>
+
 									<div class="form-group m-t-25" id="sourcetype" >
 										<label for="account" class="col-sm-3 control-label f-15 m-t-5">渠道类型</label>
 										<div class="col-sm-7">
