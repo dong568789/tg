@@ -83,6 +83,11 @@ class StatisticsAction extends CommonAction
             $where['a.date'] = array(array('EGT', $startTime), array('ELT', $endTime));
         }
 
+        if(strtotime($endTime)  >= mktime(0,0,0)){
+
+            $endTime = date('Y-m-d', strtotime('-1 day', mktime(0,0,0)));
+        }
+
         !empty($channel) && $where['a.channelid'] = $channel;
 
         !empty($realname) && $where['b.realname'] = array('like', '%'.$realname.'%');
@@ -92,7 +97,7 @@ class StatisticsAction extends CommonAction
         $dailCount = $dailyaccountModel->alias('a')
             ->join('left join ' . C('DB_PREFIX') . 'tg_user as b on a.userid=b.userid')
             ->where($where)
-            ->field('a.userid,a.channelid,sum(dailyjournal) as sum_dailyjournal,b.realname,sum(newpeople) as sum_newpeople')
+            ->field('a.userid,a.channelid,sum(dailyjournal) as sum_dailyjournal,b.realname,sum(newpeople) as sum_newpeople,b.channelbusiness')
             ->group('a.userid')
             ->select();
 
@@ -122,14 +127,16 @@ class StatisticsAction extends CommonAction
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
 
             $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
-            $value['yx_amount'] = number_format($yx_amount,0, '', '');
-            $value['sum_voucherje'] = number_format($itemData[$value['userid']]['sum_voucherje'], 0, '', '');
-            $value['yx_countamount'] =  number_format($value['sum_dailyjournal'] + $yx_amount, 0, '', '');
+            $value['yx_amount'] = intval(number_format($yx_amount,0, '', ''));
+            $value['sum_voucherje'] = intval(number_format($itemData[$value['userid']]['sum_voucherje'], 0, '', ''));
+            $value['yx_countamount'] =  intval(number_format($value['sum_dailyjournal'] + $yx_amount, 0, '', ''));
             $value['timeZone'] = "{$startTime}至{$endTime}";
             //推广用户未提现金额
             $balance = $balancemodel->money($value['userid']);
-            $value['unwithdraw'] = $balance['unwithdraw'];
-            $value['sum_dailyjournal'] = number_format($value['sum_dailyjournal'], 0, '', '');
+            $value['unwithdraw'] = (int)$balance['unwithdraw'];
+            $value['sum_dailyjournal'] = intval(number_format($value['sum_dailyjournal'], 0, '', ''));
+            $value['realname'] = $value['channelbusiness'].'/'.$value['realname'];
+            $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
             }

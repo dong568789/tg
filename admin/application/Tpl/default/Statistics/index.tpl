@@ -39,13 +39,13 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                         <thead>
                                         <tr>
                                             <th data-column-id="timeZone" data-sortable=false>日期</th>
-                                            <th data-column-id="realname">用户名</th>
-                                            <th data-column-id="sum_newpeople" data-sortable=false>注册数</th>
-                                            <th data-column-id="sum_dailyjournal" data-sortable=false>渠道流水</th>
-                                            <th data-column-id="yx_amount" data-type="numeric">平台流水</th>
-                                            <th data-column-id="yx_countamount" data-sortable=false>总流水</th>
-                                            <th data-column-id="sum_voucherje" data-sortable=false>优惠金额</th>
-                                            <th data-column-id="unwithdraw" data-sortable=false>未提现金额</th>
+                                            <th data-column-id="realname">维护人/用户名</th>
+                                            <th data-column-id="sum_newpeople" ddata-type="numeric">注册数</th>
+                                            <th data-column-id="sum_dailyjournal" data-type="numeric">渠道流水</th>
+                                            <th data-column-id="yx_amount" data-type="numeric"</th>
+                                            <th data-column-id="yx_countamount" data-type="numeric">总流水</th>
+                                            <th data-column-id="sum_voucherje" data-type="numeric">优惠金额</th>
+                                            <th data-column-id="unwithdraw" data-type="numeric">未提现金额</th>
                                         </tr>
                                         </thead>
                                         <tbody>
