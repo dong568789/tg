@@ -29,8 +29,8 @@ class CommonAction extends Action {
         $this->admindomain = "http://tgadmin.yxgames.com";
 		$this->domainhost = "http://www.yxgames.com";
 		$this->apkstoreurl = "http://tgadmin.yxgames.com/DataGames/upfiles/basicpackage/";
-		$this->apkdownloadurl = "http://download.yxgames.com/DataGames/apk/upfiles/downloadpackage/";
-		$this->texturedownloadurl = "http://download.yxgames.com/DataGames/apk/upfiles/texture/";
+		$this->apkdownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/downloadpackage/";
+		$this->texturedownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/texture/";
         $this->iconurl = "http://tgadmin.yxgames.com/upfiles/gameicon/";
 
         // 测试服务器上使用
