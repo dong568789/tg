@@ -142,6 +142,7 @@ class CommonAction extends Action {
         $checklog = $this->authoritycheck(10124);
         $log = $this->authoritycheck(10125);
         $checkoperate = $this->authoritycheck(10126);
+        $checkChannel = $this->authoritycheck(10182);
         $this->assign('checkgame',$checkgame);
         $this->assign('checknewgame',$checknewgame);
         $this->assign('checkgameall',$checkgameall);
@@ -164,6 +165,7 @@ class CommonAction extends Action {
         $this->assign('checklog',$checklog);
         $this->assign('log',$log);
         $this->assign('checkoperate',$checkoperate);
+        $this->assign('checkChannel',$checkChannel);
     }
 
     //后台菜单权限

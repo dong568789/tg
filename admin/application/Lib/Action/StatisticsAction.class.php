@@ -23,42 +23,9 @@ class StatisticsAction extends CommonAction
 
     public function ajaxData()
     {
-        $current = I('request.current', 1, 'intval');
-        $rowCount = I('request.rowCount', 50, 'intval');
         $dailCount = $this->getData();
-        /*$sort = I('request.sort');
-        foreach($sort as $k => $v){
-            if($v == 'asc'){
-                $asc = SORT_ASC;
-            }else{
-                $asc = SORT_DESC;
-            }
-            $sort = $k;
-        }
-
-        if($sort){
-            $item = array();
-            foreach($dailCount as $k2=>$v2){
-                $item[$k2] = $v2[$sort];
-            }
-            array_multisort($item, $asc, $dailCount);
-        }
-
-
-        $current <= 0 && $current = 1;
-
-        $offset  = ($current-1) * $rowCount;
-
-        $itmeDailCount = array_slice($dailCount, $offset, $rowCount);*/
         sort($dailCount);
-       $this->ajaxReturn($dailCount,'success',1);
-       // sort($itmeDailCount);
-       /* $datas['current'] = $current;
-        $datas['rowCount'] = $rowCount;
-        $datas['rows'] = !empty($itmeDailCount) ? $itmeDailCount : array();
-        $datas['total'] = count($dailCount);
-        echo json_encode($datas, true);*/
-
+        $this->ajaxReturn($dailCount,'success',1);
         exit;
     }
 
@@ -122,14 +89,14 @@ class StatisticsAction extends CommonAction
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
 
             $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
-            $value['yx_amount'] = intval(number_format($yx_amount,0, '', ''));
-            $value['sum_voucherje'] = intval(number_format($itemData[$value['userid']]['sum_voucherje'], 0, '', ''));
-            $value['yx_countamount'] =  intval(number_format($value['sum_dailyjournal'] + $yx_amount, 0, '', ''));
+            $value['yx_amount'] = intval($yx_amount);
+            $value['sum_voucherje'] = intval($itemData[$value['userid']]['sum_voucherje']);
+            $value['yx_countamount'] =  intval($value['sum_dailyjournal'] + $yx_amount);
             $value['timeZone'] = "{$startTime}至{$endTime}";
             //推广用户未提现金额
             $balance = $balancemodel->money($value['userid']);
             $value['unwithdraw'] = (int)$balance['unwithdraw'];
-            $value['sum_dailyjournal'] = intval(number_format($value['sum_dailyjournal'], 0, '', ''));
+            $value['sum_dailyjournal'] = intval($value['sum_dailyjournal']);
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
