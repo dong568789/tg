@@ -70,29 +70,27 @@ class StatisticsAction extends CommonAction
         $channel = I('request.channel','','intval');
         $realname = I('request.searchPhrase');
 
-        if(!empty($startTime) && !empty($endTime)){
-            $where['a.date'] = array(array('EGT', $startTime), array('ELT', $endTime));
-        }elseif(!empty($startTime) && empty($endTime)){
-            $where['a.date'] = array('EGT', $startTime);
-        }elseif(empty($startTime) && !empty($endTime)){
-            $where['a.date'] = array('ELT', $endTime);
-        }else{
-            $startTime =date('Y-m-1');
-            $endTime = date('Y-m-d');
 
-            $where['a.date'] = array(array('EGT', $startTime), array('ELT', $endTime));
+        if(empty($startTime) || empty($endTime)){
+            $startTime =date('Y-m-01');
+            $endTime = date('Y-m-d');
         }
+
+        if(strtotime($endTime)  >= mktime(0,0,0)){
+            $endTime = date('Y-m-d', strtotime('-1 day', mktime(0,0,0)));
+        }
+
+        $where['a.date'] = array(array('EGT', $startTime), array('ELT', $endTime));
 
         !empty($channel) && $where['a.channelid'] = $channel;
 
         !empty($realname) && $where['b.realname'] = array('like', '%'.$realname.'%');
-
         //每个渠道流水
         $dailyaccountModel = M('TgDailyaccount');
         $dailCount = $dailyaccountModel->alias('a')
             ->join('left join ' . C('DB_PREFIX') . 'tg_user as b on a.userid=b.userid')
             ->where($where)
-            ->field('a.userid,a.channelid,sum(dailyjournal) as sum_dailyjournal,b.realname,sum(newpeople) as sum_newpeople')
+            ->field('a.userid,a.channelid,sum(dailyjournal) as sum_dailyjournal,b.realname,sum(newpeople) as sum_newpeople,b.channelbusiness')
             ->group('a.userid')
             ->select();
 
@@ -100,6 +98,7 @@ class StatisticsAction extends CommonAction
             'b.status' => 1,
             'b.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59')))
         );
+
         //推广用户总流水
         !empty($channel) && $where['b.channelid'] = $channel;
         $data = M('')->table(C('DB_PREFIX') . 'tg_source as a')
@@ -108,6 +107,7 @@ class StatisticsAction extends CommonAction
             ->field('a.userid,a.channelid,sum(case WHEN b.voucherje > 0 THEN b.amount-b.voucherje ELSE b.amount END) as sum_amount,sum(b.voucherje) as sum_voucherje')
             ->group('a.userid')
             ->select();
+
         $itemData = $arrUserid = array();
         foreach($data as $v){
             $itemData[$v['userid']] = $v;
@@ -121,19 +121,19 @@ class StatisticsAction extends CommonAction
         foreach($dailCount as $key => &$value){
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
 
-            $yx_amount = $sumAmount - $value['sum_dailyjournal'];
-            $value['yx_amount'] = number_format($yx_amount,0, '', '');
-            $value['sum_voucherje'] = number_format($itemData[$value['userid']]['sum_voucherje'], 0, '', '');
-            $value['yx_countamount'] =  number_format($value['sum_dailyjournal'] + $yx_amount, 0, '', '');
+            $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
+            $value['yx_amount'] = intval(number_format($yx_amount,0, '', ''));
+            $value['sum_voucherje'] = intval(number_format($itemData[$value['userid']]['sum_voucherje'], 0, '', ''));
+            $value['yx_countamount'] =  intval(number_format($value['sum_dailyjournal'] + $yx_amount, 0, '', ''));
             $value['timeZone'] = "{$startTime}至{$endTime}";
             //推广用户未提现金额
             $balance = $balancemodel->money($value['userid']);
-            $value['unwithdraw'] = $balance['unwithdraw'];
-            $value['sum_dailyjournal'] = number_format($value['sum_dailyjournal'], 0, '', '');
+            $value['unwithdraw'] = (int)$balance['unwithdraw'];
+            $value['sum_dailyjournal'] = intval(number_format($value['sum_dailyjournal'], 0, '', ''));
+            $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
             }
-
         }
 
         return $dailCount;
@@ -167,7 +167,7 @@ class StatisticsAction extends CommonAction
             'unwithdraw' => number_format($unwithdraw, 0, '', ''),
 
         );
-        $title = array('timeZone' => '日期', 'realname' => '用户名', 'sum_newpeople' => '新增注册数', 'sum_dailyjournal' => '渠道流水', 'yx_amount' => '平台流水', 'yx_countamount' => '总流水', 'sum_voucherje' => '优惠金额', 'unwithdraw' => '未提现金额');
+        $title = array('timeZone' => '日期','channelbusiness' => '维护人' ,'realname' => '用户名', 'sum_newpeople' => '新增注册数', 'sum_dailyjournal' => '渠道流水', 'yx_amount' => '平台流水', 'yx_countamount' => '总流水', 'sum_voucherje' => '优惠金额', 'unwithdraw' => '未提现金额');
         $this->exportFile($title, $dailCount);
     }
 

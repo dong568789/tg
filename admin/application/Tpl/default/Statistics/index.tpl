@@ -38,14 +38,15 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                     <table id="data-table-basic" class="table table-hover table-vmiddle">
                                         <thead>
                                         <tr>
-                                            <th data-column-id="timeZone">日期</th>
+                                            <th data-column-id="timeZone" data-sortable=false>日期</th>
+                                            <th data-column-id="channelbusiness">维护人</th>
                                             <th data-column-id="realname">用户名</th>
-                                            <th data-column-id="sum_newpeople" data-type="numeric" data-identifier="true">注册数</th>
-                                            <th data-column-id="sum_dailyjournal">渠道流水</th>
-                                            <th data-column-id="yx_amount" data-sortable=false>平台流水</th>
-                                            <th data-column-id="yx_countamount" data-sortable=false>总流水</th>
-                                            <th data-column-id="sum_voucherje">优惠金额</th>
-                                            <th data-column-id="unwithdraw">未提现金额</th>
+                                            <th data-column-id="sum_newpeople" ddata-type="numeric">注册数</th>
+                                            <th data-column-id="sum_dailyjournal" data-type="numeric">渠道流水</th>
+                                            <th data-column-id="yx_amount" data-type="numeric">平台流水</th>
+                                            <th data-column-id="yx_countamount" data-type="numeric">总流水</th>
+                                            <th data-column-id="sum_voucherje" data-type="numeric">优惠金额</th>
+                                            <th data-column-id="unwithdraw" data-type="numeric">未提现金额</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -150,22 +151,26 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 start = date.substr(0, 10);
                 end = date.substr(-10, 10);
             }
-
+            loading(true);
             $.ajax({
                 type : 'POST',
                 url : url,
                 data : {startdate : start, enddate : end},
                 cache : false,
                 dataType : 'json',
+
                 success : function (data) {
                     if (data.status == "1") {
+                        loading(false);
                         window.location.href = '/' + data.url;
                     } else {
+                        loading(false);
                         notify('数据获取失败，没有符合条件的数据', 'danger');
                     }
                     return false;
                 },
                 error : function (xhr) {
+                    loading(false);
                     notify('系统错误！', 'danger');
                     return false;
                 }
@@ -173,8 +178,21 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         })
     });
 
-    function loadData(start, end, sort)
+    //loading
+    function loading(flag){
+        if(flag){
+            $('.page-loader').css('background','none');
+            $('.page-loader').find('p').html('');
+            $('.page-loader').show();
+        }else{
+            $('.page-loader').hide();
+            $('.page-loader').css('background','#FFF');
+        }
+    }
+
+    function loadData(start, end)
     {
+        $('#data-table-basic').find('tbody').html('<tr><td colspan="8" class="loading" style="padding: 20px 0px 1650px;">加载中...</td></tr>');
         $.ajax({
             type : 'POST',
             url : "index.php?m=Statistics&a=ajaxData",
@@ -182,7 +200,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             cache : false,
             dataType : 'json',
             success : function (data) {
-                console.log(data);
+               // console.log(data);
                 if (data.status == "1") {
                     $("#data-table-basic").bootgrid("clear");
                     $("#data-table-basic").bootgrid("append", data.data);
