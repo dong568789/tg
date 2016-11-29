@@ -256,7 +256,9 @@ class UserAction extends CommonAction {
 		$this->logincheck();
 		$userid = $_POST['userid'];
         $data['account'] = $_POST['account'];
-		$data['projectname'] = $_POST['projectname'];
+        if($_POST['projectname']){
+            $data['projectname'] = $_POST['projectname'];
+        }
         $data['bindmobile'] = $_POST['bindmobile'];
         $data['bindemail'] = $_POST['bindemail'];
         $data['sourcetype'] = $_POST['sourcetype'];

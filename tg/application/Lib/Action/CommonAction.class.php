@@ -56,6 +56,23 @@ class CommonAction extends Action {
 		$this->assign("SCREEMSHOTSTOREFOLDER", $this->screenshotStoreFolder);
 		//dump($this->allUnreadMeaasge());
 		//exit;
+
+		// 如果存在cookie，则自动登录
+        $auto=$_COOKIE['yx_auto'];
+        if($auto){
+            $userMModel = M('tg_user');
+            $jiemi_auto=base64_decode($auto);
+            $jiemi_auto_arr=explode('|',$jiemi_auto);
+            $userid=$jiemi_auto_arr[0];
+            $existuser=$userMModel->field('userid,account,usertype,gender,isverified')->where('userid='.$userid)->find();
+            $_SESSION['userid'] = $existuser['userid'];
+            $_SESSION['account'] = $existuser['account'];
+            $_SESSION['usertype'] = $existuser['usertype'];
+            $_SESSION['gender'] = $existuser['gender'];
+			$_SESSION['isverified'] = $existuser['isverified'];
+			$key = $this->LOGIN_KEY;
+			$_SESSION["loginkey"] = $key;
+        }
     }
     
     /**

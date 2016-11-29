@@ -438,11 +438,12 @@ class UserAction extends CommonAction {
                         $data['createtime'] = date('Y-m-d H:i:s',time());
                         $userlog = $userlogmodel->add($data);
                         if($remember == 1){
-                            setcookie('account',$username,time()+3600);
-                            setcookie('remember',$remember,time()+3600);
-                        }else{
-                            setcookie('account',$username,time()-3600);
-                            setcookie('remember',$remember,time()-3600);
+	                        $aut_login_days=30;
+	                        $aut_login_seconds=3600*24*$aut_login_days;
+	                        $ip = get_client_ip();
+	                        $value = $_SESSION['userid'] . '|' . $ip;
+	                        $value = base64_encode($value);
+	                        cookie('auto',$value,array('expire'=>$aut_login_seconds,'prefix'=>'yx_'));
                         }
 
                         $this->ajaxReturn("true",'密码正确。',1);
@@ -498,11 +499,12 @@ class UserAction extends CommonAction {
                         $data['loginip'] = gethostbyname($hostname);
                         $userlog = $userlogmodel->add($data);
                         if($remember == 1){
-                            setcookie('account',$username,time()+3600);
-                            setcookie('remember',$remember,time()+3600);
-                        }else{
-                            setcookie('account',$username,time()-3600);
-                            setcookie('remember',$remember,time()-3600);
+	                        $aut_login_days=30;
+	                        $aut_login_seconds=3600*24*$aut_login_days;
+	                        $ip = get_client_ip();
+	                        $value = $_SESSION['userid'] . '|' . $ip;
+	                        $value = base64_encode($value);
+	                        cookie('auto',$value,array('expire'=>$aut_login_seconds,'prefix'=>'yx_'));
                         }
                         $this->ajaxReturn("true",'密码正确。',1);
                         exit();
@@ -762,6 +764,8 @@ class UserAction extends CommonAction {
 		session_start();
 		$_SESSION = array();
 		session_destroy();
+		//删除用于自动登录的COOKIE
+        setcookie('yx_auto', '', time() - 3600, '/');
 		Header("Location: /login/ ");
 		exit();
 	}
