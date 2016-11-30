@@ -3,7 +3,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo $page_title != "" ? $page_title."_" : ""; ?>游侠游戏分发平台</title>
-	<link rel="icon" href="__ROOT__/plus/img/logo.png" type="image/x-icon">
+	<link rel="icon" href="web_icon.ico" type="image/x-icon">
 	<?php
 		if ($page_css) {
 			foreach ($page_css as $css) {
