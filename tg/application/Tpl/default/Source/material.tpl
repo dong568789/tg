@@ -49,8 +49,8 @@
                                             </div>
 
                                             <div class="col-sm-12 text-center">
-                                                <p class="" style="margin-top: 50px;">推广长链接：<a href="<{$long_url}>"><{$long_url}></a></p>
-                                                <p class="" style="position: relative;left: -187px;">推广短链接：<a href="<{$short_url}>"><{$short_url}></a></p>
+                                                <p class="" style="margin-top: 50px;word-break:break-all;">推广长链接：<a href="<{$long_url}>"><{$long_url}></a></p>
+                                                <p class="" style="position: relative;left: -146px;">推广短链接：<a href="<{$short_url}>"><{$short_url}></a></p>
                                             </div>
                                         </div>
                                     </div>
