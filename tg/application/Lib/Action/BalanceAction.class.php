@@ -281,7 +281,7 @@ class BalanceAction extends CommonAction {
 			} else if ($user["invoicetype"] == 3) {
 				$taxrate = 0;
 			} else if ($user["invoicetype"] == 0) {
-				$taxrate = 0.03;
+				$taxrate = 0;
 			}
 			$data["taxrate"] = $taxrate;
 			$data["actualamount"] = round(($unwithdraw * (1 - $taxrate)),2); //四舍五入
