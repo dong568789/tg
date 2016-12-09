@@ -273,15 +273,18 @@ class BalanceAction extends CommonAction {
 			}
 			$data["totalamount"] = $unwithdraw;
 			$taxrate = 0;
-			// 普通发票扣0.0672；3%扣0.0336；6%不扣，普通用户扣3%
-			if ($user["invoicetype"] == 1) {
-				$taxrate = 0.0672;
-			} else if ($user["invoicetype"] == 2) {
-				$taxrate = 0.0336;
-			} else if ($user["invoicetype"] == 3) {
-				$taxrate = 0;
-			} else if ($user["invoicetype"] == 0) {
-				$taxrate = 0.03;
+			// 结算为游戏币不扣税
+			if($_POST["type"] != 3){
+				// 普通发票扣0.0672；3%扣0.0336；6%不扣，普通用户扣3%
+				if ($user["invoicetype"] == 1) {
+					$taxrate = 0.0672;
+				} else if ($user["invoicetype"] == 2) {
+					$taxrate = 0.0336;
+				} else if ($user["invoicetype"] == 3) {
+					$taxrate = 0;
+				} else if ($user["invoicetype"] == 0) {
+					$taxrate = 0.03;
+				}
 			}
 			$data["taxrate"] = $taxrate;
 			$data["actualamount"] = round(($unwithdraw * (1 - $taxrate)),2); //四舍五入
