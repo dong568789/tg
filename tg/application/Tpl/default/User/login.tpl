@@ -129,7 +129,7 @@
                 account : {
                     required : true,
                     checkENGsmallNUM : true,
-                    minlength : 3,
+                    minlength : 6,
                     maxlength : 20
                 },
                 password : {
@@ -149,8 +149,8 @@
                 account : {
                     required : '请输入用户名',
                     checkENGsmallNUM : '子账号用户名必须为字母、数字、_、@',
-                    minlength : '用户名长度为3-20位',
-                    maxlength : '用户名长度为3-20位'
+                    minlength : '用户名长度为6-20位',
+                    maxlength : '用户名长度为6-20位'
                 },
                 password : {
                     required : '此项目必填',

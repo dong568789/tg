@@ -32,6 +32,7 @@ class ChannelAction extends CommonAction {
         $count = $model->where($where)->count();
         $count += 1;
         $default_account = $count.'@'.$userid;
+        $default_account = str_pad($default_account,6,'0',STR_PAD_LEFT);
         $this->assign('default_account',$default_account);
 
         $this->display();
@@ -271,6 +272,7 @@ class ChannelAction extends CommonAction {
             $count = $channelModel->where($where)->count();
             $count += 1;
             $sub_account = $count.'@'.$value['userid'];
+            $sub_account = str_pad($sub_account,6,'0',STR_PAD_LEFT);
             $data = array(
                 'account' => $sub_account,
                 'password' => '',
