@@ -244,7 +244,7 @@ class ChannelAction extends CommonAction {
 
     // 批量生成子账号
     public function batchCreateSubuser(){
-        exit();
+        // exit();
         $channelModel = M('tg_channel');
         $userModel = M('tg_user');
 
@@ -285,9 +285,13 @@ class ChannelAction extends CommonAction {
             );
             $result = $userModel->add($data);
             if($result === false){
-                $this->ajaxReturn("fail",'添加channelid为'.$value['id'].'子账号失败。',0);
+                echo '添加channelid为'.$value['id'].'子账号失败';
+                exit();
             }
         }
+
+        echo '添加子账号成功';
+        exit();
     }
 
 }
