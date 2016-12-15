@@ -459,4 +459,14 @@ function createstr($length) {
     return($str); 
 }
 
+// 方便输出调试
+function vde($input){
+    var_dump($input);
+    exit;
+}
+// 方便输出调试
+function vd($input){
+    var_dump($input);
+}
+
 ?>

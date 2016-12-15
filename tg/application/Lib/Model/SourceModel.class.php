@@ -26,12 +26,29 @@ class SourceModel extends Model
         $categorymodel = M("tg_gamecategory");
         $tagmodel = M("tg_gametag");
         $channelmodel = M("tg_channel");
+        $usermodel = M("tg_user");
         $game['category'] = $categorymodel->where('activeflag = 1')->order("createtime desc")->select();
         $game['tag'] = $tagmodel->where('activeflag = 1')->order("createtime desc")->select();
+
         $game['channel'] = $channelmodel->where("activeflag = 1 and userid = $userid")->order("createtime desc")->select();
-		$channelid = $game['channel'][0]["channelid"];
+        $channelid = $game['channel'][0]["channelid"];
+    
 		$game['gamestr'] = $this->selectGame('全部',0,'全部',0,$channelid);
-		$game['sourcestr'] = $this->selectSource($channelid);
+        $game['sourcestr'] = $this->selectSource($channelid);
+        return $game;
+    }
+
+    // 子账号首页
+    public function indexson(){
+        $userid = $_SESSION['userid'];
+
+        $usermodel = M("tg_user");
+
+        $where = array('userid' => $userid);
+        $channelid = $usermodel->field('channelid')->where($where)->find();
+        $channelid = $channelid['channelid'];
+
+        $game['sourcestr'] = $this->selectSource($channelid);
         return $game;
     }
 
@@ -124,10 +141,8 @@ class SourceModel extends Model
     }
     //TAB2渠道搜索
     public function selectSource ($channelid) {
-        $userid = $_SESSION['userid'];
         $sourcemodel = M("tg_source");
 		$map['S.channelid'] = $channelid;
-        $map['S.userid'] = $userid;
 		$map['S.activeflag'] = 1;
 		$map['G.activeflag'] = 1;
         $games = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")->where($map)->order("G.gameauthority desc")->select();
@@ -137,10 +152,9 @@ class SourceModel extends Model
 
     //搜索资源
     public function searchSource ($content,$channelid) {
-        $userid = $_SESSION['userid'];
         $sourcemodel = M("tg_source");
         $where = '';
-        $where.= "G.activeflag = '1' AND S.activeflag = '1' AND S.channelid = '$channelid' AND S.userid = '$userid' AND(";
+        $where.= "G.activeflag = '1' AND S.activeflag = '1' AND S.channelid = '$channelid' AND(";
         $where.= "G.gamename like '%".$content."%'";
         $where.= "OR G.gamepinyin like'%".$content."%'";
         $where.= "OR G.gametype like '%".$content."%'";
@@ -209,15 +223,28 @@ class SourceModel extends Model
 				$gamestr .= "<td>".$v["gameauthority"]."</td>";
 				$gamestr .= "<td>".$v["gamesize"]." MB</td>";
 				$gamestr .= "<td>".$v["sharetype"]."</td>";
-				$gamestr .= "<td>".$v["sourcesharerate"]."</td>";
+
+                
+                if(isset($_SESSION['userpid']) && $_SESSION['userpid']>0){
+                    $gamestr .= "<td>".$v["sub_share_rate"]."</td>";
+                }else{
+                    $gamestr .= "<td>".$v["sourcesharerate"]."</td>";
+                    $gamestr .= "<td>".$v["sub_share_rate"]."</td>";
+                }
+				
 				if ($v["isonstack"] == 0) {
 					/* 下载时分包
 					$gamestr .= "<td><a class='btn btn-default btn-icon-text' href='".$this->apkdownloadurl.$v["apkurl"]."'><i class='zmdi zmdi-android'></i> 下载APK包</a>";
 					*/
 					$gamestr .= "<td><a href='javascript:void(0);' onclick='downloadApk(\"".$v["sourcesn"]."\");'>下载APK包</a>&nbsp;&nbsp;";
 					$gamestr .= "<a style='margin-top:3px;' href='javascript:void(0);' onclick='downloadTextture(\"".$v["sourcesn"]."\");'>下载素材包</a>&nbsp;&nbsp;";
-                                        $currentSource=$sourcemodel->field('id')->where('sourcesn="'.$v['sourcesn'].'"')->find();
-                                        $gamestr .= "<a style='margin-top:3px;' id='link' href='/material/".$currentSource['id']."/'>获取推广素材</a></td>";
+                    $currentSource=$sourcemodel->field('id')->where('sourcesn="'.$v['sourcesn'].'"')->find();
+
+                    if(isset($_SESSION['userpid']) && $_SESSION['userpid']==0){
+                        $gamestr .= "<a style='margin-top:3px;' id='link' href='/definerate/".$currentSource['id']."/'>自定义子账号资源费率</a>&nbsp;&nbsp;";
+                    }
+                    
+                    $gamestr .= "<a style='margin-top:3px;' id='link' href='/material/".$currentSource['id']."/'>获取推广素材</a></td>";
 
                 } else if ($v["isonstack"] == 1) {
 					$gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>未上架</button></td>";

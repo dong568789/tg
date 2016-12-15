@@ -6,6 +6,12 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
 
 ?>
 <include file="Inc:head" />
+<style type="text/css">
+    .tip{
+        /*color: red;*/
+    }
+</style>
+
 <body>
 <include file="Inc:logged-header" />
 
@@ -80,6 +86,26 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                                     </div>
 
                                     <div class="form-group m-t-25">
+                                        <label for="alipayaccount" class="col-sm-3 control-label f-15 m-t-5">子账号用户名</label>
+                                        <div class="col-sm-7">
+                                            <div class="fg-line">
+                                                <input class="form-control" name="sub_account" id="sub_account" value="<{$channel['sub_account']}>" maxlength="10" readonly="readonly"/>
+                                                * 如果请修改用户名，请联系客服
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group m-t-25">
+                                        <label for="alipayaccount" class="col-sm-3 control-label f-15 m-t-5">子账号密码</label>
+                                        <div class="col-sm-7">
+                                            <div class="fg-line">
+                                                <input class="form-control" name="sub_password" id="sub_password" value="" maxlength="10" />
+                                            </div>
+                                            <span class="tip">* 不填写，则保持原来不变</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group m-t-25">
                                         <div class="col-sm-12 text-center">
                                             <button type="submit" class="btn btn-primary btn-lg m-r-15" data-id="<{$channel['channelid']}>" id="savechannel">保存信息</button>
                                             <a href="/channel/" type="button" class="btn btn-default btn-lg c-gray">取消</a>
@@ -125,25 +151,40 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
         });
     }
     $(document).ready(function() {
-            //渠道规则
-            /*jQuery.validator.addMethod("checkCHANNELNAME", function(value, element) {
-                var reg =  /^[0-9a-zA-Z\u4e00-\u9fa5]+$/;
-                return this.optional(element) || reg.test(value);
-            }, "请输入英文小写字母或数字！");*/
+        //渠道规则
+        jQuery.validator.addMethod("checkAccount", function(value, element) {
+            var reg =  /^[0-9a-zA-Z@_]{3,20}$/;
+            return this.optional(element) || reg.test(value);
+        }, "请输入英文小写字母或数字！");
 
-            $('#savechannel').click(function() {
+        $('#savechannel').click(function() {
             var $addchannel = $('#editchannel').validate({
                 rules : {
                     channelname : {
                         required : true
-                    }
+                    },
+                    sub_account : {
+                        required : true,
+                        checkAccount : true,
+                    },
+                    sub_password : {
+                        minlength : 6,
+                        maxlength : 20
+                    },
                 },
                 messages : {
                     channelname : {
-                        required : '渠道名不得为空'
-                    }
+                        required : '渠道名不能为空'
+                    },
+                    sub_account : {
+                        required : '子账号用户名不能为空',
+                        checkAccount : '子账号用户名必须由3-20字母、数字、_、@组成',
+                    },
+                    sub_password : {
+                        minlength : '子账号密码长度为6-20位',
+                        maxlength : '子账号密码长度为6-20位'
+                    },
                 },
-
 
                 errorPlacement : function(error, element) {
                     error.insertAfter(element.parent());
@@ -151,30 +192,28 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
             });
 
             if ($('#editchannel').valid()) {
-                var channelname = $("#channelname").val();
+                var channelname = $.trim($("#channelname").val());
                 var channeltype = $("#channeltype option:selected").val();
                 var channelsize = $("#channelsize option:selected").val();
-                var description = $("#description").val();
+                var description = $.trim($("#description").val());
+                var sub_account = $.trim($("#sub_account").val());
+                var sub_password = $.trim($("#sub_password").val());
                 var channelid = $(this).attr("data-id");
                 $.ajax({
                     type: "POST",
                     url: "index.php?m=channel&a=editchannel",
-                    data: {channelname:channelname,channeltype:channeltype,channelsize:channelsize,description:description,channelid:channelid},
+                    data: {channelname:channelname,
+                        channeltype:channeltype,
+                        channelsize:channelsize,
+                        description:description,
+                        channelid:channelid, 
+                        sub_account:sub_account, 
+                        sub_password:sub_password, 
+                    },
                     cache: false,
                     dataType: 'json',
                     success: function (data) {
                         if (data.data == "success") {
-                            var value = data.info;
-                            var html = '';
-                            html = '<tr>'+
-                            '<td>'+value.channelname+'</td>'+
-                            '<td>'+value.createtime+'</td>'+
-                            '<td>'+value.channeltype+'</td>'+
-                            '<td>'+value.channelsize+'</td>'+
-                            '<td>'+value.description+'</td>'+
-                            '<td><a href="/index.php?m=channel&a=channeldetail&id='+value.channelid+'">编辑</a> &nbsp;<a href="javascript:" onclick="deleteChannel('+value.channelid+');" id="delete-'+value.channelid+'">删除</a></td>'+
-                            '</tr>';
-                            $(html).insertBefore("#channelcontainer");
                             notify('数据更新成功', 'success');
                             setTimeout(function () {
                                 location.href = '/channel/';

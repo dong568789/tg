@@ -6,8 +6,19 @@ class RechargeAction extends CommonAction {
 
     public function index(){
         $this->logincheck();
-        $Index = D('Recharge');   //默认显示该推广用户充值情况
-        $this->assign('channel',$Index->channel());
+
+        if($this->userpid=='0'){
+            $channelmodel = M('tg_channel');
+
+            // 母账号,获取渠道列表
+            $userid = $_SESSION['userid'];
+            $map = array();
+            $map['userid'] =$userid;
+            $map["activeflag"] = 1;
+            $channel = $channelmodel->where($map)->select();
+            $this->assign('channel',$channel);
+        }
+       
         $this->display();
     }
 
@@ -22,24 +33,26 @@ class RechargeAction extends CommonAction {
         $startdate = $_POST["startdate"];
         $enddate = $_POST["enddate"];
 
-        $allusermodel = M("all_user");
         $paymodel = M("all_pay");
         $sourcemodel = M("tg_source");
-
-        $condition["S.userid"] = $userid;
+        $allusermodel = M("all_user");
+        
+        $condition = array(); //条件
 
         //根据渠道的 游戏列表
-        $gameresult = array();
+        // 渠道条件
+        $gameresult = array(); //游戏列表
         if (isset($channelid) && $channelid > 0) {
             $condition["S.channelid"] = $channelid;
             $condition["S.activeflag"] = 1;
             
-            $sourcecondition["S.userid"] = $userid;
+            $sourcecondition = array();
             $sourcecondition["S.channelid"] = $channelid;
             $sourcecondition["S.activeflag"] = 1;
             $sourcecondition["G.activeflag"] = 1;
             $sourcecondition["G.isonstack"] = 0;
             $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
+
             if ($gamelist) {
                 foreach ($gamelist as $k => $v) {
                     $checkstate='';
@@ -55,15 +68,16 @@ class RechargeAction extends CommonAction {
                 array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
             }
         } else {
+            $condition["S.userid"] = $userid;
             array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
         }
-
+        
+        // 游戏条件
         if (isset($gameid) && $gameid > 0) {
-            $gamemodel = M('tg_game');
-            $onegame = $gamemodel->where("gameid = '$gameid'")->find();
-            $condition["D.gameid"] = $onegame['sdkgameid'];
+            $condition["S.gameid"] = $gameid;
         }
 
+        // 时间条件
         if ((isset($startdate) && $startdate != "") && (isset($enddate) && $enddate != "")) {
             $newstart = strtotime($startdate);
             $newend = strtotime($enddate);
@@ -72,6 +86,7 @@ class RechargeAction extends CommonAction {
             $condition["D.create_time"]  = array(array('egt',$strat),array('elt',$end),'and');
         }
 
+        // 充值用户条件
         if ((isset($account) && $account != "" && $account != null)) {
             // 支持模糊搜索
             $userall = $allusermodel->field('username')->where('username like "%'.$account.'%" OR email="'.$account.'" OR mobile = "'.$account.'"')->select();
@@ -83,52 +98,53 @@ class RechargeAction extends CommonAction {
 
             $condition["D.username"] = array('in',$userall_atr);
         }
+        
+        // 并且 用户的注册渠道 也是当前用户的渠道
+        if (isset($this->userpid) && $this->userpid > 0) {
+            // 获取该子账号渠道的的资源
+            $source = $sourcemodel->where(" channelid='$channelid' ")->select();
+        }else{
+            // 获取该用户该渠道的的资源
+            $source = $sourcemodel->where("userid = '{$userid}' ")->select();
+        }
+        $sourcelist = array();
+        foreach($source as $k => $v){
+            $sourcelist[] = $v["sourcesn"];
+        }
+        $condition['D.regagent'] = array('in',$sourcelist);
+
         $condition['D.status'] = 1;
         $condition['_logic'] = 'AND';
 
-        // 根据 用户的消费渠道 提取相关数据
+        // 没有搜索用户的情况，不需要关连all_user表，所以放在前面的条件判断中
+        // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
         $pay = $paymodel->alias("D")
                     ->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT")
                     ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
-                    ->join(C('DB_PREFIX')."tg_game G on G.sdkgameid = D.gameid AND G.gameid = S.gameid", "LEFT")
+                    ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
                     ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
                     ->field('D.orderid,D.regagent,D.agent,D.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname')
                     ->where($condition)
                     ->select();
 
-        $source = $sourcemodel->where("userid = '$userid'")->select();
-        $sourcelist = array();
-        foreach($source as $k => $v){
-            $sourcelist[] = $v["sourcesn"];
-        }
-        // 并且 用户的注册渠道 也是当前用户的渠道
-        foreach($pay as $k1 => $v1){
-            if((in_array($v1['agent'],$sourcelist)) && (in_array($v1['regagent'],$sourcelist))){
-                $v = $v1;
-                $newpay[] = $v;
-            }
-        }
-        
-        $result = array();
+        $result = array(); //返回结果
         $result["game"] = $gameresult;//根据渠道的 游戏列表
         $result["allmoney"] = 0; //总金额
         $result["getmoney"] = array();  //支付列表
-        if ($newpay) {
-            $data = array();
-            foreach($newpay as $k => $v){
-                $newpay[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);
+        if ($pay) {
+            foreach($pay as $k => $v){
+                $pay[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);
                 if ($v['status'] == 1) {
-                    $newpay[$k]['statusStr'] = "<span style='color:#F00'>成功</span>";
+                    $pay[$k]['statusStr'] = "<span style='color:#F00'>成功</span>";
                 } else if ($v['status'] == 2) {
-                    $newpay[$k]['statusStr'] = "<span style='color:#F00'>失败</span>";
+                    $pay[$k]['statusStr'] = "<span style='color:#F00'>失败</span>";
                 }  else if ($v['status'] == 0) {
-                    $newpay[$k]['statusStr'] = "待支付";
+                    $pay[$k]['statusStr'] = "待支付";
                 }
 
                 $result['allmoney'] += $v["amount"];
             }
-
-            $result["getmoney"] = $newpay;
+            $result["getmoney"] = $pay;
 
             $this->ajaxReturn($result,'success',1);
             exit();

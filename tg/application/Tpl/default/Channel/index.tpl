@@ -44,6 +44,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                         <th>渠道类型</th>
                                         <th>日均流量</th>
                                         <th style="width: 20%;">渠道介绍</th>
+                                        <th style="width: 20%;">子账号</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -55,6 +56,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                         <td><{$vo['channeltype']}></td>
                                         <td><{$vo['channelsize']}></td>
                                         <td><{$vo['description']}></td>
+                                        <td><{$vo['sub_account']}></td>
                                         <td>
                                             <if condition="$vo['channelname'] neq $defaultChannelname ">
                                                 <a href="/index.php?m=channel&a=channeldetail&id=<{$vo['channelid']}>">编辑</a>

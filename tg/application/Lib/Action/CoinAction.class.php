@@ -8,9 +8,11 @@ class CoinAction extends CommonAction {
         $this->logincheck();
 		$userid = $_SESSION["userid"];
 
+		// 用户信息
 		$userModel= M('tg_user');
 		$user = $userModel->field('userid,account,coinpreauth')->find($userid);
 
+		// 充值记录
 		$logModel= M('coin_recharge');
 		$condition["L.ffusername"] = "tg_".$user["account"];
 		$coinlog = $logModel->alias('L')
@@ -40,8 +42,13 @@ class CoinAction extends CommonAction {
 		$condition['_logic'] = 'OR';
 		$user = $userModel->field('agent,username,email,mobile')->where($condition)->find();
 
+		// 自己的渠道
 		$sourceModel = M('tg_source');
-		$sourcecondition["userid"] = $rechargeuserid;
+		if(isset($this->userpid) && $this->userpid>0){ //子账号
+			$sourcecondition["channelid"] = $this->channelid;
+		}else {
+			$sourcecondition["userid"] = $rechargeuserid;
+		}
 		$sourcecondition["activeflag"] = 1;
 		$source = $sourceModel->where($sourcecondition)->select();
 		$sourcelist = array();

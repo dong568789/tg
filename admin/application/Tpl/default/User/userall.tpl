@@ -44,6 +44,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th data-column-id="bindmobile" data-visible="false">绑定手机</th>
                                             <th data-column-id="bindemail" data-visible="false">绑定邮箱</th>
                                             <th data-column-id="usertype">会员类型</th>
+                                            <th data-column-id="issubuser">母账号</th>
                                             <th data-column-id="realname">联系人名字</th>
 											<th data-column-id="contactmobile">联系电话</th>
                                             <th data-column-id="companyname">公司名字</th>
@@ -64,12 +65,17 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                                 <td><{$vo['bindmobile']}></td>
                                                 <td><{$vo['bindemail']}></td>
 												<if condition = "$vo['usertype'] eq 1">
-												<td>个人</td>
-												<elseif condition = "$vo['usertype'] eq 2"/>
-												<td>公司</td>
-												<else/>
-												<td>未知</td>
+    												<td>个人</td>
+    											<elseif condition = "$vo['usertype'] eq 2"/>
+    												<td>公司</td>
+    											<else/>
+    												<td>未知</td>
 												</if>
+                                                <if condition = "$vo['pid'] gt 0">
+                                                    <td><{$vo['paccount']}></td>
+                                                <else/>
+                                                    <td></td>
+                                                </if>
                                                 <td><{$vo['realname']}></td>
 												<td><{$vo['contactmobile']}></td>
                                                 <td><{$vo['companyname']}></td>

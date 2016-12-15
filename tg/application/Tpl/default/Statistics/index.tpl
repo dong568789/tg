@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <!--[if IE 9 ]><html class="ie9"><![endif]-->
 <?php
-	$page_title = "数据统计";
-	$page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
-	$page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
-	$page_css[] = "public/css/statistics.css";
+$page_title = "数据统计";
+$page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css";
+$page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
+$page_css[] = "vendors/bower_components/jpages/css/jPages.css";
+$page_css[] = "vendors/bower_components/jpages/css/animate.css";
+$page_css[] = "vendors/bower_components/jpages/css/github.css";
+$page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
 ?>
 <include file="Inc:head" />
 <body>
@@ -13,11 +16,12 @@
 <section id="main" data-layout="layout-1">
     <include file="Inc:sidemenuconfig" />
     <?php
-		//个人资料页面用$profile_nav
-		//功能页面用$page_nav
-		$page_nav["数据统计"]["active"] = true;
+        //个人资料页面用$profile_nav
+        //功能页面用$page_nav
+	    $page_nav["数据统计"]["active"] = true;
     ?>
     <include file="Inc:sidemenu" />
+
     <section id="content">
         <div class="container">
             <!--内容-->
@@ -27,26 +31,62 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="card">
+                    <div class="card p-b-25">
                         <div class="card-header ch-alt text-center">
                         </div>
+
                         <div class="card-body">
-                            <div class="p-20">
-                                <div class="row" style="position: relative;top:30px;left: 28%;width: 40%;">
-                                    <div class="">
-                                        <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
-                                            <option value="0">选择渠道</option>
-                                            <foreach name="channel" item="vo" key="k">
-                                                <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
-                                            </foreach>
-                                        </select>
-                                    </div>
-                                    <div class="" style="position: relative;left: 1%;">
-                                        <select class="btn btn-default dropdown-menu f-14" id="gameselect">
-                                            <option value="0">选择游戏</option>
-                                        </select>
+                            <div id="data-table-basic-header" class="bootgrid-header container-fluid p-b-0 m-b-0">
+
+                                <div class="actionBar" >
+                                    <div class="col-sm-4 p-0">
+                                        <button class="btn btn-default  m-r-5" id="currentmonth" style="text-transform: none;">本月</button>
+                                        <button class="btn btn-default m-r-5" id="latestweek" style="text-transform: none;">最近7天</button>
+                                        <button class="btn btn-default" id="latestmonth" style="text-transform: none;">最近30天</button>
+                                        <input type="hidden" name="choose-time" id="choose-time" value="">
                                     </div>
 
+                                    <div class="col-sm-4 p-0">
+                                        <if condition="$userpid eq 0">
+                                            <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
+                                                <option value="0">选择渠道</option>
+                                                <foreach name="channel" item="vo" key="k">
+                                                    <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
+                                                </foreach>
+                                            </select>
+                               
+                                            <select class="btn btn-default dropdown-menu f-14 m-l-20" id="gameselect">
+                                                <option value="0">选择游戏</option>
+                                            </select>
+
+                                            <div class="clear"></div>
+                                        <else />
+                                            <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>"> 
+
+                                            <select class="btn btn-default dropdown-menu f-14" id="gameselect">
+                                                <option value="0">选择游戏</option>
+                                                <foreach name="channelgame" item="vo" key="k">
+                                                    <option value="<{$vo['gameid']}>"><{$vo['gamename']}></option>
+                                                </foreach>
+                                            </select>
+                                            <div class="clear"></div>
+                                        </if>
+                                    </div>
+
+                                    <div class="daterange form-group pull-right">
+                                        <div class="input-group">
+                                            <span class="zmdi input-group-addon zmdi-calendar"></span>
+                                            <input class="search-field form-control" placeholder="请选择日期" name="daterange" id="daterange" readonly="true" type="text"><a id="viewdaterange" class="input-group-addon btn-info">查看</a>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>     
+                                </div>
+                            </div>
+                    
+                            <div class="p-20" style="min-height: 100px;">
+                                <div id="loading" class="col-sm-12 text-center" style="display: none;">
+                                    <img src="__ROOT__/plus/public/img/progress.gif" alt=""/>
+                                    <p class="m-t-10">正在加载数据，请稍后</p>
                                 </div>
 
                                 <div class="table-responsive">
@@ -61,21 +101,16 @@
 												<th data-column-id="gamename" >游戏名字</th>
 												<th data-column-id="channelname" >渠道名字</th>
 												<th data-column-id="dailyjournal" >每日流水</th>
-												<th data-column-id="dailyincome" >每日收入</th>
+                                                <if condition="$userpid gt 0" >
+                                                    <th data-column-id="sub_dailyincome" >每日收入</th>
+                                                <else />
+                                                    <th data-column-id="dailyincome" >每日收入</th>
+                                                </if>
 											</tr>
                                         </thead>
                                         <tbody id="statisticcontainer">
                                         <foreach name="data" item="vo" key="k">
                                             <tr>
-                                                <td><{$vo['date']}></td>
-                                                <td><{$vo['dailyactive']}></td>
-                                                <td><{$vo['newpeople']}></td>
-                                                <td><{$vo['paypeople']}></td>
-												<td><{$vo['payrate']}></td>
-                                                <td><{$vo['gamename']}></td>
-                                                <td><{$vo['channelname']}></td>
-                                                <td><{$vo['dailyjournal']}></td>
-												<td><{$vo['dailyincome']}></td>
                                             </tr>
                                         </foreach>
                                         </tbody>
@@ -93,35 +128,99 @@
 <include file="Inc:footer" />
 <include file="Inc:scripts" />
 
+<script src="__ROOT__/plus/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+<script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/jpages/js/jPages.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
 <script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
 
+<style>
+    .table > thead > tr > td.info, .table > tbody > tr > td.info, .table > tfoot > tr > td.info, .table > thead > tr > th.info, .table > tbody > tr > th.info, .table > tfoot > tr > th.info, .table > thead > tr.info > td, .table > tbody > tr.info > td, .table > tfoot > tr.info > td, .table > thead > tr.info > th, .table > tbody > tr.info > th, .table > tfoot > tr.info > th {
+        background-color: #fff;
+    }
+    .clear{
+        clear: both;
+    }
+</style>
 <script type="text/javascript">
-    $(document).ready(function() {
-        function notify(message, type){
-            $.growl({
-                message: message
-            },{
-                type: type,
-                allow_dismiss: false,
-                label: '取消',
-                className: 'btn-xs btn-inverse',
-                placement: {
-                    from: 'top',
-                    align: 'right'
-                },
-                delay: 3000,
-                animate: {
-                    enter: 'animated bounceIn',
-                    exit: 'animated bounceOut'
-                },
-                offset: {
-                    x: 20,
-                    y: 85
-                }
-            });
+    function notify(message, type){
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: '取消',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            delay: 3000,
+            animate: {
+                enter: 'animated bounceIn',
+                exit: 'animated bounceOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
+    }
+
+    // 搜索
+    function search_page () {
+        var date = $('#daterange').val();
+        if (date != "") {
+            var startdate = date.substr(0, 10);
+            var enddate = date.substr(-10, 10);
+        } else {
+            var startdate = "";
+            var enddate = "";
         }
+	    var choose_time = $('#choose-time').val();
+        var channelid = $('#channelselect').val();
+        var gameid = $('#gameselect').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=statistics&a=search",
+            data: {channelid:channelid, gameid:gameid, startdate:startdate, enddate:enddate,choose_time:choose_time},
+            cache: false,
+            dataType: 'json',
+            beforeSend: function () {
+                $(".table-responsive").hide();
+                $("#data-table-basic-footer").hide();
+                $("#loading").show();
+            },
+            success: function (data) {
+                // console.log(data);
+                $("#loading").hide();
+                $(".table-responsive").show();
+                $("#data-table-basic-footer").show();
+                $("#data-table-basic").bootgrid("clear");
+                if (data.info == "success") {
+                    $("#data-table-basic").bootgrid("append", data.data.daily);
+                    $('#gameselect').html("");
+                    $('#gameselect').html(data.data.game);
+                } else {
+                    $('#statisticcontainer').html("");
+                    $('#gameselect').html("");
+                    $('#gameselect').html(data.data.game);
+                
+                    notify('没有符合条件的数据', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#choose-time').val('');
         $("#data-table-basic").bootgrid({
             css: {
                 icon: 'zmdi',
@@ -141,15 +240,9 @@
                 }
             },
             templates: {
-                header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 p-b-25 actionBar\">" +
-                "<div class='col-sm-4'><button class='btn btn-default  m-r-5' id='currentmonth'>本月</button>" +
-                "<button class='btn btn-default m-r-5' id='latestweek'>最近7天</button>" +
-                "<button class='btn btn-default' id='latestmonth'>最近30天</button></div>" +
-                "<div class=\"daterange form-group pull-right\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查看</a></div></div>" +
-                "</div></div></div>"
+                header: ""
             }
         });
-
 
         $('#daterange').daterangepicker({
             format: 'YYYY-MM-DD',
@@ -162,164 +255,38 @@
             locale: moment.locale('zh-cn')
         });
 
+        window.onload=function() {
+            search_page();
+        };
+
         $('#viewdaterange').click(function() {
-            var date = $('#daterange').val();
-            if (date != "") {
-                var start = date.substr(0, 10);
-                var end = date.substr(-10, 10);
-            }
-            var channelid = $('#channelselect').val();
-            var gameid = $('#gameselect').val();
-            refreshPage(channelid, gameid, start, end, 1);
+            search_page();
         });
-
-
-        function refreshPage (channel, game, start, end, ischannelselect) {
-            $.ajax({
-                type: "POST",
-                url: "/index.php?m=statistics&a=refresh",
-                data: {channelid:channel, gameid:game, startdate:start, enddate:end, ischannel:ischannelselect},
-                cache: false,
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    if (data.info == "success") {
-                        $("#data-table-basic").bootgrid("clear");
-                        $("#data-table-basic").bootgrid("append", data.data.daily);
-                        if (ischannelselect == 1) {
-                            $('#gameselect').html("");
-                            $('#gameselect').html(data.data.game);
-                        }
-                    } else {
-                        $('#statisticcontainer').html("");
-                        if (ischannelselect == 1) {
-                            $('#gameselect').html("");
-                            $('#gameselect').html(data.data.game);
-                        }
-                        notify('没有符合条件的数据', 'danger');
-                    }
-                    return false;
-                },
-                error : function (xhr) {
-                    notify('系统错误！', 'danger');
-                    return false;
-                }
-            });
-
-        }
-
-
+        $('#searchRecharge').click(function() {
+            search_page();
+        });
         $('#channelselect').change(function(){
-            var channelid = $('#channelselect').val();
-            var gameid = 0;
-            var date = $('#daterange').val();
-            if (date != "") {
-                var startdate = date.substr(0, 10);
-                var enddate = date.substr(-10, 10);
-            } else {
-                var startdate = "";
-                var enddate = "";
-            }
-            refreshPage(channelid, gameid, startdate, enddate, 1);
+            search_page();
         });
-
         $('#gameselect').change(function(){
-            var channelid = $('#channelselect').val();
-            var gameid = $('#gameselect').val();
-            var date = $('#daterange').val();
-            if (date != "") {
-                var startdate = date.substr(0, 10);
-                var enddate = date.substr(-10, 10);
-            } else {
-                var startdate = "";
-                var enddate = "";
-            }
-            refreshPage(channelid, gameid, startdate, enddate, 0);
+            search_page();
         });
-
         $('#latestmonth').click(function(){
-            var channelid = $('#channelselect').val();
-            var gameid = $('#gameselect').val();
-            var seperator1 = "-";
-            var startDate = new Date();
-            startDate.setDate(startDate.getDate() - 30);
-            var startmonth = startDate.getMonth() + 1;
-            var startstrDate = startDate.getDate();
-            if (startmonth >= 1 && startmonth <= 9) {
-                startmonth = "0" + startmonth;
-            }
-            if (startstrDate >= 0 && startstrDate <= 9) {
-                startstrDate = "0" + startstrDate;
-            }
-            var startdate = startDate.getFullYear() + seperator1 + startmonth + seperator1 + startstrDate;
-            var endDate = new Date();
-            var endmonth = endDate.getMonth() + 1;
-            var endstrDate = endDate.getDate();
-            if (endmonth >= 1 && endmonth <= 9) {
-                endmonth = "0" + endmonth;
-            }
-            if (endstrDate >= 0 && endstrDate <= 9) {
-                endstrDate = "0" + endstrDate;
-            }
-            var enddate = endDate.getFullYear() + seperator1 + endmonth + seperator1 + endstrDate;
-            refreshPage(channelid, gameid, startdate, enddate, 0);
+            $('#choose-time').val('thirtyday');
+            $('#daterange').val('');
+            search_page();
         });
 
         $('#latestweek').click(function(){
-            var channelid = $('#channelselect').val();
-            var gameid = $('#gameselect').val();
-            var seperator1 = "-";
-            var startDate = new Date();
-            startDate.setDate(startDate.getDate() - 7);
-            var startmonth = startDate.getMonth() + 1;
-            var startstrDate = startDate.getDate();
-            if (startmonth >= 1 && startmonth <= 9) {
-                startmonth = "0" + startmonth;
-            }
-            if (startstrDate >= 0 && startstrDate <= 9) {
-                startstrDate = "0" + startstrDate;
-            }
-            var startdate = startDate.getFullYear() + seperator1 + startmonth + seperator1 + startstrDate;
-            var endDate = new Date();
-            var endmonth = endDate.getMonth() + 1;
-            var endstrDate = endDate.getDate();
-            if (endmonth >= 1 && endmonth <= 9) {
-                endmonth = "0" + endmonth;
-            }
-            if (endstrDate >= 0 && endstrDate <= 9) {
-                endstrDate = "0" + endstrDate;
-            }
-            var enddate = endDate.getFullYear() + seperator1 + endmonth + seperator1 + endstrDate;
-            refreshPage(channelid, gameid, startdate, enddate, 0);
+            $('#choose-time').val('sevenday');
+            $('#daterange').val('');
+            search_page();
         });
         //本月
         $('#currentmonth').click(function(){
-            var channelid = $('#channelselect').val();
-            var gameid = $('#gameselect').val();
-            var seperator1 = "-";
-            var startDate = new Date();
-            startDate.setDate(1);
-            var startmonth = startDate.getMonth() + 1;
-            var startstrDate = startDate.getDate();
-            if (startmonth >= 1 && startmonth <= 9) {
-                startmonth = "0" + startmonth;
-            }
-            if (startstrDate >= 0 && startstrDate <= 9) {
-                startstrDate = "0" + startstrDate;
-            }
-            var startdate = startDate.getFullYear() + seperator1 + startmonth + seperator1 + startstrDate;
-            var endDate = new Date();
-            var endmonth = endDate.getMonth() + 1;
-            var endstrDate = endDate.getDate();
-            if (endmonth >= 1 && endmonth <= 9) {
-                endmonth = "0" + endmonth;
-            }
-            if (endstrDate >= 0 && endstrDate <= 9) {
-                endstrDate = "0" + endstrDate;
-            }
-
-            var enddate = endDate.getFullYear() + seperator1 + endmonth + seperator1 + endstrDate;
-            refreshPage(channelid, gameid, startdate, enddate, 0);
+            $('#choose-time').val('currentmonth');
+            $('#daterange').val('');
+            search_page();
         });
 
         //下拉框区分大小写

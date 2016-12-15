@@ -97,11 +97,11 @@ $page_css[] = "myjs/myjs.css";
 											<br>
 											<span class="text-muted f-14">
 												<if condition = "$user['invoicetype'] eq 1">
-													开普通发票(税点 6.72%)
+													开普通发票(对于我们来说：税点 6.72%)()
 												<elseif condition = "$user['invoicetype'] eq 2" />
-													开3%增值税发票(税点 3%)
+													开3%增值税发票(对于我们来说：税点 3.36%)
 												<elseif condition = "$user['invoicetype'] eq 3" />
-													开6%增值税发票(税点 6%)
+													开6%增值税发票(对于我们来说：税点 0%)
 												<else />
 													不开发票
 												</if>

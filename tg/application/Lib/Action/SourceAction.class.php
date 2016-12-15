@@ -6,19 +6,32 @@ class SourceAction extends CommonAction {
 
     public function index(){
         $this->logincheck();
+
         $Index = D("Source");
-        $game = $Index->index();
-        $this->assign('category',$game['category']);
-        $this->assign('tag',$game['tag']);
-        $this->assign('channel',$game['channel']);
-        $this->assign('gamestr',$game['gamestr']);
-        $this->assign('sourcestr',$game['sourcestr']);//我的推广
-        $this->display();
+        if(isset($this->userpid) && $this->userpid>0){ //子账号
+        	$game = $Index->indexson();
+	        $this->assign('sourcestr',$game['sourcestr']);//我的推广
+	        $this->assign('userchannelid',$this->userchannelid);//子账号的channelid 	
+
+        	$this->display('indexson');
+        }else{
+	        $game = $Index->index();
+	        $this->assign('category',$game['category']);
+	        $this->assign('tag',$game['tag']);
+	        $this->assign('channel',$game['channel']);
+	        $this->assign('gamestr',$game['gamestr']);
+	        $this->assign('sourcestr',$game['sourcestr']);//我的推广
+	        $this->display();
+        }
     }
 
-	 //申请
+	//申请
     public function applyGame(){
 		$this->logincheck();
+		if (!$this->isPost()){
+			$this->ajaxReturn('fail',"非法访问",0);
+		}
+
 		$gameid = $_POST["game"];
 		$channelid = $_POST["channel"];
         $userid = $_SESSION['userid'];
@@ -406,6 +419,9 @@ class SourceAction extends CommonAction {
     //游戏分类筛选，以及渠道筛选
     public function selectGame(){
         $this->logincheck();
+        if (!$this->isPost()){
+			$this->ajaxReturn('fail',"非法访问",0);
+		}
         $gametype = $_POST['gametype'];
         $gamecategory = $_POST['gamecategory'];
         $gamesize = $_POST['gamesize'];
@@ -425,6 +441,9 @@ class SourceAction extends CommonAction {
     //搜索游戏
     public function searchGame(){
         $this->logincheck();
+        if (!$this->isPost()){
+			$this->ajaxReturn('fail',"非法访问",0);
+		}
         $content = $_POST['content'];
 		$channelid = $_POST['channelid'];
         $Index = D("Source");
@@ -442,6 +461,9 @@ class SourceAction extends CommonAction {
     //搜索资源
     public function searchMygame(){
         $this->logincheck();
+        if (!$this->isPost()){
+			$this->ajaxReturn('fail',"非法访问",0);
+		}
         $content = $_POST['content'];
         $channelid = $_POST['channelid'];
         $Index = D("Source");
@@ -460,6 +482,9 @@ class SourceAction extends CommonAction {
 	//tab2选择渠道进行搜索
     public function selectSource(){
         $this->logincheck();
+        if (!$this->isPost()){
+			$this->ajaxReturn('fail',"非法访问",0);
+		}
         $channelid = $_POST['channelid'];
         $Index = D("Source");
         $gamestr = $Index->selectSource($channelid);
@@ -552,7 +577,94 @@ class SourceAction extends CommonAction {
         $this->display();
     }
 
+    // 自定义子账号的费率
+    public function defineRate(){
+    	$this->logincheck();
 
+    	// 如果是子账号没有进入这里的权限
+        if(isset($this->userpid) && $this->userpid>0){
+            Header("Location: /source/ ");
+            exit();
+        }
+
+    	$sourceid = $_GET['sourceid'];
+
+    	$sourceModel = M('tg_source');
+    	//获取该资源的相关信息
+    	$where = array('id' => $sourceid );
+    	$source = $sourceModel->alias('S')
+    			->join(C('DB_PREFIX').'tg_channel as C on S.channelid=C.channelid','left')
+    			->join(C('DB_PREFIX').'tg_game as G on S.gameid=G.gameid','left')
+    			->join(C('DB_PREFIX').'tg_user as U on S.channelid=U.channelid','left')
+    			->field('S.id,S.sourcesharerate,S.sourcechannelrate,S.sub_share_rate,S.sub_channel_rate,C.channelname,G.gamename,U.account')
+    			->where($where)
+    			->find();
+
+    	$this->assign('source',$source);
+    	$this->display();
+    }
+
+    public function defineRateHandle(){
+    	if (!$this->isAjax()){
+    		$this->ajaxReturn("fail",'非法访问',0);
+    	}
+
+		$sourceid = $_POST['sourceid'];
+		$sub_share_rate = trim($_POST['sub_share_rate']);
+		$sub_channel_rate = trim($_POST['sub_channel_rate']);
+
+		$sourceModel= M('tg_source');
+
+		if(!isset($sub_channel_rate)){
+            $this->ajaxReturn("fail",'分成比例不能为空',0);
+        }
+        if(!isset($sub_channel_rate)){
+            $this->ajaxReturn("fail",'渠道费不能为空',0);
+        }
+
+       	$reg = '/^0|([0-9]+.?[0-9]*)$/';
+       	if(!preg_match($reg,$sub_channel_rate)){
+       		$this->ajaxReturn("fail",'分成比例必须为大于0小于1的小数',0);
+       	}
+       	if(!preg_match($reg,$sub_channel_rate)){
+       		$this->ajaxReturn("fail",'渠道费必须为大于0小于1的小数',0);
+        }
+
+        //获取原来的资源信息
+        $where = array('id'=>$sourceid);
+        $oldsource = $sourceModel->field('sourcesharerate,sourcechannelrate,sub_share_rate,sub_channel_rate,channelid,gameid')->where($where)->find();
+
+        //分成比例不能母账号的大
+        if($sub_share_rate > $oldsource['sourcesharerate']){
+        	$this->ajaxReturn("fail",'子账号的分成比例不能大于母账号的分成比例',0);
+        }	
+
+        // 保存子账号资源费率
+     	$data = array();
+		$data["sub_share_rate"] = $sub_share_rate;
+		$data["sub_channel_rate"] = $sub_channel_rate;
+		$source = $sourceModel->where($where)->save($data);
+
+		if ($source!==false) {
+	        $channelid = $oldsource['channelid'];
+	        $gameid = $oldsource['gameid'];
+
+	        $channelmodel =  M('tg_channel');
+	        $channel = $channelmodel->alias('C')
+	        		->join(C('DB_PREFIX').'tg_user as U on U.channelid=C.channelid','left')
+	        		->field('C.channelname,U.account')
+	        		->where("C.channelid = '$channelid'")
+	        		->find();
+
+	        $gameModel = M('tg_game');
+	        $game = $gameModel->field('gamename')->where("gameid = '$gameid'")->find();
+
+            $this->insertLog($_SESSION['account'],'自定义子账号资源费率', 'SourceAction.class.php', 'defineRateHandle', $time, $_SESSION['account']."编辑了子账户“".$channel['account']."”的渠道名为“".$channel['channelname']."”游戏名为“".$game['gamename']."”，分成比例由“".$oldsource['sub_share_rate']."变为".$data["sub_share_rate"] ."”，通道费由“".$oldsource['sub_channel_rate']."变为".$data['sub_channel_rate']."”");
+            $this->ajaxReturn('success',"成功。",1);
+		} else {
+			$this->ajaxReturn('fail','出现一个错误，请联系管理员。',0);
+		}
+    }
 
 
 }

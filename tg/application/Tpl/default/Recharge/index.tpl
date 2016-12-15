@@ -18,9 +18,10 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 <section id="main" data-layout="layout-1">
     <include file="Inc:sidemenuconfig" />
     <?php
-    //功能页面用$page_nav
-    $page_nav["用户查询"]["active"] = true;
-    $page_nav["用户查询"]["sub"]["充值查询"]["active"] = true;
+	    //个人资料页面用$profile_nav
+    	//功能页面用$page_nav
+    	$page_nav["用户查询"]["active"] = true;
+    	$page_nav["用户查询"]["sub"]["充值查询"]["active"] = true;
     ?>
     <include file="Inc:sidemenu" />
 
@@ -37,41 +38,61 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                         <div class="card-header ch-alt text-center">
                         </div>
                         <div class="card-body ">
-                            <div class="row p-20">
-                                <div id="data-table-basic-header" class="bootgrid-header container-fluid">
-                                    <div class="actionBar">
-                                        <div class="search form-group col-sm-9 m-0 p-l-0">
-                                            <div class="input-group">
-                                                <span class="zmdi icon input-group-addon glyphicon-search"></span>
-                                                <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
-                                            </div>
+                            <div id="data-table-basic-header" class="bootgrid-header container-fluid p-b-0 m-b-0">
+                                <div class="actionBar">
+                                    <div class="search form-group col-sm-9 m-0 p-l-0">
+                                        <div class="input-group">
+                                            <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                            <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
                                         </div>
-                                        <div class="actions btn-group">
-                                            <div class="dropdown btn-group">
-                                                <a class="btn btn-default" href="javascript:void(0);" id="searchRecharge">搜索</a>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-primary pull-right" id="export" data-result="">导出EXCEL</button>
                                     </div>
+                                    <div class="actions btn-group">
+                                        <div class="dropdown btn-group">
+                                            <a class="btn btn-default" href="javascript:void(0);" id="searchRecharge">搜索</a>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary pull-right" id="export" data-result="">导出EXCEL</button>
                                 </div>
 
-                                <div class="" style="position: relative;left: 2%;top: 20px;">
-                                    <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
-                                        <option value="0">选择渠道</option>
-                                        <foreach name="channel" item="vo" key="k">
-                                            <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
-                                        </foreach>
-                                    </select>
-                                </div>
-                                <div class="" style="position: relative;left: 3%;top:20px;">
-                                    <select class="btn btn-default dropdown-menu f-14" id="gameselect">
-                                        <option value="0">选择游戏</option>
-                                    </select>
+                                <div class="actionBar m-t-20">
+                                    <div class="col-sm-4 p-0">
+                                        <if condition="$userpid eq 0">
+                                            <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
+                                                <option value="0">选择渠道</option>
+                                                <foreach name="channel" item="vo" key="k">
+                                                    <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
+                                                </foreach>
+                                            </select>
+                               
+                                            <select class="btn btn-default dropdown-menu f-14 m-l-20" id="gameselect">
+                                                <option value="0">选择游戏</option>
+                                            </select>
+
+                                            <div class="clear"></div>
+                                        <else />
+                                            <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>"> 
+
+                                            <select class="btn btn-default dropdown-menu f-14" id="gameselect">
+                                                <option value="0">选择游戏</option>
+                                                <foreach name="channelgame" item="vo" key="k">
+                                                    <option value="<{$vo['gameid']}>"><{$vo['gamename']}></option>
+                                                </foreach>
+                                            </select>
+                                            <div class="clear"></div>
+                                        </if>
+                                    </div>
+
+                                    <div class="daterange form-group pull-right">
+                                        <div class="input-group">
+                                            <span class="zmdi input-group-addon zmdi-calendar"></span>
+                                            <input class="search-field form-control" placeholder="请选择日期" name="daterange" id="daterange" readonly="true" type="text"><a id="viewdaterange" class="input-group-addon btn-info">查看</a>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
                             </div>
 
-                            <div class="row m-l-25"><h3 id="person">以下是账号<span id="username"></span>的充值记录</h3></div>
-                            <div  class="p-20">
+                            <div class="p-20" style="min-height: 100px;">
                                 <div id="loading" class="col-sm-12 text-center" style="display: none;">
                                     <img src="__ROOT__/plus/public/img/progress.gif" alt=""/>
                                     <p class="m-t-10">正在加载数据，请稍后</p>
@@ -95,15 +116,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                         <tbody id="rechargecontainer">
                                         <foreach name="recharge" item="vo" key="k">
                                             <tr>
-                                                <!-- <td><{$vo['orderid']}></td>
-                                                <td><{$vo['gamename']}></td>
-                                                <td><{$vo['channelname']}></td>
-                                                <td><{$vo['username']}></td>
-                                                <td><{$vo['amount']}></td>
-                                                <td><{$vo['statusStr']}></td>
-                                                <td><{$vo['serverid']}></td>
-                                                <td><{$vo['create_time']}></td>
-                                                <td><{$vo['payname']}></td> -->
+
                                             </tr>
                                         </foreach>
                                         </tbody>
@@ -133,9 +146,12 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
     .table > thead > tr > td.info, .table > tbody > tr > td.info, .table > tfoot > tr > td.info, .table > thead > tr > th.info, .table > tbody > tr > th.info, .table > tfoot > tr > th.info, .table > thead > tr.info > td, .table > tbody > tr.info > td, .table > tfoot > tr.info > td, .table > thead > tr.info > th, .table > tbody > tr.info > th, .table > tfoot > tr.info > th {
         background-color: #fff;
     }
+    .clear{
+        clear: both;
+    }
 </style>
 <script type="text/javascript">
-    var search_data=''; //搜索之后的数据
+    var search_data=''; //搜索之后的数据，方便导出使用excel
 
     //回车绑定事件
     document.onkeydown=function(event){
@@ -176,6 +192,9 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         if (date != "") {
             var start = date.substr(0, 10);
             var end = date.substr(-10, 10);
+        } else {
+            var startdate = "";
+            var enddate = "";
         }
         var channelid = $('#channelselect').val();
         var username = $('#account').val().trim();
@@ -200,7 +219,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                 $("#data-table-basic").bootgrid("clear");
                 if (data.info == "success") {
                     $("#data-table-basic").bootgrid("append", data.data.getmoney);
-
                     $('#gameselect').html("");
                     $('#gameselect').html(data.data.game);
                     $('th[data-column-id=amount] .text').html('金额（汇总：'+data.data.allmoney+'）');
@@ -236,14 +254,9 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             formatters: {
             },
             templates: {
-                header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"p-b-25 actionBar\" style=\"position:absolute;top:122px;right: 2%;\">" +
-                "<div class=\"daterange form-group pull-right\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查询</a></div></div>" +
-                "</div></div></div>"
+                header: ""
             }
         });
-
-        $(".bootgrid-header").css("padding","0 2% 0 2%");
-        $(".bootgrid-header").css("margin","0");
 
         //综合筛选
         $('#daterange').daterangepicker({
@@ -257,6 +270,10 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             locale: moment.locale('zh-cn')
         });
 
+        window.onload=function() {
+            search_page();
+        };
+
         $('#viewdaterange').click(function() {
             search_page();
         });
@@ -269,9 +286,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         $('#gameselect').change(function(){
             search_page();
         });
-        window.onload=function() {
-            search_page();
-        };
 
         //下拉框区分大小写
         $(".btn").css("text-transform","none");

@@ -266,13 +266,14 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                         <table id="data-table-command-my" class="table table-hover table-vmiddle">
                                             <thead>
                                             <tr>
-                                                <th width="20%">游戏名称</th>
-                                                <th width="9%">游戏分类</th>
-												<th width="9%">游戏标签</th>
-												<th width="9%">热度</th>
-                                                <th width="9%">游戏包大小</th>
-												<th width="9%">分成类型</th>
-                                                <th width="9%">分成比例</th>
+                                                <th width="15%">游戏名称</th>
+                                                <th width="8%">游戏分类</th>
+												<th width="8%">游戏标签</th>
+												<th width="8%">热度</th>
+                                                <th width="8%">游戏包大小</th>
+												<th width="8%">分成类型</th>
+                                                <th width="8%">分成比例</th>
+                                                <th width="8%">子账号分成比例</th>
                                                 <th width="26%">下载游戏包</th>
                                             </tr>
                                             </thead>
@@ -443,11 +444,12 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 			$("#downloadurl").hide();
 		});
 
+        // 全部推广，筛选点击时候的效果
         $("span").click(function(){
             $(this).parent().children().children().removeClass("classify");
             $(this).children().addClass("classify");
         });
-
+        // 点击游戏类型
         $(".type").click(function() {
             var typevalue = $(this).attr('data-state');
             var categoryvalue = $(".category.classify").attr('data-state');
@@ -457,7 +459,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 			var channelid = 
             selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
         });
-
+        // 点击游戏分类
         $(".category").click(function() {
             var typevalue = $(".type.classify").attr('data-state');
             var categoryvalue = $(this).attr('data-state');
@@ -466,7 +468,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
             var channelid = $("#sourcechannel").val();
             selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
         });
-
+        // 点击大小
         $(".size").click(function() {
             var typevalue = $(".type.classify").attr('data-state');
             var categoryvalue = $(".category.classify").attr('data-state');
@@ -475,7 +477,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
             var channelid = $("#sourcechannel").val();
             selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
         });
-
+        // 点击游戏标签
         $(".tag").click(function() {
             var typevalue = $(".type.classify").attr('data-state');
             var categoryvalue = $(".category.classify").attr('data-state');
@@ -550,7 +552,8 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
             });
         });
 
-		 $("#searchGame").click(function(){
+        // 全部资源 搜索游戏
+		$("#searchGame").click(function(){
             var searchContent = $(".search-content").val();
             var searchchannelid = $("#sourcechannel").val();
             $.ajax({
@@ -572,6 +575,61 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                     } else{
                         notify(data.info, 'danger');
                         $("#gamecontainer").empty();
+                    }
+                },
+                error : function (xhr) {
+                    notify('系统错误！', 'danger');
+                    return false;
+                }
+            });
+        });
+
+        // 显示分页
+        $("#sourceholder").jPages({
+            containerID    : "gamecontainer",
+            scrollBrowse   : false,
+            perPage: 20
+        });
+
+        //TAB1选择渠道部分
+        $("#sourcechannel").change(function(){
+			var typevalue = $(".type.classify").attr('data-state');
+            var categoryvalue = $(".category.classify").attr('data-state');
+            var sizevalue = $(".size.classify").attr('data-state');
+            var tagvalue = $(".tag.classify").attr('data-state');
+            var channelid = $(this).val();
+            selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
+        });
+
+        //下拉框区分大小写
+        $(".btn").css("text-transform","none");
+		//滚动条
+		$(".table-responsive").css("overflow-x","visible");
+        $(".search-content").attr("placeholder","请输入游戏名称")
+    })
+
+    // 我的推广
+    $(function (argument) {
+        $('#tabclick-2').click(function(){
+            var thischannelid = $("#applychannel").val();
+            $.ajax({
+                type: "POST",
+                url: "/index.php?m=source&a=selectSource",
+                data: {channelid : thischannelid},
+                cache: false,
+                dataType: 'json',
+                success: function (data) {
+                    if(data.data == "success") {
+                        $("#sourcecontainer").empty();
+                        $("#sourcecontainer").append(data.info);
+                        $("#applyholder").jPages({
+                            containerID    : "sourcecontainer",
+                            scrollBrowse   : false,
+                            perPage: 20
+                        });
+                    } else{
+                        notify(data.info, 'danger');
+                        $("#sourcecontainer").empty();
                     }
                 },
                 error : function (xhr) {
@@ -612,51 +670,6 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
             });
         });
 
-        $("#sourceholder").jPages({
-            containerID    : "gamecontainer",
-            scrollBrowse   : false,
-            perPage: 20
-        });
-
-        $('#tabclick-2').click(function(){
-			var thischannelid = $("#applychannel").val();
-            $.ajax({
-                type: "POST",
-                url: "/index.php?m=source&a=selectSource",
-                data: {channelid : thischannelid},
-                cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if(data.data == "success") {
-						$("#sourcecontainer").empty();
-						$("#sourcecontainer").append(data.info);
-						$("#applyholder").jPages({
-							containerID    : "sourcecontainer",
-							scrollBrowse   : false,
-							perPage: 20
-						});
-					} else{
-						notify(data.info, 'danger');
-						$("#sourcecontainer").empty();
-					}
-				},
-				error : function (xhr) {
-					notify('系统错误！', 'danger');
-					return false;
-				}
-            });
-        });
-
-        //TAB1选择渠道部分
-        $("#sourcechannel").change(function(){
-			var typevalue = $(".type.classify").attr('data-state');
-            var categoryvalue = $(".category.classify").attr('data-state');
-            var sizevalue = $(".size.classify").attr('data-state');
-            var tagvalue = $(".tag.classify").attr('data-state');
-            var channelid = $(this).val();
-            selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
-        });
-
         //TAB2选择渠道部分
         $("#applychannel").change(function(){
             var thischannelid = $(this).val();
@@ -665,30 +678,22 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                 url: "/index.php?m=source&a=selectSource",
                 data: {channelid : thischannelid},
                 cache: false,
-				dataType: 'json',
-				success: function (data) {
-					if(data.data == "success") {
-						$("#sourcecontainer").empty();
-						$("#sourcecontainer").append(data.info);
-					} else{
-						notify(data.info, 'danger');
-						$("#sourcecontainer").empty();
-					}
-				},
-				error : function (xhr) {
-					notify('系统错误！', 'danger');
-					return false;
-				}
+                dataType: 'json',
+                success: function (data) {
+                    if(data.data == "success") {
+                        $("#sourcecontainer").empty();
+                        $("#sourcecontainer").append(data.info);
+                    } else{
+                        notify(data.info, 'danger');
+                        $("#sourcecontainer").empty();
+                    }
+                },
+                error : function (xhr) {
+                    notify('系统错误！', 'danger');
+                    return false;
+                }
             });
         })
-
-
-        //下拉框区分大小写
-        $(".btn").css("text-transform","none");
-		//滚动条
-		$(".table-responsive").css("overflow-x","visible");
-        $(".search-content").attr("placeholder","请输入游戏名称")
-
     })
 </script>
 </body>

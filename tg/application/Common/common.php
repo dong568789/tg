@@ -334,4 +334,14 @@ function array2D_unique($array2D){
     }
     return $temp;
 }
+
+// 方便输出调试
+function vde($input){
+    var_dump($input);
+    exit;
+}
+// 方便输出调试
+function vd($input){
+    var_dump($input);
+}
 ?>
