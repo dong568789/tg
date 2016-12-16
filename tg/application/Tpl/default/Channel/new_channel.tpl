@@ -80,6 +80,25 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                                     </div>
 
                                     <div class="form-group m-t-25">
+                                        <label for="alipayaccount" class="col-sm-3 control-label f-15 m-t-5">子账号用户名</label>
+                                        <div class="col-sm-7">
+                                            <div class="fg-line">
+                                                <input class="form-control" name="sub_account" id="sub_account" value="<{$default_account}>"  maxlength="10"/>
+                                            </div>
+                                            <span class="tip">* 默认为这种格式，可以进行修改。保存之后不能修改</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group m-t-25">
+                                        <label for="alipayaccount" class="col-sm-3 control-label f-15 m-t-5">子账号密码</label>
+                                        <div class="col-sm-7">
+                                            <div class="fg-line">
+                                                <input class="form-control" name="sub_password" id="sub_password" maxlength="10" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group m-t-25">
                                         <div class="col-sm-12 text-center">
                                             <button type="submit" class="btn btn-primary btn-lg m-r-15" id="savechannel">保存信息</button>
                                             <a href="/channel/" type="button" class="btn btn-default btn-lg c-gray">取消</a>
@@ -126,50 +145,66 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
     }
     //新增渠道
     $(document).ready(function() {
-
+        //渠道规则
+        jQuery.validator.addMethod("checkAccount", function(value, element) {
+            var reg =  /^[0-9a-zA-Z@_]{3,20}$/;
+            return this.optional(element) || reg.test(value);
+        }, "请输入英文小写字母或数字！");
 
         $('#savechannel').click(function() {
             var $addchannel = $('#addchannel').validate({
                 rules : {
                     channelname : {
                         required : true
-                    }
+                    },
+                    sub_account : {
+                        required : true,
+                        checkAccount : true,
+                    },
+                    sub_password : {
+                        required : true,
+                        minlength : 6,
+                        maxlength : 20
+                    },
                 },
                 messages : {
                     channelname : {
-                        required : '渠道名不得为空'
-                    }
+                        required : '渠道名不能为空'
+                    },
+                    sub_account : {
+                        required : '子账号用户名不能为空',
+                        checkAccount : '子账号用户名必须由3-20字母、数字、_、@组成',
+                    },
+                    sub_password : {
+                        required : '子账号密码不能为空',
+                        minlength : '子账号密码长度为6-20位',
+                        maxlength : '子账号密码长度为6-20位'
+                    },
                 },
-
-                errorPlacement : function(error, element) {
-                    error.insertAfter(element.parent());
-                }
             });
             if ($('#addchannel').valid()) {
                 var channelname = $("#channelname").val();
                 var channeltype = $("#channeltype option:selected").val();
                 var channelsize = $("#channelsize option:selected").val();
                 var description = $("#description").val();
+                var sub_account = $.trim($("#sub_account").val());
+                var sub_password = $.trim($("#sub_password").val());
                 $.ajax({
                     type: "POST",
                     url: "index.php?m=channel&a=addchannel",
-                    data: {channelname:channelname,channeltype:channeltype,channelsize:channelsize,description:description},
+                    data: {
+                        channelname:channelname,
+                        channeltype:channeltype,
+                        channelsize:channelsize,
+                        description:description, 
+                        sub_account:sub_account, 
+                        sub_password:sub_password, 
+                    },
                     cache: false,
                     dataType: 'json',
                     success: function (data) {
                         console.log(data);
                         if (data.data == "success") {
-                            var value = data.info;
-                            var html = '';
-                            html = '<tr>'+
-                            '<td>'+value.channelname+'</td>'+
-                            '<td>'+value.createtime+'</td>'+
-                            '<td>'+value.channeltype+'</td>'+
-                            '<td>'+value.channelsize+'</td>'+
-                            '<td>'+value.description+'</td>'+
-                            '<td><a href="/index.php?m=channel&a=channeldetail&id='+value.channelid+'">编辑</a> &nbsp;<a href="javascript:" onclick="deleteChannel('+value.channelid+');" id="delete-'+value.channelid+'">删除</a></td>'+
-                            '</tr>';
-                            $(html).insertBefore("#channelcontainer");
                             notify('数据新增成功', 'success');
                             setTimeout(function () {
                                 location.href = '/channel/';

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <!--[if IE 9 ]><html class="ie9"><![endif]-->
 <?php
-	$page_title = "用户注册数实时查询";
-	$page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
-	$page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
-	$page_css[] = "public/css/statistics.css";
+$page_title = "用户注册数实时查询";
+$page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css";
+$page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
+$page_css[] = "vendors/bower_components/jpages/css/jPages.css";
+$page_css[] = "vendors/bower_components/jpages/css/animate.css";
+$page_css[] = "vendors/bower_components/jpages/css/github.css";
+$page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
+
 ?>
+
 <include file="Inc:head" />
 <body>
 <include file="Inc:logged-header" />
@@ -13,9 +18,9 @@
 <section id="main" data-layout="layout-1">
     <include file="Inc:sidemenuconfig" />
     <?php
-		//个人资料页面用$profile_nav
-		//功能页面用$page_nav
-		$page_nav["用户查询"]["active"] = true;
+	//个人资料页面用$profile_nav
+	//功能页面用$page_nav
+	$page_nav["用户查询"]["active"] = true;
         $page_nav["用户查询"]["sub"]["注册查询"]["active"] = true;
     ?>
     <include file="Inc:sidemenu" />
@@ -28,39 +33,65 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="card">
+                    <div class="card p-b-25">
                         <div class="card-header ch-alt text-center">
                         </div>
-                        <div class="card-body">
-                            <div class="p-20">
-                                <div class="row col-sm-12 m-b-25">
-                                    <div class="form-group m-t-25">
-                                        <label for="username" class="pull-left control-label f-15 m-t-5">用户名</label>
-                                        <div class="col-sm-3">
-                                            <div class="input-group-float fg-float">
-                                                <div class="fg-line">
-                                                    <input type="text" class="form-control" name="user" id="user" value="">
-                                                    <label class="fg-label">请输入用户名</label>
-                                                </div>
-                                            </div>
+                        <div class="card-body ">
+                            <div id="data-table-basic-header" class="bootgrid-header container-fluid p-b-0 m-b-0">
+                                <div class="actionBar">
+                                    <div class="search form-group col-sm-9 m-0 p-l-0">
+                                        <div class="input-group">
+                                            <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                            <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
                                         </div>
                                     </div>
-
-                                    <div class="">
-                                        <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
-                                            <option value="0">选择渠道</option>
-                                            <foreach name="channel" item="vo" key="k">
-                                                <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
-                                            </foreach>
-                                        </select>
-                                    </div>
-                                    <div class="" style="position: relative;left: 1%;">
-                                        <select class="btn btn-default dropdown-menu f-14" id="gameselect">
-                                            <option value="0">选择游戏</option>
-                                        </select>
+                                    <div class="actions btn-group">
+                                        <div class="dropdown btn-group">
+                                            <a class="btn btn-default" href="javascript:void(0);" id="searchRecharge">搜索</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="loading" class="col-sm-12 text-center" style="display: none;margin-top: 35px;">
+
+                                <div class="actionBar m-t-20">
+                                    <div class="col-sm-4 p-0">
+                                        <if condition="$userpid eq 0">
+                                            <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
+                                                <option value="0">选择渠道</option>
+                                                <foreach name="channel" item="vo" key="k">
+                                                    <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
+                                                </foreach>
+                                            </select>
+                               
+                                            <select class="btn btn-default dropdown-menu f-14 m-l-20" id="gameselect">
+                                                <option value="0">选择游戏</option>
+                                            </select>
+
+                                            <div class="clear"></div>
+                                        <else />
+                                            <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>"> 
+
+                                            <select class="btn btn-default dropdown-menu f-14" id="gameselect">
+                                                <option value="0">选择游戏</option>
+                                                <foreach name="channelgame" item="vo" key="k">
+                                                    <option value="<{$vo['gameid']}>"><{$vo['gamename']}></option>
+                                                </foreach>
+                                            </select>
+                                            <div class="clear"></div>
+                                        </if>
+                                    </div>
+
+                                    <div class="daterange form-group pull-right">
+                                        <div class="input-group">
+                                            <span class="zmdi input-group-addon zmdi-calendar"></span>
+                                            <input class="search-field form-control" placeholder="请选择日期" name="daterange" id="daterange" readonly="true" type="text"><a id="viewdaterange" class="input-group-addon btn-info">查看</a>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                           
+                            <div class="p-20" style="min-height: 100px;">
+                                <div id="loading" class="col-sm-12 text-center" style="display: none;">
                                     <img src="__ROOT__/plus/public/img/progress.gif" alt=""/>
                                     <p class="m-t-10">正在加载数据，请稍后</p>
                                 </div>
@@ -78,11 +109,6 @@
                                         <tbody id="statisticcontainer">
                                         <foreach name="registration" item="vo" key="k">
                                             <tr>
-                                                <td><{$vo['username']}></td>
-                                                <td><{$vo['channelname']}></td>
-                                                <td><{$vo['gamename']}></td>
-                                                <td><{$vo['reg_time']}></td>
-                                                <td><{$vo['login_time']}></td>
                                             </tr>
                                         </foreach>
                                         </tbody>
@@ -97,40 +123,111 @@
     </section>
 </section>
 
+
 <include file="Inc:footer" />
 <include file="Inc:scripts" />
 
+<script src="__ROOT__/plus/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+<script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/jpages/js/jPages.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
-<script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
 
-
+<style>
+    .table > thead > tr > td.info, .table > tbody > tr > td.info, .table > tfoot > tr > td.info, .table > thead > tr > th.info, .table > tbody > tr > th.info, .table > tfoot > tr > th.info, .table > thead > tr.info > td, .table > tbody > tr.info > td, .table > tfoot > tr.info > td, .table > thead > tr.info > th, .table > tbody > tr.info > th, .table > tfoot > tr.info > th {
+        background-color: #fff;
+    }
+    .clear{
+        clear: both;
+    }
+</style>
 <script type="text/javascript">
-    $(document).ready(function() {
-        function notify(message, type){
-            $.growl({
-                message: message
-            },{
-                type: type,
-                allow_dismiss: false,
-                label: '取消',
-                className: 'btn-xs btn-inverse',
-                placement: {
-                    from: 'top',
-                    align: 'right'
-                },
-                delay: 3000,
-                animate: {
-                    enter: 'animated bounceIn',
-                    exit: 'animated bounceOut'
-                },
-                offset: {
-                    x: 20,
-                    y: 85
-                }
-            });
+    var search_data=''; //搜索之后的数据
+
+    //回车绑定事件
+    document.onkeydown=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if(e && e.keyCode==13){ // enter 键
+            //要做的事情
+            document.getElementById("searchRecharge").click();
+        }
+    };
+
+    function notify(message, type){
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: '取消',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'top',
+                align: 'right'
+            },
+            delay: 3000,
+            animate: {
+                enter: 'animated bounceIn',
+                exit: 'animated bounceOut'
+            },
+            offset: {
+                x: 20,
+                y: 85
+            }
+        });
+    }
+
+    // 搜索
+    function search_page (ischannelselect) {
+        var username = $('#account').val();
+        var channelid = $('#channelselect').val();
+        var gameid = $('#gameselect').val();
+        var date = $('#daterange').val();
+        if (date != "") {
+            var startdate = date.substr(0, 10);
+            var enddate = date.substr(-10, 10);
+        } else {
+            var startdate = "";
+            var enddate = "";
         }
 
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=registration&a=search",
+            data: {username:username, gameid:gameid,channelid:channelid, startdate:startdate, enddate:enddate, ischannel:ischannelselect},
+            cache: false,
+            dataType: 'json',
+            beforeSend: function () {
+                $(".table-responsive").hide();
+                $("#data-table-basic-footer").hide();
+                $("#loading").show();
+            },
+            success: function (data) {
+                // console.log(data);
+                $("#loading").hide();
+                $(".table-responsive").show();
+                $("#data-table-basic-footer").show();
+                $("#data-table-basic").bootgrid("clear");
+                if (data.info == "success") {
+                    $("#data-table-basic").bootgrid("append", data.data.userall);
+                    $('#gameselect').html("");
+                    $('#gameselect').html(data.data.game);
+                } else {
+                    $('#statisticcontainer').html("");
+                    $('#gameselect').html("");
+                    $('#gameselect').html(data.data.game);
+                    notify('没有符合条件的数据', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
+        });
+    }
+
+    $(document).ready(function(){
         $("#data-table-basic").bootgrid({
             css: {
                 icon: 'zmdi',
@@ -150,13 +247,11 @@
                 }
             },
             templates: {
-                header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 p-b-25 actionBar\" style=\"position:absolute;top:88px;right:120px;\">" +
-                "<div class=\"daterange form-group pull-right\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查询</a></div></div>" +
-                "</div></div></div>"
+                header: ""
             }
         });
 
-
+        //综合筛选
         $('#daterange').daterangepicker({
             format: 'YYYY-MM-DD',
             minDate: '2016-01-01',
@@ -168,79 +263,22 @@
             locale: moment.locale('zh-cn')
         });
 
-        $('#viewdaterange').click(function() {
-            refreshPage(1);
-        });
-
-        function refreshPage (ischannelselect) {
-            var username = $('#user').val();
-            var channelid = $('#channelselect').val();
-            var gameid = $('#gameselect').val();
-            var date = $('#daterange').val();
-            if (date != "") {
-                var startdate = date.substr(0, 10);
-                var enddate = date.substr(-10, 10);
-            } else {
-                var startdate = "";
-                var enddate = "";
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/index.php?m=registration&a=refresh",
-                data: {username:username, gameid:gameid,channelid:channelid, startdate:startdate, enddate:enddate, ischannel:ischannelselect},
-                cache: false,
-                dataType: 'json',
-                beforeSend: function () {
-                    $("#data-table-basic-footer").hide();
-                    $(".table-responsive").hide();
-                    $("#loading").show();
-                },
-                success: function (data) {
-                    $("#loading").hide();
-                    $(".table-responsive").show();
-                    $("#data-table-basic-footer").show();
-                    $("#data-table-basic").bootgrid("clear");
-                    if (data.info == "success") {
-                        $("#data-table-basic").bootgrid("append", data.data.userall);
-                        if (ischannelselect == 1) {
-                            $('#gameselect').html("");
-                            $('#gameselect').html(data.data.game);
-                        }
-                    } else {
-                        $('#statisticcontainer').html("");
-                        if (ischannelselect == 1) {
-                            $('#gameselect').html("");
-                            $('#gameselect').html(data.data.game);
-                        }
-                        notify('没有符合条件的数据', 'danger');
-                    }
-                    return false;
-                },
-                error : function (xhr) {
-                    notify('系统错误！', 'danger');
-                    return false;
-                }
-            });
-
-        }
-
-
-        $('#channelselect').change(function(){
-            refreshPage(1);
-        });
-
-        $('#gameselect').change(function(){
-            refreshPage(0);
-        });
-
-        $('#user').blur(function(){
-            refreshPage(0);
-        });
-
         window.onload=function() {
-            refreshPage(1);
+            search_page();
         };
+
+        $('#viewdaterange').click(function() {
+            search_page();
+        });
+        $('#channelselect').change(function(){
+            search_page();
+        });
+        $('#gameselect').change(function(){
+            search_page();
+        });
+        $('#searchRecharge').click(function() {
+            search_page();
+        });
 
         //下拉框区分大小写
         $(".btn").css("text-transform","none");

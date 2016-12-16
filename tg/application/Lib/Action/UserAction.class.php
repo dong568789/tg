@@ -533,85 +533,89 @@ class UserAction extends CommonAction {
         $map['activeflag'] = 1;
         $usermodel = M('tg_user');
         $user = $usermodel->where($map)->find();
-        if($user){
-            $usermobile = $user['bindmobile'];
-            $verify = $_POST["verify"];
-            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
-                if(md5($_POST['verify']) != $_SESSION['mobileresetverify'] || $_POST['verify'] == ''){
-                    $this->ajaxReturn("fail",'图形验证码错误。',0);
-                    exit();
-                } else {
-                    if(!empty($usermobile)){
-                        header("content-type:text/html; charset=utf-8;");//开启缓存
-                        $_SESSION['bindmobile'] = $usermobile;
-                        $_SESSION['smstime'] = date("Y-m-d H:i:s");
-                        $smscode = rand(100000,999999);
-                        $_SESSION['smscode'] = $smscode;    //将content的值保存在session
-                        $username = '70208457';     //用户账号
-                        $password = '15927611975';      //密码
-                        $content = "此次申请绑定手机的验证码为".$smscode.",有效时间5分钟.";        //内容
-                        $http = 'http://api.duanxin.cm/';
-                        $data = array
-                        (
-                            'action'=>'send',
-                            'username'=>$username,                  //用户账号
-                            'password'=>strtolower(md5($password)), //MD5位32密码
-                            'phone'=>$usermobile,                //号码
-                            'content'=>$content,            //内容
-                            'time'=>$_SESSION['smstime'],      //定时发送
-                            'encode'=>'utf8'
-                        );
-                        /*POST方式提交*/
-                        $row = parse_url($http);
-                        $host = $row['host'];
-                        $port = $row['port'] ? $row['port']:80;
-                        $file = $row['path'];
-                        while (list($k,$v) = each($data)){
-                            $post .= rawurlencode($k)."=".rawurlencode($v)."&"; //转URL标准码
-                        }
-                        $post = substr( $post , 0 , -1 );
-                        $len = strlen($post);
-                        $fp = @fsockopen( $host ,$port, $errno, $errstr, 10);
-                        if (!$fp) {
-                            return "$errstr ($errno)\n";
-                        } else {
-                            $receive = '';
-                            $out = "POST $file HTTP/1.0\r\n";
-                            $out .= "Host: $host\r\n";
-                            $out .= "Content-type: application/x-www-form-urlencoded\r\n";
-                            $out .= "Connection: Close\r\n";
-                            $out .= "Content-Length: $len\r\n\r\n";
-                            $out .= $post;
-                            fwrite($fp, $out);
-                            while (!feof($fp)) {
-                                $receive .= fgets($fp, 128);
-                            }
-                            fclose($fp);
-                            $receive = explode("\r\n\r\n",$receive);
-                            unset($receive[0]);
-                            $re = implode("",$receive);
-                        }
-                        if( trim($re) == '100' ){
-                            $this->ajaxReturn("success",'短信验证码发送成功，有效时间5分钟。',1);
-                            exit();
-                        }else{
-                            $this->ajaxReturn("fail",'短信验证码发送失败。',0);
-                            exit();
-                        }
-                    }else{
-                        $this->ajaxReturn("fail",'该绑定手机号不存在。',0);
-                        exit();
-                    }
-                }
-            } else {
-                $this->ajaxReturn("fail",'系统错误。',0);
-                exit();
-            }
-        }else{
-            $this->ajaxReturn("fail",'该绑定手机号不存在。',0);
+        if(!$user){
+        	$this->ajaxReturn("fail",'该绑定手机号不存在。',0);
             exit();
         }
 
+        if($user['pid'] >0){
+        	$this->ajaxReturn("fail",'你是子账号，不能修改密码，请联系母账号修改',0);
+            exit();
+        }
+
+        $usermobile = $user['bindmobile'];
+        $verify = $_POST["verify"];
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
+            if(md5($_POST['verify']) != $_SESSION['mobileresetverify'] || $_POST['verify'] == ''){
+                $this->ajaxReturn("fail",'图形验证码错误。',0);
+                exit();
+            } else {
+                if(!empty($usermobile)){
+                    header("content-type:text/html; charset=utf-8;");//开启缓存
+                    $_SESSION['bindmobile'] = $usermobile;
+                    $_SESSION['smstime'] = date("Y-m-d H:i:s");
+                    $smscode = rand(100000,999999);
+                    $_SESSION['smscode'] = $smscode;    //将content的值保存在session
+                    $username = '70208457';     //用户账号
+                    $password = '15927611975';      //密码
+                    $content = "此次申请绑定手机的验证码为".$smscode.",有效时间5分钟.";        //内容
+                    $http = 'http://api.duanxin.cm/';
+                    $data = array
+                    (
+                        'action'=>'send',
+                        'username'=>$username,                  //用户账号
+                        'password'=>strtolower(md5($password)), //MD5位32密码
+                        'phone'=>$usermobile,                //号码
+                        'content'=>$content,            //内容
+                        'time'=>$_SESSION['smstime'],      //定时发送
+                        'encode'=>'utf8'
+                    );
+                    /*POST方式提交*/
+                    $row = parse_url($http);
+                    $host = $row['host'];
+                    $port = $row['port'] ? $row['port']:80;
+                    $file = $row['path'];
+                    while (list($k,$v) = each($data)){
+                        $post .= rawurlencode($k)."=".rawurlencode($v)."&"; //转URL标准码
+                    }
+                    $post = substr( $post , 0 , -1 );
+                    $len = strlen($post);
+                    $fp = @fsockopen( $host ,$port, $errno, $errstr, 10);
+                    if (!$fp) {
+                        return "$errstr ($errno)\n";
+                    } else {
+                        $receive = '';
+                        $out = "POST $file HTTP/1.0\r\n";
+                        $out .= "Host: $host\r\n";
+                        $out .= "Content-type: application/x-www-form-urlencoded\r\n";
+                        $out .= "Connection: Close\r\n";
+                        $out .= "Content-Length: $len\r\n\r\n";
+                        $out .= $post;
+                        fwrite($fp, $out);
+                        while (!feof($fp)) {
+                            $receive .= fgets($fp, 128);
+                        }
+                        fclose($fp);
+                        $receive = explode("\r\n\r\n",$receive);
+                        unset($receive[0]);
+                        $re = implode("",$receive);
+                    }
+                    if( trim($re) == '100' ){
+                        $this->ajaxReturn("success",'短信验证码发送成功，有效时间5分钟。',1);
+                        exit();
+                    }else{
+                        $this->ajaxReturn("fail",'短信验证码发送失败。',0);
+                        exit();
+                    }
+                }else{
+                    $this->ajaxReturn("fail",'该绑定手机号不存在。',0);
+                    exit();
+                }
+            }
+        } else {
+            $this->ajaxReturn("fail",'系统错误。',0);
+            exit();
+        }
     }
 
     //手机找回密码下一步，跳重置密码
@@ -699,6 +703,10 @@ class UserAction extends CommonAction {
                 exit();
             } else {
                 if(!empty($useremail)){
+			        if($user['pid'] >0){
+			        	$this->ajaxReturn("fail",'你是子账号，不能修改密码，请联系母账号修改',0);
+			            exit();
+			        }
                     $_SESSION['bindemail'] = $useremail;
                     header("content-type:text/html; charset=utf-8;");//开启缓存
                     $time = time();

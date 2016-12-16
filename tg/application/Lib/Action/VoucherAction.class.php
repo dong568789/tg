@@ -6,10 +6,12 @@ class VoucherAction extends CommonAction {
 
     public function index(){
         $this->logincheck();
+        // 用户信息
 		$userid = $_SESSION["userid"];
 		$userModel= M('tg_user');
 		$user = $userModel->field('userid,account,coinpreauth')->find($userid);
 
+		// 充值记录
 		$voucherModel= M('voucher_buy');
 		$condition=array(
 			'V.buyer'=>$user["account"]
@@ -23,13 +25,19 @@ class VoucherAction extends CommonAction {
 
 		// 获取游戏
 		$sourceModel= M('tg_source');
-		$where=array('S.userid'=>$user['userid']);
+		if(isset($this->userpid) && $this->userpid>0){ //子账号
+			$where["S.channelid"] = $this->channelid;
+		}else {
+			$where["S.userid"] = $userid;
+		}
 		$where['G.isusedvoucher']=1;
 		$field=array(
 			'S.id',
 			'S.gameid',
 			'S.sourcesharerate',
 			'S.sourcechannelrate',
+			'S.sub_share_rate',
+			'S.sub_channel_rate',
 			'G.gamename',
 			'C.channelname',
 		);
@@ -41,11 +49,19 @@ class VoucherAction extends CommonAction {
 						->order('S.id desc')
 						->group('S.gameid')
 						->select();
-		foreach ($source as $key => $value) {
-			$source[$key]['dicount']=1-(1-$value['sourcechannelrate'])*$value['sourcesharerate'];
-			$source[$key]['dicount_zhe']=$source[$key]['dicount']*10;
+		// 子账号
+		if(isset($this->userpid) && $this->userpid>0){
+			foreach ($source as $key => $value) {
+				$source[$key]['dicount']=1-(1-$value['sub_channel_rate'])*$value['sub_share_rate'];
+				$source[$key]['dicount_zhe']=$source[$key]['dicount']*10;
+			}
+		}else{
+			foreach ($source as $key => $value) {
+				$source[$key]['dicount']=1-(1-$value['sourcechannelrate'])*$value['sourcesharerate'];
+				$source[$key]['dicount_zhe']=$source[$key]['dicount']*10;
+			}
 		}
-
+		
         $this->assign('user',$user);
         $this->assign('source',$source);
 		$this->assign('voucherlog',$voucherlog);
@@ -67,8 +83,13 @@ class VoucherAction extends CommonAction {
 		$condition['_logic'] = 'OR';
 		$user = $userModel->field('agent,username,email,mobile')->where($condition)->find();
 
+		// 自己的渠道
 		$sourceModel = M('tg_source');
-		$sourcecondition["userid"] = $rechargeuserid;
+		if(isset($this->userpid) && $this->userpid>0){ //子账号
+			$sourcecondition["channelid"] = $this->channelid;
+		}else {
+			$sourcecondition["userid"] = $rechargeuserid;
+		}
 		$sourcecondition["activeflag"] = 1;
 		$source = $sourceModel->field('sourcesn')->where($sourcecondition)->select();
 		$sourcelist = array();

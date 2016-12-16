@@ -102,6 +102,8 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 											<th data-column-id="isfixrate">费率固定</th>
                                             <th data-column-id="sourcesharerate">资源分成比例</th>
 											<th data-column-id="sourcechannelrate">资源渠道费</th>
+											<th data-column-id="sub_share_rate">子账号资源分成比例</th>
+											<th data-column-id="sub_channel_rate">子账号资源渠道费</th>
 											<if condition="$customRateRight eq 'ok'">
 												<th data-column-id="link" data-formatter="link" data-sortable="false">自定义资源费率</th>
 											</if>
@@ -131,6 +133,8 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 												</td>
 												<td><{$vo['sourcesharerate']}></td>
 												<td><{$vo['sourcechannelrate']}></td>
+												<td><{$vo['sub_share_rate']}></td>
+												<td><{$vo['sub_channel_rate']}></td>
 												<if condition="$customRateRight eq 'ok'">	<td></td> </if>
 												<if condition="$downloadApkRight eq 'ok'">	<td></td> </if>
 												<if condition="$seeDevelopRight eq 'ok'"> <td></td>	</if>

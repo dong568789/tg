@@ -5,6 +5,12 @@ class MemberAction extends CommonAction {
     public function __construct(){
         parent::__construct();
 
+        // 如果是子账号没有进入这里的权限
+        if(isset($this->userpid) && $this->userpid>0){
+            Header("Location: /source/ ");
+            exit();
+        }
+
     }
 
 

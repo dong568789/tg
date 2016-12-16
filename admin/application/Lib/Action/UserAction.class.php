@@ -33,9 +33,14 @@ class UserAction extends CommonAction {
         $this->assign('fastApply',$this->authoritycheck(10175));
 
         $model= M('tg_user');
-        $condition["activeflag"] = 1;
-        $condition['isverified'] = array('neq',2);
-        $users = $model->where($condition)->order("createtime desc")->select();
+        $condition["U.activeflag"] = 1;
+        $condition['U.isverified'] = array('neq',2);
+        $users = $model->alias('U')
+                    ->join(C('DB_PREFIX').'tg_user U1 on U.pid = U1.userid')
+                    ->where($condition)
+                    ->field('U.*,U1.account as paccount')
+                    ->order("createtime desc")
+                    ->select();
         foreach ($users as $key => $value) {
         	if($value['sourcetype'] == 1){
         		$users[$key]['sourcetypestr'] = '公会';
@@ -867,6 +872,12 @@ class UserAction extends CommonAction {
         $channelid = $oldsource['channelid'];
         $userid = $oldsource['userid'];
         $gameid = $oldsource['gameid'];
+
+        // 如果设置的分成比例 小于子账号的分成比例
+        if( $_POST['sourcesharerate'] < $oldsource['sub_share_rate']){
+            $this->ajaxReturn('fail','母账号的分成比例 必须比 子账号的分成比例 大。',0);
+            exit();
+        }
 
         $channelmodel =  M('tg_channel');
         $channel = $channelmodel->field('channelname')->where("channelid = '$channelid'")->find();

@@ -477,6 +477,28 @@ class GameAction extends CommonAction {
 		$data['gametag'] = $_POST['gametag'];
         $data['gameauthority'] = $_POST['gameauthority'];
         $data['sharerate'] = $_POST['sharerate'];
+
+        // 如果设置的分成比例 小于子账号的分成比例
+        $big_subuser = array();
+        $big_subuser_str = '子账号：';
+        $source_model = M('tg_source');
+        $source_where = array('gameid'=>$gameid);
+        $source = $source_model->alias('S')
+        			->join(C('DB_PREFIX').'tg_user U on S.channelid=U.channelid','left')
+        			->join(C('DB_PREFIX').'tg_user U1 on U.pid=U1.userid','left')
+        			->field('S.sub_share_rate,S.sub_channel_rate,U.account,U1.account as paccpunt')
+        			->where($source_where)
+        			->select();
+        foreach ($source as $key => $value) {
+        	if($_POST['sharerate'] < $value['sub_share_rate'] ){
+        		$big_subuser[] = $value;
+        	}
+        }
+        foreach ($big_subuser as $key => $value) {
+        	$big_subuser_str .= $value['account'].'(母：'.$value['paccpunt'].')、';
+        }
+        $this->ajaxReturn('fail',$big_subuser_str.'比母账号的分成比例大，联系母账号修改。',0);
+
 		$data['beizhumessage'] = $_POST['beizhumessage'];
 		$data['channelrate'] = $_POST['channelrate'];
 		$data['score'] = $_POST['score'];

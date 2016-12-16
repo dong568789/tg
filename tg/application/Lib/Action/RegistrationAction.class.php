@@ -6,131 +6,132 @@ class RegistrationAction extends CommonAction {
 
     public function index(){
         $this->logincheck();
-        $Index = D('Registration');
-        //$registration = $Index->index();
-        //$this->assign('registration',$registration);
-        $this->assign('channel',$Index->channel());
+
+        if($this->userpid=='0'){
+            $channelmodel = M('tg_channel');
+
+            // 母账号,获取渠道列表
+            $userid = $_SESSION['userid'];
+            $map = array();
+            $map['userid'] =$userid;
+            $map["activeflag"] = 1;
+            $channel = $channelmodel->where($map)->select();
+            $this->assign('channel',$channel);
+        }
+       
         $this->display();
     }
 
-
-    public function refresh(){
+    // 所有筛选，搜索
+    public function search(){
         $this->logincheck();
+
         $userid = $_SESSION['userid'];
         $account = $_POST["username"];
         $channelid = $_POST["channelid"];
         $gameid = $_POST["gameid"];
         $startdate = $_POST["startdate"];
         $enddate = $_POST["enddate"];
-        $ischannel = $_POST["ischannel"];
-        $model = M("all_user");
-        $gameresult = array();
-        $condition["S.userid"] = $userid;
-        $where = ' AND 1=1';
+
+        $allusermodel = M("all_user");
+        $sourcemodel = M("tg_source");
+        $logininfomodel = M("sdk_logininfo");
+        
+        $condition = array(); //条件
+
+        //根据渠道的 游戏列表
+        // 渠道条件
+        $gameresult = array(); //游戏列表
         if (isset($channelid) && $channelid > 0) {
             $condition["S.channelid"] = $channelid;
             $condition["S.activeflag"] = 1;
-            $where.= " AND b.channelid = '$channelid' AND b.activeflag = '1'";
+            
+            $sourcecondition = array();
+            $sourcecondition["S.channelid"] = $channelid;
+            $sourcecondition["S.activeflag"] = 1;
+            $sourcecondition["G.activeflag"] = 1;
+            $sourcecondition["G.isonstack"] = 0;
+            $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
 
-            $model = M("all_user");
-            if ($ischannel == 1) {
-                $sourcemodel = M("tg_source");
-                $sourcecondition["S.userid"] = $userid;
-                $sourcecondition["S.channelid"] = $channelid;
-                $sourcecondition["S.activeflag"] = 1;
-                $sourcecondition["G.activeflag"] = 1;
-                $sourcecondition["G.isonstack"] = 0;
-                $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
-                if ($gamelist) {
-                    foreach ($gamelist as $k => $v) {
-                        $gameresult[] = "<option value=".$v["gameid"].">".$v["gamename"]."</option>";
+            if ($gamelist) {
+                foreach ($gamelist as $k => $v) {
+                    $checkstate='';
+                    if (isset($gameid) && $gameid > 0) { //如果有选择游戏
+                        if($gameid==$v["gameid"]){
+                            $checkstate=' selected="selected" ';
+                        }
                     }
-                    array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
-                } else {
-                    array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
+                    $gameresult[] = "<option value=".$v["gameid"].$checkstate.">".$v["gamename"]."</option>";
                 }
+                array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
+            } else {
+                array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
             }
         } else {
+            $condition["S.userid"] = $userid;
             array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
         }
+        
+        // 游戏条件
         if (isset($gameid) && $gameid > 0) {
-            $gamemodel = M('tg_game');
-            $onegame = $gamemodel->where("gameid = '$gameid'")->find();
-            $condition["D.gameid"] = $onegame['sdkgameid'];
-            $sdkgameid = $onegame['sdkgameid'];
-
-            $where.= " AND a.gameid = '$sdkgameid'";
+            $condition["S.gameid"] = $gameid;
         }
+
+        // 时间条件
         if ((isset($startdate) && $startdate != "") && (isset($enddate) && $enddate != "")) {
             $newstart = strtotime($startdate);
             $newend = strtotime($enddate);
             $strat = strtotime(date('Y-m-d 00:00:00', $newstart));
             $end = strtotime(date('Y-m-d 23:59:59', $newend));
-            $condition["D.reg_time"]  = array(array('egt',$strat),array('elt',$end),'and');
-
-            $where.= " AND a.reg_time >= '$strat' AND a.reg_time <= '$end'";
+            $condition["AU.reg_time"]  = array(array('egt',$strat),array('elt',$end),'and');
         }
 
+        // 充值用户条件
         if ((isset($account) && $account != "" && $account != null)) {
-            $userone = $model->where("username = '$account' OR email='$account' OR mobile = '$account'")->find();
-            $condition["D.username"] = $userone['username'];
-            $username = $userone['username'];
-            $where.= " AND a.username = '$username'";
+            // 支持模糊搜索
+            $userall = $allusermodel->field('username')->where('username like "%'.$account.'%" OR email="'.$account.'" OR mobile = "'.$account.'"')->select();
+            $userall_arr=array();
+            foreach ($userall as $key => $value) {
+                $userall_arr[]=$value['username'];
+            }
+            $userall_atr=implode(',', $userall_arr);
+
+            $condition["AU.username"] = array('in',$userall_atr);
         }
         $condition['_logic'] = 'AND';
        
+        // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
+        $user = $allusermodel->alias("AU")
+                    ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
+                    ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+                    ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+                    ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename')
+                    ->where($condition)
+                    ->order('AU.reg_time desc')
+                    ->select();
+                    // vde($allusermodel->getLastSql());
+        $result = array(); //返回结果
+        $result["game"] = $gameresult;//根据渠道的 游戏列表
+        $result["userall"] = array(); //注册列表 
+    	if($user){
+	        foreach($user as $k => $v){
+	            $user[$k]['reg_time'] = date('Y-m-d H:i',$v['reg_time']);
 
-        $usersql ="select a.id, username,reg_time,agent,a.gameid from yx_all_user  as a LEFT JOIN yx_tg_source as b on a.agent=b.sourcesn where b.userid='$userid'". $where." ORDER BY a.reg_time desc";
-        $user = $model->query($usersql);
-        
-        $channelsql ="select a.sourcesn, b.channelname from yx_tg_source as a LEFT JOIN yx_tg_channel b on a.channelid = b.channelid where a.userid='$userid'";
-        $channelmodel = M('tg_channel');
-        $channel = $channelmodel->query($channelsql);
-        
-        $gamesql ="select sdkgameid, gamename from yx_tg_game";
-        $gamemodel = M('tg_game');
-        $game = $gamemodel->query($gamesql);
-       
-        $result = array();
-        foreach($user as $k => $v){
-            $v['reg_time'] = date('Y-m-d H:i',$v['reg_time']);
-            //获取渠道名
-            foreach($channel as $k1 => $v1){
-                if($v['agent'] == $v1['sourcesn']){
-                    $v['channelname'] = $v1['channelname'];
-                    break;
-                }
-            }
-            //获取游戏名
-            foreach($game as $k2 => $v2){
-                if($v['gameid'] == $v2['sdkgameid']){
-                    $v['gamename'] = $v2['gamename'];
-                    break;
-                }
-            }
-            //获取登陆时间
-            $lastid = $v['id'];
-            $loginsql = "select userid, login_time from yx_sdk_logininfo where userid ='$lastid' ORDER BY login_time DESC LIMIT 1";
-            $loginmodel = M('sdk_logininfo');
-            $login = $loginmodel->query($loginsql);
-            if($login[0]['login_time'] == ''){
-                $v['login_time'] = '';
-            }else{
-                $v['login_time'] = date('Y-m-d H:i',$login[0]['login_time']);
-            }
-            $data[] = $v;
-
-        }
-
-        $result = $data;
-        $result["game"] = $gameresult;
-
-        if ($user) {
-            $result["userall"] = $data;
+	            //获取登陆时间
+	            $lastid = $v['id'];
+	            $loginsql = "select userid, login_time from yx_sdk_logininfo where userid ='$lastid' ORDER BY login_time DESC LIMIT 1";
+	            $login = $logininfomodel->query($loginsql);
+	            if($login[0]['login_time'] == ''){
+	                $user[$k]['login_time'] = $user[$k]['reg_time'];
+	            }else{
+	                $user[$k]['login_time'] = date('Y-m-d H:i',$login[0]['login_time']);
+	            }
+	        }
+            $result["userall"] = $user;
 
             $this->ajaxReturn($result,'success',1);
             exit();
-        } else {
+    	}else{
             $this->ajaxReturn($result,'fail',0);
             exit();
         }

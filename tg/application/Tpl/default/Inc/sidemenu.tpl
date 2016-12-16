@@ -17,12 +17,15 @@
 
 			<div class="profile-info">
 				<{$useraccount}>
-				<i class="zmdi zmdi-caret-down"></i>
+				<if condition="$userpid eq 0">
+					<i class="zmdi zmdi-caret-down"></i>
+				</if>
 			</div>
 		</a>
 
-		<ul class="main-menu profile_nav">
-			<?php
+		<?php
+			if($userpid == 0){
+				echo '<ul class="main-menu profile_nav">';
 				foreach ($profile_nav as $key => $nav_item) {
 					$nav_htm = '';
 					$url = isset($nav_item["url"]) ? $nav_item["url"] : "#";
@@ -32,8 +35,9 @@
 					$nav_htm .= '<a href="'.$url.'" title="'.$nav_title.'">'.$icon.' '.$nav_title.$label_htm.'</a>';
 					echo '<li '.(isset($nav_item["active"]) ? 'class = "active"' : '').'>'.$nav_htm.'</li>';
 				}
-			?>
-		</ul>
+				echo '</ul>';
+			}
+		?>
 	</div>
 
 	<ul class="main-menu">

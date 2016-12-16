@@ -109,7 +109,7 @@
         }, "请输入英文小写字母！");
 
         jQuery.validator.addMethod("checkENGsmallNUM", function(value, element) {
-            var reg =  /^[0-9a-z]+$/;
+            var reg =  /^[0-9a-zA-Z_@]+$/;
             return this.optional(element) || reg.test(value);
         }, "请输入英文小写字母或数字！");
 
@@ -148,7 +148,7 @@
             messages : {
                 account : {
                     required : '请输入用户名',
-                    checkENGsmallNUM : '用户名必须为小写字母或数字',
+                    checkENGsmallNUM : '子账号用户名必须为字母、数字、_、@',
                     minlength : '用户名长度为6-20位',
                     maxlength : '用户名长度为6-20位'
                 },

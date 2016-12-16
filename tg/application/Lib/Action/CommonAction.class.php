@@ -31,9 +31,9 @@ class CommonAction extends Action {
 		$this->apkdownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/downloadpackage/";
 		$this->texturedownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/texture/";
 		$this->iconurl = "http://tgadmin.yxgames.com/upfiles/gameicon/";
-                $this->gamebgurl = "http://img.yxgames.com/images/upfiles/gamebg/";
-                $this->screenshoturl = "http://img.yxgames.com/images/upfiles/screenshot/";
-                $this->packageStoreFolder = "../admin/DataGames/upfiles/basicpackage/";
+        $this->gamebgurl = "http://img.yxgames.com/images/upfiles/gamebg/";
+       	$this->screenshoturl = "http://img.yxgames.com/images/upfiles/screenshot/";
+        $this->packageStoreFolder = "../admin/DataGames/upfiles/basicpackage/";
 		$this->downloadStoreFolder = "../admin/DataGames/upfiles/downloadpackage/";
 		$this->textureStoreFolder = "../admin/DataGames/upfiles/texture/";
 		$this->iconStoreFolder = "../admin/upfiles/gameicon/";
@@ -72,6 +72,30 @@ class CommonAction extends Action {
 			$_SESSION['isverified'] = $existuser['isverified'];
 			$key = $this->LOGIN_KEY;
 			$_SESSION["loginkey"] = $key;
+        }
+
+        if($_SESSION['userid']){
+        	$userModel = M('tg_user');
+        	$where = array('userid' => $_SESSION['userid'] );
+        	$user = $userModel->field('pid,channelid')->where($where)->find();
+
+        	if($user['pid'] > 0){ //子账号
+        		$sourceuserid =  $user['pid']; //资源关联的时候所需要的用户id
+        	}else{ //母账号
+        		$sourceuserid =  $_SESSION['userid'];
+        	}
+        	
+        	$this->userpid = $user['pid'];
+        	$this->userchannelid = $user['channelid'];
+        	$this->sourceuserid = $sourceuserid;
+
+        	$_SESSION["userpid"] = $user['pid'];
+        	$_SESSION["userchannelid"] = $user['channelid'];
+        	$_SESSION["sourceuserid"] = $sourceuserid;
+
+        	$this->assign('userpid',$user['pid']);
+        	$this->assign('userchannelid',$user['channelid']);
+        	$this->assign('sourceuserid',$sourceuserid);
         }
     }
     

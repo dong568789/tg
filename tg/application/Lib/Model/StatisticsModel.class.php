@@ -6,25 +6,6 @@ class StatisticsModel extends Model
         parent::__construct();
     }
 
-    public function index(){
-        $userid = $_SESSION['userid'];
-        $dailymodel = M('tg_dailyaccount');
-        $gamemodel = M('tg_game');
-        $channelmodel = M('tg_channel');
-		$startdate = date("Y-m-d",strtotime("-30 day"));
-		$enddate = date("Y-m-d");
-		$map["D.date"]  = array(array('egt',$startdate),array('elt',$enddate),'and');
-        $map['D.userid'] =$userid;
-        $map["D.activeflag"] = 1;
-        $daily = $dailymodel->alias("D")->join(C('DB_PREFIX')."tg_game G on D.gameid = G.gameid", "LEFT")->join(C('DB_PREFIX')."tg_channel C on D.channelid = C.channelid", "LEFT")->where($map)->order("D.createtime desc")->select();
-		if ($daily) {
-            foreach ($daily as $k => $v) {
-               $daily[$k]["date"] = date("Y年m月d日",strtotime($v["date"]." 12:00:00"));
-            }
-        }
-        return $daily;
-    }
-
 	public function getTodayData($userid, $channelid, $gameid){
 
 		// 32服务器
@@ -244,13 +225,5 @@ class StatisticsModel extends Model
 		return $todaydata;
 	}
 
-    public function channel(){
-        $userid = $_SESSION['userid'];
-        $channelmodel = M('tg_channel');
-        $map['userid'] =$userid;
-        $map["activeflag"] = 1;
-        $channel = $channelmodel->where($map)->select();
-        return $channel;
-    }
 }
 ?>
