@@ -99,20 +99,6 @@ if($userpid==0){
 			"url" => "/statistics/",
 			"icon" => "widgets"
 		),
-		"用户查询" => array(
-			"title" => "用户查询",
-			"icon" => "account",
-			"sub" => array(
-				'充值查询' => array(
-					'title' => '充值查询',
-					'url' => "/recharge/",
-				),
-				'注册查询' => array(
-					'title' => '注册查询',
-					'url' => "/registration/",
-				),
-			),
-		),
 		"用户充值" => array(
 			"title" => "用户充值",
 			"icon" => "paypal",

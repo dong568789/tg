@@ -273,6 +273,25 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
                                         </div>
                                     </div>
 
+                                    <div class="form-group m-t-25">
+                                        <label class="col-sm-3 control-label f-15">是否允许cdn提交</label>
+                                        <div class="col-sm-7">
+                                            <div class="fg-line">
+                                                <label class="radio radio-inline m-r-20">
+                                                    <input class="radioclass" type="radio" name="is_allow_cdn" value="1">
+                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                    是
+                                                </label>
+
+                                                <label class="radio radio-inline m-r-20">
+                                                    <input class="radioclass" type="radio" name="is_allow_cdn" value="-1" checked="true">
+                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                    否
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
 									<div class="form-group m-t-25">
 										<div class="col-sm-12 text-center">
 											<button id="addusersubmit" type="submit" class="btn btn-primary btn-lg m-r-15">新增用户</button>

@@ -66,11 +66,10 @@ class StatisticsModel extends Model
 		$channellist = array_unique($channellist);
 
 		$conditionstr = "where S.activeflag = 1 and G.activeflag = 1 and G.isonstack = 0 ";
-		if ($userid > 0) {
-			$conditionstr .= "and S.userid = ".$userid." ";
-		}
-		if ($channelid > 0) {
+		if ($channelid > 0) { //有渠道的时候，不添加用户条件。因为在子账号的情况下，userid应该是pid
 			$conditionstr .= "and S.channelid = ".$channelid." ";
+		}elseif ($userid > 0) {   
+			$conditionstr .= "and S.userid = ".$userid." ";
 		}
 		if ($gameid > 0) {
 			$conditionstr .= "and S.gameid = ".$gameid." ";
@@ -96,26 +95,24 @@ class StatisticsModel extends Model
 			}
 		}
 
-		// 获取当前的所有渠道
-		// 对于实时今日统计需要
-		$allsourcequery = "select * from yx_tg_source S left join yx_tg_game G on S.gameid = G.gameid where S.activeflag = 1 and G.activeflag = 1 and G.isonstack = 0 order by S.id desc";
+		// 获取当前用户的所有渠道（母账号和子账号），后面需要
+		// 实时今日统计和每天跑batch这里不一样
+		$sourcelist = array();
+		if(isset($_SESSION['pid']) && $_SESSION['pid']>0){ //子账号，只能是自己的渠道
+			$allsource_where = ' and S.channelid="'.$channelid.'"';
+		}else{	//母账号
+			$allsource_where = ' and S.userid="'.$userid.'"';
+		}
+		$allsourcequery = "select * from yx_tg_source S left join yx_tg_game G on S.gameid = G.gameid where S.activeflag = 1 and G.activeflag = 1 and G.isonstack = 0 and order by S.id desc";
         $result = mysql_query($allsourcequery);
 		while ($row = mysql_fetch_assoc($result)) {
-			$allsource[]=$row;
+			$sourcelist[] = strtolower($row["sourcesn"]);
 		}
-
+		
 		$todaydata=array();
 		for ($i=0;$i<sizeof($source);$i++) {
-			$sourcerow = $source[$i];
-			// 取出当前渠道，该用户的所有渠道
-			// 不能使用source，使用allsource
-			$sourcelist = array();
-			for ($j=0;$j<sizeof($allsource);$j++) {
-				if ($sourcerow["userid"] == $allsource[$j]["userid"]) {
-					$sourcelist[] = strtolower($allsource[$j]["sourcesn"]);
-				}
-			}
-		
+			$sourcerow = $source[$i]; //当前渠道
+
 			if (isset($sourcerow["sourcesharerate"]) && $sourcerow["sourcesharerate"] >= 0 && $sourcerow["sourcesharerate"] <= 1) {
 				$sharerate = $sourcerow["sourcesharerate"];
 			} else {

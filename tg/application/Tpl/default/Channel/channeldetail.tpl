@@ -99,7 +99,7 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                                         <label for="alipayaccount" class="col-sm-3 control-label f-15 m-t-5">子账号密码</label>
                                         <div class="col-sm-7">
                                             <div class="fg-line">
-                                                <input class="form-control" name="sub_password" id="sub_password" value="" maxlength="10" />
+                                                <input type="password" class="form-control" name="sub_password" id="sub_password" value="" maxlength="10" />
                                             </div>
                                             <span class="tip">* 不填写，则保持原来不变</span>
                                         </div>
@@ -153,9 +153,14 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
     $(document).ready(function() {
         //渠道规则
         jQuery.validator.addMethod("checkAccount", function(value, element) {
-            var reg =  /^[0-9a-zA-Z@_]{3,20}$/;
+            var reg =  /^[0-9a-zA-Z@_]{6,20}$/;
             return this.optional(element) || reg.test(value);
         }, "请输入英文小写字母或数字！");
+
+        jQuery.validator.addMethod('checkPassword',function (value,element) {
+            var reg=/^((?![\u4e00-\u9fff| ]).){6,20}$/;
+            return this.optional(element) || (reg.test(value));
+        },'密码不能包含汉字和空格');
 
         $('#savechannel').click(function() {
             var $addchannel = $('#editchannel').validate({
@@ -168,8 +173,8 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                         checkAccount : true,
                     },
                     sub_password : {
-                        minlength : 6,
-                        maxlength : 20
+                        rangelength : [6,20],
+                        checkPassword : true
                     },
                 },
                 messages : {
@@ -178,11 +183,11 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                     },
                     sub_account : {
                         required : '子账号用户名不能为空',
-                        checkAccount : '子账号用户名必须由3-20字母、数字、_、@组成',
+                        checkAccount : '子账号用户名必须由6-20字母、数字、_、@组成',
                     },
                     sub_password : {
-                        minlength : '子账号密码长度为6-20位',
-                        maxlength : '子账号密码长度为6-20位'
+                        rangelength : jQuery.format('登录密码长度必须是{0}到{1}之间'),
+                        checkPassword : '子账号密码不能包含汉字和空格',
                     },
                 },
 

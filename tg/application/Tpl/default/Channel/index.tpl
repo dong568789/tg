@@ -60,7 +60,8 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                         <td>
                                             <if condition="$vo['channelname'] neq $defaultChannelname ">
                                                 <a href="/index.php?m=channel&a=channeldetail&id=<{$vo['channelid']}>">编辑</a>
-                                            &nbsp; <a href="javascript:" onclick="deleteChannel('<{$vo['channelid']}>');" id="delete-<{$vo['channelid']}>">删除</a>
+                                            &nbsp; 
+                                            <!-- <a href="javascript:" onclick="deleteChannel('<{$vo['channelid']}>');" id="delete-<{$vo['channelid']}>">删除</a> -->
                                             </if>
                                         </td>
                                     </tr>

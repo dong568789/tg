@@ -117,17 +117,17 @@ class StatisticsAction extends CommonAction {
 				if ($startdate == date("Y-m-d")) {
 					$daily = $todaydata;
 				} else {
-					$daily = array_merge($todaydata,$daily);
+					$daily = array_merge((array)$todaydata,(array)$daily);
 				}
 			}
 		} else {
-			$daily = array_merge($todaydata,$daily);
+			$daily = array_merge((array)$todaydata,(array)$daily);
 		}
         
         $result = array(); //返回结果
         $result["game"] = $gameresult;//根据渠道的 游戏列表
         $result["daily"] = array(); //流水列表
-		
+       
         if ($daily) {
             // 汇总数据
             $dataall["date"] = "数据汇总";

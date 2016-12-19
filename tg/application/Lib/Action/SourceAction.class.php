@@ -4,6 +4,7 @@ class SourceAction extends CommonAction {
         parent::__construct();
     }
 
+    // 资源列表
     public function index(){
         $this->logincheck();
 
@@ -108,6 +109,7 @@ class SourceAction extends CommonAction {
 		*/
     }
 
+    // 下载apk包
 	public function downloadapk(){
 		$userid = $_SESSION["userid"];
 		if (isset($userid) && $userid > 0) {
@@ -275,90 +277,6 @@ class SourceAction extends CommonAction {
 		}
 	}
 	
-	//推广链接
-	public function publicdownload() {
-        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-        $is_pc = (stripos($agent, 'windows nt')) ? true : false;
-        $is_iphone = (stripos($agent, 'iphone')) ? true : false;
-        $is_ipad = (stripos($agent, 'ipad')) ? true : false;
-        $is_android = (stripos($agent, 'android')) ? true : false;
-        $is_weixin = (stripos($agent, 'MicroMessenger')) ? true : false;
-        $is_qq = (stripos($agent, 'QQ')) ? true : false;
-        $is_qqbrowser = (stripos($agent, 'QQBrowser')) ? true : false;
-        $is_weibo = (stripos($agent, 'weibo')) ? true : false;
-
-        if($is_weixin || $is_weibo || ($is_qq ^ $is_qqbrowser)){
-            $this->display("llq");
-            exit();
-        } else if($is_iphone){
-            echo ("暂不支持苹果iOS下载，请关注我们更多游戏。");
-            exit();
-        } else if($is_ipad){
-            echo ("暂不支持苹果iOS下载，请关注我们更多游戏。");
-            exit();
-        }
-
-        $sourcesn = $_GET["sourcesn"];
-		$sourcemodel = M('tg_source');
-		$map["sourcesn"] = $sourcesn;
-        $source = $sourcemodel->where($map)->find();
-		if ($source) {
-			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
-				$time = date('Y-m-d H:i:s',time());
-				// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
-				Header("Location: ".$this->apkdownloadurl.$source["apkurl"]." ");
-				exit();
-			} else {
-				$gamemodel = M('tg_game');
-				$game = $gamemodel->find($source["gameid"]);
-				$packagename = $game["packagename"];
-				if ($game["gameversion"] != "") {
-					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-				} else {
-					$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-				}
-				$result = $this->subpackage($packagename,$newgamename,$sourcesn);
-				if ($result == "true") {
-					$data["isupload"] = 1;
-					$data["apkurl"] = $newgamename;
-					$upload = $sourcemodel->where($map)->save($data);
-					$time = date('Y-m-d H:i:s',time());
-					// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
-					Header("Location: ".$this->apkdownloadurl.$newgamename." ");
-					exit();
-				} else {
-					echo "System Error.";
-				}
-			}
-		} else {
-			echo "Can't find APK package.";
-		}
-	}
-
-    //下载素材包
-    // public function downloadTextture(){
-    //     $sourcesn = $_POST["source"];
-    //     $sourcemodel = M('tg_source');
-    //     $gamemodel = M('tg_game');
-    //     $channelmodel = M('tg_channel');
-    //     $map["sourcesn"] = $sourcesn;
-    //     $source = $sourcemodel->where($map)->find();
-    //     $texturename = $source['textureurl'];
-    //     $gameid = $source['gameid'];
-    //     $channelid = $source['channelid'];
-    //     $oldgame = $gamemodel->where("gameid = '$gameid'")->find();
-    //     $oldchannel = $channelmodel->where("channelid = '$channelid'")->find();
-    //     $time = date('Y-m-d H:i:s',time());
-    //     if($texturename){
-    //         $this->insertLog($_SESSION['account'],'下载素材包', 'SourceAction.class.php', 'downloadTextture', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”素材包");
-    //         $this->ajaxReturn('success',$this->texturedownloadurl.$texturename,1);
-    //         exit();
-    //     } else{
-    //         $this->ajaxReturn('fail','该素材包不存在',0);
-    //         exit();
-    //     }
-    // }
-
     //下载素材包
     public function downloadTextture(){
         $sourcesn = $_POST["source"];
@@ -388,33 +306,6 @@ class SourceAction extends CommonAction {
             exit();
         }
     }
-
-	//分包
-	public function subpackage($packagename,$newgamename,$sourcesn){
-		$sourfile = $this->packageStoreFolder.$packagename;
-		//chmod($sourfile, 0777);		
-		$newfile = $this->downloadStoreFolder.$newgamename;
-		if(!file_exists($sourfile)){
-			$this->ajaxReturn('fail',"母包不存在。",0);
-			exit();
-		}
-		if (!copy($sourfile, $newfile)) {
-			$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-			exit();
-		}
-		$channelfile=$url."gamechannel";
-		fopen($channelfile, "w");
-		$zip = new ZipArchive;
-		if ($zip->open($newfile) === TRUE) {
-			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-			$zip->close();
-			return "true";
-		} else {
-			return "false";
-		}
-    	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-		exit();
-	}
 
     //游戏分类筛选，以及渠道筛选
     public function selectGame(){
@@ -455,7 +346,6 @@ class SourceAction extends CommonAction {
 			$this->ajaxReturn('fail','没有数据。',0);
 			exit();
 		}
-
     }
 
     //搜索资源
@@ -475,9 +365,7 @@ class SourceAction extends CommonAction {
             $this->ajaxReturn('fail','没有数据。',0);
             exit();
         }
-
     }
-
 
 	//tab2选择渠道进行搜索
     public function selectSource(){
@@ -495,18 +383,9 @@ class SourceAction extends CommonAction {
 			$this->ajaxReturn('fail','没有数据。',0);
 			exit();
 		}
-
     }
 
-	public function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
-		$str = ""; 
-		while(strlen($str) < $length) {
-			$str .= substr($possible, (rand() % strlen($possible)), 1);
-		}
-		return($str); 
-	}
-
+	// --------------推广----------------------------------------------
     // 用户-资源-推广链接
     public function material(){
     	$this->logincheck();
@@ -577,7 +456,68 @@ class SourceAction extends CommonAction {
         $this->display();
     }
 
-    // 自定义子账号的费率
+    //推广链接
+	public function publicdownload() {
+        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $is_pc = (stripos($agent, 'windows nt')) ? true : false;
+        $is_iphone = (stripos($agent, 'iphone')) ? true : false;
+        $is_ipad = (stripos($agent, 'ipad')) ? true : false;
+        $is_android = (stripos($agent, 'android')) ? true : false;
+        $is_weixin = (stripos($agent, 'MicroMessenger')) ? true : false;
+        $is_qq = (stripos($agent, 'QQ')) ? true : false;
+        $is_qqbrowser = (stripos($agent, 'QQBrowser')) ? true : false;
+        $is_weibo = (stripos($agent, 'weibo')) ? true : false;
+
+        if($is_weixin || $is_weibo || ($is_qq ^ $is_qqbrowser)){
+            $this->display("llq");
+            exit();
+        } else if($is_iphone){
+            echo ("暂不支持苹果iOS下载，请关注我们更多游戏。");
+            exit();
+        } else if($is_ipad){
+            echo ("暂不支持苹果iOS下载，请关注我们更多游戏。");
+            exit();
+        }
+
+        $sourcesn = $_GET["sourcesn"];
+		$sourcemodel = M('tg_source');
+		$map["sourcesn"] = $sourcesn;
+        $source = $sourcemodel->where($map)->find();
+		if ($source) {
+			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
+				$time = date('Y-m-d H:i:s',time());
+				// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
+				Header("Location: ".$this->apkdownloadurl.$source["apkurl"]." ");
+				exit();
+			} else {
+				$gamemodel = M('tg_game');
+				$game = $gamemodel->find($source["gameid"]);
+				$packagename = $game["packagename"];
+				if ($game["gameversion"] != "") {
+					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+				} else {
+					$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+				}
+				$result = $this->subpackage($packagename,$newgamename,$sourcesn);
+				if ($result == "true") {
+					$data["isupload"] = 1;
+					$data["apkurl"] = $newgamename;
+					$upload = $sourcemodel->where($map)->save($data);
+					$time = date('Y-m-d H:i:s',time());
+					// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
+					Header("Location: ".$this->apkdownloadurl.$newgamename." ");
+					exit();
+				} else {
+					echo "System Error.";
+				}
+			}
+		} else {
+			echo "Can't find APK package.";
+		}
+	}
+
+	// ---------自定义子账号的费率--------------------------------------
+    // 自定义子账号的费率 视图
     public function defineRate(){
     	$this->logincheck();
 
@@ -604,6 +544,7 @@ class SourceAction extends CommonAction {
     	$this->display();
     }
 
+    // 自定义子账号的费率 处理
     public function defineRateHandle(){
     	if (!$this->isAjax()){
     		$this->ajaxReturn("fail",'非法访问',0);
@@ -624,10 +565,10 @@ class SourceAction extends CommonAction {
 
        	$reg = '/^0|([0-9]+.?[0-9]*)$/';
        	if(!preg_match($reg,$sub_channel_rate)){
-       		$this->ajaxReturn("fail",'分成比例必须为大于0小于1的小数',0);
+       		$this->ajaxReturn("fail",'分成比例必须为大于等于0小于1的小数',0);
        	}
        	if(!preg_match($reg,$sub_channel_rate)){
-       		$this->ajaxReturn("fail",'渠道费必须为大于0小于1的小数',0);
+       		$this->ajaxReturn("fail",'渠道费必须为大于等于0小于1的小数',0);
         }
 
         //获取原来的资源信息
@@ -636,7 +577,11 @@ class SourceAction extends CommonAction {
 
         //分成比例不能母账号的大
         if($sub_share_rate > $oldsource['sourcesharerate']){
-        	$this->ajaxReturn("fail",'子账号的分成比例不能大于母账号的分成比例',0);
+        	$this->ajaxReturn("fail",'子账号的分成比例不能大于等于母账号的分成比例',0);
+        }	
+        //渠道费必须大于等于母账号的
+        if($sub_channel_rate < $oldsource['sourcechannelrate']){
+        	$this->ajaxReturn("fail",'子账号的渠道费不能小于母账号的渠道费',0);
         }	
 
         // 保存子账号资源费率
@@ -667,5 +612,59 @@ class SourceAction extends CommonAction {
     }
 
 
+    // ----公共代码-----------------------------------------------------------
+    //分包
+	public function subpackage($packagename,$newgamename,$sourcesn){
+		$sourfile = $this->packageStoreFolder.$packagename;
+		//chmod($sourfile, 0777);		
+		$newfile = $this->downloadStoreFolder.$newgamename;
+		if(!file_exists($sourfile)){
+			$this->ajaxReturn('fail',"母包不存在。",0);
+			exit();
+		}
+		if (!copy($sourfile, $newfile)) {
+			$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
+			exit();
+		}
+		$channelfile=$url."gamechannel";
+		fopen($channelfile, "w");
+		$zip = new ZipArchive;
+		if ($zip->open($newfile) === TRUE) {
+			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
+			$zip->close();
+
+						// 允许用户提交cdn才提交cdn
+			$sourceModel = M('tg_source');
+			$where = array('sourcesn'=>$sourcesn);
+			$is_allow_cdn = $sourceModel->alias('S')
+						->field('U.is_allow_cdn')
+						->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
+						->where($where)
+						->find();
+			if($is_allow_cdn['is_allow_cdn']==1){
+				/*************CDN*******************/
+				$Url = 'http://c.yxgames.com/api/cdn';
+				$Callback = $this->admindomain.'/?m=game&a=subpackage';
+				$packageurl  = $this->apkdownloadsdnurl.$newgamename;
+				$Params = 'url='.urlencode($packageurl).'&callback='.urlencode($Callback).'&of=json';
+				$rs = $this->httpreq($Url, $Params);
+				/****************CDN*******************/
+			}
+			return "true";
+		} else {
+			return "false";
+		}
+    	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
+		exit();
+	}
+
+	public function makeStr($length) { 
+		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
+		$str = ""; 
+		while(strlen($str) < $length) {
+			$str .= substr($possible, (rand() % strlen($possible)), 1);
+		}
+		return($str); 
+	}
 }
 ?>

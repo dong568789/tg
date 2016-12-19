@@ -23,42 +23,148 @@ class UserAction extends CommonAction {
 		$this->logincheck();
 		$this->menucheck();
 
-		// 设置权限
         $this->authoritycheck(10105);
-        $this->assign('auditUser',$this->authoritycheck(10108));
-        $this->assign('seeSoureceRight',$this->authoritycheck(10109));
-        $this->assign('ptbAuthorization',$this->authoritycheck(10110));
-        $this->assign('editUser',$this->authoritycheck(10111));
-        // $this->assign('fastApply',$this->authoritycheck(10172));
-        $this->assign('fastApply',$this->authoritycheck(10175));
+        $seeSoureceRight = $this->authoritycheck(10109);
+        $this->assign('seeSoureceRight',$seeSoureceRight);
+        $ptbAuthorization = $this->authoritycheck(10110);
+        $this->assign('ptbAuthorization',$ptbAuthorization);
+        $editUser = $this->authoritycheck(10111);
+        $this->assign('editUser',$editUser);
+        $fastApply = $this->authoritycheck(10172);
+        $this->assign('fastApply',$fastApply);
+        $newuser = $this->authoritycheck(10107); //新增用户
+        $this->assign('newuser',$newuser);
+
+        $this->display();
+    }
+
+    // 搜索用户
+    public function search_user(){
+        if (!$this->isAjax()){
+            $this->ajaxReturn("fail",'非法访问',0);
+        }
+
+        $subtype = $_POST['subtype'];
+        $isverified = $_POST["isverified"];
+        $is_allow_cdn = $_POST["is_allow_cdn"];
+        $account = trim($_POST["account"]);
 
         $model= M('tg_user');
+        $condition = array();
         $condition["U.activeflag"] = 1;
-        $condition['U.isverified'] = array('neq',2);
+        // 子账号
+        switch ($subtype) {
+            case 'mother':
+                $condition['U.pid'] = 0;
+                break;
+            case 'sub':
+                $condition['U.pid'] = array('gt',0);
+                break;
+        }
+        // 认证
+        switch ($isverified) {
+            case 'yes':
+                $condition['U.isverified'] = 1;
+                break;
+            case 'pending':
+                $condition['U.isverified'] = 0;
+                break;
+            case 'no':
+                $condition['U.isverified'] = 2;
+                break;
+        }
+        // cdn
+        switch ($is_allow_cdn) {
+            case 'yes':
+                $condition['U.is_allow_cdn'] = 1;
+                break;
+            case 'no':
+                $condition['U.is_allow_cdn'] = -1;
+                break;
+        }
+
+        if($account){
+            $condition['U.account'] = array('like','%'.$account.'%');
+        }
+
         $users = $model->alias('U')
                     ->join(C('DB_PREFIX').'tg_user U1 on U.pid = U1.userid')
                     ->where($condition)
                     ->field('U.*,U1.account as paccount')
-                    ->order("createtime desc")
+                    ->order("U.userid desc")
                     ->select();
-        foreach ($users as $key => $value) {
-        	if($value['sourcetype'] == 1){
-        		$users[$key]['sourcetypestr'] = '公会';
-        	}elseif($value['sourcetype'] == 2){
-        		$users[$key]['sourcetypestr'] = '买量';
-        	}elseif($value['sourcetype'] == 3){
-        		$users[$key]['sourcetypestr'] = '平台YXGAMES';
-        	}elseif($value['sourcetype'] == 4){
-        		$users[$key]['sourcetypestr'] = 'CPS';
-        	}elseif($value['sourcetype'] == 5){
-        		$users[$key]['sourcetypestr'] = '应用商店';
-        	}elseif($value['sourcetype'] == 0){
-        		$users[$key]['sourcetypestr'] = '其它';
-        	}
-        }
-        $this->assign('users',$users);
+                    // vde($model->getlastsql());
+        if($users){
+            $seeSoureceRight = $this->authoritycheck(10109);
+            $ptbAuthorization = $this->authoritycheck(10110);
+            $editUser = $this->authoritycheck(10111);
+            $fastApply = $this->authoritycheck(10172);
 
-        $this->display();
+            $num = 1;
+            foreach ($users as $key => $value) {
+                $users[$key]['id'] = $num;
+                $num = $num+1;
+
+                if($value['sourcetype'] == 1){
+                    $users[$key]['sourcetypestr'] = '公会';
+                }elseif($value['sourcetype'] == 2){
+                    $users[$key]['sourcetypestr'] = '买量';
+                }elseif($value['sourcetype'] == 3){
+                    $users[$key]['sourcetypestr'] = '平台YXGAMES';
+                }elseif($value['sourcetype'] == 4){
+                    $users[$key]['sourcetypestr'] = 'CPS';
+                }elseif($value['sourcetype'] == 5){
+                    $users[$key]['sourcetypestr'] = '应用商店';
+                }elseif($value['sourcetype'] == 0){
+                    $users[$key]['sourcetypestr'] = '其它';
+                }
+
+                if($value['usertype'] == 1){
+                    $users[$key]['usertypestr'] = '个人';
+                }elseif($value['usertype'] == 2){
+                    $users[$key]['usertypestr'] = '公司';
+                }else{
+                    $users[$key]['usertypestr'] = '其它';
+                }
+
+                $operationstr = '';
+                if($value['isverified'] == 1){
+                    if($editUser == 'ok'){
+                        $operationstr .= '<a href="/userdetail/'.$value['userid'].'/">编辑</a>&nbsp;|&nbsp;<a href="#" id="delete-"'.$value['userid'].'" onclick="deleteUser('.$value['userid'].');">删除</a>';
+                    }
+
+                    if($ptbAuthorization == 'ok'){
+                        if($operationstr!=''){
+                            $operationstr .= "&nbsp;|&nbsp;";
+                        }
+                        $operationstr .= '<a href="/userpreauth/'.$value['userid'].'/">预授权</a>';
+                    }
+                    if('$fastApply' == 'ok'){
+                        if($operationstr!=''){
+                            $operationstr .= "&nbsp;|&nbsp;";
+                        }
+                        $operationstr .= '<a href="javascript:;" onclick="fastApply(this,'.$value['userid'].');" >一键申请资源</a>';
+                    }
+                    $users[$key]['operationstr'] = $operationstr;
+                }elseif($value['isverified'] == 0){
+                    $users[$key]['operationstr'] = '<a href="/userdetail/'.$value['userid'].'/" class="btn btn-warning btn-xs">审核新用户</a>';
+                }elseif($value['isverified'] == 2){
+                    $users[$key]['operationstr'] = '<a href="/userdetail/'.$value['userid'].'/" class="btn btn-danger btn-xs">未通过审核</a>';
+                }else{
+                    $users[$key]['operationstr'] = "没有操作权限";
+                }
+                if ($seeSoureceRight == 'ok') {
+                    $users[$key]['sourcestr'] = '<a href="/usersource/'.$value['userid'].'/">查看</a>';
+                }else{
+                    $users[$key]['sourcestr'] = '';
+                }
+            }
+            // vde($users);
+            $this->ajaxReturn($users,'success',1); 
+        }else{
+             $this->ajaxReturn('没有数据','fail',0);
+        }
+            
     }
 
 	//用户所有资源
@@ -86,15 +192,15 @@ class UserAction extends CommonAction {
         foreach ($channel as $k => $v) {
             $channelstr .= "<option value='" . $v["channelid"] . "'>" . $v["channelname"] . "</option>";
         }
-        $sourcemodel = M('tg_source');
-        $sourcecondition["S.userid"] = $userid;
-        $sourcecondition["S.activeflag"] = 1;
-        $sourcecondition["G.activeflag"] = 1;
-        $sourcecondition["G.isonstack"] = 0;
-        $source = $sourcemodel->alias("S")->join(C('DB_PREFIX') . "tg_game G on S.gameid = G.gameid", "LEFT")->join(C('DB_PREFIX') . "tg_channel C on S.channelid = C.channelid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
+        // $sourcemodel = M('tg_source');
+        // $sourcecondition["S.userid"] = $userid;
+        // $sourcecondition["S.activeflag"] = 1;
+        // $sourcecondition["G.activeflag"] = 1;
+        // $sourcecondition["G.isonstack"] = 0;
+        // $source = $sourcemodel->alias("S")->join(C('DB_PREFIX') . "tg_game G on S.gameid = G.gameid", "LEFT")->join(C('DB_PREFIX') . "tg_channel C on S.channelid = C.channelid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
         $this->assign('user', $user);
         $this->assign('channelstr', $channelstr);
-        $this->assign('source', $source);
+        // $this->assign('source', $source);
         $this->menucheck();
         $this->display();
 
@@ -105,17 +211,32 @@ class UserAction extends CommonAction {
 		$this->logincheck();
         $userid = $_POST["userid"];
         $channelid = $_POST["channelid"];
+        $game = $_POST["game"];
+
         $sourcemodel= M('tg_source');
         $sourcecondition["S.userid"] = $userid;
         if ($channelid > 0) {
             $sourcecondition["S.channelid"] = $channelid;
         }
+
+        if (isset($game) && $game != '') {
+            $sourcecondition["G.gamename"] = array('like','%'.$game.'%');
+        }
+
         $sourcecondition["S.activeflag"] = 1;
         $sourcecondition["G.activeflag"] = 1;
         $sourcecondition["G.isonstack"] = 0;
-        $source = $sourcemodel->field("S.id as sourceid,G.gameicon as img,G.gamename,C.channelname,S.sourcesn,S.sourcesharerate,S.sourcechannelrate")->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
+        $sourcecondition["G.isonstack"] = 0;
+
+        $source = $sourcemodel->field("S.id as sourceid,G.gameicon as img,G.gamename,C.channelname,S.sourcesn,S.sourcesharerate,S.sourcechannelrate")->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select(); //vde();
         foreach ($source as $k => $v) {
             $source[$k]["img"] = $this->iconurl.$v["img"];
+
+            $source[$k]['gameiconstr'] = '<img width="50" height="50" src="'.$source[$k]["img"].'">';
+            $source[$k]['userratestr'] = '<a href="/userrate/'.$v["sourceid"].'/">自定义资源费率</a>';
+            $source[$k]['downloadstr'] = '<a href="index.php?m=user&a=downloadapk&source='.$v["sourcesn"].'">立即下载游戏分包</a>';
+            $source[$k]['developstr'] = '<a href="/material/'.$v["sourceid"].'/">查看推广</a>';
+            
         }
         if($source){
             $this->ajaxReturn($source,'success',1);
@@ -195,7 +316,7 @@ class UserAction extends CommonAction {
         $data['diy_logo'] = $diy_logo;
         $data['diy_webname'] = $_POST['diy_webname'];
         $data['diy_isshow_homeheader'] = $_POST['diy_isshow_homeheader'];
-
+        $data['is_allow_cdn'] = $_POST['is_allow_cdn'];
 
         $model = M('tg_user');
 
@@ -400,6 +521,7 @@ class UserAction extends CommonAction {
         
         $data['diy_webname'] = $_POST['diy_webname'];
         $data['diy_isshow_homeheader'] = $_POST['diy_isshow_homeheader'];
+        $data['is_allow_cdn'] = $_POST['is_allow_cdn'];
 
         // $this->ajaxReturn('fail',$_FILES["diy_logo"]["tmp_name"],0);
         // exit();

@@ -2,8 +2,12 @@
 <!--[if IE 9 ]><html class="ie9"><![endif]-->
 <?php
 $page_title = "所有用户";
-$page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
+$page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css";
 $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
+$page_css[] = "vendors/bower_components/jpages/css/jPages.css";
+$page_css[] = "vendors/bower_components/jpages/css/animate.css";
+$page_css[] = "vendors/bower_components/jpages/css/github.css";
+$page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
 ?>
 
 <include file="Inc:head" />
@@ -32,60 +36,76 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                         <div class="card-header">
                         </div>
                         <div class="card-body">
-                            <div class="p-20">
+                            <div id="data-table-basic-header" class="bootgrid-header container-fluid m-b-0">
+                                <div class="actionBar">
+                                    <select class="btn btn-default dropdown-menu f-14 m-r-10" id="subtype">
+                                        <option value="mother">母账号</option>
+                                        <option value="sub">子账号</option>
+                                        <option value="all">全部</option>
+                                    </select>
+
+                                    <select class="btn btn-default dropdown-menu f-14 m-r-10" id="isverified">
+                                        <option value="yes">认证通过</option>
+                                        <option value="pending">未认证</option>
+                                        <option value="no">不通过</option>
+                                        <option value="all">全部</option>
+                                    </select>
+
+                                    <select class="btn btn-default dropdown-menu f-14 m-r-10" id="is_allow_cdn">
+                                        <option value="all">全部(cdn)</option>
+                                        <option value="yes">允许cdn</option>
+                                        <option value="no">不允许cdn</option>
+                                    </select>
+
+                                    <div style="clear:both;"></div>
+                                </div>
+
+                                <div class="actionBar m-t-20">
+                                    <div class="search form-group col-sm-9 m-0 p-l-0">
+                                        <div class="input-group">
+                                            <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                            <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
+                                        </div>
+                                    </div>
+                                    <div class="actions btn-group">
+                                        <div class="dropdown btn-group">
+                                            <a class="btn btn-default" href="javascript:void(0);" id="search-btn">搜索</a>
+                                        </div>
+                                    </div>
+
+                                    <if condition="$newuser eq 'ok'"><a class="btn btn-primary btn-default waves-effect btn-addnewuser" href="/newuser/">新增一个用户</a></if>
+                                </div>
+                            </div>
+
+                            <div class="p-20" style="padding-top: 0px;min-height: 100px;">
+                                <div id="loading" class="col-sm-12 text-center" style="display: none;">
+                                    <img src="__ROOT__/plus/img/progress.gif" alt=""/>
+                                    <p class="m-t-10">正在加载数据，请稍后</p>
+                                </div>
+
                                 <div class="table-responsive">
                                     <table id="data-table-basic" class="table table-hover table-vmiddle">
                                         <thead>
                                         <tr>
-                                            <th data-column-id="id" data-type="numeric" data-order="desc">序号</th>
+                                            <th data-column-id="id">序号</th>
                                             <th data-column-id="account">用户名</th>
                                             <th data-column-id="projectname">项目名</th>
                                             <th data-column-id="sourcetypestr">渠道类型</th>
                                             <th data-column-id="bindmobile" data-visible="false">绑定手机</th>
                                             <th data-column-id="bindemail" data-visible="false">绑定邮箱</th>
-                                            <th data-column-id="usertype">会员类型</th>
-                                            <th data-column-id="issubuser">母账号</th>
+                                            <th data-column-id="usertypestr">会员类型</th>
+                                            <th data-column-id="paccount">母账号</th>
                                             <th data-column-id="realname">联系人名字</th>
 											<th data-column-id="contactmobile">联系电话</th>
                                             <th data-column-id="companyname">公司名字</th>
                                             <th data-column-id="channelbusiness">渠道商务</th>
                                             <th data-column-id="createtime">创建时间</th>
-                                            <if condition="$seeSoureceRight eq 'ok'"><th data-column-id="userrate" data-formatter="userrate">渠道</th></if>
+                                            <if condition="$seeSoureceRight eq 'ok'"><th data-column-id="sourcestr">渠道</th></if>
                                             <th data-column-id="isverified" data-visible="false">是否通过审核</th>
-                                            <if condition="$editUser eq 'ok' || $ptbAuthorization eq 'ok' || $auditUser eq 'ok'"><th data-column-id="operation" data-formatter="link">操作</th></if>
+                                            <if condition="$editUser eq 'ok' || $ptbAuthorization eq 'ok' || $auditUser eq 'ok'"><th data-column-id="operationstr">操作</th></if>
                                         </tr>
                                         </thead>
                                         <tbody id="statisticcontainer">
-                                        <foreach name="users" item="vo" key="k">
-											<tr>
-                                                <td><{$vo['userid']}></td>
-                                                <td><{$vo['account']}></td>
-                                                <td><{$vo['projectname']}></td>
-                                                <td><{$vo['sourcetypestr']}></td>
-                                                <td><{$vo['bindmobile']}></td>
-                                                <td><{$vo['bindemail']}></td>
-												<if condition = "$vo['usertype'] eq 1">
-    												<td>个人</td>
-    											<elseif condition = "$vo['usertype'] eq 2"/>
-    												<td>公司</td>
-    											<else/>
-    												<td>未知</td>
-												</if>
-                                                <if condition = "$vo['pid'] gt 0">
-                                                    <td><{$vo['paccount']}></td>
-                                                <else/>
-                                                    <td></td>
-                                                </if>
-                                                <td><{$vo['realname']}></td>
-												<td><{$vo['contactmobile']}></td>
-                                                <td><{$vo['companyname']}></td>
-                                                <td><{$vo['channelbusiness']}></td>
-                                                <td><{$vo['createtime']}></td>
-                                                <if condition="$seeSoureceRight eq 'ok'"><td></td></if>
-												<td><{$vo['isverified']}></td>
-                                                <td></td>
-                                            </tr>
-                                        </foreach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -101,8 +121,11 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 <include file="Inc:footer" />
 <include file="Inc:scripts" />
 
-<script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
 <script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/jpages/js/jPages.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
 
 <script type="text/javascript">
 	function notify(message, type){
@@ -208,9 +231,52 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             return false;
         }
     }
+
+    // 搜索
+    function search_page () {
+        var subtype = $('#subtype').val();
+        var isverified = $('#isverified').val().trim();
+        var is_allow_cdn = $('#is_allow_cdn').val();
+        var account = $('#account').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=user&a=search_user",
+            data: {
+                subtype:subtype, 
+                isverified:isverified,
+                is_allow_cdn:is_allow_cdn,
+                account:account,
+            },
+            cache: false,
+            dataType: 'json',
+            beforeSend: function () {
+                $(".table-responsive").hide();
+                $("#data-table-basic-footer").hide();
+                $("#loading").show();
+            },
+            success: function (data) {
+                // console.log(data);
+                $("#loading").hide();
+                $(".table-responsive").show();
+                $("#data-table-basic-footer").show();
+                $("#data-table-basic").bootgrid("clear");
+                if (data.info == "success") {
+                    $("#data-table-basic").bootgrid("append", data.data);
+                } else {
+                    notify('没有符合条件的数据', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
+        });
+    }
 	
     $(document).ready(function() {
-		//Basic Example
+        //Basic Example
         $("#data-table-basic").bootgrid({
             css: {
                 icon: 'zmdi',
@@ -219,49 +285,32 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 iconRefresh: 'zmdi-refresh',
                 iconUp: 'zmdi-caret-up-circle'
             },
-			formatters: {
-				"link": function(column, row)
-				{
-                    var str='';
-                    if(parseInt(row.isverified) == 1){
-                        if('<{$editUser}>' == 'ok'){
-                            str+="<a href=\"/userdetail/"+row.id+"/\">编辑</a>&nbsp;|&nbsp;<a href=\"#\" id=\"delete-"+row.id+"\" onclick=\"deleteUser("+row.id+");\">删除</a>";
-                        }
-
-                        if('<{$ptbAuthorization}>' == 'ok'){
-                            if(str!=''){
-                                str+="&nbsp;|&nbsp;"
-                            }
-                            str+="<a href=\"/userpreauth/"+row.id+"/\">预授权</a>";
-                        }
-
-                        if('<{$fastApply}>' == 'ok'){
-                            if(str!=''){
-                                str+="&nbsp;|&nbsp;"
-                            }
-                            str+="<a href=\"javascript:;\"onclick=\"fastApply(this,"+row.id+");\" >一键申请资源</a>";
-                        }
-                    } else if (parseInt(row.isverified) == 0 && '<{$auditUser}>' == 'ok') {
-                        str+="<a href=\"/userdetail/"+row.id+"/\" class=\"btn btn-warning btn-xs\">审核新用户</a>";
-                    } else if (parseInt(row.isverified) != 0 &&parseInt(row.isverified) != 1 && '<{$auditUser}>' == 'ok')  {
-                        str+="<a href=\"/userdetail/"+row.id+"/\" class=\"btn btn-danger btn-xs\">未通过审核</a>";
-                    } else{
-                        str+="没有操作权限";
-                    }
-
-                    return str;
-				},
-				"userrate": function(column, row)
-				{
-                    if ('<{$seeSoureceRight}>' == 'ok') {
-                        return "<a href=\"/usersource/" + row.id + "/\">查看</a>";
-                    }
-				}
-			},
-			templates: {
-				header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 actionBar\"><p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p><if condition="$newuser eq 'ok'"><a class=\"{{css.addnewuser}}\" href=\"/newuser/\">新增一个用户</a></if></div></div></div>"
-			}
+            formatters: {
+            },
+            templates: {
+                header: ""
+            }
         });
+
+        search_page();
+
+        $('#subtype').change(function(){
+            search_page();
+        })
+        $('#isverified').change(function(){
+            search_page();
+        })
+        $('#is_allow_cdn').change(function(){
+            search_page();
+        })
+        $('#account').keydown(function(e){
+            if(e.keyCode==13){
+               search_page();
+            }
+        });
+        $('#search-btn').click(function (argument) {
+            search_page();
+        })
     })
 </script>
 

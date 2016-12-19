@@ -33,8 +33,10 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                             <img class="i-logo" src="__ROOT__/plus/img/demo/invoice-logo.png" alt="">
                         </div>
                         <div class="card-body">
-							<div class="p-20">
-								<div class="row">
+							
+
+							<div class="p-20" >
+								<div class="row" >
 									<div class="col-xs-6">
 										<div class="text-right">
 											<h4><{$user['account']}></h4>
@@ -86,7 +88,33 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 									</div>
 								</div>
                             </div>
-                            <div class="p-20">
+
+                            <div id="data-table-basic-header" class="bootgrid-header container-fluid m-b-0">
+                                <div class="actionBar">
+                                    <select class="btn btn-default dropdown-menu f-14 m-r-10" id="channelselect">
+                                        <{$channelstr}>
+                                    </select>
+
+                                    <div class="search form-group col-sm-9 m-0 p-l-0">
+                                        <div class="input-group">
+                                            <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                            <input type="text" class="form-control search-content" id="game-search" placeholder="输入游戏搜索">
+                                        </div>
+                                    </div>
+                                    <div class="actions btn-group">
+                                        <div class="dropdown btn-group">
+                                            <a class="btn btn-default" href="javascript:void(0);" id="game-search-btn">搜索</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-20" style="padding-top: 0px;min-height: 100px;">
+                            	<div id="loading" class="col-sm-12 text-center" style="display: none;">
+                                    <img src="__ROOT__/plus/img/progress.gif" alt=""/>
+                                    <p class="m-t-10">正在加载数据，请稍后</p>
+                                </div>
+
                                 <div class="table-responsive">
                                     <table id="data-table-basic" class="table table-hover table-vmiddle">
 										<input type="hidden" name="hiddenuserid" id="hiddenuserid" value="<{$user['userid']}>">
@@ -95,7 +123,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                         <tr>
 											<th data-column-id="sourceid" data-visible="false">资源编号</th>
                                             <th data-column-id="img" data-visible="false">游戏图标</th>
-                                            <th data-column-id="gameicon" data-formatter="gameicon">游戏图标</th>
+                                            <th data-column-id="gameiconstr" data-formatter="gameicon">游戏图标</th>
                                             <th data-column-id="gamename" >游戏名</th>
 											<th data-column-id="channelname">渠道名</th>
 											<th data-column-id="sourcesn">资源编码</th>
@@ -105,18 +133,18 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 											<th data-column-id="sub_share_rate">子账号资源分成比例</th>
 											<th data-column-id="sub_channel_rate">子账号资源渠道费</th>
 											<if condition="$customRateRight eq 'ok'">
-												<th data-column-id="link" data-formatter="link" data-sortable="false">自定义资源费率</th>
+												<th data-column-id="userratestr" data-sortable="false">自定义资源费率</th>
 											</if>
                                             <if condition="$downloadApkRight eq 'ok'">
-												<th data-column-id="download" data-formatter="download" data-sortable="false">立即下载游戏分包</th>
+												<th data-column-id="downloadstr" data-sortable="false">立即下载游戏分包</th>
 											</if>
 											<if condition="$seeDevelopRight eq 'ok'">
-												<th data-column-id="develop" data-formatter="develop" data-sortable="false">查看推广</th>
+												<th data-column-id="developstr" data-sortable="false">查看推广</th>
 											</if>
                                         </tr>
                                         </thead>
                                         <tbody id="sourcecontainer">
-                                        <foreach name="source" item="vo" key="k">
+                                        <!-- <foreach name="source" item="vo" key="k">
 											<tr>
 												<td><{$vo['id']}></td>
 												<td><{$ICONURL}><{$vo['gameicon']}></td>
@@ -139,7 +167,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 												<if condition="$downloadApkRight eq 'ok'">	<td></td> </if>
 												<if condition="$seeDevelopRight eq 'ok'"> <td></td>	</if>
                                             </tr>
-                                        </foreach>
+                                        </foreach> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -182,6 +210,44 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             }
         });
     }
+
+    // 搜索
+    function search_page () {
+        var channelid = $('#channelselect').val();
+		var userid = $("#hiddenuserid").val();
+		var game = $("#game-search").val();
+
+        $.ajax({
+            type: "POST",
+            url: "index.php?m=user&a=getUserSource",
+            data: {channelid:channelid,userid:userid,game:game},
+            cache: false,
+            dataType: 'json',
+            beforeSend: function () {
+                $(".table-responsive").hide();
+                $("#data-table-basic-footer").hide();
+                $("#loading").show();
+            },
+            success: function (data) {
+                console.log(data);
+                $("#loading").hide();
+                $(".table-responsive").show();
+                $("#data-table-basic-footer").show();
+                $("#data-table-basic").bootgrid("clear");
+                if (data.info == "success") {
+                    $("#data-table-basic").bootgrid("append", data.data);
+
+                } else {
+                    notify('没有符合条件的数据', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
+        });
+    }
 	
     $(document).ready(function() {
 		//Basic Example
@@ -194,60 +260,45 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 iconUp: 'zmdi-caret-up-circle'
             },
 			formatters: {
-				"gameicon": function(column, row) {
-					return "<img width=\"50\" height=\"50\" src=\""+row.img+"\">";
-				},
-				"link": function(column, row) {
-					if ('<{$customRateRight}>' == 'ok') {
-                        return "<a href=\"/userrate/"+row.sourceid+"/\">自定义资源费率</a>";
-                    }
-				},
-				"download": function(column, row) {
-					if ('<{$downloadApkRight}>' == 'ok') {
-                        return "<a href=\"index.php?m=user&a=downloadapk&source="+row.sourcesn+"\">立即下载游戏分包</a>";
-                    }
-				},
-				"develop": function(column, row) {
-					if ('<{$seeDevelopRight}>' == 'ok') {
-                        var userid=$('#hiddenuserid').val();
-						var userid=$('#hiddenuserid').val();
-						return "<a href=\"/material/"+row.sourceid+"/\">查看推广</a>";
-                    }
-				}
+				// "gameicon": function(column, row) {
+				// 	return "<img width=\"50\" height=\"50\" src=\""+row.img+"\">";
+				// },
+				// "link": function(column, row) {
+				// 	if ('<{$customRateRight}>' == 'ok') {
+    //                     return "<a href=\"/userrate/"+row.sourceid+"/\">自定义资源费率</a>";
+    //                 }
+				// },
+				// "download": function(column, row) {
+				// 	if ('<{$downloadApkRight}>' == 'ok') {
+    //                     return "<a href=\"index.php?m=user&a=downloadapk&source="+row.sourcesn+"\">立即下载游戏分包</a>";
+    //                 }
+				// },
+				// "develop": function(column, row) {
+				// 	if ('<{$seeDevelopRight}>' == 'ok') {
+    //                     var userid=$('#hiddenuserid').val();
+				// 		var userid=$('#hiddenuserid').val();
+				// 		return "<a href=\"/material/"+row.sourceid+"/\">查看推广</a>";
+    //                 }
+				// }
 			},
 			templates: {
-				header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 actionBar\"><p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p><div class=\"channel-select-div\"><select class=\"{{css.channelselect}}\" id=\"channelselect\"></select></div></div></div></div>"
+				header: ""
 			}
         });
-		
-		$("#channelselect").html($("#hiddenchannelstr").val());
+
+        search_page();
+
+		$('#game-search').keydown(function(e){
+            if(e.keyCode==13){
+               search_page();
+            }
+        });
+        $('#game-search-btn').click(function (argument) {
+            search_page();
+        })
 
 		$("#channelselect").change(function() {
-			var channelid = $(this).val();
-			var userid = $("#hiddenuserid").val();
-			$.ajax({
-				type : 'POST',
-				url : "index.php?m=user&a=getUserSource",
-				data : {channelid : channelid, userid : userid},
-				cache : false,
-				dataType : 'json',
-				success : function (data) {
-					console.log(data);
-					if (data.info == "success") {
-						$("#data-table-basic").bootgrid("clear");
-						$("#data-table-basic").bootgrid("append", data.data);
-						notify('数据获取成功', 'success');
-					} else {
-						$("#data-table-basic").bootgrid("clear");
-						notify(data.data, 'danger');
-					}
-					return false;
-				},
-				error : function (xhr) {
-					notify('系统错误！', 'danger');
-					return false;
-				}
-			});
+			search_page();
 		});
     })
 </script>
