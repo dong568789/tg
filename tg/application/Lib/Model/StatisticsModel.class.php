@@ -103,12 +103,13 @@ class StatisticsModel extends Model
 		}else{	//母账号
 			$allsource_where = ' and S.userid="'.$userid.'"';
 		}
-		$allsourcequery = "select * from yx_tg_source S left join yx_tg_game G on S.gameid = G.gameid where S.activeflag = 1 and G.activeflag = 1 and G.isonstack = 0 and order by S.id desc";
+		$allsourcequery = "select * from yx_tg_source S left join yx_tg_game G on S.gameid = G.gameid where S.activeflag = 1 and G.activeflag = 1 and G.isonstack = 0 ".$allsource_where." order by S.id desc";
         $result = mysql_query($allsourcequery);
 		while ($row = mysql_fetch_assoc($result)) {
 			$sourcelist[] = strtolower($row["sourcesn"]);
 		}
-		
+		// vd($allsourcequery);
+		// vde($sourcelist);
 		$todaydata=array();
 		for ($i=0;$i<sizeof($source);$i++) {
 			$sourcerow = $source[$i]; //当前渠道
@@ -217,6 +218,8 @@ class StatisticsModel extends Model
 			$todaydata[$i]["channelname"] = $sourcerow["channelname"];
 			$todaydata[$i]["dailyjournal"] = $dailyjournal;
 			$todaydata[$i]["dailyincome"] = $dailyincome;
+			$todaydata[$i]["sub_share_rate"] = $sourcerow["sub_share_rate"];
+			$todaydata[$i]["sub_channel_rate"] = $sourcerow["sub_channel_rate"];
 		}
 
 		return $todaydata;

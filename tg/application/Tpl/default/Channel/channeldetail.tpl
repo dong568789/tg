@@ -158,8 +158,16 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
         }, "请输入英文小写字母或数字！");
 
         jQuery.validator.addMethod('checkPassword',function (value,element) {
-            var reg=/^((?![\u4e00-\u9fff| ]).){6,20}$/;
-            return this.optional(element) || (reg.test(value));
+            if(value == ''){  //可以为空，但不可以全为空格
+                return true;
+            }
+            var password=jQuery.trim(value);
+            if(password == ''){
+                return false;
+            }else{
+                var reg=/^((?![\u4e00-\u9fff| ]).){6,20}$/;
+                return this.optional(element) || (reg.test(password));
+            }
         },'密码不能包含汉字和空格');
 
         $('#savechannel').click(function() {

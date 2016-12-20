@@ -44,7 +44,7 @@ class UserAction extends CommonAction {
             $this->ajaxReturn("fail",'非法访问',0);
         }
 
-        $subtype = $_POST['subtype'];
+        // $subtype = $_POST['subtype'];
         $isverified = $_POST["isverified"];
         $is_allow_cdn = $_POST["is_allow_cdn"];
         $account = trim($_POST["account"]);
@@ -53,14 +53,14 @@ class UserAction extends CommonAction {
         $condition = array();
         $condition["U.activeflag"] = 1;
         // 子账号
-        switch ($subtype) {
-            case 'mother':
-                $condition['U.pid'] = 0;
-                break;
-            case 'sub':
-                $condition['U.pid'] = array('gt',0);
-                break;
-        }
+        // switch ($subtype) {
+        //     case 'mother':
+        //         $condition['U.pid'] = 0;
+        //         break;
+        //     case 'sub':
+        //         $condition['U.pid'] = array('gt',0);
+        //         break;
+        // }
         // 认证
         switch ($isverified) {
             case 'yes':

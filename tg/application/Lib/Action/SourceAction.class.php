@@ -633,19 +633,19 @@ class SourceAction extends CommonAction {
 			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
 			$zip->close();
 
-						// 允许用户提交cdn才提交cdn
+			// 允许用户提交cdn才提交cdn
 			$sourceModel = M('tg_source');
 			$where = array('sourcesn'=>$sourcesn);
 			$is_allow_cdn = $sourceModel->alias('S')
-						->field('U.is_allow_cdn')
+						->field('U.account')
 						->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
 						->where($where)
 						->find();
-			if($is_allow_cdn['is_allow_cdn']==1){
+			if($is_allow_cdn['account'] == 'app123'){
 				/*************CDN*******************/
 				$Url = 'http://c.yxgames.com/api/cdn';
 				$Callback = $this->admindomain.'/?m=game&a=subpackage';
-				$packageurl  = $this->apkdownloadsdnurl.$newgamename;
+				$packageurl  = $this->apkdownloadcdnurl.$newgamename;
 				$Params = 'url='.urlencode($packageurl).'&callback='.urlencode($Callback).'&of=json';
 				$rs = $this->httpreq($Url, $Params);
 				/****************CDN*******************/

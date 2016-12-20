@@ -38,11 +38,11 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                         <div class="card-body">
                             <div id="data-table-basic-header" class="bootgrid-header container-fluid m-b-0">
                                 <div class="actionBar">
-                                    <select class="btn btn-default dropdown-menu f-14 m-r-10" id="subtype">
+                                    <!-- <select class="btn btn-default dropdown-menu f-14 m-r-10" id="subtype">
                                         <option value="mother">母账号</option>
                                         <option value="sub">子账号</option>
                                         <option value="all">全部</option>
-                                    </select>
+                                    </select> -->
 
                                     <select class="btn btn-default dropdown-menu f-14 m-r-10" id="isverified">
                                         <option value="yes">认证通过</option>
@@ -234,7 +234,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 
     // 搜索
     function search_page () {
-        var subtype = $('#subtype').val();
+        // var subtype = $('#subtype').val();
         var isverified = $('#isverified').val().trim();
         var is_allow_cdn = $('#is_allow_cdn').val();
         var account = $('#account').val();
@@ -243,7 +243,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             type: "POST",
             url: "/index.php?m=user&a=search_user",
             data: {
-                subtype:subtype, 
+                // subtype:subtype, 
                 isverified:isverified,
                 is_allow_cdn:is_allow_cdn,
                 account:account,
@@ -294,9 +294,9 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 
         search_page();
 
-        $('#subtype').change(function(){
-            search_page();
-        })
+        // $('#subtype').change(function(){
+        //     search_page();
+        // })
         $('#isverified').change(function(){
             search_page();
         })

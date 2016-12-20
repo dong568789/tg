@@ -415,8 +415,13 @@
         }, "请输入正确的手机号码！");
 
         jQuery.validator.addMethod('checkPassword',function (value,element) {
-            var reg=/^((?![\u4e00-\u9fff| ]).){6,20}$/;
-            return this.optional(element) || (reg.test(value));
+            var password=jQuery.trim(value);
+            if(password == ''){
+                return false;
+            }else{
+                var reg=/^((?![\u4e00-\u9fff| ]).){6,20}$/;
+                return this.optional(element) || (reg.test(password));
+            }
         },'密码不能包含汉字和空格');
 
         //渠道规则
@@ -479,7 +484,7 @@
 				password : {
 					required : '此项目必填',
 					rangelength : jQuery.format('登录密码长度必须是{0}到{1}之间'),
-                    checkPassword : '子账号密码不能包含汉字和空格',
+                    checkPassword : '密码不能包含汉字和空格',
 				},
 				mobileverify : {
 					required : '请输入图形验证码',

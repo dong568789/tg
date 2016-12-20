@@ -99,19 +99,19 @@ if($userpid==0){
 			"url" => "/statistics/",
 			"icon" => "widgets"
 		),
-		"用户充值" => array(
-			"title" => "用户充值",
-			"icon" => "paypal",
+		"用户查询" => array(
+			"title" => "用户查询",
+			"icon" => "account",
 			"sub" => array(
-				'游侠币管理' => array(
-					'title' => '游侠币管理',
-					'url' => "/coin/",
+				'充值查询' => array(
+					'title' => '充值查询',
+					'url' => "/recharge/",
 				),
-				'代金券管理' => array(
-					'title' => '代金券管理',
-					'url' => "/voucher/",
+				'注册查询' => array(
+					'title' => '注册查询',
+					'url' => "/registration/",
 				),
-			)
+			),
 		),
 	);
 }

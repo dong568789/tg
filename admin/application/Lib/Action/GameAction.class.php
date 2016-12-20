@@ -1487,7 +1487,7 @@ class GameAction extends CommonAction {
 				/*************CDN*******************/
 				$Url = 'http://c.yxgames.com/api/cdn';
 				$Callback = $this->admindomain.'/?m=game&a=subpackage';
-				$packageurl  = $this->apkdownloadsdnurl.$newgamename;
+				$packageurl  = $this->apkdownloadcdnurl.$newgamename;
 				$Params = 'url='.urlencode($packageurl).'&callback='.urlencode($Callback).'&of=json';
 				$rs = $this->httpreq($Url, $Params);
 				/****************CDN*******************/

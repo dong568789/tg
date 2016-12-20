@@ -81,7 +81,7 @@ class StatisticsAction extends CommonAction {
         }elseif(isset($choose_time) && $choose_time != ""){
             if($choose_time=='currentmonth'){
                 $startdate = date('Y-m-01', time()); //获取当前月份第一天
-                $enddate = date('Y-m-d', strtotime("$startdate +1 month -1 day"));    //加一个月减去一天 
+                $enddate = date('Y-m-d', time());
             }elseif ($choose_time=='sevenday') {
                 $enddate = date('Y-m-d', time());
                 $startdate = date('Y-m-d', strtotime("$enddate -7 day"));  
@@ -91,7 +91,7 @@ class StatisticsAction extends CommonAction {
             }
             $condition["D.date"]  = array(array('egt',$startdate),array('elt',$enddate),'and');
         }
-
+        vde($condition["D.date"]);
         $condition["D.activeflag"] = 1;
         $condition['_logic'] = 'AND';
 
