@@ -444,8 +444,8 @@ class SourceAction extends CommonAction {
 
         $Source = D('Source');
         $long_url = $Source->getDownloadURL($sourceid);
+        $long_url .= '/'.rand(0,9).rand(0,9).rand(0,9).rand(0,9);
         $this->assign("long_url",$long_url);
-        $this->assign("short_url",$Source->shortenSinaUrl($long_url));
 
         $this->assign("sourceid",$sourceid);
 
@@ -484,6 +484,13 @@ class SourceAction extends CommonAction {
 		$map["sourcesn"] = $sourcesn;
         $source = $sourcemodel->where($map)->find();
 		if ($source) {
+			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
+			$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
+			if($source["is_cdn_submit"] == 1 && @fopen($cndurl) ){
+				Header("Location: ".$cndurl." ");
+				exit();
+			}
+
 			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
 				$time = date('Y-m-d H:i:s',time());
 				// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
@@ -633,23 +640,9 @@ class SourceAction extends CommonAction {
 			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
 			$zip->close();
 
-			// 允许用户提交cdn才提交cdn
-			$sourceModel = M('tg_source');
-			$where = array('sourcesn'=>$sourcesn);
-			$is_allow_cdn = $sourceModel->alias('S')
-						->field('U.account')
-						->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
-						->where($where)
-						->find();
-			if($is_allow_cdn['account'] == 'app123'){
-				/*************CDN*******************/
-				$Url = 'http://c.yxgames.com/api/cdn';
-				$Callback = $this->admindomain.'/?m=game&a=subpackage';
-				$packageurl  = $this->apkdownloadcdnurl.$newgamename;
-				$Params = 'url='.urlencode($packageurl).'&callback='.urlencode($Callback).'&of=json';
-				$rs = $this->httpreq($Url, $Params);
-				/****************CDN*******************/
-			}
+			// 第一次分包的时候cdn提交
+			$this->cdnsubmit($sourcesn);
+
 			return "true";
 		} else {
 			return "false";
@@ -665,6 +658,44 @@ class SourceAction extends CommonAction {
 			$str .= substr($possible, (rand() % strlen($possible)), 1);
 		}
 		return($str); 
+	}
+
+	// cdn提交接口
+	public function cdnsubmit($sourcesn,$newgamename)){
+		// 允许用户提交cdn才提交cdn
+		$sourceModel = M('tg_source');
+		$where = array('sourcesn'=>$sourcesn);
+		$is_allow_cdn = $sourceModel->alias('S')
+					->field('U.is_allow_cdn')
+					->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
+					->where($where)
+					->find();
+		if($is_allow_cdn['is_allow_cdn'] == '1'){
+			/*************CDN*******************/
+			$Url = 'http://c.yxgames.com/api/cdn';
+			$Callback = $this->admindomain.'/?m=source&a=cdncallback&sourcesn='.$sourcesn;
+			$packageurl  = $this->apkdownloadcdnurl.$newgamename;
+			$Params = array(
+				'url'=>$packageurl,
+				'callback'=>$Callback,
+				'of'=>'json',
+			);
+			$rs = $this->httpreq($Url, http_build_query($Params),'post');
+			/****************CDN*******************/
+		}
+	}
+
+	// cdn回调函数
+	public function cdncallback(){
+		$sourcesn = $_GET['sourcesn'];
+
+		$rs = json_decode($rs,true);
+		if($rs['result'] == 'api'){
+			$sourceModel = M('tg_source');
+			$where = array('sourcesn'=>$sourcesn);
+			$data = array('is_cdn_submit'=>1);
+			$sourceModel->where($where)->save($data);
+		}
 	}
 }
 ?>

@@ -72,7 +72,7 @@ class ChannelAction extends CommonAction {
         $condition['channelname'] = $channelname;
         $condition['activeflag'] = 1;
         $exischannelname = $model->where($condition)->count();
-        vde($model->getlastsql());
+
         if ($exischannelname > 0) {
             $this->ajaxReturn("fail",'渠道名已存在，请输入一个新的渠道名。',0);
         } 

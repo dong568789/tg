@@ -99,7 +99,7 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                                         <label for="alipayaccount" class="col-sm-3 control-label f-15 m-t-5">子账号密码</label>
                                         <div class="col-sm-7">
                                             <div class="fg-line">
-                                                <input type="password" class="form-control" name="sub_password" id="sub_password" value="" maxlength="10" />
+                                                <input type="password" class="form-control" name="sub_password" id="sub_password" value="" maxlength="20" />
                                             </div>
                                             <span class="tip">* 不填写，则保持原来不变</span>
                                         </div>
