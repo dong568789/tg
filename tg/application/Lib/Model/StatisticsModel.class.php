@@ -98,7 +98,7 @@ class StatisticsModel extends Model
 		// 获取当前用户的所有渠道（母账号和子账号），后面需要
 		// 实时今日统计和每天跑batch这里不一样
 		$sourcelist = array();
-		if(isset($_SESSION['pid']) && $_SESSION['pid']>0){ //子账号，只能是自己的渠道
+		if(isset($_SESSION['userpid']) && $_SESSION['userpid']>0){ //子账号，只能是自己的渠道
 			$allsource_where = ' and S.channelid="'.$channelid.'"';
 		}else{	//母账号
 			$allsource_where = ' and S.userid="'.$userid.'"';

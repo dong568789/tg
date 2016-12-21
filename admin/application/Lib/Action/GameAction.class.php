@@ -1432,7 +1432,18 @@ class GameAction extends CommonAction {
 							// sdk_agentlist增加资源的强更链接
 							$agentModel = M('sdk_agentlist');
 							$agentcondition["agent"] = $source["sourcesn"];
-							$agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
+
+							$is_allow_cdn = $sourceModel->alias('S')
+									->field('U.is_allow_cdn')
+									->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
+									->where($where)
+									->find();
+							if($is_allow_cdn['is_allow_cdn'] == '1'){
+								$agentdata["upurl"] = $this->apkdownloadcdnurl.$newgamename;
+							}else{
+								$agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
+							}
+
 							$agent = $agentModel->where($agentcondition)->save($agentdata);
 
 							if ($agent) {
@@ -1479,7 +1490,7 @@ class GameAction extends CommonAction {
 			$zip->close();
 
 			// 第一次分包的时候cdn提交
-			$this->cdnsubmit($sourcesn);
+			$this->cdnsubmit($sourcesn,$newgamename);
 
 			return "true";
 		} else {
@@ -1490,7 +1501,7 @@ class GameAction extends CommonAction {
 	}
 
 	// cdn提交接口
-	public function cdnsubmit($sourcesn,$newgamename)){
+	public function cdnsubmit($sourcesn,$newgamename){
 		// 允许用户提交cdn才提交cdn
 		$sourceModel = M('tg_source');
 		$where = array('sourcesn'=>$sourcesn);
@@ -1502,7 +1513,7 @@ class GameAction extends CommonAction {
 		if($is_allow_cdn['is_allow_cdn'] == '1'){
 			/*************CDN*******************/
 			$Url = 'http://c.yxgames.com/api/cdn';
-			$Callback = $this->admindomain.'/?m=game&a=cdncallback&sourcesn='.$sourcesn;
+			$Callback = $this->admindomain.'/?m=game&a=forcecdncallback&sourcesn='.$sourcesn;
 			$packageurl  = $this->apkdownloadcdnurl.$newgamename;
 			$Params = array(
 				'url'=>$packageurl,
@@ -1514,16 +1525,40 @@ class GameAction extends CommonAction {
 		}
 	}
 
-	// cdn回调函数
+	// 前台下载的时候cdn回调函数
 	public function cdncallback(){
 		$sourcesn = $_GET['sourcesn'];
 
-		$rs = json_decode($rs,true);
-		if($rs['result'] == 'api'){
-			$sourceModel = M('tg_source');
-			$where = array('sourcesn'=>$sourcesn);
-			$data = array('is_cdn_submit'=>1);
-			$sourceModel->where($where)->save($data);
+		$sourceModel = M('tg_source');
+		$where = array('sourcesn'=>$sourcesn);
+		$data = array('is_cdn_submit'=>1);
+		$result = $sourceModel->where($where)->save($data);
+		if($result === false){
+			echo '修改sourcesn:['.$sourcesn.']cdn字段失败';
+		}else{
+			echo '修改sourcesn:['.$sourcesn.']cdn字段成功';
+		}
+	}
+	// 强更的时候cdn回调函数
+	public function forcecdncallback(){
+		$sourcesn = $_GET['sourcesn'];
+
+		$sourceModel = M('tg_source');
+		$where = array('sourcesn'=>$sourcesn);
+		$source = $sourceModel->field('userid,gameid,channelid')->where($where)->find();
+	
+		$forcepackageModel = M('tg_forcepackage');
+		$where = array();
+		$where['userid'] = $source['userid'];
+		$where['gameid'] = $source['gameid'];
+		$where['channelid'] = $source['channelid'];
+		$where['isforce'] = 0;
+		$data = array('is_cdn_submit'=>1);
+		$result = $forcepackageModel->where($where)->save($data);
+		if($result === false){
+			echo '修改强更sourcesn:['.$sourcesn.']cdn字段失败';
+		}else{
+			echo '修改强更sourcesn:['.$sourcesn.']cdn字段成功';
 		}
 	}
 	//---------------------------------------------------------------

@@ -621,12 +621,14 @@ class BalanceAction extends CommonAction {
             $current_line=4;
             // 根据游戏，资源统计出来
             if($sourceaccount){
-                if($user['invoicetype']==3 || $user['invoicetype']==0){
-                    $taxrateContent = 0;
-                }elseif($user['invoicetype']==1){
-                    $taxrateContent = 0.0336;
-                }elseif($user['invoicetype']==2){
-                    $taxrateContent = 0.0672;
+                if ($user["invoicetype"] == 1) {
+                    $taxrateContent = '0.0672(普通发票)';
+                } else if ($user["invoicetype"] == 2) {
+                    $taxrateContent = '0.0336(3%增值税发票)';
+                } else if ($user["invoicetype"] == 3) {
+                    $taxrateContent = '0(6%增值税发票)';
+                } else if ($user["invoicetype"] == 0) {
+                    $taxrateContent = '0.03(个人用户)';
                 }
 
                 $balancePeriodContent = $balance['startdate'].'到'.$balance['enddate'];
