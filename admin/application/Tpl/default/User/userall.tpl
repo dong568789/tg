@@ -94,7 +94,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             <th data-column-id="bindmobile" data-visible="false">绑定手机</th>
                                             <th data-column-id="bindemail" data-visible="false">绑定邮箱</th>
                                             <th data-column-id="usertypestr">会员类型</th>
-                                            <th data-column-id="paccount">母账号</th>
+                                            <!-- <th data-column-id="paccount">母账号</th> -->
                                             <th data-column-id="realname">联系人名字</th>
 											<th data-column-id="contactmobile">联系电话</th>
                                             <th data-column-id="companyname">公司名字</th>

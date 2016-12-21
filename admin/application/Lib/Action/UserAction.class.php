@@ -52,6 +52,7 @@ class UserAction extends CommonAction {
         $model= M('tg_user');
         $condition = array();
         $condition["U.activeflag"] = 1;
+        $condition['U.pid'] = 0;
         // 子账号
         // switch ($subtype) {
         //     case 'mother':
@@ -84,7 +85,12 @@ class UserAction extends CommonAction {
         }
 
         if($account){
-            $condition['U.account'] = array('like','%'.$account.'%');
+            $accoutWhere = array();
+            $accoutWhere['U.account'] = array('like','%'.$account.'%');
+            $accoutWhere['U.realname'] = array('like','%'.$account.'%');
+            $accoutWhere['U.companyname'] = array('like','%'.$account.'%');
+            $accoutWhere['_logic'] = 'OR';
+            $condition['_complex'] = $accoutWhere;
         }
 
         $users = $model->alias('U')
