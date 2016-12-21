@@ -60,26 +60,24 @@ class ChannelAction extends CommonAction {
         if( !$sub_account ){
             $this->ajaxReturn("fail",'子账号用户名不能为空',0);
         }
-        if( preg_match('/^[0-9a-zA-Z@_]{3,20}$/', $sub_account) === false){
+        if( preg_match('/^[0-9a-zA-Z@_]{6,20}$/', $sub_account) === false){
             $this->ajaxReturn("fail",'子账号用户名必须由3-20字母、数字、_、@组成',0);
         } 
         if( !$sub_password  ){
             $this->ajaxReturn('fail','子账号密码不能为空',0);
         }  
-        if( $sub_password && (strlen($sub_password)<6 || strlen($sub_password)>20) ){
-            $this->ajaxReturn('fail','子账号密码长度为6-20位',0);
-        }
 
         $condition = array();
         $condition["userid"] = $userid;
         $condition['channelname'] = $channelname;
         $condition['activeflag'] = 1;
         $exischannelname = $model->where($condition)->count();
+
         if ($exischannelname > 0) {
             $this->ajaxReturn("fail",'渠道名已存在，请输入一个新的渠道名。',0);
         } 
 
-        $where = ' account="'.$sub_account.'" ';
+        $where = ' binary account="'.$sub_account.'" ';
         $user_count = $user_model->where($where)->count();
         if($user_count > 0){
             $this->ajaxReturn('fail','该子账号已经被占用',0);
@@ -160,12 +158,9 @@ class ChannelAction extends CommonAction {
         if( !$sub_account ){
             $this->ajaxReturn("fail",'子账号用户名不能为空',0);
         }
-        if( preg_match('/^[0-9a-zA-Z@_]{3,20}$/', $sub_account) === false){
-            $this->ajaxReturn("fail",'子账号用户名必须由3-20字母、数字、_、@组成',0);
+        if( preg_match('/^[0-9a-zA-Z@_]{6,20}$/', $sub_account) === false){
+            $this->ajaxReturn("fail",'子账号用户名必须由6-20字母、数字、_、@组成',0);
         }   
-        if( $sub_password && (strlen($sub_password)<6 || strlen($sub_password)>20) ){
-            $this->ajaxReturn('fail','子账号密码长度为6-20位',0);
-        }
 
         // 获取以前该用户的渠道名
         $where = array('channelid'=>$id);
@@ -185,7 +180,7 @@ class ChannelAction extends CommonAction {
             $this->ajaxReturn("fail",'渠道名已存在，请输入一个新的渠道名。',0);
         } 
 
-        $where = ' account="'.$sub_account.'" and !(channelid="'.$id.'" and account="'.$olduser['account'].'") ';
+        $where = ' binary account="'.$sub_account.'" and !(channelid="'.$id.'" and account="'.$olduser['account'].'") ';
         $user_count = $user_model->where($where)->count();
         if($user_count > 0){
             $this->ajaxReturn('fail','该子账号已经被占用',0);
@@ -252,25 +247,33 @@ class ChannelAction extends CommonAction {
         $where = array();
         $where['channelid'] = array('gt','0');
         $user = $userModel->field('channelid')->where($where)->select();
-        $channelidArr = array();
-        foreach ($user as $key => $value) {
-            $channelidArr[] = $value['channelid'];
-        }
+        if($user){
+            $where = array();
+            $channelidArr = array();
+            foreach ($user as $key => $value) {
+                $channelidArr[] = $value['channelid'];
+            }
+            $where['C.channelid'] = array('not in',$channelidArr);
 
-        // 给没有生产子账号的渠道，生成子账号
-        $where = array();
-        $where['C.channelid'] = array('not in',$channelidArr);
-        $channel = $channelModel->alias('C')
-                ->join(C('DB_PREFIX').'tg_user U on C.userid=U.userid','left')
-                ->where($where)
-                ->field('C.channelid,C.userid,U.account')
-                ->select();
+            // 给没有生产子账号的渠道，生成子账号   
+            $channel = $channelModel->alias('C')
+                    ->join(C('DB_PREFIX').'tg_user U on C.userid=U.userid','left')
+                    ->where($where)
+                    ->field('C.channelid,C.userid,U.account')
+                    ->select();
+        }else{
+            // 给没有生产子账号的渠道，生成子账号   
+            $channel = $channelModel->alias('C')
+                    ->join(C('DB_PREFIX').'tg_user U on C.userid=U.userid','left')
+                    ->field('C.channelid,C.userid,U.account')
+                    ->select();
+        }
 
         foreach ($channel as $key => $value) {
             // 添加子账号用户名密码
             $where = array('userid'=>$value['userid']);
-            $count = $channelModel->where($where)->count();
-            $count += 1;
+            $where['channelid'] = array('elt',$value['channelid']);
+            $count = $channelModel->where($where)->order('channelid asc')->count();
             $sub_account = $count.'@'.$value['userid'];
             $sub_account = str_pad($sub_account,6,'0',STR_PAD_LEFT);
             $data = array(

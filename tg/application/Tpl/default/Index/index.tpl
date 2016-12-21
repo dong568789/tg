@@ -145,20 +145,24 @@
 						<form id="userlogin" class="form-horizontal" role="form" action="/index.php?m=user&a=do_login" method="post">
 							<div class="input-group m-b-20 m-r-15 m-t-10">
 								<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-								<div class="fg-line">
-                                    <if condition = "$_COOKIE['account'] neq ''">
-                                        <input type="text" style="padding-left: 6px;" class="form-control" value="<{$_COOKIE['account']}>" name="account" id="account" placeholder="请输入手机号/用户名" maxlength="50" autocomplete="off">
-                                        <else/>
-                                        <input type="text" style="padding-left: 6px;" class="form-control" name="account" id="account" placeholder="请输入手机号/用户名" maxlength="50" autocomplete="off">
-                                    </if>
-								</div>
+                                <div class="col-sm-14">
+    								<div class="fg-line">
+                                        <if condition = "$_COOKIE['account'] neq ''">
+                                            <input type="text" style="padding-left: 6px;" class="form-control" value="<{$_COOKIE['account']}>" name="account" id="account" placeholder="请输入手机号/用户名" maxlength="50" autocomplete="off">
+                                            <else/>
+                                            <input type="text" style="padding-left: 6px;" class="form-control" name="account" id="account" placeholder="请输入手机号/用户名" maxlength="50" autocomplete="off">
+                                        </if>
+    								</div>
+                                </div>
 							</div>
 
 							<div class="input-group m-b-20 m-r-15">
 								<span class="input-group-addon"><i class="zmdi zmdi-lock"></i></span>
-								<div class="fg-line">
-									<input type="password" style="padding-left: 6px;" class="form-control" name="password" id="password" placeholder="请输入密码">
-								</div>
+                                <div class="col-sm-14">
+    								<div class="fg-line">
+    									<input type="password" style="padding-left: 6px;" class="form-control" name="password" id="password" placeholder="请输入密码">
+    								</div>
+                                </div>
 							</div>
 
 							<div class="clearfix"></div>
@@ -329,53 +333,137 @@
 
 
     $(document).ready(function() {
+
+        jQuery.validator.addMethod("checkENGsmall", function(value, element) {
+            var reg = /^[a-z](\s*[a-z])*$/;
+            return this.optional(element) || reg.test(value);
+        }, "请输入英文小写字母！");
+
+        jQuery.validator.addMethod("checkENGsmallNUM", function(value, element) {
+            var reg =  /^[0-9a-zA-Z_@]+$/;
+            return this.optional(element) || reg.test(value);
+        }, "请输入英文小写字母或数字！");
+
+        jQuery.validator.addMethod("checkCHN", function(value, element) {
+            var reg =  /^[\u4e00-\u9fa5]+$/;
+            return this.optional(element) || reg.test(value);
+        }, "请输入正确的汉字！");
+
+        jQuery.validator.addMethod('checkPassword',function (value,element) {
+            var password=jQuery.trim(value);
+            if(password == ''){
+                return false;
+            }else{
+                var reg=/^((?![\u4e00-\u9fff| ]).){6,20}$/;
+                return this.optional(element) || (reg.test(password));
+            }
+        },'密码不能包含汉字和空格');
+
+        $("#accountVerifyImgButton").click(function(){
+            var Verify_Url = '<{:U('User/accountImageVerify')}>';
+            Verify_Url=Verify_Url.replace('.html','');
+            $("#accountVerifyImg").attr("src", Verify_Url+'/'+Math.random());
+        });
+
+        var $userlogin = $('#userlogin').validate({
+            rules : {
+                account : {
+                    required : true,
+                    checkENGsmallNUM : true,
+                    minlength : 6,
+                    maxlength : 20
+                },
+                password : {
+                    required : true,
+                    rangelength : [6,20],
+                    checkPassword : true
+                },
+                accountverify : {
+                    required : true,
+                    digits : true,
+                    minlength : 4,
+                    maxlength : 4
+                }
+            },
+
+            messages : {
+                account : {
+                    required : '请输入用户名',
+                    checkENGsmallNUM : '子账号用户名必须为字母、数字、_、@',
+                    minlength : '用户名长度为6-20位',
+                    maxlength : '用户名长度为6-20位'
+                },
+                password : {
+                    required : '此项目必填',
+                    rangelength : jQuery.format('登录密码长度必须是{0}到{1}之间'),
+                    checkPassword : '密码不能包含汉字和空格',
+                },
+                accountverify : {
+                    required : '请输入图形验证码',
+                    digits : '图形验证码必须为4位数字',
+                    minlength : '图形验证码必须为4位数字',
+                    maxlength : '图形验证码必须为4位数字'
+                }
+            },
+
+            errorPlacement : function(error, element) {
+                error.insertAfter(element.parent());
+                error.parents('.input-group ').removeClass('m-b-20');
+            },
+            success: function(label) {
+                label.parents('.input-group ').addClass('m-b-20');
+            }
+        });
+
         $('.banners ul li img').css('width','100%');
 
         $('#loginforward').click(function() {
-            if(document.getElementById("remember").checked){
-                var remember = 1;
-                $('#userlogin').ajaxSubmit({
-                    type : 'POST',
-                    data : {remember : remember},
-                    cache : false,
-                    dataType : 'json',
-                    success : function (data) {
-                        console.log(data);
-                        if (data.data == "true") {
-                            notify("登录成功", 'success');
-                            setTimeout(function () {
-                                location.href = "/source/";
-                            }, 1000);
-                        } else {
-                            notify(data.info, 'danger');
+            if ($('#userlogin').valid()) {
+                if(document.getElementById("remember").checked){
+                    var remember = 1;
+                    $('#userlogin').ajaxSubmit({
+                        type : 'POST',
+                        data : {remember : remember},
+                        cache : false,
+                        dataType : 'json',
+                        success : function (data) {
+                            console.log(data);
+                            if (data.data == "true") {
+                                notify("登录成功", 'success');
+                                setTimeout(function () {
+                                    location.href = "/source/";
+                                }, 1000);
+                            } else {
+                                notify(data.info, 'danger');
+                            }
+                            return false;
+                        },
+                        error : function (xhr) {
+                            notify('系统错误！', 'danger');
+                            return false;
                         }
-                        return false;
-                    },
-                    error : function (xhr) {
-                        notify('系统错误！', 'danger');
-                        return false;
-                    }
-                });
-            }else{
-                $('#userlogin').ajaxSubmit({
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data);
-                        if (data.data == "true") {
-                            notify("登录成功", 'success');
-                            setTimeout(function () {
-                                location.href = "/source/";
-                            }, 1000);
-                        } else {
-                            notify(data.info, 'danger');
+                    });
+                }else{
+                    $('#userlogin').ajaxSubmit({
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            if (data.data == "true") {
+                                notify("登录成功", 'success');
+                                setTimeout(function () {
+                                    location.href = "/source/";
+                                }, 1000);
+                            } else {
+                                notify(data.info, 'danger');
+                            }
+                            return false;
+                        },
+                        error: function (xhr) {
+                            notify('系统错误！', 'danger');
+                            return false;
                         }
-                        return false;
-                    },
-                    error: function (xhr) {
-                        notify('系统错误！', 'danger');
-                        return false;
-                    }
-                });
+                    });
+                }
             }
         });
 

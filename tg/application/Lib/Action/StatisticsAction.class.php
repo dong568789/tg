@@ -81,7 +81,7 @@ class StatisticsAction extends CommonAction {
         }elseif(isset($choose_time) && $choose_time != ""){
             if($choose_time=='currentmonth'){
                 $startdate = date('Y-m-01', time()); //获取当前月份第一天
-                $enddate = date('Y-m-d', strtotime("$startdate +1 month -1 day"));    //加一个月减去一天 
+                $enddate = date('Y-m-d', time());
             }elseif ($choose_time=='sevenday') {
                 $enddate = date('Y-m-d', time());
                 $startdate = date('Y-m-d', strtotime("$enddate -7 day"));  
@@ -91,7 +91,7 @@ class StatisticsAction extends CommonAction {
             }
             $condition["D.date"]  = array(array('egt',$startdate),array('elt',$enddate),'and');
         }
-
+        vde($condition["D.date"]);
         $condition["D.activeflag"] = 1;
         $condition['_logic'] = 'AND';
 
@@ -117,17 +117,17 @@ class StatisticsAction extends CommonAction {
 				if ($startdate == date("Y-m-d")) {
 					$daily = $todaydata;
 				} else {
-					$daily = array_merge($todaydata,$daily);
+					$daily = array_merge((array)$todaydata,(array)$daily);
 				}
 			}
 		} else {
-			$daily = array_merge($todaydata,$daily);
+			$daily = array_merge((array)$todaydata,(array)$daily);
 		}
         
         $result = array(); //返回结果
         $result["game"] = $gameresult;//根据渠道的 游戏列表
         $result["daily"] = array(); //流水列表
-		
+       
         if ($daily) {
             // 汇总数据
             $dataall["date"] = "数据汇总";

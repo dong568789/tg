@@ -756,6 +756,7 @@
 			}
 		});
 
+		// 编辑游戏时 基本资料提交
 		$('#editgamesubmit').click(function() {
 			if ($('#editgame').valid()) {
 				var confirmcontent = "确认修改这个游戏信息？";
@@ -855,8 +856,8 @@
 			}
 		});
 
-
-		$('#uploadpackagesubmit').click(function() {		
+		// 修改包信息提交
+		$('#uploadpackagesubmit').click(function() {
 			if ($('#uploadpackage').valid()) {
 				var confirmcontent = "确认上传游戏包？";
 				if(confirm(confirmcontent)) {
@@ -992,10 +993,10 @@
 				} else {
 					return false;
 				}
-			}
-				
+			}	
         });
 
+		// 强更包信息提交
 		$("#forceupdatesubmit").click(function(){
 			var packageid = $("#packagelist option:selected").val();
 			var confirmcontent = "确认继续生成选中的游戏包的强更渠道包？";
@@ -1029,143 +1030,6 @@
 			}
 			
         });
-		
-		/*
-		$("#downloadpackage").click(function(){
-			var packageid = $("#packagelist option:selected").val();
-			var confirmcontent = "确认下载选中的游戏包？";
-			if(confirm(confirmcontent)) {
-				$.ajax({
-					type: "POST",
-					url: "index.php?m=game&a=downloadPackage",
-					data: {packageid : packageid},
-					cache: false,
-					dataType: 'json',
-					success: function (data) {
-						if (data.data == "success") {
-							self.location.href = ""+data.info+"";
-						}else{
-							swal({
-								title: "下载游戏包失败",   
-								text: data.info, 
-								type: "error",
-								showConfirmButton: true
-							});
-						}
-						return false;
-					},
-					error : function (xhr) {
-						alert('系统错误！');
-						return false;
-					}
-				});
-			} else {
-				return false;
-			}
-			
-        });
-		
-		$('#activegamesubmit').click(function() {
-			var packageid = $("#packagelist option:selected").val();
-			var confirmcontent = "确认激活这个游戏包？";
-			if(confirm(confirmcontent)) {
-				$.ajax({
-					type: "POST",
-					url: "index.php?m=game&a=activePackage",
-					data: {packageid : packageid},
-					cache: false,
-					dataType: 'json',
-					success: function (data) {
-						if (data.data == "success") {
-							swal({
-								title: "已激活",   
-								text: "已成功激活游戏包，所有原有渠道包都被清空.", 
-								type: "success",
-								showConfirmButton: true
-								},function(){
-									swal("好", "", "success");
-							});
-						}else{
-							swal({
-								title: "激活游戏包失败",   
-								text: data.info, 
-								type: "error",
-								showConfirmButton: true
-							});
-						}
-						return false;
-					},
-					error : function (xhr) {
-						alert('系统错误！');
-						return false;
-					}
-				});
-			} else {
-				return false;
-			}
-		});
-		
-
-		$('#forcepackagelist').change(function() {
-			var packageid = $("#forcepackagelist option:selected").val();
-			if (parseInt(packageid) > 0) {
-				$.ajax({
-					type: "POST",
-					url: "index.php?m=game&a=getPackageVersion",
-					data: {packageid : packageid},
-					cache: false,
-					dataType: 'json',
-					success: function (data) {
-						if (data.data == "success") {
-							$("#latestversion").val(data.info);
-						} else {
-							alert(data.info);
-						}
-						return false;
-					},
-					error : function (xhr) {
-						alert('系统错误！');
-						return false;
-					}
-				});
-			}
-		});
-		
-		$("#uploadpackagesubmit").click(function(){
-			if ($('#uploadpackage').valid()) {
-				var confirmcontent = "确认登陆这些强更信息？";
-				if(confirm(confirmcontent)) {
-					$('#uploadpackage').ajaxSubmit({  
-						dataType : 'json',    
-						success : function (data) {
-							if (data.data == "success") {
-								
-							} else {
-								swal({
-									title: "登陆强更信息失败",   
-									text: data.info, 
-									type: "error",
-									showConfirmButton: true
-								});
-							}
-							return false;
-						},
-						error : function (xhr) {
-							swal({
-								title: "系统错误",   
-								text: "页面错误编号 "+xhr.status, 
-								type: "error",
-								showConfirmButton: true
-							});
-							return false;
-						}
-					});
-				} else {
-					return false;
-				}
-			} 
-        });
-		*/
     });
 </script>
 </body>

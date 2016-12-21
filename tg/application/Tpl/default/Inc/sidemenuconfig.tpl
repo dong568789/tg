@@ -113,20 +113,6 @@ if($userpid==0){
 				),
 			),
 		),
-		"用户充值" => array(
-			"title" => "用户充值",
-			"icon" => "paypal",
-			"sub" => array(
-				'游侠币管理' => array(
-					'title' => '游侠币管理',
-					'url' => "/coin/",
-				),
-				'代金券管理' => array(
-					'title' => '代金券管理',
-					'url' => "/voucher/",
-				),
-			)
-		),
 	);
 }
 

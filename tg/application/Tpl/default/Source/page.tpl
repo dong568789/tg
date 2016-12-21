@@ -176,7 +176,7 @@
         </div>
 
          <div class="games-download">
-            <a href="<{$short_url}>">下载（<{$game['gamesize']}>M）</a>
+            <a href="<{$long_url}>">下载（<{$game['gamesize']}>M）</a>
         </div>
     </div>
 </div>

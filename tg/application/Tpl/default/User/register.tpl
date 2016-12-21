@@ -414,6 +414,16 @@
             return this.optional(element) || reg.test(value);
         }, "请输入正确的手机号码！");
 
+        jQuery.validator.addMethod('checkPassword',function (value,element) {
+            var password=jQuery.trim(value);
+            if(password == ''){
+                return false;
+            }else{
+                var reg=/^((?![\u4e00-\u9fff| ]).){6,20}$/;
+                return this.optional(element) || (reg.test(password));
+            }
+        },'密码不能包含汉字和空格');
+
         //渠道规则
         /*jQuery.validator.addMethod("checkCHANNELNAME", function(value, element) {
             var reg =  /^[0-9a-zA-Z\u4e00-\u9fa5]+$/;
@@ -444,8 +454,8 @@
 				},
 				password : {
 					required : true,
-					minlength : 6,
-					maxlength : 20
+					rangelength : [6,20],
+                    checkPassword : true
 				},
 				mobileverify : {
 					required : true,
@@ -473,8 +483,8 @@
 				},
 				password : {
 					required : '此项目必填',
-					minlength : '密码长度为6-20位',
-					maxlength : '密码长度为6-20位'
+					rangelength : jQuery.format('登录密码长度必须是{0}到{1}之间'),
+                    checkPassword : '密码不能包含汉字和空格',
 				},
 				mobileverify : {
 					required : '请输入图形验证码',

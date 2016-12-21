@@ -89,14 +89,9 @@ class RegistrationAction extends CommonAction {
         // 充值用户条件
         if ((isset($account) && $account != "" && $account != null)) {
             // 支持模糊搜索
-            $userall = $allusermodel->field('username')->where('username like "%'.$account.'%" OR email="'.$account.'" OR mobile = "'.$account.'"')->select();
-            $userall_arr=array();
-            foreach ($userall as $key => $value) {
-                $userall_arr[]=$value['username'];
-            }
-            $userall_atr=implode(',', $userall_arr);
-
-            $condition["AU.username"] = array('in',$userall_atr);
+            $condition["AU.username"] = array('like','%'.$account.'%');
+            $condition["AU.email"] = array('like','%'.$account.'%');
+            $condition["AU.mobile"] = array('like','%'.$account.'%');
         }
         $condition['_logic'] = 'AND';
        

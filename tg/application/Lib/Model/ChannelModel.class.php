@@ -15,8 +15,9 @@ class ChannelModel extends Model
                 ->field('C.*,U.account as sub_account')
                 ->join('yx_tg_user U on U.channelid=C.channelid','left')
                 ->where($map)
-                ->order("createtime desc")
+                ->order("C.createtime desc")
                 ->select();
+
 		return $channel;
     }
 

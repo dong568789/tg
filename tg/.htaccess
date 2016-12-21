@@ -12,10 +12,12 @@
 
    RewriteRule ^(source)/$					            index.php?m=source&a=index					[N,L]
    RewriteRule ^(publicdownload)/([\w-]+)$				index.php?m=source&a=publicdownload&sourcesn=$2			[N,L]
+   RewriteRule ^(publicdownload)/([\w-]+)/([0-9]{4,4})$            index.php?m=source&a=publicdownload&sourcesn=$2       [N,L]
    RewriteRule ^(llq)$				                    index.php?m=source&a=llq			[N,L]
    RewriteRule ^(material)/([0-9]+?)/$             index.php?m=source&a=material&sourceid=$2              [N,L]
    RewriteRule ^(definerate)/([0-9]+?)/$           index.php?m=source&a=definerate&sourceid=$2             [N,L]
    RewriteRule ^(page)/([0-9]+?)/$              index.php?m=source&a=page&sourceid=$2           [N,L]
+   RewriteRule ^(page)/([0-9]+?)$              index.php?m=source&a=page&sourceid=$2           [N,L]
 
 
    RewriteRule ^(statistics)/$						    index.php?m=statistics&a=index					[N,L]

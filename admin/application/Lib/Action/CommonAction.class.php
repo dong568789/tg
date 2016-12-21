@@ -28,20 +28,24 @@ class CommonAction extends Action {
 		$this->tgdomain = "http://tg.yxgames.com";
         $this->admindomain = "http://tgadmin.yxgames.com";
 		$this->domainhost = "http://www.yxgames.com";
-		$this->apkstoreurl = "http://tgadmin.yxgames.com/DataGames/upfiles/basicpackage/";
-		$this->apkdownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/downloadpackage/";
-		$this->texturedownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/texture/";
-        $this->iconurl = "http://tgadmin.yxgames.com/upfiles/gameicon/";
+        $this->iconurl = "http://tgadmin.yxgames.com/upfiles/gameicon/"; //图标单独上传到admin/upfiles
+        $this->apkdownloadcdnurl = "http://downloadcdn.yxgames.com/dataGames/apk/upfiles/downloadpackage/"; //注意:cdn分包，只能是线上测试
 
         // 测试服务器上使用
-        $this->gamebgurl = "http://tgadmin.yxgames.com/DataGames/upfiles/gamebg/";
-		$this->screenshoturl = "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/";
-        $this->diylogoourl = "http://tgadmin.yxgames.com/DataGames/upfiles/diylogo/";
+        $this->apkstoreurl = "http://tgadmin.yxgames.com/DataGames/upfiles/basicpackage/"; //母包
+        $this->apkdownloadurl = "http://tgadmin.yxgames.com/DataGames/upfiles/downloadpackage/"; //分包
+        $this->texturedownloadurl = "http://tgadmin.yxgames.com/DataGames/upfiles/texture/"; //素材包
+        $this->gamebgurl = "http://tgadmin.yxgames.com/DataGames/upfiles/gamebg/";  //游戏背景
+		$this->screenshoturl = "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/"; //游戏截图
+        $this->diylogoourl = "http://tgadmin.yxgames.com/DataGames/upfiles/diylogo/"; //自定义合作会员logo
 
         // 正式服务器上使用
-        // $this->gamebgurl = "http://img.yxgames.com/images/upfiles/gamebg/";
-        // $this->screenshoturl = "http://img.yxgames.com/images/upfiles/screenshot/";
-        // $this->diylogourl = "http://img.yxgames.com/images/upfiles/diylogo/";
+        // $this->apkstoreurl = "http://download.yxgames.com/dataGames/apk/upfiles/basicpackage/"; //母包
+        // $this->apkdownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/downloadpackage/"; //分包
+        // $this->texturedownloadurl = "http://download.yxgames.com/dataGames/apk/upfiles/texture/"; //素材包
+        // $this->gamebgurl = "http://img.yxgames.com/images/upfiles/gamebg/"; //游戏背景
+        // $this->screenshoturl = "http://img.yxgames.com/images/upfiles/screenshot/"; //游戏截图
+        // $this->diylogourl = "http://img.yxgames.com/images/upfiles/diylogo/"; //自定义合作会员logo
 
 		$this->packageStoreFolder = "../admin/DataGames/upfiles/basicpackage/";
 		$this->downloadStoreFolder = "../admin/DataGames/upfiles/downloadpackage/";
@@ -204,7 +208,31 @@ class CommonAction extends Action {
         }
     }
 
+    /**
+     * HTTP请求
+     * @param string $Url       地址
+     * @param string $Params    请求参数
+     * @param string $Method    请求方法
+     * @return array $callback  返回数组
+     */
+    function httpreq($Url, $Params, $Method='post'){
+            $Curl = curl_init();//初始化curl
+            if ('get' == $Method){//以GET方式发送请求
+                curl_setopt($Curl, CURLOPT_URL, "$Url?$Params");
+            }else{//以POST方式发送请求
+                curl_setopt($Curl, CURLOPT_URL, $Url);
+                curl_setopt($Curl, CURLOPT_POST, 1);//post提交方式
+                curl_setopt($Curl, CURLOPT_POSTFIELDS, $Params);//设置传送的参数
+            }
 
+            curl_setopt($Curl, CURLOPT_HEADER, false);//设置header
+            curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);//要求结果为字符串且输出到屏幕上
+            //curl_setopt($Curl, CURLOPT_CONNECTTIMEOUT, 3);//设置等待时间
+
+            $Res = curl_exec($Curl);//运行curl
+            curl_close($Curl);//关闭curl
+            return $Res;
+    }
 
 
 

@@ -411,9 +411,9 @@ class UserAction extends CommonAction {
                 $username = $_POST["account"];
                 $remember = $_POST['remember'];
                 $model = M('tg_user');
-                $existuser = $model->where("activeflag = 1 AND (account='$username' OR bindmobile='$username')")->count();
+                $existuser = $model->where("activeflag = 1 AND (binary account='$username' OR bindmobile='$username')")->count();
                 if ($existuser > 0) {
-                    $existuser = $model->where("activeflag = 1 AND (account='$username' OR bindmobile='$username')")->find();
+                    $existuser = $model->where("activeflag = 1 AND (binary account='$username' OR bindmobile='$username')")->find();
                     $map['password'] = sha1($_POST["password"]);
 					
 					
@@ -477,9 +477,9 @@ class UserAction extends CommonAction {
                 $username = $_POST["account"];
                 $remember = $_POST['remember'];
                 $model = M('tg_user');
-                $existuser = $model->where("activeflag = 1 AND (account='$username' OR bindmobile='$username')")->count();
+                $existuser = $model->where("activeflag = 1 AND (binary account='$username' OR bindmobile='$username')")->count();
                 if ($existuser > 0) {
-                    $existuser = $model->where("activeflag = 1 AND (account='$username' OR bindmobile='$username')")->find();
+                    $existuser = $model->where("activeflag = 1 AND (binary account='$username' OR bindmobile='$username')")->find();
                     $map['password'] = sha1($_POST["password"]);
                     if($existuser['password']==$map['password']){
                         $_SESSION['userid'] = $existuser['userid'];

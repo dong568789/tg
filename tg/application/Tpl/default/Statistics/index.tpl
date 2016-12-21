@@ -106,6 +106,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                                 <else />
                                                     <th data-column-id="dailyincome" >每日收入</th>
                                                 </if>
+                                                <th data-column-id="voucherje" >使用代金券金额</th>
 											</tr>
                                         </thead>
                                         <tbody id="statisticcontainer">

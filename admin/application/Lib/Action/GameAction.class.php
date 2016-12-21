@@ -3,8 +3,30 @@ class GameAction extends CommonAction {
 	public function __construct(){
     	parent::__construct();
     }
+
+	//游戏列表
+	public function gameall(){
+		$this->logincheck();
+        $this->authoritycheck(10103);
+        $gamemodel = M("tg_game");
+        $gamecondition["G.activeflag"] = 1;
+        $gamelist = $gamemodel->alias("G")
+        				->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+        				->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+        				->join(C('DB_PREFIX')."tg_package P on G.gameid = P.gameid and P.isnowactive = 1 ", "LEFT")
+        				->field('G.gameid,G.gamename,G.gamepinyin,G.gametype,G.gamesize,G.gameauthority,G.sharerate,G.channelrate,G.isonstack,C.categoryname,T.tagname,P.packageversion')
+        				->where($gamecondition)
+        				->order("G.gameid desc")
+        				->select();
+        				
+        $this->assign('gamelist',$gamelist);
+        $this->assign("editgame",$this->authoritycheck(10127));
+        $this->assign("deletegame",$this->authoritycheck(10128));
+        $this->menucheck();
+        $this->display();
+    }
 	
-	//新增游戏
+	//新增游戏 视图
     public function newgame(){
 		$this->logincheck();
         $this->authoritycheck(10092);
@@ -30,7 +52,7 @@ class GameAction extends CommonAction {
         $this->display();
     }
 	
-	//新增一个游戏
+	//新增游戏 处理
 	public function addgame(){
 		$this->logincheck();
 		$max_file_size = '1000000000'; //文件小于1GB
@@ -48,6 +70,7 @@ class GameAction extends CommonAction {
 		$bao_extension_list = array("apk", "ipa", "rar", "zip");
 		$img_extension_list = array("jpg", "jpeg", "gif", "png");
 
+		// 上传图片
 		if (!empty($_FILES)) {
 			if (is_uploaded_file($_FILES["gamepackage"]["tmp_name"])) {
 				$tempFile = $_FILES["gamepackage"]["tmp_name"];
@@ -385,50 +408,8 @@ class GameAction extends CommonAction {
 			}
 		}  
     }
-	
-	//所有游戏
-	public function gameall(){
-		$this->logincheck();
-        $this->authoritycheck(10103);
-        $gamemodel = M("tg_game");
-        $gamecondition["G.activeflag"] = 1;
-        $gamelist = $gamemodel->alias("G")
-        				->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
-        				->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
-        				->join(C('DB_PREFIX')."tg_package P on G.gameid = P.gameid and P.isnowactive = 1 ", "LEFT")
-        				->field('G.gameid,G.gamename,G.gamepinyin,G.gametype,G.gamesize,G.gameauthority,G.sharerate,G.channelrate,G.isonstack,C.categoryname,T.tagname,P.packageversion')
-        				->where($gamecondition)
-        				->order("G.gameid desc")
-        				->select();
-        				
-        $this->assign('gamelist',$gamelist);
-        $this->assign("editgame",$this->authoritycheck(10127));
-        $this->assign("deletegame",$this->authoritycheck(10128));
-        $this->menucheck();
-        $this->display();
-    }
 
-	//删除游戏
-    public function deleteGame() {
-		$this->logincheck();
-        $gameid = $_POST['gameid'];
-        $model = M('tg_game');
-		$data["activeflag"] = 0;
-		$condition["gameid"] = $gameid;
-		$deletegame = $model->where($condition)->save($data);
-        $time = date('Y-m-d H:i:s',time());
-        $game = $model->where($condition)->find();
-        if($deletegame){
-            $this->insertLog($_SESSION['adminname'],'删除游戏', 'GameAction.class.php', 'deleteGame',  $time, $_SESSION['adminname']."删除游戏名为：“".$game['gamename']."”游戏");
-            $this->ajaxReturn('success','游戏删除成功。',1);
-			exit();
-		}else{
-			$this->ajaxReturn('fail','游戏删除失败。',0);
-			exit();
-		}
-    }
-
-	//编辑页
+	//编辑游戏 视图
     public function gamedetail(){
 		$this->logincheck();
         $gameid = $_GET['gameid'];
@@ -468,7 +449,7 @@ class GameAction extends CommonAction {
 		}
     }
 
-	//编辑游戏
+	//编辑游戏时 基本资料处理
 	public function editgame(){
 		$this->logincheck();
 		$gameid = $_POST['gameid'];
@@ -497,8 +478,10 @@ class GameAction extends CommonAction {
         foreach ($big_subuser as $key => $value) {
         	$big_subuser_str .= $value['account'].'(母：'.$value['paccpunt'].')、';
         }
-        $this->ajaxReturn('fail',$big_subuser_str.'比母账号的分成比例大，联系母账号修改。',0);
-
+        if($big_subuser){
+        	$this->ajaxReturn('fail',$big_subuser_str.'比母账号的分成比例大，联系母账号修改。',0);
+        }
+        
 		$data['beizhumessage'] = $_POST['beizhumessage'];
 		$data['channelrate'] = $_POST['channelrate'];
 		$data['score'] = $_POST['score'];
@@ -563,17 +546,48 @@ class GameAction extends CommonAction {
 		}
     }
 
+	//删除游戏
+    public function deleteGame() {
+		$this->logincheck();
+        $gameid = $_POST['gameid'];
+        $model = M('tg_game');
+		$data["activeflag"] = 0;
+		$condition["gameid"] = $gameid;
+		$deletegame = $model->where($condition)->save($data);
+        $time = date('Y-m-d H:i:s',time());
+        $game = $model->where($condition)->find();
+        if($deletegame){
+            $this->insertLog($_SESSION['adminname'],'删除游戏', 'GameAction.class.php', 'deleteGame',  $time, $_SESSION['adminname']."删除游戏名为：“".$game['gamename']."”游戏");
+            $this->ajaxReturn('success','游戏删除成功。',1);
+			exit();
+		}else{
+			$this->ajaxReturn('fail','游戏删除失败。',0);
+			exit();
+		}
+    }
+
+
     // 更新游戏包
-    // 无论是普通包，覆盖包，还是强更包，都是以下几个步骤
+    // 普通包，覆盖包，都是以下几个步骤
     // 1、tg_package添加游戏包信息
     // 2、更新该游戏的所有包状态，以前包设置为不是当前包，刚更新的包为最新的包
-    // 3、更新该游戏的所有资源，把资源的游戏包下载链接放在tg_oldpackage表里面，把资源表里面的游戏包下载链接清空
-    // 4、更新tg_game游戏信息表
-    // 强更包是为了解决1、提交录入将要更新包信息，过段时间更新。
-    // 强更包特别的：第3，4步，因为有强更时间点，把资源表里面的游戏包下载链接改成强更之后的这个操作，更新游戏信息表这个操作，放在跑batch中
-    // 强更包特别的：还要更新all_game强更信息
+    // 3、更新该游戏的所有资源，把资源的游戏包下载链接放在tg_oldpackage表里面，把资源表里面的游戏包下载链接清空，设置为没有上传
+    // 4、更新tg_game游戏基本信信息表和包信息
+    
+    // 强更包
+    // 强更包是为了解决：
+    // 1、提交录入将要更新包信息，过段时间更新。
+    // 2、提交生成临时的资源包，不用强更点所有用户蜂拥下载
+    // 流程：
+    // 1、tg_package添加游戏包信息
+    // 2、更新该游戏的所有包状态，以前包设置为不是当前包，刚更新的包为最新的包
+    // 3、更新该游戏的所有资源，把资源的游戏包下载链接放在tg_oldpackage表里面，生成临时的资源包（forcepackage）
+    // 4、更新tg_game游戏基本信息表
+    // 5、更新all_game强更信息
+    // 6、强更点到了:a、更新游戏的包信息；b、把资源表里面的游戏包下载切换成新的下载链接；c、包表为强更过。d、强更表设置为强更过
+    
 
-	//上传游戏包
+	// 编辑游戏时，上传游戏包
 	public function uploadpackage(){
 		$this->logincheck();
 		$gameid = $_POST['uploadgameid'];
@@ -591,6 +605,9 @@ class GameAction extends CommonAction {
 		$texturename = ""; //游戏素材名
 		$bao_extension_list = array("apk", "ipa", "rar", "zip");
 		$img_extension_list = array("jpg", "jpeg", "gif", "png");
+
+		$data = array(); //包相关信息
+		$infodata = array(); //除包之外的其他基本相关信息
 
 		if (!empty($_FILES)) {
 			if (is_uploaded_file($_FILES["gamepackage"]["tmp_name"])) {
@@ -897,21 +914,21 @@ class GameAction extends CommonAction {
 							$packagedata['forcetime'] = $forcetime.":00";
 							$packageresult = $packageModel->add($packagedata);
 
-							$log_content=date('Y-m-d H:i:s')."\n";
-							$log_content.='以前存在包的情况下,新增包信息sql：'.$packageModel->getlastsql()."\n";
-							$log_content.='packageresult：'.print_r($packageresult,1)."\n";
-							$log_content.= mysql_error()."\n";
-							error_log($log_content, 3, 'test.log');
-
 							if ($packageresult) {
 								$packageid = $packageresult;
 								$package = $packageModel->find($packageid);
+
+								// 该游戏的 将以前所有的游戏包，设置为不是当前包
 								$oldactivedata["isnowactive"] = 0;
 								$oldactivecondition["gameid"] = $package["gameid"];
 								$oldactiveresult = $packageModel->where($oldactivecondition)->save($oldactivedata);
+
+								// 将刚才新增的游戏包，设置为当前包
 								$activedata["isnowactive"] = 1;
 								$activecondition["packageid"] = $packageid;
 								$activeresult = $packageModel->where($activecondition)->save($activedata);
+
+								// 更新该游戏的所有资源，把资源的游戏包下载链接放在tg_oldpackage表里面，强更batch中才把所有资源的强更成新的下载链接
 								$sourceModel = M('tg_source');
 								$sourcecondition["gameid"] = $package["gameid"];
 								$sourcecondition["activeflag"] = 1;
@@ -932,7 +949,7 @@ class GameAction extends CommonAction {
 									$oldresult = $oldModel->addAll($olddata);
 								}
 								$gamecondition["gameid"] = $package["gameid"];
-								//强更信息登陆时不更新游戏信息,只更新icon和素材
+								//强更信息登陆时不更新游戏信息,只更新icon和素材，强更batch中才更新包信息
 								$gameresult = $gameModel->where($gamecondition)->save($infodata);
 								$forceModel = M('all_game');
 								$forcedata["upversions"] = $historyversion;
@@ -940,12 +957,6 @@ class GameAction extends CommonAction {
 								$forcedata["lastupver"] = $latestversion;
 								$forcecondition["id"] = $game["sdkgameid"];
 								$forceresult = $forceModel->where($forcecondition)->save($forcedata);
-
-								$log_content=date('Y-m-d H:i:s')."\n";
-								$log_content.='以前存在包的情况下,更新all_game的游戏信息sql：'.$forceModel->getlastsql()."\n";
-								$log_content.='forceresult'.print_r($forceresult,1)."\n";
-								$log_content.= mysql_error()."\n";
-								error_log($log_content, 3, 'test.log');
 
 								if ($forceresult && $oldactiveresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
 									$this->ajaxReturn('force','force',1);
@@ -962,7 +973,8 @@ class GameAction extends CommonAction {
 							$this->ajaxReturn('fail',"强更时间不允许为空.",0);
 							exit();
 						}
-					} else {
+					} else { 
+						// 上传普通包
 						if ($exsitpackage["packageversion"] != $data['packageversion']) {
 							$this->ajaxReturn('fail',"游戏包名不相同.",0);
 							exit();
@@ -989,19 +1001,27 @@ class GameAction extends CommonAction {
 						if ($packageresult) {
 							$packageid = $packageresult;
 							$package = $packageModel->find($packageid);
+							// 该游戏的 所有的游戏包，设置为不是当前包
 							$oldactivedata["isnowactive"] = 0;
 							$oldactivecondition["gameid"] = $package["gameid"];
 							$oldactiveresult = $packageModel->where($oldactivecondition)->save($oldactivedata);
+
+							// 将刚才新增的游戏包，设置为当前包
 							$activedata["isnowactive"] = 1;
 							$activecondition["packageid"] = $packageid;
 							$activeresult = $packageModel->where($activecondition)->save($activedata);
+
+							// 更新该游戏的所有资源，把资源的游戏包下载链接放在tg_oldpackage表里面，把资源表里面的游戏包下载链接清空
 							$sourceModel = M('tg_source');
 							$sourcecondition["gameid"] = $package["gameid"];
 							$sourcecondition["activeflag"] = 1;
 							$sourcelist = $sourceModel->where($sourcecondition)->order("id desc")->select();
+
 							$sourcedata["isupload"] = 0;
+							$sourcedata["is_cdn_submit"] = -1;
 							$sourcedata["apkurl"] = "";
 							$sourceresult = $sourceModel->where($sourcecondition)->save($sourcedata);
+
 							$oldModel = M('tg_oldpackage');
 							$olddata = array();
 							foreach ($sourcelist as $k => $v) {
@@ -1017,6 +1037,7 @@ class GameAction extends CommonAction {
 							if (sizeof($olddata) > 0) {
 								$oldresult = $oldModel->addAll($olddata);
 							}
+							// 更新tg_game游戏信息表
 							$gamecondition["gameid"] = $package["gameid"];
 							$gameresult = $gameModel->where($gamecondition)->save($data);
 							$gameresult = $gameModel->where($gamecondition)->save($infodata);
@@ -1079,8 +1100,7 @@ class GameAction extends CommonAction {
 					exit();
 				}
 			} else {
-				// 该游戏不存在当前包，这种情况什么时候可能出现？？？
-
+				// 该游戏不存在当前包，如果以前程序正确，一般不存在这种情况
 				if ($_POST["isforcepackage"] == 1) {
 					// 上传强更包
 					$historyversion = $_POST["historyversion"];
@@ -1108,25 +1128,21 @@ class GameAction extends CommonAction {
 						$packagedata['forcetime'] = $forcetime.":00";
 						$packageresult = $packageModel->add($packagedata);
 
-						$log_content=date('Y-m-d H:i:s')."\n";
-						$log_content.='以前不存在包的情况下,更新包信息sql：'.$packageModel->getlastsql()."\n";
-						$log_content.='packageresult：'.print_r($packageresult,1)."\n";
-						$log_content.= mysql_error()."\n";
-						error_log($log_content, 3, 'test.log');
-
 						if ($packageresult) {
 							$packageid = $packageresult;
 							$package = $packageModel->find($packageid);
 
+							// 该游戏的 所有的游戏包，设置为不是当前包
 							$oldactivedata["isnowactive"] = 0;
 							$oldactivecondition["gameid"] = $package["gameid"];
 							$oldactiveresult = $packageModel->where($oldactivecondition)->save($oldactivedata);
 
+							// 将刚才新增的游戏包，设置为当前包
 							$activedata["isnowactive"] = 1;
 							$activecondition["packageid"] = $packageid;
 							$activeresult = $packageModel->where($activecondition)->save($activedata);
 
-							// 上传强更包，把更新资源的游戏包下载链接，放在了批量处理，而不再这里，因为有个强更时间点
+							// 上传强更包；把更新资源的游戏包下载链接放在了批量处理，而不再这里，因为有个强更时间点
 							$sourceModel = M('tg_source');
 							$sourcecondition["gameid"] = $package["gameid"];
 							$sourcecondition["activeflag"] = 1;
@@ -1157,12 +1173,6 @@ class GameAction extends CommonAction {
 							$forcedata["lastupver"] = $latestversion;
 							$forcecondition["id"] = $game["sdkgameid"];
 							$forceresult = $forceModel->where($forcecondition)->save($forcedata);
-
-							$log_content=date('Y-m-d H:i:s')."\n";
-							$log_content.='以前不存在包的情况下,更新all_game的游戏信息sql：'.$forceModel->getlastsql()."\n";
-							$log_content.='forceresult'.print_r($forceresult,1)."\n";
-							$log_content.= mysql_error()."\n";
-							error_log($log_content, 3, 'test.log');
 
 							if ($forceresult && $oldactiveresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
 								$this->ajaxReturn('force','force',1);
@@ -1222,6 +1232,7 @@ class GameAction extends CommonAction {
 						$sourcecondition["activeflag"] = 1;
 						$sourcelist = $sourceModel->where($sourcecondition)->order("id desc")->select();
 						$sourcedata["isupload"] = 0;
+						$sourcedata["is_cdn_submit"] = -1;
 						$sourcedata["apkurl"] = "";
 						$sourceresult = $sourceModel->where($sourcecondition)->save($sourcedata);
 
@@ -1279,18 +1290,25 @@ class GameAction extends CommonAction {
 		}
 	}
 
-	//覆盖游戏包
+	// 当更新包信息的时候，出现相同包的时候，选择覆盖的时候，覆盖游戏包
 	public function coverPackage(){
 		$this->logincheck();
 		$packageid = $_POST['packageid'];
 		$packageModel = M('tg_package');
 		$package = $packageModel->find($packageid);
+
+		// 该游戏的 所有的游戏包，设置为不是当前包
 		$packagedata["isnowactive"] = 0;
 		$packagecondition["gameid"] = $package["gameid"];
 		$packageresult = $packageModel->where($packagecondition)->save($packagedata);
+
+		// 将该游戏 和该包重复版本号，都设置为失效
 		$versiondata["activeflag"] = 0;
 		$versioncondition["gameversion"] = $package["gameversion"];
+		$versioncondition["gameid"] = $package["gameid"];
 		$versionresult = $packageModel->where($versioncondition)->save($versiondata);
+
+		// 将刚才新增的游戏包，设置为当前包
 		$condition["packageid"] = $packageid;
 		$data["isnowactive"] = 1;
 		$data["activeflag"] = 1;
@@ -1301,8 +1319,10 @@ class GameAction extends CommonAction {
 			$sourcecondition["activeflag"] = 1;
 			$sourcelist = $sourceModel->where($sourcecondition)->order("id desc")->select();
 			$sourcedata["isupload"] = 0;
+			$sourcedata["is_cdn_submit"] = -1;
 			$sourcedata["apkurl"] = "";
 			$sourceresult = $sourceModel->where($sourcecondition)->save($sourcedata);
+			// 将该游戏 所有的资源的游戏包的下载链接，放在tg_oldpackage表中
 			$oldModel = M('tg_oldpackage');
 			$olddata = array();
 			foreach ($sourcelist as $k => $v) {
@@ -1338,7 +1358,23 @@ class GameAction extends CommonAction {
 		}
 	}
 
-	// 录入强更包之后，生成强更渠道包
+	
+	// ------录入强更包，点击继续生成强更渠道包时候----------------------------------------------
+	// 录入强更包之后，点击继续生成强更渠道包时候，检查
+	public function forceUpdateCheck(){
+		$this->logincheck();
+		$packageid = $_POST['packageid'];
+		$packageModel = M('tg_package');
+		$package = $packageModel->find($packageid);
+		if (($package["activeflag"] == 1) && ($package["isforcepackage"] == 1) && ($package["isnowactive"] == 1) && ($package["isforced"] == 0)) {
+			$this->ajaxReturn('success',$package["gameid"],1);
+		} else {
+			$this->ajaxReturn('fail','生成渠道包失败，所选择游戏包不符合要求.',0);
+			exit();
+		}
+	}
+
+	// 录入强更包之后，检查完之后，生成强更渠道包
 	public function createForcePackage(){
 		// 循环在客户端，服务器端处理一条
 		$this->logincheck();
@@ -1392,22 +1428,12 @@ class GameAction extends CommonAction {
 						$data['createuser'] = "Admin";
 						$forcepackage = $forcepackageModel->add($data);
 
-// 						$log_content=date('Y-m-d H:i:s')."\n";
-// $log_content.='forcepackage：'.$forcepackage."\n";
-// $log_content.='sql：'.$forcepackageModel->getlastsql()."\n";
-// error_log($log_content, 3, 'test.log');
-
 						if ($forcepackage) {
 							// sdk_agentlist增加资源的强更链接
 							$agentModel = M('sdk_agentlist');
 							$agentcondition["agent"] = $source["sourcesn"];
 							$agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
 							$agent = $agentModel->where($agentcondition)->save($agentdata);
-
-// 							$log_content=date('Y-m-d H:i:s')."\n";
-// $log_content.='agent：'.print_r($agent,1)."\n";
-// $log_content.='sql：'.$agentModel->getlastsql()."\n";
-// error_log($log_content, 3, 'test.log');
 
 							if ($agent) {
 								$this->ajaxReturn('success',$source["id"],1);
@@ -1432,20 +1458,6 @@ class GameAction extends CommonAction {
 		}
 	}
 
-	//继续生成强更渠道包检查
-	public function forceUpdateCheck(){
-		$this->logincheck();
-		$packageid = $_POST['packageid'];
-		$packageModel = M('tg_package');
-		$package = $packageModel->find($packageid);
-		if (($package["activeflag"] == 1) && ($package["isforcepackage"] == 1) && ($package["isnowactive"] == 1) && ($package["isforced"] == 0)) {
-			$this->ajaxReturn('success',$package["gameid"],1);
-		} else {
-			$this->ajaxReturn('fail','生成渠道包失败，所选择游戏包不符合要求.',0);
-			exit();
-		}
-	}
-
 	//分包
 	public function subpackage($packagename,$newgamename,$sourcesn){
 		$sourfile = $this->packageStoreFolder.$packagename;
@@ -1465,6 +1477,10 @@ class GameAction extends CommonAction {
 		if ($zip->open($newfile) === TRUE) {
 			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
 			$zip->close();
+
+			// 第一次分包的时候cdn提交
+			$this->cdnsubmit($sourcesn);
+
 			return "true";
 		} else {
 			return "false";
@@ -1472,6 +1488,45 @@ class GameAction extends CommonAction {
     	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
 		exit();
 	}
+
+	// cdn提交接口
+	public function cdnsubmit($sourcesn,$newgamename)){
+		// 允许用户提交cdn才提交cdn
+		$sourceModel = M('tg_source');
+		$where = array('sourcesn'=>$sourcesn);
+		$is_allow_cdn = $sourceModel->alias('S')
+					->field('U.is_allow_cdn')
+					->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
+					->where($where)
+					->find();
+		if($is_allow_cdn['is_allow_cdn'] == '1'){
+			/*************CDN*******************/
+			$Url = 'http://c.yxgames.com/api/cdn';
+			$Callback = $this->admindomain.'/?m=game&a=cdncallback&sourcesn='.$sourcesn;
+			$packageurl  = $this->apkdownloadcdnurl.$newgamename;
+			$Params = array(
+				'url'=>$packageurl,
+				'callback'=>$Callback,
+				'of'=>'json',
+			);
+			$rs = $this->httpreq($Url, http_build_query($Params),'post');
+			/****************CDN*******************/
+		}
+	}
+
+	// cdn回调函数
+	public function cdncallback(){
+		$sourcesn = $_GET['sourcesn'];
+
+		$rs = json_decode($rs,true);
+		if($rs['result'] == 'api'){
+			$sourceModel = M('tg_source');
+			$where = array('sourcesn'=>$sourcesn);
+			$data = array('is_cdn_submit'=>1);
+			$sourceModel->where($where)->save($data);
+		}
+	}
+	//---------------------------------------------------------------
 
 	//下载选中的游戏包
 	public function downloadPackage(){
