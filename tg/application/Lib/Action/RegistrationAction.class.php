@@ -89,9 +89,13 @@ class RegistrationAction extends CommonAction {
         // 充值用户条件
         if ((isset($account) && $account != "" && $account != null)) {
             // 支持模糊搜索
-            $condition["AU.username"] = array('like','%'.$account.'%');
-            $condition["AU.email"] = array('like','%'.$account.'%');
-            $condition["AU.mobile"] = array('like','%'.$account.'%');
+            $complex = array();
+            $complex["AU.username"] = array('like','%'.$account.'%');
+            $complex["AU.email"] = array('like','%'.$account.'%');
+            $complex["AU.mobile"] = array('like','%'.$account.'%');
+            $complex['_logic'] = 'OR';
+         
+            $condition['_complex'] = $complex;
         }
         $condition['_logic'] = 'AND';
        

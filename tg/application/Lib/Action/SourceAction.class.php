@@ -137,7 +137,10 @@ class SourceAction extends CommonAction {
 					$oldgamename = $source["apkurl"];
 
 					// 获取$oldapkurl
-					if ($source["isupload"] == 1) {
+					//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
+					if($source["is_cdn_submit"] == 1 ){
+						$oldapkurl = $this->apkdownloadcdnurl.$oldgamename;
+					}elseif ($source["isupload"] == 1) {
 						$oldapkurl = $this->apkdownloadurl.$oldgamename;
 					} else {
 						// 如果不存在，根据游戏的母包重新生成
@@ -165,7 +168,9 @@ class SourceAction extends CommonAction {
 					$forcepackagemap["channelid"] = $source["channelid"];
 					$forcepackagemap["gameid"] = $source["gameid"];
 					$forcepackage = $forcepackagemodel->where($forcepackagemap)->find();
-					if ($forcepackage) {
+					if($forcepackage["is_cdn_submit"] == 1 ){
+						$newapkurl = $this->apkdownloadcdnurl.$forcepackage["apkurl"];
+					}elseif($forcepackage) {
 						$newapkurl = $this->apkdownloadurl.$forcepackage["apkurl"];
 					} else {
 						// 如果不存在，根据强更包的母包重新生成
@@ -217,6 +222,14 @@ class SourceAction extends CommonAction {
 				} else {
 					// 过了强更时间
 					$newgamename = $source["apkurl"];
+
+					//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
+					if($source["is_cdn_submit"] == 1 ){
+						$this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
+	                    $this->ajaxReturn('success',$this->apkdownloadcdnurl.$newgamename,1);
+						exit();
+					}
+
 					if ($source["isupload"] == 1) {
                         $time = date('Y-m-d H:i:s',time());
                         $this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
@@ -246,6 +259,14 @@ class SourceAction extends CommonAction {
 				}
 			} else {
 				$newgamename = $source["apkurl"];
+
+				//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
+				if($source["is_cdn_submit"] == 1 ){
+					$this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
+                    $this->ajaxReturn('success',$this->apkdownloadcdnurl.$newgamename,1);
+					exit();
+				}
+
 				if ($source["isupload"] == 1) {
                     $time = date('Y-m-d H:i:s',time());
                     $this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
@@ -485,8 +506,8 @@ class SourceAction extends CommonAction {
         $source = $sourcemodel->where($map)->find();
 		if ($source) {
 			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
-			$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
-			if($source["is_cdn_submit"] == 1 && @fopen($cndurl) ){
+			if($source["is_cdn_submit"] == 1 ){
+				$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
 				Header("Location: ".$cndurl." ");
 				exit();
 			}
@@ -641,7 +662,7 @@ class SourceAction extends CommonAction {
 			$zip->close();
 
 			// 第一次分包的时候cdn提交
-			$this->cdnsubmit($sourcesn);
+			$this->cdnsubmit($sourcesn,$newgamename);
 
 			return "true";
 		} else {
@@ -661,7 +682,7 @@ class SourceAction extends CommonAction {
 	}
 
 	// cdn提交接口
-	public function cdnsubmit($sourcesn,$newgamename)){
+	public function cdnsubmit($sourcesn,$newgamename){
 		// 允许用户提交cdn才提交cdn
 		$sourceModel = M('tg_source');
 		$where = array('sourcesn'=>$sourcesn);
@@ -673,7 +694,7 @@ class SourceAction extends CommonAction {
 		if($is_allow_cdn['is_allow_cdn'] == '1'){
 			/*************CDN*******************/
 			$Url = 'http://c.yxgames.com/api/cdn';
-			$Callback = $this->admindomain.'/?m=source&a=cdncallback&sourcesn='.$sourcesn;
+			$Callback = $this->admindomain.'/?m=game&a=cdncallback&sourcesn='.$sourcesn;
 			$packageurl  = $this->apkdownloadcdnurl.$newgamename;
 			$Params = array(
 				'url'=>$packageurl,
@@ -682,19 +703,6 @@ class SourceAction extends CommonAction {
 			);
 			$rs = $this->httpreq($Url, http_build_query($Params),'post');
 			/****************CDN*******************/
-		}
-	}
-
-	// cdn回调函数
-	public function cdncallback(){
-		$sourcesn = $_GET['sourcesn'];
-
-		$rs = json_decode($rs,true);
-		if($rs['result'] == 'api'){
-			$sourceModel = M('tg_source');
-			$where = array('sourcesn'=>$sourcesn);
-			$data = array('is_cdn_submit'=>1);
-			$sourceModel->where($where)->save($data);
 		}
 	}
 }

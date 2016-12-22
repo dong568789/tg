@@ -89,14 +89,13 @@ class RechargeAction extends CommonAction {
         // 充值用户条件
         if ((isset($account) && $account != "" && $account != null)) {
             // 支持模糊搜索
-            $userall = $allusermodel->field('username')->where('username like "%'.$account.'%" OR email="'.$account.'" OR mobile = "'.$account.'"')->select();
-            $userall_arr=array();
-            foreach ($userall as $key => $value) {
-                $userall_arr[]=$value['username'];
-            }
-            $userall_atr=implode(',', $userall_arr);
-
-            $condition["D.username"] = array('in',$userall_atr);
+            $complex = array();
+            $complex["U.username"] = array('like','%'.$account.'%');
+            $complex["U.email"] = array('like','%'.$account.'%');
+            $complex["U.mobile"] = array('like','%'.$account.'%');
+            $complex['_logic'] = 'OR';
+         
+            $condition['_complex'] = $complex;
         }
         
         // 并且 用户的注册渠道 也是当前用户的渠道
@@ -123,6 +122,7 @@ class RechargeAction extends CommonAction {
                     ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
                     ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
                     ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
+                    ->join(C('DB_PREFIX')."all_user U on D.username = U.username", "LEFT")
                     ->field('D.orderid,D.regagent,D.agent,D.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname')
                     ->where($condition)
                     ->select();

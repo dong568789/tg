@@ -33,7 +33,7 @@ foreach ($force as $k => $v) {
 			$forcepackage[]=$row;
 		}
 		foreach ($forcepackage as $k1 => $v1) {
-			$sourcequery = "update yx_tg_source set isupload = 1, apkurl = '".$v1["apkurl"]."' where userid = ".$v1["userid"]." and channelid = ".$v1["channelid"]." and gameid = ".$v1["gameid"];
+			$sourcequery = "update yx_tg_source set isupload = 1, is_cdn_submit = '".$v1["is_cdn_submit"]."', apkurl = '".$v1["apkurl"]."' where userid = ".$v1["userid"]." and channelid = ".$v1["channelid"]." and gameid = ".$v1["gameid"];
 			mysql_query($sourcequery);
 			$forcepackageupdatequery = "update yx_tg_forcepackage set isforce = 1 where id = ".$v1["id"];
 			mysql_query($forcepackageupdatequery);
