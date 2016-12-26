@@ -104,7 +104,7 @@ class UserAction extends CommonAction {
             $seeSoureceRight = $this->authoritycheck(10109);
             $ptbAuthorization = $this->authoritycheck(10110);
             $editUser = $this->authoritycheck(10111);
-            $fastApply = $this->authoritycheck(10172);
+            $fastApply = $this->authoritycheck(10175);
 
             $num = 1;
             foreach ($users as $key => $value) {
@@ -145,7 +145,7 @@ class UserAction extends CommonAction {
                         }
                         $operationstr .= '<a href="/userpreauth/'.$value['userid'].'/">预授权</a>';
                     }
-                    if('$fastApply' == 'ok'){
+                    if($fastApply == 'ok'){
                         if($operationstr!=''){
                             $operationstr .= "&nbsp;|&nbsp;";
                         }
