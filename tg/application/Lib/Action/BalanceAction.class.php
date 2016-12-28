@@ -303,8 +303,8 @@ class BalanceAction extends CommonAction {
 			$data['updatetime'] = date('Y-m-d H:i:s');
 			$data['updateuser'] = $user["realname"];
 
-			// 如果结算为游侠币，19999钱以为不需要审核
-			if($_POST["type"] == 3 && $data["actualamount"]<=19999){
+			// 如果结算为游侠币，20000钱以为不需要审核
+			if($_POST["type"] == 3 && $data["actualamount"]<=20000){
 	            // 充值记录表 yx_tg_coinlog
 	            // 推广用户表 用户tg_user
 	            $getcoin = round($data["actualamount"]*10);

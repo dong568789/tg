@@ -1432,18 +1432,7 @@ class GameAction extends CommonAction {
 							// sdk_agentlist增加资源的强更链接
 							$agentModel = M('sdk_agentlist');
 							$agentcondition["agent"] = $source["sourcesn"];
-
-							$is_allow_cdn = $sourceModel->alias('S')
-									->field('U.is_allow_cdn')
-									->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
-									->where($where)
-									->find();
-							if($is_allow_cdn['is_allow_cdn'] == '1'){
-								$agentdata["upurl"] = $this->apkdownloadcdnurl.$newgamename;
-							}else{
-								$agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
-							}
-
+							$agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
 							$agent = $agentModel->where($agentcondition)->save($agentdata);
 
 							if ($agent) {
@@ -1504,13 +1493,21 @@ class GameAction extends CommonAction {
 	public function cdnsubmit($sourcesn,$newgamename){
 		// 允许用户提交cdn才提交cdn
 		$sourceModel = M('tg_source');
-		$where = array('sourcesn'=>$sourcesn);
+		$where = array('S.sourcesn'=>$sourcesn);
 		$is_allow_cdn = $sourceModel->alias('S')
 					->field('U.is_allow_cdn')
 					->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
 					->where($where)
 					->find();
 		if($is_allow_cdn['is_allow_cdn'] == '1'){
+			// 输出日志
+			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="强更cdn提交：\n";
+			$log_content.="sourcesn：".$sourcesn."\n";
+			$log_content.="newgamename：".$newgamename."\n";
+			error_log($log_content, 3, $log_file);
+
 			/*************CDN*******************/
 			$Url = 'http://c.yxgames.com/api/cdn';
 			$Callback = $this->admindomain.'/?m=game&a=forcecdncallback&sourcesn='.$sourcesn;
@@ -1533,10 +1530,22 @@ class GameAction extends CommonAction {
 		$where = array('sourcesn'=>$sourcesn);
 		$data = array('is_cdn_submit'=>1);
 		$result = $sourceModel->where($where)->save($data);
+
+		$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-call.log';
 		if($result === false){
-			echo '修改sourcesn:['.$sourcesn.']cdn字段失败';
+			// 输出日志
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="【sourcesn='".$sourcesn."'】下载包cdn回调，修改source表的is_cdn_submit失败。\n";
+			error_log($log_content, 3, $log_file);
+
+			echo "【sourcesn='".$sourcesn."'】下载包cdn回调，修改source表的is_cdn_submit失败。";
 		}else{
-			echo '修改sourcesn:['.$sourcesn.']cdn字段成功';
+			// 输出日志
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="【sourcesn='".$sourcesn."'】下载包cdn回调，修改source表的is_cdn_submit成功。\n";
+			error_log($log_content, 3, $log_file);
+
+			echo "【sourcesn='".$sourcesn."'】下载包cdn回调，修改source表的is_cdn_submit成功。";;
 		}
 	}
 	// 强更的时候cdn回调函数
@@ -1555,10 +1564,39 @@ class GameAction extends CommonAction {
 		$where['isforce'] = 0;
 		$data = array('is_cdn_submit'=>1);
 		$result = $forcepackageModel->where($where)->save($data);
+
+		$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-call.log';
 		if($result === false){
-			echo '修改强更sourcesn:['.$sourcesn.']cdn字段失败';
+			// 输出日志
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="【sourcesn='".$sourcesn."'】强更包cdn回调，修改forcepackage表的is_cdn_submit失败。\n";
+			error_log($log_content, 3, $log_file);
+
+			echo '【sourcesn=['.$sourcesn.']强更包cdn回调，修改forcepackage表的is_cdn_submit失败。';
 		}else{
-			echo '修改强更sourcesn:['.$sourcesn.']cdn字段成功';
+			$forcepackage = $forcepackageModel->where($where)->find();
+			// vde($forcepackageModel->getlastsql());
+			$agentModel = M('sdk_agentlist');
+			$agentcondition = array();
+			$agentcondition["agent"] = $sourcesn;
+			$agentdata = array();
+			$agentdata["upurl"] = $this->apkdownloadcdnurl.$forcepackage['apkurl'];
+			$result = $agentModel->where($agentcondition)->save($agentdata);
+			if($result === false){
+				// 输出日志
+				$log_content=date('Y-m-d H:i:s')."\n";
+				$log_content.="【sourcesn='".$sourcesn."'】强更包cdn回调，修改forcepackage表的is_cdn_submit成功，修改agentlist的upurl失败。\n";
+				error_log($log_content, 3, $log_file);
+
+				echo "【sourcesn='".$sourcesn."'】强更包cdn回调，修改forcepackage表的is_cdn_submit成功，修改agentlist的upurl失败。";
+			}else{
+				// 输出日志
+				$log_content=date('Y-m-d H:i:s')."\n";
+				$log_content.="【sourcesn='".$sourcesn."'】强更包cdn回调，修改forcepackage表的is_cdn_submit成功，修改agentlist的upurl成功。\n";
+				error_log($log_content, 3, $log_file);
+
+				echo "【sourcesn='".$sourcesn."'】强更包cdn回调，修改forcepackage表的is_cdn_submit成功，修改agentlist的upurl成功。\n";
+			}
 		}
 	}
 	//---------------------------------------------------------------
