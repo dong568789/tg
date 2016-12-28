@@ -692,6 +692,14 @@ class SourceAction extends CommonAction {
 					->where($where)
 					->find();
 		if($is_allow_cdn['is_allow_cdn'] == '1'){
+			// 输出日志
+			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="下载包cdn提交：\n";
+			$log_content.="sourcesn：".$sourcesn."\n";
+			$log_content.="newgamename：".$newgamename."\n";
+			error_log($log_content, 3, $log_file);
+
 			/*************CDN*******************/
 			$Url = 'http://c.yxgames.com/api/cdn';
 			$Callback = $this->admindomain.'/?m=game&a=cdncallback&sourcesn='.$sourcesn;
