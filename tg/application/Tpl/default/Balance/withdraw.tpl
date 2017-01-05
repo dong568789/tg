@@ -3,9 +3,46 @@
 <?php
 $page_title = "收入提现";
 $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css";
+$page_css[] = "myjs/myjs.css";
 
 ?>
 <include file="Inc:head" />
+<style type="text/css">
+	#window_block {
+		height: 320px;
+		font-size: 13px;
+		font-family: '微软雅黑';
+	}
+	#window_block .overf{
+		margin: 30px 40px 0;
+	}
+	#window_block h2{
+		text-align: center;
+		font-size: 20px;
+		font-weight: bold;
+		margin: 0 0 20px 0;
+	}
+	#window_block ul {
+		margin: 0 0 20px 0;
+		padding: 0;
+	}
+	#window_block ul li {
+		list-style: none;
+		line-height: 25px;
+		height: 25px;
+	}
+	#window_block ul li em {
+		font-weight: bold;
+		font-style: normal;
+	}
+	#window_block ul div.jianxi{
+		margin-top: 15px;
+	}
+	.tip {
+		color:red;
+	}
+</style>
+
 <body>
 <include file="Inc:logged-header" />
 
@@ -104,14 +141,14 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 										<div class="form-group">
 											<label class="col-sm-3 control-label text-left">提现方式：</label>
 											<div class="col-sm-7">
-												<button type="button" class="btn btn-warning" id="alipay"  style="padding: 8px 12%;margin-right: 3%;">支付宝</button>
-												<button type="button" class="btn btn-danger" id="bank" style="padding: 8px 12%;margin-right: 3%;">银行卡</button>
+												<button type="button" class="btn" id="alipay"  style="padding: 8px 12%;margin-right: 3%;">支付宝</button>
+												<button type="button" class="btn" id="bank" style="padding: 8px 12%;margin-right: 3%;">银行卡</button>
 
-												<button type="button" class="btn btn-info" id="youxiabi" style="padding: 8px 12%;" data-type="3">游侠币</button>
+												<button type="button" class="btn" id="youxiabi" style="padding: 8px 12%;" data-type="3">游侠币</button>
 
 												<p style="margin:15px 0 5px 0;">
 													*  提现之前请先完善账号信息 <br/>
-													*  如果提现为游侠币，不大于 5万 游侠币，不需要审核，自动转入
+													*  如果提现为游侠币，不大于 20万 游侠币，不需要审核，自动转入
 												</p>
 												<p style="display:none;margin:0;" id="newaccount">*  请点击 <a href="/account/">这里</a> 新增一个支付宝或银行账号</p>
 											</div>
@@ -200,11 +237,35 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
     </section>
 </section>
 
+<div id="window_block" class="wbox" >
+    <div class="overf">
+    	<h2>结算信息确认</h2>
+        <ul>
+        	<li><em>提现账号：</em> <{$useraccount}></li>
+        	<li><em>提现周期：</em> <{$startdate}> 到 <span id="window_date"></span></li>
+        	<li><em>提现类型：</em><span id="window_type"></span></li>
+        	<li><em>提现金额：</em><span id="window_money"></span></li>
+        	<div class="jianxi"></div>
+        	<div class="tip">请认真确认以上信息，结算单一经提交无法撤回或者修改。</div>
+        </ul>
+        
+        <div class="clearfix">
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-primary btn-block wok">确认</button>
+			</div>
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-block wclose">取消</button>
+			</div>
+		</div>
+    </div>
+</div>
+
 <include file="Inc:footer" />
 <include file="Inc:scripts" />
 
 <script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="__ROOT__/plus/myjs/myjs.js"></script>
 
 <script type="text/javascript">
     function notify(message, type){
@@ -269,7 +330,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 			var reg=/^\d{4}-\d{2}-\d{2}$/;
 
 			if(!reg.test(enddate)){
-				notify('请选择提现方式。', 'danger');
+				notify('请选择正确的截止日期。', 'danger');
 				return false;
 			}
 
@@ -332,8 +393,15 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 				newaccount_ele.hide();
                 paymethod_bank_ele.css("display","block");
             }
+            bank_ele.addClass('btn-info').siblings().removeClass('btn-info');
+            // 清空其他块的样式
             paymethod_alipay_ele.css("display","none");
            	paymethod_youxiabi_ele.css("display","none");
+           	$("#alipaylist").children().removeClass("bgm-cyan");
+            $("#banklist").children().removeClass("bgm-cyan");
+
+           	type = 2;
+           	accountid = 0;
         });
 
         alipay_ele.click(function() {
@@ -345,15 +413,26 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 				newaccount_ele.hide();
                 paymethod_alipay_ele.css("display","block");
             }
+            alipay_ele.addClass('btn-info').siblings().removeClass('btn-info');
+            // 清空其他块的样式
             paymethod_bank_ele.css("display","none");
             paymethod_youxiabi_ele.css("display","none");
+            $("#alipaylist").children().removeClass("bgm-cyan");
+            $("#banklist").children().removeClass("bgm-cyan");
+
+            type = 1;
+            accountid = 0;
         });
 
         youxiabi_ele.click(function() {
-			newaccount_ele.hide();
+            paymethod_youxiabi_ele.css("display","block");
+            youxiabi_ele.addClass('btn-info').siblings().removeClass('btn-info');
+            // 清空其他块的样式
+            newaccount_ele.hide();
             paymethod_alipay_ele.css("display","none");
             paymethod_bank_ele.css("display","none");
-            paymethod_youxiabi_ele.css("display","block");
+            $("#alipaylist").children().removeClass("bgm-cyan");
+            $("#banklist").children().removeClass("bgm-cyan");
 
             // 赋值
             accountid = 0;
@@ -395,83 +474,94 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
             	$('#submitApply').removeAttr("disabled");
 				return false;
 			}
+			
 
-            if( !type ||  ((type == 1 || type == 2) && (accountid == 0 || accountid == ''))){     //判断是否选择提现方式
+			if( !type ){     //判断是否选择提现方式
                 notify('请选择提现方式。', 'danger');
                 $('#submitApply').removeAttr("disabled");
                 return false;
-            }else{
-                var password = $('#password').val();
-                if (password == "") {             //判断登录密码
-                    notify('请输入登录密码。', 'danger');
-                    $('#submitApply').removeAttr("disabled");
-                } else{
-                	$('#submitApply').attr("disabled","disabled");
-					swal({
-						title: "确认提交结算申请？",
-						text: "提交申请完成后，您截至到指定日期的所有收入都将进入结算，您今天将无法再次提交申请。",
-						showCancelButton: true,
-						confirmButtonColor: "#00ccff",
-						confirmButtonText: "确认",
-						cancelButtonText: "取消",
-						closeOnConfirm: false
-					}, function(isConfirm){
-						if(isConfirm){
-							isdoingwithdraw = 1;
-							swal({
-								title: "请稍侯...",   
-								text: "正在生成结算单，请稍后", 
-								type: "hold",
-								showConfirmButton: false
-							});
-							$.ajax({
-								type : 'POST',
-								url : "index.php?m=balance&a=dowithdraw",
-								data : {password : password, type : type, accountid : accountid, start : startdate, end : enddate},
-								cache : false,
-								dataType : 'json',
-								success : function (data) {
-									if (data.data == "success") {
-										swal({
-											title: "已提交",   
-											text: "提现申请已成功提交", 
-											type: "success",
-											showConfirmButton: true
-										}, function(isConfirm){   
-											if (isConfirm) {     
-												self.location.href = "/balance/";   
-											}
-										});
-									} else {
-										isdoingwithdraw = 0;
-										$('#submitApply').removeAttr("disabled");
-										swal({
-											title: "出错了",   
-											text: data.info, 
-											type: "error",
-											confirmButtonText: "确认"
-										});
-									}
-									return false;
-								},
-								error : function (xhr) {
+            }
+
+            if( (type == 1 || type == 2) && (accountid == 0 || accountid == '')){     //判断是否选择提现方式
+                notify('请选择账号。', 'danger');
+                $('#submitApply').removeAttr("disabled");
+                return false;
+            }
+
+            var password = $('#password').val();
+            if (password == "") {             //判断登录密码
+                notify('请输入登录密码。', 'danger');
+                $('#submitApply').removeAttr("disabled");
+            } else{
+            	$('#submitApply').attr("disabled","disabled");
+            	$('#window_date').html(enddate);
+            	if(type==1 || type==2){
+            		$('#window_type').html('现金结算');
+            		$('#window_money').html(money+'元');
+            	}else{
+            		$('#window_type').html('游侠币结算');
+            		$('#window_money').html(Math.round(money*10)+'游戏币');
+            	}
+
+				my_alert_window1({
+					'window_str':'#window_block',
+					'okis_hide_window':false,
+					'ok_fun':function(){
+						isdoingwithdraw = 1;
+						swal({
+							title: "请稍侯...",   
+							text: "正在生成结算单，请稍后", 
+							type: "hold",
+							showConfirmButton: false
+						});
+						$.ajax({
+							type : 'POST',
+							url : "index.php?m=balance&a=dowithdraw",
+							data : {password : password, type : type, accountid : accountid, start : startdate, end : enddate},
+							cache : false,
+							dataType : 'json',
+							success : function (data) {
+								if (data.data == "success") {
+									swal({
+										title: "已提交",   
+										text: "提现申请已成功提交", 
+										type: "success",
+										showConfirmButton: true
+									}, function(isConfirm){   
+										if (isConfirm) {     
+											self.location.href = "/balance/";   
+										}
+									});
+								} else {
 									isdoingwithdraw = 0;
 									$('#submitApply').removeAttr("disabled");
 									swal({
 										title: "出错了",   
-										text: "系统错误", 
+										text: data.info, 
 										type: "error",
 										confirmButtonText: "确认"
 									});
-									return false;
 								}
-							});
-						}else{
-							$('#submitApply').removeAttr("disabled");
-						}
-					});
-					return false;
-                }
+								return false;
+							},
+							error : function (xhr) {
+								isdoingwithdraw = 0;
+								$('#submitApply').removeAttr("disabled");
+								swal({
+									title: "出错了",   
+									text: "系统错误", 
+									type: "error",
+									confirmButtonText: "确认"
+								});
+								return false;
+							}
+						});
+					},
+					'no_fun':function(){
+						$('#submitApply').removeAttr("disabled");
+					}
+				});
+				return false;
             }
         });
     })

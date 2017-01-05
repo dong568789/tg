@@ -88,23 +88,33 @@ class CommonAction extends Action {
         if($_SESSION['userid']){
         	$userModel = M('tg_user');
         	$where = array('userid' => $_SESSION['userid'] );
-        	$user = $userModel->field('pid,channelid')->where($where)->find();
+        	$user = $userModel->field('pid,channelid,sourcetype')->where($where)->find();
 
         	if($user['pid'] > 0){ //子账号
         		$sourceuserid =  $user['pid']; //资源关联的时候所需要的用户id
+
+                //对于子账号来说，母账号如果是cps类型，自己也是cps类型
+                $where = array('userid' => $user['pid']);
+                $sourcetype =  $userModel->field('sourcetype')->where($where)->find();
+                $sourcetype = $sourcetype['sourcetype'];
         	}else{ //母账号
         		$sourceuserid =  $_SESSION['userid'];
+                $sourcetype = $user['sourcetype'];
         	}
         	
-        	$this->userpid = $user['pid'];
-        	$this->userchannelid = $user['channelid'];
+            $this->userpid = $user['pid'];
+        	$this->userid = $user['userid'];
+            $this->userchannelid = $user['channelid'];
+        	$this->sourcetype = $sourcetype;
         	$this->sourceuserid = $sourceuserid;
 
         	$_SESSION["userpid"] = $user['pid'];
         	$_SESSION["userchannelid"] = $user['channelid'];
         	$_SESSION["sourceuserid"] = $sourceuserid;
 
-        	$this->assign('userpid',$user['pid']);
+            $this->assign('userpid',$user['pid']);
+            $this->assign('userid',$user['userid']);
+        	$this->assign('sourcetype',$sourcetype);
         	$this->assign('userchannelid',$user['channelid']);
         	$this->assign('sourceuserid',$sourceuserid);
         }

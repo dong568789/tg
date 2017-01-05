@@ -39,38 +39,14 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                             <div id="data-table-basic-header" class="bootgrid-header container-fluid p-b-0 m-b-0">
 
                                 <div class="actionBar" >
+                                    <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>"> 
+                                    <input type="hidden" name="gameselect" id="gameselect" value=""> 
+
                                     <div class="col-sm-4 p-0">
                                         <button class="btn btn-default  m-r-5" id="currentmonth" style="text-transform: none;">本月</button>
                                         <button class="btn btn-default m-r-5" id="latestweek" style="text-transform: none;">最近7天</button>
                                         <button class="btn btn-default" id="latestmonth" style="text-transform: none;">最近30天</button>
                                         <input type="hidden" name="choose-time" id="choose-time" value="">
-                                    </div>
-
-                                    <div class="col-sm-4 p-0">
-                                        <if condition="$userpid eq 0">
-                                            <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
-                                                <option value="0">选择渠道</option>
-                                                <foreach name="channel" item="vo" key="k">
-                                                    <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
-                                                </foreach>
-                                            </select>
-                               
-                                            <select class="btn btn-default dropdown-menu f-14 m-l-20" id="gameselect">
-                                                <option value="0">选择游戏</option>
-                                            </select>
-
-                                            <div class="clear"></div>
-                                        <else />
-                                            <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>"> 
-
-                                            <select class="btn btn-default dropdown-menu f-14" id="gameselect">
-                                                <option value="0">选择游戏</option>
-                                                <foreach name="channelgame" item="vo" key="k">
-                                                    <option value="<{$vo['gameid']}>"><{$vo['gamename']}></option>
-                                                </foreach>
-                                            </select>
-                                            <div class="clear"></div>
-                                        </if>
                                     </div>
 
                                     <div class="daterange form-group pull-right">
@@ -93,27 +69,22 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                     <table id="data-table-basic" class="table table-hover table-vmiddle">
                                         <thead>
 											<tr>
-												<th data-column-id="date">日期</th>
-												<th data-column-id="dailyactive">活跃玩家</th>
+												<th data-column-id="datestr">日期</th>
+												
 												<th data-column-id="newpeople">新增注册</th>
+                                                <th data-column-id="dailyactive">活跃玩家</th>
 												<th data-column-id="paypeople">付费人数</th>
-												<th data-column-id="payrate" data-formatter="payrateformat">付费率</th>
-												<th data-column-id="gamename" >游戏名字</th>
-												<th data-column-id="channelname" >渠道名字</th>
+										
 												<th data-column-id="dailyjournal" >每日流水</th>
                                                 <if condition="$userpid gt 0" >
                                                     <th data-column-id="sub_dailyincome" >每日收入</th>
                                                 <else />
                                                     <th data-column-id="dailyincome" >每日收入</th>
                                                 </if>
-                                                <th data-column-id="voucherje" >使用代金券金额</th>
+                                                <td data-column-id="action">每日明细</td>
 											</tr>
                                         </thead>
                                         <tbody id="statisticcontainer">
-                                        <foreach name="data" item="vo" key="k">
-                                            <tr>
-                                            </tr>
-                                        </foreach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -185,7 +156,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 
         $.ajax({
             type: "POST",
-            url: "/index.php?m=statistics&a=search",
+            url: "/index.php?m=statistics&a=searchcps",
             data: {channelid:channelid, gameid:gameid, startdate:startdate, enddate:enddate,choose_time:choose_time},
             cache: false,
             dataType: 'json',
@@ -202,12 +173,8 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                 $("#data-table-basic").bootgrid("clear");
                 if (data.info == "success") {
                     $("#data-table-basic").bootgrid("append", data.data.daily);
-                    $('#gameselect').html("");
-                    $('#gameselect').html(data.data.game);
                 } else {
                     $('#statisticcontainer').html("");
-                    $('#gameselect').html("");
-                    $('#gameselect').html(data.data.game);
                 
                     notify('没有符合条件的数据', 'danger');
                 }
@@ -263,12 +230,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         $('#viewdaterange').click(function() {
             search_page();
         });
-        $('#channelselect').change(function(){
-            search_page();
-        });
-        $('#gameselect').change(function(){
-            search_page();
-        });
         $('#latestmonth').click(function(){
             $('#choose-time').val('thirtyday');
             $('#daterange').val('');
@@ -286,7 +247,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             $('#daterange').val('');
             search_page();
         });
-
+        
         //下拉框区分大小写
         $(".btn").css("text-transform","none");
     })

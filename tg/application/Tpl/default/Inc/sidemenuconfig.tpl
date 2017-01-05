@@ -26,7 +26,40 @@ if($userpid==0){
 	$profile_nav = array();
 }
 
-if($userpid==0){
+if($userpid==0 && $sourcetype==4){
+	$page_nav = array(
+		"渠道管理" => array(
+			"title" => "渠道管理",
+			"url" => "/channel/",
+			"icon" => "view-compact"
+		),
+		"推广资源" => array(
+			"title" => "推广资源",
+			"url" => "/source/",
+			"icon" => "layers"
+		),
+		"数据统计" => array(
+			"title" => "数据统计",
+			"url" => "/statistics/",
+			"icon" => "widgets"
+		),
+		"结算中心" => array(
+			"title" => "结算中心",
+			"url" => "/balance/",
+			"icon" => "money-box"
+		),
+		"操作指南" => array(
+			"title" => "操作指南",
+			"url" => "/guide/",
+			"icon" => "lamp"
+		),
+		"公告中心" => array(
+			"title" => "公告中心",
+			"url" => "/announce/",
+			"icon" => "notifications"
+		),
+	);
+}elseif($userpid==0 && $sourcetype!=4){
 	$page_nav = array(
 		"渠道管理" => array(
 			"title" => "渠道管理",

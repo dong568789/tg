@@ -33,7 +33,7 @@ class SourceModel extends Model
         $game['channel'] = $channelmodel->where("activeflag = 1 and userid = $userid")->order("createtime desc")->select();
         $channelid = $game['channel'][0]["channelid"];
     
-		$game['gamestr'] = $this->selectGame('全部',0,'全部',0,$channelid);
+		$game['gamestr'] = $this->selectGame('全部',0,'全部',0,$channelid,'asc');
         $game['sourcestr'] = $this->selectSource($channelid);
         return $game;
     }
@@ -53,7 +53,7 @@ class SourceModel extends Model
     }
 
     //游戏分类筛选
-    public function selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid){
+    public function selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order){
         $userid = $_SESSION['userid'];
         $gamemodel = M("tg_game");
 		$sourcemodel = M("tg_source");
@@ -102,7 +102,12 @@ class SourceModel extends Model
             $isapply[$k1] = $games[$k1]["isapply"]; //$v1在循环之前已经确定。$v1["isapply"]!=$games[$k1]['isapply']
         }
 
-        array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $gameauthority, SORT_DESC, $games);
+        if($order == 'asc'){
+            array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $gameauthority, SORT_DESC, $games);
+        }else{
+            array_multisort($isonstack, SORT_DESC, $isapply, SORT_ASC, $gameauthority, SORT_DESC, $games);
+        }
+        
 		$gamestr = $this->createGameStr($games,"all");
         return $gamestr;
     }
@@ -187,9 +192,17 @@ class SourceModel extends Model
 				$gamestr .= "<td>".$v["categoryname"]."</td>";
 				$gamestr .= "<td>".$v["tagname"]."</td>";
 				$gamestr .= "<td>".$v["gameauthority"]."</td>";
-				$gamestr .= "<td>".$v["gamesize"]." MB</td>";
-				$gamestr .= "<td>".$v["sharetype"]."</td>";
-                                 $gamestr .= "<td style='position: relative;top: -1px;'>".$v["sharerate"]."</td>";
+
+                if($v["isonstack"]  == -1 ){
+                    $gamestr .= "<td></td>";
+                    $gamestr .= "<td></td>";
+                    $gamestr .= "<td></td>";
+                }else{
+                    $gamestr .= "<td>".$v["gamesize"]." MB</td>";
+                    $gamestr .= "<td>".$v["sharetype"]."</td>";
+                    $gamestr .= "<td style='position: relative;top: -1px;'>".$v["sharerate"]."</td>";
+                }
+				
 				if ($v["isonstack"] == 0) {
 					if ($v["isapply"] == 1) {
 						$gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>已申请</button></td>";
@@ -200,6 +213,8 @@ class SourceModel extends Model
 					$gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>未上架</button></td>";
 				} else if ($v["isonstack"] == 2) {
 					$gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>已下架</button></td>";
+                } else if ($v["isonstack"] == -1) {
+                    $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>待上架</button></td>";
 				}
 				$gamestr .= "</tr>";
 			}

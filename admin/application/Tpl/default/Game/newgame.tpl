@@ -6,6 +6,11 @@
 	$page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css";
 ?>
 <include file="Inc:head" />
+<style>
+	.error{	
+		color: red;
+	}
+</style>
 <body>
 <include file="Inc:logged-header" />
 
@@ -192,8 +197,14 @@
                                         <label class="col-sm-3 f-15 control-label">上架状态</label>
                                         <div class="col-sm-7">
                                             <div class="fg-line">
+                                            	<label class="radio radio-inline m-r-20">
+                                                    <input class="radioclass" type="radio" name="isonstack" value="-1">
+                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                    待上架
+                                                </label>
+
                                                 <label class="radio radio-inline m-r-20">
-                                                    <input class="radioclass" type="radio" name="isonstack" value="0" checked="true">
+                                                    <input class="radioclass" type="radio" name="isonstack" value="0" >
                                                     <i class="input-helper p-relative" style="left:-26px;"></i>
                                                     正常
                                                 </label>
@@ -488,27 +499,27 @@
 						min : 1,
 						max : 5
 					},
-					sharerate : {
-						required : true,
-						number : true,
-						min : 0,
-						max : 1
-					},
-					channelrate : {
-						required : true,
-						number : true,
-						min : 0,
-						max : 1
-					},
+					// sharerate : {
+					// 	required : true,
+					// 	number : true,
+					// 	min : 0,
+					// 	max : 1
+					// },
+					// channelrate : {
+					// 	required : true,
+					// 	number : true,
+					// 	min : 0,
+					// 	max : 1
+					// },
 					gameicon : {
 						required : true
 					},
-					gamebg : {
-						required : true
-					},
-					description : {
-						required : true
-					},
+					// gamebg : {
+					// 	required : true
+					// },
+					// description : {
+					// 	required : true
+					// },
 					gametype : {
 						required : true
 					},
@@ -545,27 +556,27 @@
 						min : '游戏权重最大为1',
 						max : '游戏权重最大为5'
 					},
-					sharerate : {
-						required : '请填写分成比例，此项必填',
-						number : '分成比例必须为数字',
-						min : '分成比例必须大于0',
-						max : '分成比例最大为1(100%)'
-					},
-					channelrate : {
-						required : '请填写通道费，此项必填',
-						number : '通道费必须为数字',
-						min : '分成比例必须大于0',
-						max : '通道费最大为1(100%)'
-					},
+					// sharerate : {
+					// 	required : '请填写分成比例，此项必填',
+					// 	number : '分成比例必须为数字',
+					// 	min : '分成比例必须大于0',
+					// 	max : '分成比例最大为1(100%)'
+					// },
+					// channelrate : {
+					// 	required : '请填写通道费，此项必填',
+					// 	number : '通道费必须为数字',
+					// 	min : '分成比例必须大于0',
+					// 	max : '通道费最大为1(100%)'
+					// },
 					gameicon : {
 						required : '游戏图标必须上传'
 					},
-					gamebg : {
-						required : '游戏背景必须上传'
-					},
-					description : {
-						required : '请填写游戏详情，此项必填'
-					},
+					// gamebg : {
+					// 	required : '游戏背景必须上传'
+					// },
+					// description : {
+					// 	required : '请填写游戏详情，此项必填'
+					// },
 					gametype : {
 						required : '请选择一个游戏类型'
 					},

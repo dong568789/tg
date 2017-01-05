@@ -205,11 +205,14 @@ class StatisticsModel extends Model
 				$cacheincome = $dailyjournal * $sharerate * (1 - $channelrate);
 				$dailyjournal = str_replace(",", "", number_format($dailyjournal, 2));//总流水
 				$dailyincome =  str_replace(",", "", number_format($cacheincome, 2));//总收入
+				// 子账号收入
+				$sub_cacheincome = $dailyjournal * $sourcerow["sub_share_rate"] * (1 - $sourcerow["sub_channel_rate"]);
+				$sub_dailyincome =  str_replace(",", "", number_format($sub_cacheincome, 2));//总收入
 				if ($paypeople != 0 && $dailyactive != 0 ) {
 					$payrate = floor($paypeople * 100 / $dailyactive);//消费率
 				}
 			}
-			$todaydata[$i]["date"] = date("Y年m月d日");
+			$todaydata[$i]["date"] = date("Y-m-d");
 			$todaydata[$i]["dailyactive"] = $dailyactive;
 			$todaydata[$i]["newpeople"] = $newpeople;
 			$todaydata[$i]["paypeople"] = $paypeople;
@@ -218,6 +221,7 @@ class StatisticsModel extends Model
 			$todaydata[$i]["channelname"] = $sourcerow["channelname"];
 			$todaydata[$i]["dailyjournal"] = $dailyjournal;
 			$todaydata[$i]["dailyincome"] = $dailyincome;
+			$todaydata[$i]["sub_dailyincome"] = $sub_dailyincome;
 			$todaydata[$i]["sub_share_rate"] = $sourcerow["sub_share_rate"];
 			$todaydata[$i]["sub_channel_rate"] = $sourcerow["sub_channel_rate"];
 		}

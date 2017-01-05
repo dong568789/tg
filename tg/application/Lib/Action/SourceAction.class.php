@@ -339,8 +339,9 @@ class SourceAction extends CommonAction {
         $gamesize = $_POST['gamesize'];
         $gametag = $_POST['gametag'];
         $channelid = $_POST['gamechannel'];
+        $order = $_POST['order'];
         $Index = D("Source");
-        $gamestr = $Index->selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid);
+        $gamestr = $Index->selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order);
         if($gamestr){
 			$this->ajaxReturn('success',$gamestr,1);
 			exit();

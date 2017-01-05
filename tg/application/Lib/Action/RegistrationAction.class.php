@@ -2,6 +2,12 @@
 class RegistrationAction extends CommonAction {
     public function __construct(){
         parent::__construct();
+
+        // cps用户没有进入这里的权限
+        if($this->sourcetype == 4){
+            Header("Location: /source/ ");
+            exit();
+        }
     }
 
     public function index(){

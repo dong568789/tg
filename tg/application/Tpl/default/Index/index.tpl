@@ -20,11 +20,13 @@
             <li class="pull-right">
                 <ul class="top-menu">
 
-                    <li class="hidden-xs">
-                        <a target="_self" href="/channel/">
-                            <span class="tm-label">渠道管理</span>
-                        </a>
-                    </li>
+                    <if condition="$userpid eq 0 ">
+                        <li class="hidden-xs">
+                            <a target="_self" href="/channel/">
+                                <span class="tm-label">渠道管理</span>
+                            </a>
+                        </li>
+                    </if>
 
                     <li class="hidden-xs">
                         <a target="_self" href="/source/">
@@ -38,11 +40,13 @@
                         </a>
                     </li>
 
-                    <li class="hidden-xs">
-                        <a target="_self" href="/balance/">
-                            <span class="tm-label">结算中心</span>
-                        </a>
-                    </li>
+                    <if condition="$userpid eq 0 ">
+                        <li class="hidden-xs">
+                            <a target="_self" href="/balance/">
+                                <span class="tm-label">结算中心</span>
+                            </a>
+                        </li>
+                    </if>
 
                     <li class="dropdown">
                         <a data-toggle="dropdown" href="">

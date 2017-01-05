@@ -167,7 +167,15 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 				},
 				"stackinfo": function(column, row)
 				{
-					return row.isonstack == "0" ? "正常" : (row.isonstack == "1" ? "未上架" : "已下架");
+                    if(row.isonstack == "1" ){
+                        return '未上架';
+                    }else if(row.isonstack == "2" ){
+                        return "已下架";
+                    }else if(row.isonstack == "-1" ){
+                        return "待上架";
+                    }else{
+                        return "正常";
+                    }
 				}
 			},
 			templates: {

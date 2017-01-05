@@ -204,7 +204,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                                 <th width="10%">游戏包大小</th>
 												<th width="10%">分成类型</th>
                                                 <th width="10%">分成比例</th>
-                                                <th width="20%">申请状态</th>
+                                                <th width="20%" id="order-apply-status" data-order="asc">申请状态</th>
                                             </tr>
                                             </thead>
                                             <tbody id="gamecontainer">
@@ -336,11 +336,18 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
     }
 	
     //通过游戏类型筛选游戏
-    function selectGame (type, category, size, tag, channelid) {
+    function selectGame () {
+        var type = $(".type").attr('data-state');
+        var category = $(".category.classify").attr('data-state');
+        var size = $(".size.classify").attr('data-state');
+        var tag = $(".tag.classify").attr('data-state');
+        var channelid = $("#sourcechannel").val();
+        var order = $("#order-apply-status").attr('data-order');
+
         $.ajax({
             type: "POST",
             url: "/index.php?m=source&a=selectGame",
-            data: {gametype:type, gamecategory:category, gamesize:size, gametag:tag, gamechannel:channelid},
+            data: {gametype:type, gamecategory:category, gamesize:size, gametag:tag, gamechannel:channelid,order:order},
             cache: false,
             dataType: 'json',
             success: function (data) {
@@ -451,40 +458,33 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
         });
         // 点击游戏类型
         $(".type").click(function() {
-            var typevalue = $(this).attr('data-state');
-            var categoryvalue = $(".category.classify").attr('data-state');
-            var sizevalue = $(".size.classify").attr('data-state');
-            var tagvalue = $(".tag.classify").attr('data-state');
-            var channelid = $("#sourcechannel").val();
-			var channelid = 
-            selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
+            selectGame ();
         });
         // 点击游戏分类
         $(".category").click(function() {
-            var typevalue = $(".type.classify").attr('data-state');
-            var categoryvalue = $(this).attr('data-state');
-            var sizevalue = $(".size.classify").attr('data-state');
-            var tagvalue = $(".tag.classify").attr('data-state');
-            var channelid = $("#sourcechannel").val();
-            selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
+            selectGame ();
         });
         // 点击大小
         $(".size").click(function() {
-            var typevalue = $(".type.classify").attr('data-state');
-            var categoryvalue = $(".category.classify").attr('data-state');
-            var sizevalue = $(this).attr('data-state');
-            var tagvalue = $(".tag.classify").attr('data-state');
-            var channelid = $("#sourcechannel").val();
-            selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
+            selectGame ();
         });
         // 点击游戏标签
         $(".tag").click(function() {
-            var typevalue = $(".type.classify").attr('data-state');
-            var categoryvalue = $(".category.classify").attr('data-state');
-            var sizevalue = $(".size.classify").attr('data-state');
-            var tagvalue = $(this).attr('data-state');
-            var channelid = $("#sourcechannel").val();
-            selectGame (typevalue, categoryvalue, sizevalue, tagvalue, channelid);
+            selectGame ();
+        });
+        // 点击排序
+        $("#order-apply-status").click(function() {
+            var _this = $(this);
+            var order = _this.attr('data-order');
+            if(order=='asc'){
+                _this.attr('data-order','desc');
+                _this.html('申请状态 <span class="zmdi zmdi-caret-up-circle"></span>');
+            }else{
+                _this.attr('data-order','asc');
+                _this.html('申请状态 <span class="zmdi zmdi-caret-down-circle"></span>');
+            }
+            // alert($(this).attr('data-order'));
+            selectGame ();
         });
 
         //申请部分

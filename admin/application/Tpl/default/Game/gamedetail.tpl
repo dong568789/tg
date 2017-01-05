@@ -192,6 +192,12 @@
                                         <label class="col-sm-3 f-15 control-label">上架状态</label>
                                         <div class="col-sm-7">
                                             <div class="fg-line">
+                                            	<label class="radio radio-inline m-r-20">
+                                                    <input class="radioclass" type="radio" name="isonstack" value="-1" <if condition="-1 eq $game['isonstack'] ">checked="true"</if>>
+                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                    待上架
+                                                </label>
+
                                                 <label class="radio radio-inline m-r-20">
                                                     <input class="radioclass" type="radio" name="isonstack" value="0" <if condition="0 eq $game['isonstack'] ">checked="true"</if>>
                                                     <i class="input-helper p-relative" style="left:-26px;"></i>

@@ -26,7 +26,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         <div class="container">
             <!--内容-->
             <div class="block-header">
-                <h2>数据统计</h2>
+                <h2><{$Think.get.date}>数据统计</h2>
             </div>
 
             <div class="row">
@@ -39,14 +39,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                             <div id="data-table-basic-header" class="bootgrid-header container-fluid p-b-0 m-b-0">
 
                                 <div class="actionBar" >
-                                    <div class="col-sm-4 p-0">
-                                        <button class="btn btn-default  m-r-5" id="currentmonth" style="text-transform: none;">本月</button>
-                                        <button class="btn btn-default m-r-5" id="latestweek" style="text-transform: none;">最近7天</button>
-                                        <button class="btn btn-default" id="latestmonth" style="text-transform: none;">最近30天</button>
-                                        <input type="hidden" name="choose-time" id="choose-time" value="">
-                                    </div>
-
-                                    <div class="col-sm-4 p-0">
+                                    <div class="col-sm-12 p-0">
                                         <if condition="$userpid eq 0">
                                             <select class="btn btn-default dropdown-menu f-14 p-l-5 channelselect" id="channelselect">
                                                 <option value="0">选择渠道</option>
@@ -58,8 +51,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             <select class="btn btn-default dropdown-menu f-14 m-l-20" id="gameselect">
                                                 <option value="0">选择游戏</option>
                                             </select>
-
-                                            <div class="clear"></div>
                                         <else />
                                             <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>"> 
 
@@ -69,16 +60,9 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                                     <option value="<{$vo['gameid']}>"><{$vo['gamename']}></option>
                                                 </foreach>
                                             </select>
-                                            <div class="clear"></div>
                                         </if>
                                     </div>
 
-                                    <div class="daterange form-group pull-right">
-                                        <div class="input-group">
-                                            <span class="zmdi input-group-addon zmdi-calendar"></span>
-                                            <input class="search-field form-control" placeholder="请选择日期" name="daterange" id="daterange" readonly="true" type="text"><a id="viewdaterange" class="input-group-addon btn-info">查看</a>
-                                        </div>
-                                    </div>
                                     <div class="clear"></div>     
                                 </div>
                             </div>
@@ -171,22 +155,15 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 
     // 搜索
     function search_page () {
-        var date = $('#daterange').val();
-        if (date != "") {
-            var startdate = date.substr(0, 10);
-            var enddate = date.substr(-10, 10);
-        } else {
-            var startdate = "";
-            var enddate = "";
-        }
-	    var choose_time = $('#choose-time').val();
         var channelid = $('#channelselect').val();
         var gameid = $('#gameselect').val();
-
+        var startdate = "<{$Think.get.date}>";
+        var enddate = "<{$Think.get.date}>";
+ 
         $.ajax({
             type: "POST",
             url: "/index.php?m=statistics&a=search",
-            data: {channelid:channelid, gameid:gameid, startdate:startdate, enddate:enddate,choose_time:choose_time},
+            data: {channelid:channelid, gameid:gameid, startdate:startdate, enddate:enddate},
             cache: false,
             dataType: 'json',
             beforeSend: function () {
@@ -245,45 +222,14 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             }
         });
 
-        $('#daterange').daterangepicker({
-            format: 'YYYY-MM-DD',
-            minDate: '2016-01-01',
-            drops: 'down',
-			opens: 'left',
-            buttonClasses: ['btn', 'btn-default'],
-            applyClass: 'btn-primary',
-            cancelClass: 'btn-default',
-            locale: moment.locale('zh-cn')
-        });
-
         window.onload=function() {
             search_page();
         };
 
-        $('#viewdaterange').click(function() {
-            search_page();
-        });
         $('#channelselect').change(function(){
             search_page();
         });
         $('#gameselect').change(function(){
-            search_page();
-        });
-        $('#latestmonth').click(function(){
-            $('#choose-time').val('thirtyday');
-            $('#daterange').val('');
-            search_page();
-        });
-
-        $('#latestweek').click(function(){
-            $('#choose-time').val('sevenday');
-            $('#daterange').val('');
-            search_page();
-        });
-        //本月
-        $('#currentmonth').click(function(){
-            $('#choose-time').val('currentmonth');
-            $('#daterange').val('');
             search_page();
         });
 
