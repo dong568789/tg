@@ -627,7 +627,9 @@ class BalanceAction extends CommonAction {
                     $taxrateContent = '0.0336(3%增值税发票)';
                 } else if ($user["invoicetype"] == 3) {
                     $taxrateContent = '0(6%增值税发票)';
-                } else if ($user["invoicetype"] == 0) {
+                } else if ($user["invoicetype"] == 0 && $user['usertype'] ==2 ) {
+                    $taxrateContent = '0.0672(公司不开发票)';
+                } else if ($user["invoicetype"] == 0 && $user['usertype'] ==1 ) {
                     $taxrateContent = '0.03(个人用户)';
                 }
 

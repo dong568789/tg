@@ -128,6 +128,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 										<label for="account" class="col-sm-3 control-label f-15 m-t-5">发票类型</label>
 										<div class="col-sm-7">
 											<select class="selectpicker" id="companyinvoicetype" name="companyinvoicetype">
+												<option value="0" <if condition="$user['invoicetype'] eq '0'"> selected </if>>不开发票</option>
 												<option value="1" <if condition="$user['invoicetype'] eq '1'"> selected </if>>普通发票</option>
 												<option value="2" <if condition="$user['invoicetype'] eq '2'"> selected </if>>3%增值税发票</option>
 												<option value="3" <if condition="$user['invoicetype'] eq '3'"> selected </if>>6%增值税发票</option>

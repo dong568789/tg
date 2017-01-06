@@ -288,7 +288,9 @@ class BalanceAction extends CommonAction {
 					$taxrate = 0.0336;
 				} else if ($user["invoicetype"] == 3) {
 					$taxrate = 0;
-				} else if ($user["invoicetype"] == 0) {
+				} else if ($user["invoicetype"] == 0 && $user['usertype'] = 2) {
+					$taxrate = 0.0672;
+				} else if ($user["invoicetype"] == 0 && $user['usertype'] = 1) {
 					$taxrate = 0.03;
 				}
 			}

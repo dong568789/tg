@@ -236,6 +236,7 @@
                     <span class="input-group-addon"><i class="zmdi zmdi-tag-more"></i></span>
                     <div class="col-sm-12">
 						<select class="selectpicker" id="companyinvoicetype" name="companyinvoicetype">
+                            <option value="0">不开发票</option>
 							<option value="1">普通发票</option>
 							<option value="2">3%增值税发票</option>
 							<option value="3">6%增值税发票</option>

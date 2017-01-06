@@ -95,19 +95,21 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                                             <dd><{$user['realname']}></dd>
                                         </dl>
                                         <if condition="1 eq $user['usertype'] ">
-										<dl class="dl-horizontal">
-                                            <dt>性别</dt>
-                                            <?php
-                                            echo "<dd>";
-                                            echo $user['gender'] == 0 ? "未知" : ($user['gender'] == 1 ? "男" : "女");
-                                            echo "</dd>";
-                                            ?>
-                                        </dl>
+    										<dl class="dl-horizontal">
+                                                <dt>性别</dt>
+                                                <?php
+                                                echo "<dd>";
+                                                echo $user['gender'] == 0 ? "未知" : ($user['gender'] == 1 ? "男" : "女");
+                                                echo "</dd>";
+                                                ?>
+                                            </dl>
+                                        <else />
+                                            <dl class="dl-horizontal">
+                                                <dt>公司名称</dt>
+                                                <dd><{$user['companyname']}></dd>
+                                            </dl>
                                         </if>
-										<dl class="dl-horizontal">
-                                            <dt>公司名称</dt>
-                                            <dd><{$user['companyname']}></dd>
-                                        </dl>
+										
 										<dl class="dl-horizontal">
                                             <dt>发票类型</dt>
                                             <?php
@@ -308,6 +310,7 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
 										<label for="account" class="col-sm-3 control-label f-15 m-t-5">发票类型</label>
 										<div class="col-sm-7">
 											<select class="selectpicker" id="companyinvoicetype" name="invoicetype">
+                                                <option value="0" <if condition="$user['invoicetype'] eq '0'"> selected </if>>不开发票</option>
 												<option value="1" <if condition="$user['invoicetype'] eq '1'"> selected </if>>普通发票</option>
 												<option value="2" <if condition="$user['invoicetype'] eq '2'"> selected </if>>3%增值税发票</option>
 												<option value="3" <if condition="$user['invoicetype'] eq '3'"> selected </if>>6%增值税发票</option>
