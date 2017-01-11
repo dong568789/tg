@@ -114,7 +114,9 @@ class ChannelAction extends CommonAction {
             $this->ajaxReturn("fail",'添加子账号失败。',0);
         }
 
-        $this->insertLog($_SESSION['account'],'新建渠道', 'ChannelAction.class.php', 'addchannel', $data['createtime'], $_SESSION['account']."新建了“".$data['channelname']."”渠道");
+        $this->insertLog($_SESSION['account'],'新建渠道', 'ChannelAction.class.php', 'addchannel', $data['createtime'], $_SESSION['account']."新建了“".$_POST['channelname']."”渠道");
+
+        $this->insertLog($_SESSION['account'],'新建子账号', 'ChannelAction.class.php', 'addchannel', $data['createtime'], $_SESSION['account']."新建了“".$sub_account."”子账号，".json_encode($data)."");
         $this->ajaxReturn('success','新增成功',1);
         exit();
     }

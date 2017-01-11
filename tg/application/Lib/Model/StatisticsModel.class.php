@@ -143,6 +143,7 @@ class StatisticsModel extends Model
 			$payrate = 0;
 			$dailyincome = 0;
 			$voucherje=0;
+			$sub_dailyincome=0;
 			if (isset($exsitsn) && $exsitsn != "") {
 				$datauser = array();
 				$activeuser = array();
@@ -224,6 +225,7 @@ class StatisticsModel extends Model
 			$todaydata[$i]["sub_dailyincome"] = $sub_dailyincome;
 			$todaydata[$i]["sub_share_rate"] = $sourcerow["sub_share_rate"];
 			$todaydata[$i]["sub_channel_rate"] = $sourcerow["sub_channel_rate"];
+			$todaydata[$i]["voucherje"] = $voucherje;
 		}
 
 		return $todaydata;

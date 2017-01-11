@@ -19,11 +19,11 @@ class StatisticsAction extends CommonAction {
             $this->assign('channel',$channel);
         }
 
-        if($this->sourcetype == 4){
+        // if($this->sourcetype == 4){
             $this->display('indexcps');
-        }else{
-            $this->display();
-        }
+        // }else{
+        //     $this->display();
+        // }
     }
 
 
@@ -133,13 +133,15 @@ class StatisticsAction extends CommonAction {
             $dataall["dailyjournal"] = 0;
             $dataall["dailyincome"] = 0;
             $dataall["sub_dailyincome"] = 0;
+            $dataall["sub_dailyincome"] = 0;
 
             if(isset($this->userpid) && $this->userpid>0){ //子账号
                 foreach ($daily as $k => $v) {
     				$dataall["dailyactive"] += $v["dailyactive"];
     				$dataall["newpeople"] += $v["newpeople"];
     				$dataall["paypeople"] += $v["paypeople"];
-    				$dataall["dailyjournal"] += $v["dailyjournal"];
+                    $dataall["dailyjournal"] += $v["dailyjournal"];
+    				$dataall["voucherje"] += $v["voucherje"];
     				
                     $cacheincome = $v['dailyjournal'] * $v['sub_share_rate'] * (1 - $v['sub_channel_rate']);
                     $daily[$k]['sub_dailyincome'] = str_replace(",", "", number_format($cacheincome, 2)); //总收入;
@@ -153,6 +155,7 @@ class StatisticsAction extends CommonAction {
                     $dataall["paypeople"] += $v["paypeople"];
                     $dataall["dailyjournal"] += $v["dailyjournal"];
                     $dataall["dailyincome"] += $v["dailyincome"];
+                    $dataall["voucherje"] += $v["voucherje"];
                 }
             }
 			array_unshift($daily,$dataall); 
@@ -182,7 +185,7 @@ class StatisticsAction extends CommonAction {
         //根据渠道的 游戏列表
         // 时间条件
         if( !$startdate && !$enddate && !$choose_time ){ //默认第一次加载
-            // $startdate = date('Y-m-01', time()); //获取当前月份第一天
+            $startdate = date('Y-m-01', time()); //获取当前月份第一天
             $enddate = date('Y-m-d', time());
             $condition["D.date"]  = array(array('egt',$startdate),array('elt',$enddate),'and');
         }elseif ((isset($startdate) && $startdate != "") && (isset($enddate) && $enddate != "")) {
@@ -214,7 +217,7 @@ class StatisticsAction extends CommonAction {
             $daily = $model->alias("D")
                 ->join(C('DB_PREFIX').'tg_source S on D.sourceid = S.id','left')
                 ->where($condition)
-                ->field('D.date,sum(D.newpeople) as newpeople,sum(D.dailyactive) as dailyactive,sum(D.dailyjournal) as dailyjournal, sum(D.dailyincome) as dailyincome, sum(D.dailyjournal*S.sub_share_rate*(1-S.sub_channel_rate)) as sub_dailyincome ')
+                ->field('D.date,sum(D.newpeople) as newpeople,sum(D.dailyactive) as dailyactive,sum(D.paypeople) as paypeople,sum(D.dailyjournal) as dailyjournal, sum(D.dailyincome) as dailyincome, sum(D.dailyjournal*S.sub_share_rate*(1-S.sub_channel_rate)) as sub_dailyincome, sum(D.voucherje) as voucherje ')
                 ->order("D.date desc")
                 ->group('D.date')
                 ->select();
@@ -222,7 +225,7 @@ class StatisticsAction extends CommonAction {
         }else{
             $daily = $model->alias("D")
                 ->where($condition)
-                ->field('D.date,sum(D.newpeople) as newpeople,sum(D.dailyactive) as dailyactive,sum(D.dailyjournal) as dailyjournal, sum(D.dailyincome) as dailyincome')
+                ->field('D.date,sum(D.newpeople) as newpeople,sum(D.dailyactive) as dailyactive,sum(D.paypeople) as paypeople,sum(D.dailyjournal) as dailyjournal, sum(D.dailyincome) as dailyincome, sum(D.voucherje) as voucherje')
                 ->order("D.date desc")
                 ->group('D.date')
                 ->select();
@@ -242,16 +245,20 @@ class StatisticsAction extends CommonAction {
             $today[0]['date'] = date('Y-m-d');
             $today[0]['datestr'] = date('Y年m月d日');
             $today[0]['newpeople'] = 0;
+            $today[0]['paypeople'] = 0;
             $today[0]['dailyactive'] = 0;
             $today[0]['dailyjournal'] = 0;
             $today[0]['dailyincome'] = 0;
             $today[0]['sub_dailyincome'] = 0;
+            $today[0]['voucherje'] = 0;
             foreach ($todaydata as $key => $value) {
                 $today[0]['newpeople'] += $value['newpeople'];
+                $today[0]['paypeople'] += $value['paypeople'];
                 $today[0]['dailyactive'] += $value['dailyactive'];
                 $today[0]['dailyjournal'] += $value['dailyjournal'];
                 $today[0]['dailyincome'] += $value['dailyincome'];
                 $today[0]['sub_dailyincome'] += $value['sub_dailyincome'];
+                $today[0]['voucherje'] += $value['voucherje'];
             }
 
             $daily = array_merge((array)$today,(array)$daily);
@@ -284,6 +291,7 @@ class StatisticsAction extends CommonAction {
                     $dataall["paypeople"] += $v["paypeople"];
                     $dataall["dailyjournal"] += $v["dailyjournal"];
                     $dataall["sub_dailyincome"] += $daily[$k]["sub_dailyincome"];
+                    $dataall["voucherje"] += $daily[$k]["voucherje"];
 
                     $daily[$k]['action'] = '<a href="/statistics/detail/date/'.$v["date"].'/">查看详情</a>';
                 }
@@ -294,6 +302,7 @@ class StatisticsAction extends CommonAction {
                     $dataall["paypeople"] += $v["paypeople"];
                     $dataall["dailyjournal"] += $v["dailyjournal"];
                     $dataall["dailyincome"] += $v["dailyincome"];
+                    $dataall["voucherje"] += $v["voucherje"];
 
                     $daily[$k]['action'] = '<a href="/statistics/detail/date/'.$v["date"].'/">查看详情</a>';
                 }

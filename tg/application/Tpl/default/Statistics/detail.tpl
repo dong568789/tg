@@ -78,19 +78,27 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                         <thead>
 											<tr>
 												<th data-column-id="date">日期</th>
-												<th data-column-id="dailyactive">活跃玩家</th>
-												<th data-column-id="newpeople">新增注册</th>
-												<th data-column-id="paypeople">付费人数</th>
-												<th data-column-id="payrate" data-formatter="payrateformat">付费率</th>
-												<th data-column-id="gamename" >游戏名字</th>
-												<th data-column-id="channelname" >渠道名字</th>
-												<th data-column-id="dailyjournal" >每日流水</th>
-                                                <if condition="$userpid gt 0" >
-                                                    <th data-column-id="sub_dailyincome" >每日收入</th>
-                                                <else />
-                                                    <th data-column-id="dailyincome" >每日收入</th>
+                                                <th data-column-id="gamename" >游戏名字</th>
+                                                <th data-column-id="channelname" >渠道名字</th>
+
+                                                <if condition="$sourcetype neq '1' ">
+    												<th data-column-id="dailyactive">活跃玩家</th>
+    												<th data-column-id="newpeople">新增注册</th>
+    												<th data-column-id="paypeople">付费人数</th>
                                                 </if>
-                                                <th data-column-id="voucherje" >使用代金券金额</th>
+												<!-- <th data-column-id="payrate" data-formatter="payrateformat">付费率</th> -->
+												
+												<th data-column-id="dailyjournal" >每日流水</th>
+
+                                                <if condition="$sourcetype eq '1' ">
+                                                    <th data-column-id="voucherje" >代金券使用</th>
+                                                </if>
+
+                                                <if condition="$userpid gt 0" >
+                                                    <th data-column-id="sub_dailyincome" >每日收益</th>
+                                                <else />
+                                                    <th data-column-id="dailyincome" >每日收益</th>
+                                                </if>
 											</tr>
                                         </thead>
                                         <tbody id="statisticcontainer">
