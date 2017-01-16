@@ -9,7 +9,7 @@ $page_css[] = "vendors/bower_components/jpages/css/animate.css";
 $page_css[] = "vendors/bower_components/jpages/css/github.css";
 $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
 ?>
-<include file="Inc:head" />
+<include file="Inc:head" /> 
 <body>
 <include file="Inc:logged-header" />
 
@@ -32,7 +32,8 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card p-b-25">
-                        <div class="card-header ch-alt text-center">
+                        <div class="card-header ch-alt text-left">
+                                <a class="btn" href="">返回</a>
                         </div>
 
                         <div class="card-body">
