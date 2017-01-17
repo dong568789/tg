@@ -1,4 +1,4 @@
- <footer id="footer">
+<!--  <footer id="footer">
 	Copyright &copy; 游侠精灵 鄂ICP备15011329号-1
 	
 	<ul class="f-menu">
@@ -8,7 +8,7 @@
 		<li><a href="">在线客服</a></li>
 		<li><a href="">联系我们</a></li>
 	</ul>
-</footer>
+</footer> -->
 
 <!-- Page Loader -->
 <div class="page-loader">
