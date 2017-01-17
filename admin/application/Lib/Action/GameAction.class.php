@@ -309,6 +309,7 @@ class GameAction extends CommonAction {
         $data['sharetype'] = "CPS";
         $data['gameauthority'] = $_POST['gameauthority'];
         $data['sharerate'] = $_POST['sharerate'];
+        $data['joinsharerate'] = $_POST['joinsharerate'];
 		$data['beizhumessage'] = $_POST['beizhumessage'];
 		$data['channelrate'] = $_POST['channelrate'];
 		$data['score'] = $_POST['score'];
@@ -458,6 +459,7 @@ class GameAction extends CommonAction {
 		$data['gametag'] = $_POST['gametag'];
         $data['gameauthority'] = $_POST['gameauthority'];
         $data['sharerate'] = $_POST['sharerate'];
+        $data['joinsharerate'] = $_POST['joinsharerate'];
 
         // 如果设置的分成比例 小于子账号的分成比例
         $big_subuser = array();
