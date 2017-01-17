@@ -155,10 +155,18 @@
 										</div>
 									</div>
 									<div class="form-group m-t-25">
-										<label class="col-sm-3 f-15 control-label">分成比例</label>
+										<label class="col-sm-3 f-15 control-label">对外分成比例</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
 												<input type="text" class="form-control" name="sharerate" id="sharerate" placeholder="以1为100%，比如分成比例40%，此处填写0.4">
+											</div>
+										</div>
+									</div>
+									<div class="form-group m-t-25">
+										<label class="col-sm-3 f-15 control-label">接入分成比例</label>
+										<div class="col-sm-7">
+											<div class="fg-line">
+												<input type="text" class="form-control" name="joinsharerate" id="joinsharerate" placeholder="以1为100%，比如分成比例40%，此处填写0.4">
 											</div>
 										</div>
 									</div>
