@@ -57,7 +57,7 @@ class StatisticsAction extends CommonAction
         $dailCount = $dailyaccountModel->alias('a')
             ->join('left join ' . C('DB_PREFIX') . 'tg_user as b on a.userid=b.userid')
             ->where($where)
-            ->field('a.userid,a.channelid,sum(dailyjournal) as sum_dailyjournal,b.realname,sum(newpeople) as sum_newpeople,b.channelbusiness')
+            ->field('a.userid,a.channelid,sum(a.dailyjournal) as sum_dailyjournal,b.realname,sum(a.newpeople) as sum_newpeople,sum(a.dailyincome) as sum_dailyincome,b.channelbusiness,sum(a.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount')
             ->group('a.userid')
             ->select();
 
@@ -98,9 +98,11 @@ class StatisticsAction extends CommonAction
             $value['unwithdraw'] = (int)$balance['unwithdraw'];
             $value['sum_dailyjournal'] = intval($value['sum_dailyjournal']);
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
-            if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
+            $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
+            $value['sum_cpamount'] = (int)$value['sum_cpamount'];
+            /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
-            }
+            }*/
         }
 
         return $dailCount;
