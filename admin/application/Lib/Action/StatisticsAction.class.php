@@ -70,6 +70,7 @@ class StatisticsAction extends CommonAction
         !empty($channel) && $where['b.channelid'] = $channel;
         $data = M('')->table(C('DB_PREFIX') . 'tg_source as a')
             ->join("left join " . C('DB_PREFIX') . "all_pay as b on a.sourcesn=b.agent ")
+            ->join("left join " . C('DB_PREFIX') . "tg_game as c on a.gameid=c.gameid ")
             ->where($where)
             ->field('a.userid,
                     a.channelid,
@@ -85,7 +86,7 @@ class StatisticsAction extends CommonAction
                     sum(
                         CASE
                         WHEN b.amount > 0 THEN
-                            b.amount * (1 - a.sourcechannelrate) * (1 - a.sourcesharerate)
+                            b.amount * ((1 - c.channelrate) * (1 - c.joinsharerate))
                         ELSE
                             0
                         END
