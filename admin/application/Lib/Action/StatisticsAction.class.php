@@ -57,7 +57,7 @@ class StatisticsAction extends CommonAction
         $dailCount = $dailyaccountModel->alias('a')
             ->join('left join ' . C('DB_PREFIX') . 'tg_user as b on a.userid=b.userid')
             ->where($where)
-            ->field('a.userid,a.channelid,sum(a.dailyjournal) as sum_dailyjournal,b.realname,sum(a.newpeople) as sum_newpeople,sum(a.dailyincome) as sum_dailyincome,b.channelbusiness,sum(a.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount')
+            ->field('a.userid,a.channelid,sum(a.dailyjournal) as sum_dailyjournal,b.realname,sum(a.newpeople) as sum_newpeople,sum(a.dailyincome) as sum_dailyincome,b.channelbusiness')
             ->group('a.userid')
             ->select();
 
@@ -71,7 +71,25 @@ class StatisticsAction extends CommonAction
         $data = M('')->table(C('DB_PREFIX') . 'tg_source as a')
             ->join("left join " . C('DB_PREFIX') . "all_pay as b on a.sourcesn=b.agent ")
             ->where($where)
-            ->field('a.userid,a.channelid,sum(case WHEN b.voucherje > 0 THEN b.amount-b.voucherje ELSE b.amount END) as sum_amount,sum(b.voucherje) as sum_voucherje')
+            ->field('a.userid,
+                    a.channelid,
+                    sum(
+                        CASE
+                        WHEN b.voucherje > 0 THEN
+                            b.amount - b.voucherje
+                        ELSE
+                            b.amount
+                        END
+                    ) AS sum_amount,
+                    sum(b.voucherje) AS sum_voucherje,
+                    sum(
+                        CASE
+                        WHEN b.amount > 0 THEN
+                            b.amount * (1 - a.sourcechannelrate) * (1 - a.sourcesharerate)
+                        ELSE
+                            0
+                        END
+                    ) AS cpamount')
             ->group('a.userid')
             ->select();
 
@@ -87,6 +105,7 @@ class StatisticsAction extends CommonAction
         $balancemodel = D('Balance');
         foreach($dailCount as $key => &$value){
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
+            $cpAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['cpamount'] : 0;
 
             $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
             $value['yx_amount'] = intval($yx_amount);
@@ -99,7 +118,7 @@ class StatisticsAction extends CommonAction
             $value['sum_dailyjournal'] = intval($value['sum_dailyjournal']);
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
-            $value['sum_cpamount'] = (int)$value['sum_cpamount'];
+            $value['sum_cpamount'] = (int)$cpAmount;//sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
             /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
             }*/
