@@ -101,7 +101,7 @@ class StatisticsAction extends CommonAction
         $voucher = M('voucher_buy')->alias('a')
             ->join(C('DB_PREFIX')."tg_user b on a.buyer = b.account", "LEFT")
             ->where($where)->group('a.buyer')
-            ->field('b.userid,a.buyer,sum(a.voucherje) as sum_voucherje')
+            ->field('b.userid,a.buyer,sum(a.amount) as sum_amount')
             ->select();
         $itemVoucher = array();
         foreach($voucher as $v){
@@ -133,7 +133,7 @@ class StatisticsAction extends CommonAction
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
             $value['sum_cpamount'] = (int)$cpAmount;
-            $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? $itemVoucher[$value['userid']]['sum_voucherje'] : 0;
+            $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
             //sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
             /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
