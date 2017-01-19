@@ -94,6 +94,19 @@ class StatisticsAction extends CommonAction
             ->group('a.userid')
             ->select();
 
+        $where = array(
+            'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59'))),
+            'a.status' => 1,
+        );
+        $voucher = M('voucher_buy')->alias('a')
+            ->join(C('DB_PREFIX')."tg_user b on a.buyer = b.account", "LEFT")
+            ->where($where)->group('a.buyer')
+            ->field('b.userid,a.buyer,sum(a.voucherje) as sum_voucherje')
+            ->select();
+        $itemVoucher = array();
+        foreach($voucher as $v){
+            $itemVoucher[$v['userid']] = $v;
+        }
         $itemData = $arrUserid = array();
         foreach($data as $v){
             $itemData[$v['userid']] = $v;
@@ -103,7 +116,7 @@ class StatisticsAction extends CommonAction
             $arrUserid[] = $v['userid'];
         }
 
-        $balancemodel = D('Balance');
+       // $balancemodel = D('Balance');
         foreach($dailCount as $key => &$value){
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
             $cpAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['cpamount'] : 0;
@@ -114,12 +127,14 @@ class StatisticsAction extends CommonAction
             $value['yx_countamount'] =  intval($value['sum_dailyjournal'] + $yx_amount);
             $value['timeZone'] = "{$startTime}至{$endTime}";
             //推广用户未提现金额
-            $balance = $balancemodel->money($value['userid']);
-            $value['unwithdraw'] = (int)$balance['unwithdraw'];
+            /*$balance = $balancemodel->money($value['userid']);
+            $value['unwithdraw'] = (int)$balance['unwithdraw'];*/
             $value['sum_dailyjournal'] = intval($value['sum_dailyjournal']);
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
-            $value['sum_cpamount'] = (int)$cpAmount;//sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
+            $value['sum_cpamount'] = (int)$cpAmount;
+            $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? $itemVoucher[$value['userid']]['sum_voucherje'] : 0;
+            //sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
             /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
             }*/
