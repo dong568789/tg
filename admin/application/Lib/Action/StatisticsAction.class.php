@@ -62,38 +62,37 @@ class StatisticsAction extends CommonAction
             ->select();
 
         $where = array(
-            'b.status' => 1,
-            'b.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59')))
+            'a.status' => 1,
+            'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59')))
         );
 
         //推广用户总流水
         !empty($channel) && $where['b.channelid'] = $channel;
-        $data = M('')->table(C('DB_PREFIX') . 'tg_source as a')
-            ->join("left join " . C('DB_PREFIX') . "all_pay as b on a.sourcesn=b.agent ")
-            ->join("left join " . C('DB_PREFIX') . "tg_game as c on a.gameid=c.gameid ")
+        $data = M('')->table(C('DB_PREFIX') . 'all_pay as a')
+            ->join("left join " . C('DB_PREFIX') . "tg_source as b on b.sourcesn=a.agent ")
+            ->join("left join " . C('DB_PREFIX') . "tg_game as c on a.gameid=c.sdkgameid ")
             ->where($where)
-            ->field('a.userid,
-                    a.channelid,
+            ->field('b.userid,
                     sum(
                         CASE
-                        WHEN b.voucherje > 0 THEN
-                            b.amount - b.voucherje
+                        WHEN a.voucherje > 0 THEN
+                            a.amount - a.voucherje
                         ELSE
-                            b.amount
+                            a.amount
                         END
                     ) AS sum_amount,
-                    sum(b.voucherje) AS sum_voucherje,
+                    sum(a.amount) as sum_all_amount,
+                    sum(a.voucherje) AS sum_voucherje,
                     sum(
                         CASE
-                        WHEN b.amount > 0 THEN
-                            b.amount * ((1 - c.channelrate) * (1 - c.joinsharerate))
+                        WHEN a.amount > 0 THEN
+                            a.amount * ((1 - c.channelrate) * (1 - c.joinsharerate))
                         ELSE
                             0
                         END
                     ) AS cpamount')
-            ->group('a.userid')
+            ->group('b.userid')
             ->select();
-
         /*$where = array(
             'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59'))),
             'a.status' => 1,
@@ -124,7 +123,7 @@ class StatisticsAction extends CommonAction
             $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
             $value['yx_amount'] = intval($yx_amount);
             $value['sum_voucherje'] = intval($itemData[$value['userid']]['sum_voucherje']);
-            $value['sum_amount'] =  intval($itemData[$value['userid']]['voucherje'] + $itemData[$value['userid']]['sum_amount']);
+            $value['sum_amount'] =  intval($itemData[$value['userid']]['sum_all_amount']);
             $value['timeZone'] = "{$startTime}至{$endTime}";
             //推广用户未提现金额
             /*$balance = $balancemodel->money($value['userid']);
