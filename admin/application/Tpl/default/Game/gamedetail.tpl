@@ -664,45 +664,45 @@
 				gamename : {
 					required : true
 				},
-				gamepinyin : {
-					required : true
-				},
-				gamecategory : {
-					required : true
-				},
-				gametag : {
-					min : 1
-				},
-				score : {
-					required : true,
-					number : true,
-					min : 0,
-					max : 10
-				},
-				gameauthority : {
-					required : true,
-					number : true,
-					min : 1,
-					max : 5
-				},
-				sharerate : {
-					required : true,
-					number : true,
-					min : 0,
-					max : 1
-				},
-				channelrate : {
-					required : true,
-					number : true,
-					min : 0,
-					max : 1
-				},
+				// gamepinyin : {
+				// 	required : true
+				// },
+				// gamecategory : {
+				// 	required : true
+				// },
+				// gametag : {
+				// 	min : 1
+				// },
+				// score : {
+				// 	required : true,
+				// 	number : true,
+				// 	min : 0,
+				// 	max : 10
+				// },
+				// gameauthority : {
+				// 	required : true,
+				// 	number : true,
+				// 	min : 1,
+				// 	max : 5
+				// },
+				// sharerate : {
+				// 	required : true,
+				// 	number : true,
+				// 	min : 0,
+				// 	max : 1
+				// },
+				// channelrate : {
+				// 	required : true,
+				// 	number : true,
+				// 	min : 0,
+				// 	max : 1
+				// },
 				gameicon : {
 					required : true
 				},
-				gametype : {
-					required : true
-				},
+				// gametype : {
+				// 	required : true
+				// },
 				isonstack : {
 					required : true
 				}
@@ -715,45 +715,45 @@
 				gamename : {
 					required : '请输入游戏名称'
 				},
-				gamepinyin : {
-					required : '请输入游戏拼音'
-				},
-				gamecategory : {
-					required : '请选择一个游戏分类'
-				},
-				gametag : {
-					min : '请选择一个游戏标签'
-				},
-				score : {
-					required : '请选择一个游戏评分',
-					number : '游戏评分必须为数字',
-					min : '游戏评分最小为0',
-					max : '游戏评分最大为10'
-				},
-				gameauthority : {
-					required : '请填写游戏权重，此项必填',
-					number : '游戏权重必须为数字',
-					min : '游戏权重最大为1',
-					max : '游戏权重最大为5'
-				},
-				sharerate : {
-					required : '请填写分成比例，此项必填',
-					number : '分成比例必须为数字',
-					min : '分成比例必须大于0',
-					max : '分成比例最大为1(100%)'
-				},
-				channelrate : {
-					required : '请填写通道费，此项必填',
-					number : '通道费必须为数字',
-					min : '分成比例必须大于0',
-					max : '通道费最大为1(100%)'
-				},
+				// gamepinyin : {
+				// 	required : '请输入游戏拼音'
+				// },
+				// gamecategory : {
+				// 	required : '请选择一个游戏分类'
+				// },
+				// gametag : {
+				// 	min : '请选择一个游戏标签'
+				// },
+				// score : {
+				// 	required : '请选择一个游戏评分',
+				// 	number : '游戏评分必须为数字',
+				// 	min : '游戏评分最小为0',
+				// 	max : '游戏评分最大为10'
+				// },
+				// gameauthority : {
+				// 	required : '请填写游戏权重，此项必填',
+				// 	number : '游戏权重必须为数字',
+				// 	min : '游戏权重最大为1',
+				// 	max : '游戏权重最大为5'
+				// },
+				// sharerate : {
+				// 	required : '请填写分成比例，此项必填',
+				// 	number : '分成比例必须为数字',
+				// 	min : '分成比例必须大于0',
+				// 	max : '分成比例最大为1(100%)'
+				// },
+				// channelrate : {
+				// 	required : '请填写通道费，此项必填',
+				// 	number : '通道费必须为数字',
+				// 	min : '分成比例必须大于0',
+				// 	max : '通道费最大为1(100%)'
+				// },
 				gameicon : {
 					required : '游戏图标必须上传'
 				},
-				gametype : {
-					required : '请选择一个游戏类型'
-				},
+				// gametype : {
+				// 	required : '请选择一个游戏类型'
+				// },
 				isonstack : {
 					required : '请选择一个上架状态'
 				}

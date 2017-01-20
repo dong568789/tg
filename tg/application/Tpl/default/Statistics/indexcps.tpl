@@ -9,6 +9,11 @@ $page_css[] = "vendors/bower_components/jpages/css/animate.css";
 $page_css[] = "vendors/bower_components/jpages/css/github.css";
 $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css";
 ?>
+<style>
+    .td-header{
+        background: #999;
+    }
+</style>
 <include file="Inc:head" />
 <body>
 <include file="Inc:logged-header" />
@@ -66,7 +71,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table id="data-table-basic" class="table table-hover table-vmiddle">
+                                    <table id="data-table-basic" class="table table-hover table-vmiddle table-bordered">
                                         <thead>
 											<tr>
 												<th data-column-id="datestr">日期</th>
