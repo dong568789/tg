@@ -132,7 +132,7 @@ class StatisticsAction extends CommonAction
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
             $value['sum_cpamount'] = (int)$cpAmount;
-            $value['rate_amount'] = ($value['sum_amount'] * 0.05);//通道费
+            $value['rate_amount'] = ($value['sum_amount'] * 0.025);//通道费
             $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje'] + $itemVoucher[$value['userid']]['sum_amount'] + $value['rate_amount']);
             $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]['sum_amount']) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
 
