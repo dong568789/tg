@@ -25,7 +25,7 @@ if ($checkbalance == 'ok') {
 
     }
     if ($checkChannel == 'ok') {
-        $page_nav["财务管理"]["sub"]["渠道流水汇总"]["title"] = "渠道流水汇总";
+        $page_nav["财务管理"]["sub"]["渠道流水汇总"]["title"] = "收益汇总";
         $page_nav["财务管理"]["sub"]["渠道流水汇总"]["url"] = U('/Statistics/index');
 
     }
