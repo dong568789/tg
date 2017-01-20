@@ -35,20 +35,19 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                         <div class="card-body ">
                             <div  class="p-20">
                                 <div class="table-responsive">
-                                    <table id="data-table-basic" class="table table-hover table-vmiddle">
+                                    <table id="data-table-basic" class="table table-hover table-bordered table-vmiddle">
                                         <thead>
                                         <tr>
                                             <th data-column-id="timeZone" data-sortable=false>日期</th>
                                             <th data-column-id="channelbusiness">部门</th>
                                             <th data-column-id="realname">客户名称</th>
                                             <th data-column-id="sum_newpeople" ddata-type="numeric">注册数</th>
-                                            <th data-column-id="sum_dailyjournal" data-type="numeric">渠道流水</th>
                                             <th data-column-id="sum_cpamount" data-type="numeric">CP结算</th>
                                             <th data-column-id="sum_voucherje" data-type="numeric">优惠券</th>
                                             <th data-column-id="sum_dailyincome" data-type="numeric">渠道收益</th>
                                             <th data-column-id="yx_amount" data-type="numeric">官方流水</th>
-                                            <th data-column-id="yx_countamount" data-type="numeric">总流水</th>
-                                            <th data-column-id="buyer_voucher" data-type="numeric">购买代金券</th>
+                                            <th data-column-id="sum_amount" data-type="numeric">总充值</th>
+                                            <th data-column-id="yx_earnings" data-type="numeric">收益</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -121,7 +120,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 actionBar\">"+
                 "<p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p>" +
                 "<div class=\"daterange form-group\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查看</a></div></div>" +
-                "<div class=\"daterange form-group\" style=\"width:50px;\"><div class=\"input-group\"> <a href=\"javascript:void(0);\" id=\"export\" class=\"input-group-addon btn-info\">导出</a></div></div>" +
+                "<div class=\"daterange form-group\" style=\"width:150px;margin-left:210px;\"><div class=\"input-group\"> <a href=\"javascript:void(0);\" id=\"export\" class=\"input-group-addon btn-info\" style=\"display: inline-block:width: 150px;padding: 10px;\">导出报表</a></div></div>" +
                 "</div></div></div>"
             }
         });

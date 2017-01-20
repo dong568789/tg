@@ -94,11 +94,11 @@ class StatisticsAction extends CommonAction
             ->group('a.userid')
             ->select();
 
-        $where = array(
+        /*$where = array(
             'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59'))),
             'a.status' => 1,
-        );
-        $voucher = M('voucher_buy')->alias('a')
+        );*/
+        /*$voucher = M('voucher_buy')->alias('a')
             ->join(C('DB_PREFIX')."tg_user b on a.buyer = b.account", "LEFT")
             ->where($where)->group('a.buyer')
             ->field('b.userid,a.buyer,sum(a.amount) as sum_amount')
@@ -106,7 +106,7 @@ class StatisticsAction extends CommonAction
         $itemVoucher = array();
         foreach($voucher as $v){
             $itemVoucher[$v['userid']] = $v;
-        }
+        }*/
         $itemData = $arrUserid = array();
         foreach($data as $v){
             $itemData[$v['userid']] = $v;
@@ -124,7 +124,7 @@ class StatisticsAction extends CommonAction
             $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
             $value['yx_amount'] = intval($yx_amount);
             $value['sum_voucherje'] = intval($itemData[$value['userid']]['sum_voucherje']);
-            $value['yx_countamount'] =  intval($value['sum_dailyjournal'] + $yx_amount);
+            $value['sum_amount'] =  intval($itemData[$value['userid']]['voucherje'] + $itemData[$value['userid']]['sum_amount']);
             $value['timeZone'] = "{$startTime}至{$endTime}";
             //推广用户未提现金额
             /*$balance = $balancemodel->money($value['userid']);
@@ -133,7 +133,9 @@ class StatisticsAction extends CommonAction
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
             $value['sum_cpamount'] = (int)$cpAmount;
-            $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
+            $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje']);
+
+            //$value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
             //sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
             /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
@@ -151,27 +153,29 @@ class StatisticsAction extends CommonAction
            $this->error('数据获取失败，没有符合条件的数据');
         }
 
-        $sum_newpeople = $sum_dailyjournal = $yx_amount = $yx_countamount = $sum_voucherje = $unwithdraw = 0;
+        $sum_newpeople = $sum_cpamount = $sum_voucherje = $sum_dailyincome = $yx_amount = $sum_amount = $yx_earnings = 0;
         foreach($dailCount as $v3){
             $sum_newpeople += $v3['sum_newpeople'];
-            $sum_dailyjournal += $v3['sum_dailyjournal'];
-            $yx_amount += $v3['yx_amount'];
-            $yx_countamount += $v3['yx_countamount'];
+            $sum_cpamount += $v3['sum_cpamount'];
             $sum_voucherje += $v3['sum_voucherje'];
-            $unwithdraw += $v3['unwithdraw'];
+            $sum_dailyincome += $v3['sum_dailyincome'];
+            $yx_amount += $v3['yx_amount'];
+            $sum_amount += $v3['sum_amount'];
+            $yx_earnings += $v3['yx_earnings'];
         }
         $dailCount[] = array(
             'timeZone' => '总计：',
             'realname' => '',
             'sum_newpeople' => $sum_newpeople,
-            'sum_dailyjournal' => $sum_dailyjournal,
-            'yx_amount' => $yx_amount,
-            'yx_countamount' => $yx_countamount,
+            'sum_cpamount' => $sum_cpamount,
             'sum_voucherje' => $sum_voucherje,
-            'unwithdraw' => number_format($unwithdraw, 0, '', ''),
+            'sum_dailyincome' => $sum_dailyincome,
+            'yx_amount' => $yx_amount,
+            'sum_amount' => $sum_amount,
+            'yx_earnings' => $yx_earnings
 
         );
-        $title = array('timeZone' => '日期','channelbusiness' => '维护人' ,'realname' => '用户名', 'sum_newpeople' => '新增注册数', 'sum_dailyjournal' => '渠道流水', 'yx_amount' => '平台流水', 'yx_countamount' => '总流水', 'sum_voucherje' => '优惠金额', 'unwithdraw' => '未提现金额');
+        $title = array('timeZone' => '日期','channelbusiness' => '部门' ,'realname' => '客户名称', 'sum_newpeople' => '注册数', 'sum_cpamount' => 'CP结算', 'sum_voucherje' => '优惠券', 'sum_dailyincome' => '渠道收益', 'yx_amount' => '官方流水', 'sum_amount' => '总充值', 'yx_earnings' => '收益');
         $this->exportFile($title, $dailCount);
     }
 
