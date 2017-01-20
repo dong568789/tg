@@ -98,8 +98,8 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 												<th data-column-id="newpeople">新增注册</th>
 												<th data-column-id="paypeople">付费人数</th>
 												<th data-column-id="payrate" data-formatter="payrateformat">付费率</th>
-												<th data-column-id="gamename" >游戏名字</th>
-												<th data-column-id="channelname" >渠道名字</th>
+												<th data-column-id="gamename" >游戏名称</th>
+												<th data-column-id="channelname" >渠道名称</th>
 												<th data-column-id="dailyjournal" >每日流水</th>
                                                 <if condition="$userpid gt 0" >
                                                     <th data-column-id="sub_dailyincome" >每日收入</th>

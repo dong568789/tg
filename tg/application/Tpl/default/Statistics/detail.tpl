@@ -75,12 +75,12 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table id="data-table-basic" class="table table-hover table-vmiddle">
+                                    <table id="data-table-basic" class="table table-hover table-vmiddle table-bordered">
                                         <thead>
 											<tr>
 												<th data-column-id="date">日期</th>
-                                                <th data-column-id="gamename" >游戏名字</th>
-                                                <th data-column-id="channelname" >渠道名字</th>
+                                                <th data-column-id="gamename" >游戏名称</th>
+                                                <th data-column-id="channelname" >渠道名称</th>
 
                                                 <if condition="$sourcetype neq '1' ">
     												<th data-column-id="dailyactive">活跃玩家</th>

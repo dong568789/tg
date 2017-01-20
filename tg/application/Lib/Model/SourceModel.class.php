@@ -98,14 +98,15 @@ class SourceModel extends Model
                 }
             }
             $isonstack[$k1] = $v1["isonstack"];
-            $gameauthority[$k1] = $v1["gameauthority"];
+            // $gameauthority[$k1] = $v1["gameauthority"];
+            $createtime[$k1] = $v1["createtime"];
             $isapply[$k1] = $games[$k1]["isapply"]; //$v1在循环之前已经确定。$v1["isapply"]!=$games[$k1]['isapply']
         }
 
         if($order == 'asc'){
-            array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $gameauthority, SORT_DESC, $games);
+            array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
         }else{
-            array_multisort($isonstack, SORT_DESC, $isapply, SORT_ASC, $gameauthority, SORT_DESC, $games);
+            array_multisort($isonstack, SORT_DESC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
         }
         
 		$gamestr = $this->createGameStr($games,"all");
