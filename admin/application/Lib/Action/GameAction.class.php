@@ -461,11 +461,12 @@ class GameAction extends CommonAction {
         $data['sharerate'] = $_POST['sharerate'];
         $data['joinsharerate'] = $_POST['joinsharerate'];
 
-        // 如果设置的分成比例 小于子账号的分成比例
+        // 如果设置的分成比例 小于（针对没有自定义分成比例的）子账号的分成比例
         $big_subuser = array();
         $big_subuser_str = '子账号：';
         $source_model = M('tg_source');
         $source_where = array('gameid'=>$gameid);
+        $source_where['isfixrate'] = 0; // 增加没有自定义分成比例
         $source = $source_model->alias('S')
         			->join(C('DB_PREFIX').'tg_user U on S.channelid=U.channelid','left')
         			->join(C('DB_PREFIX').'tg_user U1 on U.pid=U1.userid','left')
