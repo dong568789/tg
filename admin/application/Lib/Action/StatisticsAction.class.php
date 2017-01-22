@@ -62,43 +62,42 @@ class StatisticsAction extends CommonAction
             ->select();
 
         $where = array(
-            'b.status' => 1,
-            'b.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59')))
+            'a.status' => 1,
+            'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59')))
         );
 
         //推广用户总流水
         !empty($channel) && $where['b.channelid'] = $channel;
-        $data = M('')->table(C('DB_PREFIX') . 'tg_source as a')
-            ->join("left join " . C('DB_PREFIX') . "all_pay as b on a.sourcesn=b.agent ")
-            ->join("left join " . C('DB_PREFIX') . "tg_game as c on a.gameid=c.gameid ")
+        $data = M('')->table(C('DB_PREFIX') . 'all_pay as a')
+            ->join("left join " . C('DB_PREFIX') . "tg_source as b on b.sourcesn=a.agent ")
+            ->join("left join " . C('DB_PREFIX') . "tg_game as c on a.gameid=c.sdkgameid ")
             ->where($where)
-            ->field('a.userid,
-                    a.channelid,
+            ->field('b.userid,
                     sum(
                         CASE
-                        WHEN b.voucherje > 0 THEN
-                            b.amount - b.voucherje
+                        WHEN a.voucherje > 0 THEN
+                            a.amount - a.voucherje
                         ELSE
-                            b.amount
+                            a.amount
                         END
                     ) AS sum_amount,
-                    sum(b.voucherje) AS sum_voucherje,
+                    sum(a.amount) as sum_all_amount,
+                    sum(a.voucherje) AS sum_voucherje,
                     sum(
                         CASE
-                        WHEN b.amount > 0 THEN
-                            b.amount * ((1 - c.channelrate) * (1 - c.joinsharerate))
+                        WHEN a.amount > 0 THEN
+                            a.amount * ((1 - c.channelrate) * (1 - c.joinsharerate))
                         ELSE
                             0
                         END
                     ) AS cpamount')
-            ->group('a.userid')
+            ->group('b.userid')
             ->select();
-
-        /*$where = array(
+        $where = array(
             'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59'))),
             'a.status' => 1,
-        );*/
-        /*$voucher = M('voucher_buy')->alias('a')
+        );
+        $voucher = M('voucher_buy')->alias('a')
             ->join(C('DB_PREFIX')."tg_user b on a.buyer = b.account", "LEFT")
             ->where($where)->group('a.buyer')
             ->field('b.userid,a.buyer,sum(a.amount) as sum_amount')
@@ -106,7 +105,7 @@ class StatisticsAction extends CommonAction
         $itemVoucher = array();
         foreach($voucher as $v){
             $itemVoucher[$v['userid']] = $v;
-        }*/
+        }
         $itemData = $arrUserid = array();
         foreach($data as $v){
             $itemData[$v['userid']] = $v;
@@ -124,7 +123,7 @@ class StatisticsAction extends CommonAction
             $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
             $value['yx_amount'] = intval($yx_amount);
             $value['sum_voucherje'] = intval($itemData[$value['userid']]['sum_voucherje']);
-            $value['sum_amount'] =  intval($itemData[$value['userid']]['voucherje'] + $itemData[$value['userid']]['sum_amount']);
+            $value['sum_amount'] =  intval($itemData[$value['userid']]['sum_all_amount']);
             $value['timeZone'] = "{$startTime}至{$endTime}";
             //推广用户未提现金额
             /*$balance = $balancemodel->money($value['userid']);
@@ -133,7 +132,9 @@ class StatisticsAction extends CommonAction
             $value['sum_newpeople'] = (int)$value['sum_newpeople'];
             $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
             $value['sum_cpamount'] = (int)$cpAmount;
-            $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje']);
+            $value['rate_amount'] = ($value['sum_amount'] * 0.025);//通道费
+            $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje'] + $itemVoucher[$value['userid']]['sum_amount']);
+            $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]['sum_amount']) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
 
             //$value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
             //sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
@@ -153,7 +154,7 @@ class StatisticsAction extends CommonAction
            $this->error('数据获取失败，没有符合条件的数据');
         }
 
-        $sum_newpeople = $sum_cpamount = $sum_voucherje = $sum_dailyincome = $yx_amount = $sum_amount = $yx_earnings = 0;
+        $sum_newpeople = $sum_cpamount = $sum_voucherje = $sum_dailyincome = $yx_amount = $sum_amount = $yx_earnings = $buyer_voucher =  0;
         foreach($dailCount as $v3){
             $sum_newpeople += $v3['sum_newpeople'];
             $sum_cpamount += $v3['sum_cpamount'];
@@ -162,6 +163,7 @@ class StatisticsAction extends CommonAction
             $yx_amount += $v3['yx_amount'];
             $sum_amount += $v3['sum_amount'];
             $yx_earnings += $v3['yx_earnings'];
+            $buyer_voucher += $v3['buyer_voucher'];
         }
         $dailCount[] = array(
             'timeZone' => '总计：',
@@ -172,10 +174,11 @@ class StatisticsAction extends CommonAction
             'sum_dailyincome' => $sum_dailyincome,
             'yx_amount' => $yx_amount,
             'sum_amount' => $sum_amount,
-            'yx_earnings' => $yx_earnings
+            'yx_earnings' => $yx_earnings,
+            'buyer_voucher' => $buyer_voucher
 
         );
-        $title = array('timeZone' => '日期','channelbusiness' => '部门' ,'realname' => '客户名称', 'sum_newpeople' => '注册数', 'sum_cpamount' => 'CP结算', 'sum_voucherje' => '优惠券', 'sum_dailyincome' => '渠道收益', 'yx_amount' => '官方流水', 'sum_amount' => '总充值', 'yx_earnings' => '收益');
+        $title = array('timeZone' => '日期','channelbusiness' => '部门' ,'realname' => '客户名称', 'sum_newpeople' => '注册数', 'sum_cpamount' => 'CP结算', 'sum_voucherje' => '优惠券', 'sum_dailyincome' => '渠道收益','buyer_voucher' => '购买代金券', 'yx_amount' => '官方流水', 'sum_amount' => '总充值', 'yx_earnings' => '收益');
         $this->exportFile($title, $dailCount);
     }
 

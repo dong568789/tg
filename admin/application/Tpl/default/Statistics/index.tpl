@@ -45,6 +45,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th data-column-id="sum_cpamount" data-type="numeric">CP结算</th>
                                             <th data-column-id="sum_voucherje" data-type="numeric">优惠券</th>
                                             <th data-column-id="sum_dailyincome" data-type="numeric">渠道收益</th>
+                                            <th data-column-id="buyer_voucher" data-type="numeric">购买代金券</th>
                                             <th data-column-id="yx_amount" data-type="numeric">官方流水</th>
                                             <th data-column-id="sum_amount" data-type="numeric">总充值</th>
                                             <th data-column-id="yx_earnings" data-type="numeric">收益</th>
