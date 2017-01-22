@@ -194,15 +194,15 @@ class SourceModel extends Model
 				$gamestr .= "<td>".$v["tagname"]."</td>";
 				$gamestr .= "<td>".$v["gameauthority"]."</td>";
 
-                if($v["isonstack"]  == -1 ){
+                /*if($v["isonstack"]  == -1 ){
                     $gamestr .= "<td></td>";
                     $gamestr .= "<td></td>";
                     $gamestr .= "<td></td>";
-                }else{
-                    $gamestr .= "<td>".$v["gamesize"]." MB</td>";
-                    $gamestr .= "<td>".$v["sharetype"]."</td>";
+                }else{*/
+                    $gamestr .= "<td>".($v["gamesize"] <= 0 ? "0" : $v["gamesize"])." MB</td>";
+/*                    $gamestr .= "<td>".$v["sharetype"]."</td>";*/
                     $gamestr .= "<td style='position: relative;top: -1px;'>".$v["sharerate"]."</td>";
-                }
+                //}
 				
 				if ($v["isonstack"] == 0) {
 					if ($v["isapply"] == 1) {
@@ -237,8 +237,8 @@ class SourceModel extends Model
 				$gamestr .= "<td>".$v["categoryname"]."</td>";
 				$gamestr .= "<td>".$v["tagname"]."</td>";
 				$gamestr .= "<td>".$v["gameauthority"]."</td>";
-				$gamestr .= "<td>".$v["gamesize"]." MB</td>";
-				$gamestr .= "<td>".$v["sharetype"]."</td>";
+				$gamestr .= "<td>".($v["gamesize"] <= 0 ? 0 : $v["gamesize"])." MB</td>";
+				/*$gamestr .= "<td>".$v["sharetype"]."</td>";*/
 
                 
                 if(isset($_SESSION['userpid']) && $_SESSION['userpid']>0){

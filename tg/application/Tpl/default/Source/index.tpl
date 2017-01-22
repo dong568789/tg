@@ -194,17 +194,16 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table id="data-table-command-all" class="table table-hover table-vmiddle">
+                                        <table id="data-table-command-all" class="table table-hover table-bordered table-vmiddle">
                                             <thead>
                                             <tr>
                                                 <th width="25%">游戏名称</th>
-                                                <th width="10%">游戏分类</th>
-												<th width="10%">游戏标签</th>
-												<th width="10%">热度</th>
-                                                <th width="10%">游戏包大小</th>
-												<th width="10%">分成类型</th>
-                                                <th width="10%">分成比例</th>
-                                                <th width="20%" id="order-apply-status" data-order="asc">申请状态</th>
+                                                <th width="11%">游戏分类</th>
+												<th width="11%">游戏标签</th>
+												<th width="11%">热度</th>
+                                                <th width="11%">游戏包大小</th>
+                                                <th width="11%">分成比例</th>
+                                                <th width="15%" id="order-apply-status" data-order="asc">申请状态</th>
                                             </tr>
                                             </thead>
                                             <tbody id="gamecontainer">
@@ -263,17 +262,16 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table id="data-table-command-my" class="table table-hover table-vmiddle">
+                                        <table id="data-table-command-my" class="table table-hover table-bordered table-vmiddle">
                                             <thead>
                                             <tr>
-                                                <th width="15%">游戏名称</th>
-                                                <th width="8%">游戏分类</th>
-												<th width="8%">游戏标签</th>
-												<th width="8%">热度</th>
-                                                <th width="8%">游戏包大小</th>
-												<th width="8%">分成类型</th>
-                                                <th width="8%">分成比例</th>
-                                                <th width="8%">子账号分成比例</th>
+                                                <th width="17%">游戏名称</th>
+                                                <th width="9%">游戏分类</th>
+												<th width="9%">游戏标签</th>
+												<th width="9%">热度</th>
+                                                <th width="9%">游戏包大小</th>
+                                                <th width="9%">分成比例</th>
+                                                <th width="9%">子账号分成比例</th>
                                                 <th width="26%">下载游戏包</th>
                                             </tr>
                                             </thead>
