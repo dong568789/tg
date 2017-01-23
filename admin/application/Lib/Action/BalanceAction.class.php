@@ -749,7 +749,7 @@ class BalanceAction extends CommonAction {
 
             $secondContent= "\n";
             $secondContent.='乙方：武汉游侠精灵科技有限公司'."\n";
-            $secondContent.='纳税识别号：91420101303481622A '."\n";
+            $secondContent.='纳税识别号：91420100303481622A '."\n";
             $secondContent.='开户银行：招商银行股份有限公司武汉光谷科技支行'."\n";
             $secondContent.='银行账户：1279 0736 3810 506'."\n";
             $secondContent.='开票地址：武汉市东湖开发区关山一路1号曙光软件园内恒隆大楼'."\n";
