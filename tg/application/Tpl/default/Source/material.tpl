@@ -91,7 +91,7 @@
         $(".pagelink").hide();
         $("#preview").click(function(){
             if($('#J_page').find('iframe').length == 0){
-                $('#J_page').html('<iframe src="http://tg.yxgames.local/page/<{$sourceid}>/" width="414" height="800" scrolling="no" frameborder="0" name="main"></iframe>');
+                $('#J_page').html('<iframe src="http://tg.yxgames.com/page/<{$sourceid}>/" width="414" height="800" scrolling="no" frameborder="0" name="main"></iframe>');
             }
             $("iframe").show();
             $(".pagelink").show();
