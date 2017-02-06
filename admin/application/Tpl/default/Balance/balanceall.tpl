@@ -168,8 +168,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                     cache : false,
                     dataType : 'json',
                     success : function (data) {
-                        console.log(data);
-                        if (data.state == "1") {
+                        if (data.status == "1") {
                             $("#data-table-basic").bootgrid("clear");
                             $("#data-table-basic").bootgrid("append", data.data);
                             notify('数据获取成功', 'success');
