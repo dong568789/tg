@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="__PUBLIC__/default/css/Material/page.css">
     <script type="text/javascript" src="__ROOT__/plus/jquery/jquery-1.7.min.js"></script>
     
-    
 </head>
 <body>
 <div id="container">
@@ -58,7 +57,7 @@
                         </div>
                     <else />
                         <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg">
+                            <img src="__ROOT__/upfiles/default_screenshot.jpg" >
                         </div>
                     </if>
 
@@ -68,37 +67,37 @@
                         </div>
                     <else />
                         <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg">
+                            <img src="__ROOT__/upfiles/default_screenshot.jpg" >
                         </div>
                     </if>
 
                     <if condition="$game['screenshot3']">
                         <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot3']}>" >
+                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot3']}>"   />
                         </div>
                     <else />
                         <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg">
+                            <img src="__ROOT__/upfiles/default_screenshot.jpg" />
                         </div>
                     </if>
 
                     <if condition="$game['screenshot4']">
                         <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot4']}>" >
+                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot4']}>" />
                         </div>
                     <else />
                         <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg">
+                            <img src="__ROOT__/upfiles/default_screenshot.jpg" />
                         </div>
                     </if>
 
                     <if condition="$game['screenshot5']">
                         <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot5']}>" >
+                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot5']}>"  />
                         </div>
                     <else />
                         <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg">
+                            <img src="__ROOT__/upfiles/default_screenshot.jpg" />
                         </div>
                     </if>
                 </div>
@@ -106,55 +105,9 @@
 
             <section class="division-pic-slide">
                 <div class="pic" style="width: 100%;height:100%;text-align:center;top: 0;left: 0; background: rgba(0,0,0,0.7);display: none" >
-                    <if condition="$game['screenshot1']">
-                        <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot1']}>" class="one">
-                        </div>
-                    <else />
-                        <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg" class="one">
-                        </div>
-                    </if>
-                    
-                    <if condition="$game['screenshot2']">
-                        <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot2']}>" class="one">
-                        </div>
-                    <else />
-                        <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg" class="one">
-                        </div>
-                    </if>
-
-                    <if condition="$game['screenshot3']">
-                        <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot3']}>" class="one">
-                        </div>
-                    <else />
-                        <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg" class="one">
-                        </div>
-                    </if>
-
-                    <if condition="$game['screenshot4']">
-                        <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot4']}>" class="one">
-                        </div>
-                    <else />
-                        <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg" class="one">
-                        </div>
-                    </if>
-
-                    <if condition="$game['screenshot5']">
-                        <div class="slide" style="">
-                            <img src="<{$SCREEMSHOTURL}><{$game['screenshot5']}>" class="one">
-                        </div>
-                    <else />
-                        <div class="slide" style="">
-                            <img src="__ROOT__/upfiles/default_screenshot.jpg" class="one">
-                        </div>
-                    </if>
+                    <div class="slide" style="">
+                        <img src="" class="one" id="showImg" style="width: 100%">
+                    </div>
                 </div>
             </section>
         </div>
@@ -196,26 +149,20 @@
         // 点击轮播图的单个图片，展开大图
         $(".slide img").click(function(){
            var _h = parseInt($(window).height());
-           var _this = this;
 
-           var index1 = $(".slide img").index(this);
-           var index2 = $(".slide img").index($(this));
-           var index3 = $(this).index();
-           var index3= $(this).index("img");
-           var count = document.getElementById("img").getElementsByTagName("img").length;
            //alert(count);
-           $(".slide img").eq(index1+count).removeClass("one").siblings().addClass("one");
-           $(".slide img").eq(index1+count).addClass("active").siblings().removeClass("active");
+           $("#showImg").attr("src", $(this).attr('src'));
+           $("#showImg").removeClass("one").addClass("active");
            $(".pic").css("position","fixed");
            $(".pic").css("z-index","999");
            $(".pic").css("display","block");
            $("body").css("height",_h);
-           $(".slide").eq(index1+count).css("position","relative");
-           $(".slide img").eq(index1+count).css("margin","6% auto");
+           $(".slide").css("position","relative");
+           $("#showImg").css("margin","6% auto");
+
 
            $(".pic").click(function(){
-               $(".slide img").eq(index1+count).addClass("one");
-               $(".slide img").eq(index1+count).removeClass("active");
+               $("#showImg").addClass("one").removeClass("active");
                $(".pic").css("display","none");
            });
         });

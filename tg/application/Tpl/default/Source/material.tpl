@@ -61,8 +61,8 @@
                                         <div class="col-sm-12 text-center">
                                             <a href="javascript:void(0)" id="preview" class="btn btn-primary btn-lg" style="width: 339px;margin-bottom: 20px;">一键生成推广页</a>
                                         </div>
-                                        <div class="col-sm-12 text-center m-t-25">
-                                            <iframe src="http://tg.yxgames.com/page/<{$sourceid}>/" width="414" height="800" scrolling="no" frameborder="0" name="main"></iframe>
+                                        <div class="col-sm-12 text-center m-t-25" id="J_page">
+
                                         </div>
                                         <div class="col-sm-12 text-center pagelink">
                                             <p class="m-t-10">页面链接：<a href="http://tg.yxgames.com/page/<{$sourceid}>/" target="__blank">http://tg.yxgames.com/page/<{$sourceid}>/</a></p>
@@ -90,6 +90,9 @@
         $("iframe").hide();
         $(".pagelink").hide();
         $("#preview").click(function(){
+            if($('#J_page').find('iframe').length == 0){
+                $('#J_page').html('<iframe src="http://tg.yxgames.local/page/<{$sourceid}>/" width="414" height="800" scrolling="no" frameborder="0" name="main"></iframe>');
+            }
             $("iframe").show();
             $(".pagelink").show();
         });
