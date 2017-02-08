@@ -33,14 +33,20 @@ class RegistrationAction extends CommonAction {
         $this->logincheck();
 
         $userid = $_SESSION['userid'];
-        $account = $_POST["username"];
-        $channelid = $_POST["channelid"];
-        $gameid = $_POST["gameid"];
-        $startdate = $_POST["startdate"];
-        $enddate = $_POST["enddate"];
+        $account    = isset($_POST["username"]) ? $_POST["username"] : '';
+        $channelid  = isset($_POST["channelid"]) ? (int)$_POST["channelid"] : 0;
+        $gameid     = isset($_POST["gameid"]) ? (int)$_POST["gameid"] : 0;
+        $startdate  = isset($_POST["startdate"]) ? $_POST["startdate"] : '';
+        $enddate    = isset($_POST["enddate"]) ? $_POST["enddate"] : '';
+        $current    = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+        $rowCount   = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
+        $sort = $this->parseOrder();
+
+        if(strpos($sort, 'login_time') !== false){
+            unset($sort);
+        }
 
         $allusermodel = M("all_user");
-        $sourcemodel = M("tg_source");
         $logininfomodel = M("sdk_logininfo");
         
         $condition = array(); //条件
@@ -51,31 +57,8 @@ class RegistrationAction extends CommonAction {
         if (isset($channelid) && $channelid > 0) {
             $condition["S.channelid"] = $channelid;
             $condition["S.activeflag"] = 1;
-            
-            $sourcecondition = array();
-            $sourcecondition["S.channelid"] = $channelid;
-            $sourcecondition["S.activeflag"] = 1;
-            $sourcecondition["G.activeflag"] = 1;
-            $sourcecondition["G.isonstack"] = 0;
-            $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
-
-            if ($gamelist) {
-                foreach ($gamelist as $k => $v) {
-                    $checkstate='';
-                    if (isset($gameid) && $gameid > 0) { //如果有选择游戏
-                        if($gameid==$v["gameid"]){
-                            $checkstate=' selected="selected" ';
-                        }
-                    }
-                    $gameresult[] = "<option value=".$v["gameid"].$checkstate.">".$v["gamename"]."</option>";
-                }
-                array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
-            } else {
-                array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
-            }
         } else {
             $condition["S.userid"] = $userid;
-            array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
         }
         
         // 游戏条件
@@ -84,11 +67,9 @@ class RegistrationAction extends CommonAction {
         }
 
         // 时间条件
-        if ((isset($startdate) && $startdate != "") && (isset($enddate) && $enddate != "")) {
-            $newstart = strtotime($startdate);
-            $newend = strtotime($enddate);
-            $strat = strtotime(date('Y-m-d 00:00:00', $newstart));
-            $end = strtotime(date('Y-m-d 23:59:59', $newend));
+        if ($startdate != "" && $enddate != "") {
+            $strat = strtotime($startdate.' 00:00:00');
+            $end = strtotime($enddate.' 23:59:59');
             $condition["AU.reg_time"]  = array(array('egt',$strat),array('elt',$end),'and');
         }
 
@@ -106,43 +87,60 @@ class RegistrationAction extends CommonAction {
         $condition['_logic'] = 'AND';
        
         // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
+        $count = $allusermodel->alias("AU")
+            ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->where($condition)
+            ->count();
         $user = $allusermodel->alias("AU")
                     ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
                     ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
                     ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
                     ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename')
                     ->where($condition)
-                    ->order('AU.reg_time desc')
+                    ->order($sort)
+                    ->page($current, $rowCount)
                     ->select();
                     // vde($allusermodel->getLastSql());
         $result = array(); //返回结果
         $result["game"] = $gameresult;//根据渠道的 游戏列表
         $result["userall"] = array(); //注册列表 
-    	if($user){
-	        foreach($user as $k => $v){
-	            $user[$k]['reg_time'] = date('Y-m-d H:i',$v['reg_time']);
 
-	            //获取登陆时间
-	            $lastid = $v['id'];
-	            $loginsql = "select userid, login_time from yx_sdk_logininfo where userid ='$lastid' ORDER BY login_time DESC LIMIT 1";
-	            $login = $logininfomodel->query($loginsql);
-	            if($login[0]['login_time'] == ''){
-	                $user[$k]['login_time'] = $user[$k]['reg_time'];
-	            }else{
-	                $user[$k]['login_time'] = date('Y-m-d H:i',$login[0]['login_time']);
-	            }
-	        }
-            $result["userall"] = $user;
+        empty($user) && $user = array();
+        foreach($user as $k => $v){
+            $user[$k]['reg_time'] = date('Y-m-d H:i',$v['reg_time']);
 
-            $this->ajaxReturn($result,'success',1);
-            exit();
-    	}else{
-            $this->ajaxReturn($result,'fail',0);
-            exit();
+            //获取登陆时间
+            $lastid = $v['id'];
+            $loginsql = "select userid, login_time from yx_sdk_logininfo where userid ='$lastid' ORDER BY login_time DESC LIMIT 1";
+            $login = $logininfomodel->query($loginsql);
+            if($login[0]['login_time'] == ''){
+                $user[$k]['login_time'] = $user[$k]['reg_time'];
+            }else{
+                $user[$k]['login_time'] = date('Y-m-d H:i',$login[0]['login_time']);
+            }
         }
+
+        echo json_encode(array(
+            'current' => $current,
+            'rowCount' => $rowCount,
+            'rows' => $user,
+            'total' => $count
+        ));
     }
 
 
+    protected function parseOrder()
+    {
+        $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
+
+        foreach($sort as $k => $v){
+            $order = "{$k} {$v}";
+        }
+
+        return $order;
+    }
 
 
 

@@ -23,87 +23,101 @@ class RechargeAction extends CommonAction {
             $map["activeflag"] = 1;
             $channel = $channelmodel->where($map)->select();
             $this->assign('channel',$channel);
+            $this->assign('channel',userchannelid);
         }
-       
         $this->display();
+    }
+
+    /**
+     * 通过渠道id获取游戏列表
+     */
+    public function ajaxGame()
+    {
+        $channelid = isset($_POST['channelid']) ? (int)$_POST['channelid'] : 1;
+
+        $sourcecondition = array();
+        $sourcecondition["S.channelid"] = $channelid;
+        $sourcecondition["S.activeflag"] = 1;
+        $sourcecondition["G.activeflag"] = 1;
+        $sourcecondition["G.isonstack"] = 0;
+
+        $sourcemodel = M("tg_source");
+        $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "JOIN")->where($sourcecondition)->field('G.gameid,G.gamename')->order("S.createtime desc")->select();
+        $data = array(
+            'data' => $gamelist,
+            'status' => 1
+        );
+        $this->ajaxReturn($data, 'JSON');
     }
 
     // 所有筛选，搜索
     public function search(){
         $this->logincheck();
+        $current    = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+        $rowCount   = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
 
-        $userid = $_SESSION['userid'];
-        $account = $_POST["username"];
-        $channelid = $_POST["channelid"];
-        $gameid = $_POST["gameid"];
-        $startdate = $_POST["startdate"];
-        $enddate = $_POST["enddate"];
+        // 没有搜索用户的情况，不需要关连all_user表，所以放在前面的条件判断中
+        // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
+        $condition = $this->parseWhere();
+        $order = $this->parseOrder();
+        $data = $this->getUserRecharge($condition, $order, $current, $rowCount);
 
-        $paymodel = M("all_pay");
-        $sourcemodel = M("tg_source");
-        $allusermodel = M("all_user");
-        
+
+
+        echo json_encode(array(
+            'current' => $current,
+            'rowCount' => $rowCount,
+            'rows' => $data['list'],
+            'allmoney' => $data['allmoney'],
+            'total' => $data['count']
+        ));
+
+        exit();
+    }
+
+    protected function parseWhere()
+    {
+        $userid     = $_SESSION['userid'];
+        $account    = isset($_POST["username"]) ? $_POST["username"] : '';
+        $channelid  = isset($_POST["channelid"]) ? (int)$_POST["channelid"] : 0;
+        $gameid     = isset($_POST["gameid"]) ? (int)$_POST["gameid"] : 0;
+        $startdate  = isset($_POST["startdate"]) ? $_POST["startdate"] : '';
+        $enddate    = isset($_POST["enddate"]) ? $_POST["enddate"] : '';
+
         $condition = array(); //条件
-
         //根据渠道的 游戏列表
         // 渠道条件
-        $gameresult = array(); //游戏列表
-        if (isset($channelid) && $channelid > 0) {
+        if ($channelid > 0) {
             $condition["S.channelid"] = $channelid;
             $condition["S.activeflag"] = 1;
-            
-            $sourcecondition = array();
-            $sourcecondition["S.channelid"] = $channelid;
-            $sourcecondition["S.activeflag"] = 1;
-            $sourcecondition["G.activeflag"] = 1;
-            $sourcecondition["G.isonstack"] = 0;
-            $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
-
-            if ($gamelist) {
-                foreach ($gamelist as $k => $v) {
-                    $checkstate='';
-                    if (isset($gameid) && $gameid > 0) { //如果有选择游戏
-                        if($gameid==$v["gameid"]){
-                            $checkstate=' selected="selected" ';
-                        }
-                    }
-                    $gameresult[] = "<option value=".$v["gameid"].$checkstate.">".$v["gamename"]."</option>";
-                }
-                array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
-            } else {
-                array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
-            }
         } else {
             $condition["S.userid"] = $userid;
-            array_unshift($gameresult, "<option value=\"0\">所有游戏</option>");
         }
-        
+
         // 游戏条件
-        if (isset($gameid) && $gameid > 0) {
+        if ($gameid > 0) {
             $condition["S.gameid"] = $gameid;
         }
 
         // 时间条件
-        if ((isset($startdate) && $startdate != "") && (isset($enddate) && $enddate != "")) {
-            $newstart = strtotime($startdate);
-            $newend = strtotime($enddate);
-            $strat = strtotime(date('Y-m-d 00:00:00', $newstart));
-            $end = strtotime(date('Y-m-d 23:59:59', $newend));
+        if ($startdate != "" && $enddate != "") {
+            $strat = strtotime($startdate.' 00:00:00');
+            $end = strtotime($enddate.' 23:59:59');
             $condition["D.create_time"]  = array(array('egt',$strat),array('elt',$end),'and');
         }
-
         // 充值用户条件
-        if ((isset($account) && $account != "" && $account != null)) {
+        if ($account != "" && $account != null) {
             // 支持模糊搜索
             $complex = array();
             $complex["U.username"] = array('like','%'.$account.'%');
             $complex["U.email"] = array('like','%'.$account.'%');
             $complex["U.mobile"] = array('like','%'.$account.'%');
             $complex['_logic'] = 'OR';
-         
+
             $condition['_complex'] = $complex;
         }
-        
+
+        $sourcemodel = M("tg_source");
         // 并且 用户的注册渠道 也是当前用户的渠道
         if (isset($this->userpid) && $this->userpid > 0) {
             // 获取该子账号渠道的的资源
@@ -120,44 +134,56 @@ class RechargeAction extends CommonAction {
 
         $condition['D.status'] = 1;
         $condition['_logic'] = 'AND';
+        return $condition;
+    }
 
-        // 没有搜索用户的情况，不需要关连all_user表，所以放在前面的条件判断中
-        // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
-        $pay = $paymodel->alias("D")
-                    ->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT")
-                    ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
-                    ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
-                    ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
-                    ->join(C('DB_PREFIX')."all_user U on D.username = U.username", "LEFT")
-                    ->field('D.orderid,D.regagent,D.agent,D.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname')
-                    ->where($condition)
-                    ->select();
 
-        $result = array(); //返回结果
-        $result["game"] = $gameresult;//根据渠道的 游戏列表
-        $result["allmoney"] = 0; //总金额
-        $result["getmoney"] = array();  //支付列表
-        if ($pay) {
-            foreach($pay as $k => $v){
-                $pay[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);
-                if ($v['status'] == 1) {
-                    $pay[$k]['statusStr'] = "<span style='color:#F00'>成功</span>";
-                } else if ($v['status'] == 2) {
-                    $pay[$k]['statusStr'] = "<span style='color:#F00'>失败</span>";
-                }  else if ($v['status'] == 0) {
-                    $pay[$k]['statusStr'] = "待支付";
-                }
+    protected function parseOrder()
+    {
+        $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
 
-                $result['allmoney'] += $v["amount"];
-            }
-            $result["getmoney"] = $pay;
-
-            $this->ajaxReturn($result,'success',1);
-            exit();
-        } else {
-            $this->ajaxReturn($result,'fail',0);
-            exit();
+        foreach($sort as $k => $v){
+            $order = "{$k} {$v}";
         }
+
+        return $order;
+    }
+
+    protected function getUserRecharge($condition, $order, $current='', $rowCount='')
+    {
+        $paymodel = M("all_pay");
+        $count = $paymodel->alias("D")
+            ->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
+            ->join(C('DB_PREFIX')."all_user U on D.username = U.username", "LEFT")
+            ->where($condition)
+            ->field('count(*) as count,sum(amount) as allmoney')
+            ->find();
+        $pay = $paymodel->alias("D");
+        $pay->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT");
+        $pay->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT");
+        $pay->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT");
+        $pay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
+        $pay->join(C('DB_PREFIX')."all_user U on D.username = U.username", "LEFT");
+        $pay->field('D.orderid,D.regagent,D.agent,D.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname');
+        $pay->where($condition);
+        $pay->order($order);
+        ($current > 0 && $rowCount > 0) && $pay->page($current, $rowCount);
+        $payList = $pay->select();
+        empty($payList) && $payList = array();
+        foreach($payList as $k => $v){
+            $payList[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);
+            if ($v['status'] == 1) {
+                $payList[$k]['status'] = "<span style='color:#F00'>成功</span>";
+            } else if ($v['status'] == 2) {
+                $payList[$k]['status'] = "<span style='color:#F00'>失败</span>";
+            }  else if ($v['status'] == 0) {
+                $payList[$k]['status'] = "待支付";
+            }
+        }
+        return array('list' => $payList, 'count' => (int)$count['count'], 'allmoney' => !empty($count['allmoney']) ? $count['allmoney'] : 0);
     }
 
     // 导出
@@ -165,7 +191,13 @@ class RechargeAction extends CommonAction {
         $this->logincheck();
 
         //-----获取数据
-        $data = $_POST["search_data"];
+        $condition = $this->parseWhere();
+        $order = $this->parseOrder();
+        $data = $this->getUserRecharge($condition, $order);
+
+        if($data['count'] <= 0){
+            $this->ajaxReturn(array('status' => 0, 'info' => 'error'),'JSON');
+        }
 
         //-----引入PHPExcel类
         include_once '../Third/PHPExcel/Classes/PHPExcel.php';
@@ -259,8 +291,8 @@ class RechargeAction extends CommonAction {
 
         $current_line=4;
         // 根据游戏，资源统计出来
-        if($data['getmoney']){
-            foreach ($data['getmoney'] as $key => $value) {
+        if($data['list']){
+            foreach ($data['list'] as $key => $value) {
                 $objPHPExcel->getActiveSheet()->setCellValue('A'.$current_line, $value['gamename']);
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.$current_line, $value['channelname']);
                 $objPHPExcel->getActiveSheet()->setCellValue('C'.$current_line, $value['username']);
@@ -316,6 +348,5 @@ class RechargeAction extends CommonAction {
         $this->ajaxReturn($data,'JSON');
         exit();
     }
-
 }
 ?>
