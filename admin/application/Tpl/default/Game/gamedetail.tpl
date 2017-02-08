@@ -7,6 +7,12 @@
 ?>
 <include file="Inc:head" />
 <body>
+<style>
+	.fileinput .fileinput-preview img {
+		margin-top: 0px;
+	}
+	.fileinput-preview{line-height:150px;}
+</style>
 <include file="Inc:logged-header" />
 
 <section id="main" data-layout="layout-1">
@@ -333,7 +339,7 @@
 											</div>
                                             <div class="fg-line">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['gamebg'] neq '' "><img src="<{$GAMEBGURL}><{$game['gamebg']}>" /></if></div>
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['gamebg'] neq '' "><img class="lazy" data-original="<{$GAMEBGURL}><{$game['gamebg']}>" /></if></div>
                                                     <div>
                                                         <span class="btn btn-info btn-file">
                                                             <span class="fileinput-new">选择一张图片</span>
@@ -358,7 +364,7 @@
 											</div>
                                             <div class="fg-line">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot1'] neq '' "><img src="<{$SCREEMSHOTURL}><{$game['screenshot1']}>" /></if></div>
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot1'] neq '' "><img class="lazy" data-original="<{$SCREEMSHOTURL}><{$game['screenshot1']}>" /></if></div>
                                                     <div>
                                                         <span class="btn btn-info btn-file">
                                                             <span class="fileinput-new">选择一张图片</span>
@@ -370,7 +376,7 @@
                                                 </div>
 
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot2'] neq '' "><img src="<{$SCREEMSHOTURL}><{$game['screenshot2']}>" /></if></div>
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot2'] neq '' "><img class="lazy" data-original="<{$SCREEMSHOTURL}><{$game['screenshot2']}>" /></if></div>
                                                     <div>
                                                         <span class="btn btn-info btn-file">
                                                             <span class="fileinput-new">选择一张图片</span>
@@ -382,7 +388,7 @@
                                                 </div>
 
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot3'] neq '' "><img src="<{$SCREEMSHOTURL}><{$game['screenshot3']}>" /></if></div>
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot3'] neq '' "><img class="lazy" data-original="<{$SCREEMSHOTURL}><{$game['screenshot3']}>" /></if></div>
                                                     <div>
                                                         <span class="btn btn-info btn-file">
                                                             <span class="fileinput-new">选择一张图片</span>
@@ -394,7 +400,7 @@
                                                 </div>
 
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot4'] neq '' "><img src="<{$SCREEMSHOTURL}><{$game['screenshot4']}>" /></if></div>
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot4'] neq '' "><img class="lazy" data-original="<{$SCREEMSHOTURL}><{$game['screenshot4']}>" /></if></div>
                                                     <div>
                                                         <span class="btn btn-info btn-file">
                                                             <span class="fileinput-new">选择一张图片</span>
@@ -406,7 +412,7 @@
                                                 </div>
 
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot5'] neq '' "><img src="<{$SCREEMSHOTURL}><{$game['screenshot5']}>" /></if></div>
+                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"><if condition="$game['screenshot5'] neq '' "><img class="lazy" data-original="<{$SCREEMSHOTURL}><{$game['screenshot5']}>" /></if></div>
                                                     <div>
                                                         <span class="btn btn-info btn-file">
                                                             <span class="fileinput-new">选择一张图片</span>
@@ -512,8 +518,7 @@
 <script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="__ROOT__/plus/vendors/fileinput/fileinput.min.js"></script>
-
-
+<script src="__ROOT__/plus/vendors/jquery-lazyload/jquery.lazyload.js"></script>
 <script type="text/javascript">
 	var gameid = $('#uploadgameid').val();
 
@@ -1044,6 +1049,12 @@
 			}
 			
         });
+
+		$("img.lazy").lazyload({
+			placeholder : "__ROOT__/plus/img/progress.gif", //用图片提前占位
+			// placeholder,值为某一图片路径.此图片用来占据将要加载的图片的位置,待图片加载时,占位图则会隐藏
+			effect: "fadeIn", // 载入使用何种效果
+		});
     });
 </script>
 </body>

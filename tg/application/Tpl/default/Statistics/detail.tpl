@@ -33,7 +33,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                 <div class="col-sm-12">
                     <div class="card p-b-25">
                         <div class="card-header ch-alt text-left">
-                                <a class="btn" href="">返回</a>
+                                <a class="btn" href="javascript:history.go(-1)">返回</a>
                         </div>
 
                         <div class="card-body">

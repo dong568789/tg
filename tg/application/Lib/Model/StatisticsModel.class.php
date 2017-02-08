@@ -36,32 +36,39 @@ class StatisticsModel extends Model
 		while ($row = mysql_fetch_assoc($result)) {
 			$data[]=$row;
 		}
+
 		// 找出 昨天 登录sdk的 渠道
-		$activechannelquery = "select agent from yx_sdk_logininfo where login_time >= '".$starttime."' group by agent order by id desc";
+		$activechannelquery = "select agent,userid from yx_sdk_logininfo where login_time >= '".$starttime."' AND agent > '' group by agent";
+
 		$result = mysql_query($activechannelquery);
 		while ($row = mysql_fetch_assoc($result)) {
 			$channellist[]=$row["agent"];
 		}
+
 		// 找出 昨天 登录的 sdk
-		$activequery = "select * from yx_sdk_logininfo where login_time >= '".$starttime."' order by id desc";
+		$activequery = "select agent,userid from yx_sdk_logininfo where login_time >= '".$starttime."' AND agent > '' GROUP BY userid,agent";
 		$result = mysql_query($activequery);
+		$itemUserid = array();
 		while ($row = mysql_fetch_assoc($result)) {
 			$active[]=$row;
+			$itemUserid[]=$row['userid'];
 		}
 
-
 		// 找出 昨天 注册玩家的 渠道
-		$userchannelquery = "select agent from yx_all_user where reg_time >= '".$starttime."' group by agent order by id desc";
+		$userchannelquery = "select agent from yx_all_user where reg_time >= '".$starttime."' group by agent";
 		$result = mysql_query($userchannelquery);
 		while ($row = mysql_fetch_assoc($result)) {
 			$channellist[]= strtolower($row["agent"]);
 		}
+
 		// 找出 昨天 注册的 玩家
-		$userquery = "select * from yx_all_user where reg_time >= '".$starttime."' order by id desc";
+		/*$userquery = "select * from yx_all_user where reg_time >= '".$starttime."' order by id desc";
 		$result = mysql_query($userquery);
 		while ($row = mysql_fetch_assoc($result)) {
 				$user[]=$row;
-		}
+		}*/
+
+
 		// 找出 昨天 支付成功的\注册玩家的\登录的 渠道
 		$channellist = array_unique($channellist);
 
@@ -76,6 +83,7 @@ class StatisticsModel extends Model
 		}
 		// 取出所有渠道（用户，游戏，渠道）
 		$sourcequery = "select * from yx_tg_source S left join yx_tg_game G on S.gameid = G.gameid left join yx_tg_channel C on S.channelid = C.channelid ".$conditionstr." order by S.id desc";
+
         $result = mysql_query($sourcequery);
 		$itemSource = array();
 		while ($row = mysql_fetch_assoc($result)) {
@@ -88,7 +96,8 @@ class StatisticsModel extends Model
 		$before_login = array();
 		if(!empty($itemSource)){
 			$strSource = '\''.str_replace(',', '\',\'', implode(',', $itemSource)).'\'';
-			$before_login_query = "select  userid,agent from yx_sdk_logininfo where login_time < '".$starttime."' AND agent in({$strSource})  group by userid,agent order by id desc";
+			$strUid = '\''.str_replace(',', '\',\'', implode(',', $itemUserid)).'\'';
+			 $before_login_query = "select userid,agent from yx_sdk_logininfo where login_time < '".$starttime."' AND agent in({$strSource}) AND userid in({$strUid}) group by agent,userid order by id desc";
 			$before_login_result = mysql_query($before_login_query);
 			while ($row = mysql_fetch_assoc($before_login_result)) {
 				$before_login[]=$row;

@@ -3308,9 +3308,9 @@ select.chosen {
   margin-right: 0;
 }
 
-
+#content{margin-bottom:80px;}
 /*底部css*/
-.end_bottom1{width:1104px;margin:0 auto;padding-top:20px;}
+.end_bottom1{width:1104px;margin:0 auto;padding-top:20px;position:absolute;left:50%;margin-left:-552px;bottom:0;}
 .end_bottom{width:796px;margin:0px auto 30px;overflow:hidden;}
 .eb_top{width:470px;float:left;margin:0px 45px;}
 .end_bottom img{float:left;}
