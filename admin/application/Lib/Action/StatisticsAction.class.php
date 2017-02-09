@@ -8,6 +8,7 @@
  */
 class StatisticsAction extends CommonAction
 {
+    const HIDE_DEP = array(31);
 
     public function __construct()
     {
@@ -17,6 +18,8 @@ class StatisticsAction extends CommonAction
     public function index()
     {
         $this->menucheck();
+
+        $this->assign('hideDep', $this->checkUserDep());
         $this->display('index');
     }
 
@@ -28,7 +31,6 @@ class StatisticsAction extends CommonAction
         $this->ajaxReturn($dailCount,'success',1);
         exit;
     }
-
 
     public function getData()
     {
@@ -176,9 +178,23 @@ class StatisticsAction extends CommonAction
             'sum_amount' => $sum_amount,
             'yx_earnings' => $yx_earnings,
             'buyer_voucher' => $buyer_voucher
-
         );
-        $title = array('timeZone' => '日期','channelbusiness' => '部门' ,'realname' => '客户名称', 'sum_newpeople' => '注册数', 'sum_cpamount' => 'CP结算', 'sum_voucherje' => '优惠券', 'sum_dailyincome' => '渠道收益','buyer_voucher' => '购买代金券', 'yx_amount' => '官方流水', 'sum_amount' => '总充值', 'yx_earnings' => '收益');
+
+        $check = false;
+        if($this->checkUserDep()){
+            $check = true;
+        }
+        $title['timeZone'] = '日期';
+        $title['channelbusiness'] = '部门';
+        $title['realname'] = '客户名称';
+        $title['sum_newpeople'] = '注册数';
+        $check && $title['sum_cpamount'] = 'CP结算';
+        $title['sum_voucherje'] = '优惠券';
+        $title['sum_dailyincome'] = '渠道收益';
+        $title['buyer_voucher'] = '购买代金券';
+        $check && $title['yx_amount'] = '官方流水';
+        $title['sum_amount'] = '总充值';
+        $check && $title['yx_earnings'] = '收益';
         $this->exportFile($title, $dailCount);
     }
 
@@ -247,6 +263,19 @@ class StatisticsAction extends CommonAction
         echo json_encode($return, true);
     }
 
+    /**
+     * is hide dep
+     * @return bool
+     */
+    protected function checkUserDep()
+    {
+        $usermodel = M('sys_admin');
+        $user = $usermodel->where("id = '{$_SESSION['adminid']}'")->find();   //用户
+        if(in_array($user['department_id'], self::HIDE_DEP)){
+            return false;
+        }
+        return true;
+    }
 
 }
 
