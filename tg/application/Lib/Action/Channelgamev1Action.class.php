@@ -6,7 +6,7 @@
  * Date: 2017/2/8
  * Time: 18:22
  */
-class Channelgamev1Action extends CommonAction
+class Channelgamev1Action extends Action
 {
 
     public function channel_games()
@@ -36,11 +36,13 @@ class Channelgamev1Action extends CommonAction
         $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}'";
         $count = M('')->query($sql);
 
-        $sql = "SELECT a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' LIMIT {$offset},{$pageSize}";
+        $sql = "SELECT a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' LIMIT {$offset},{$pageSize}";
         $rs = M('')->query($sql);
         $data = array();
+
         $sourceAction = new SourceAction();
         foreach ($rs as $row) {
+
             $download_url = $sourceAction->apidownload($row['sourcesn']);
             $data[] = array(
                 'gameid' => $row['gameid'],
@@ -51,6 +53,7 @@ class Channelgamev1Action extends CommonAction
                 'gameicon' => $this->iconurl.$row['gameicon'],
                 'texturename' => $this->texturedownloadurl.$row['texturename'],
                 'packageversion' => $row['packageversion'],
+                'gametype' => $row['gametype'],
                 'description' => $row['description']
             );
         }
@@ -110,5 +113,6 @@ class Channelgamev1Action extends CommonAction
                     'data' => $data
             ))
         );
+        exit;
     }
 }
