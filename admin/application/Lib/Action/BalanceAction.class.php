@@ -511,7 +511,7 @@ class BalanceAction extends CommonAction {
             $sourceaccount=M()->query($sql);
 
             foreach ($sourceaccount as $key => $value) {
-                $where=' and a.balanceid='.$id.' and a.activeflag=1 and a.gameid='.$value['gameid'].' and a.sourceincome!=0 ';
+                $where=' and a.balanceid='.$id.' and a.activeflag=1 and a.gameid='.$value['gameid'].' and a.sourcejournal!=0 ';
                 $sql="SELECT
                         a.*,
                         b.*,

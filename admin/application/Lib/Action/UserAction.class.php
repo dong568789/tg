@@ -11,7 +11,7 @@ class UserAction extends CommonAction {
         $this->authoritycheck(10107);
 
         $usermodel= M('sys_admin');
-        $map['department_id'] = '31';
+        $map['department_id'] = array('in',array('4','21','24','25','26','38','28','29','31','32','35','36','37'));
         $userlist = $usermodel->where($map)->order("create_time desc")->select();
         $this->assign("userlist",$userlist);
         
@@ -372,7 +372,7 @@ class UserAction extends CommonAction {
                 $model= M('tg_user');
                 $user = $model->find($userid);
                 $adminmodel= M('sys_admin');
-                $map['department_id'] = '31';
+                $map['department_id'] = array('in',array('4','21','24','25','26','38','28','29','31','32','35','36','37'));
                 $userlist = $adminmodel->where($map)->order("create_time desc")->select();
                 $this->assign("userlist",$userlist);
                 $this->assign('user',$user);
