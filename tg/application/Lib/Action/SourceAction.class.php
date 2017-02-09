@@ -547,7 +547,12 @@ class SourceAction extends CommonAction {
 
 
 	//推广链接
-	public function apidownload($sourcesn) {
+	public function apidownload() {
+		$sourcesn = isset($_GET['source']) ? $_GET['source'] : '';
+		if(empty($sourcesn)){
+			echo json_encode(array('result' => 'failure', 'url' => '', 'msg' => '资源不存在'));
+			exit;
+		}
 		$sourcemodel = M('tg_source');
 		$map["sourcesn"] = $sourcesn;
 		$source = $sourcemodel->where($map)->find();
@@ -555,11 +560,13 @@ class SourceAction extends CommonAction {
 			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
 			if($source["is_cdn_submit"] == 1 ){
 				$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
-				return array('code' => 1, 'url' => $cndurl, 'msg' => '');
+				echo json_encode(array('result' => 'success', 'url' => $cndurl, 'msg' => ''));
+				exit;
 			}
 
 			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
-				return array('code' => 1, 'url' => $this->apkdownloadurl.$source["apkurl"], 'msg' => '');
+				echo json_encode(array('result' => 'success', 'url' => $this->apkdownloadurl.$source["apkurl"], 'msg' => ''));
+				exit;
 			} else {
 				$gamemodel = M('tg_game');
 				$game = $gamemodel->find($source["gameid"]);
@@ -576,13 +583,17 @@ class SourceAction extends CommonAction {
 					$data["isupload"] = 1;
 					$data["apkurl"] = $newgamename;
 					$upload = $sourcemodel->where($map)->save($data);
-					return array('code' => 1, 'url' => $this->apkdownloadurl.$newgamename, 'msg' => '');
+					echo json_encode(array('result' => 'success', 'url' => $this->apkdownloadurl.$newgamename, 'msg' => ''));
+					exit;
+
 				} else {
-					return array('code' => 0, 'url' => '', 'msg' => $result['msg']);
+					echo json_encode( array('result' => 'failure', 'url' => '', 'msg' => $result['msg']));
+					exit;
 				}
 			}
 		} else {
-			return array('code' => 0, 'url' => 'source is empty');
+			echo json_encode( array('result' => 'failure', 'url' => 'source is empty'));
+			exit;
 		}
 	}
 

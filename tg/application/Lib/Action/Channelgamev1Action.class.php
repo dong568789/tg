@@ -6,7 +6,7 @@
  * Date: 2017/2/8
  * Time: 18:22
  */
-class Channelgamev1Action extends Action
+class Channelgamev1Action extends CommonAction
 {
 
     public function channel_games()
@@ -40,15 +40,15 @@ class Channelgamev1Action extends Action
         $rs = M('')->query($sql);
         $data = array();
 
-        $sourceAction = new SourceAction();
+       // $sourceAction = new SourceAction();
         foreach ($rs as $row) {
 
-            $download_url = $sourceAction->apidownload($row['sourcesn']);
+            //$download_url = $sourceAction->apidownload($row['sourcesn']);
             $data[] = array(
                 'gameid' => $row['gameid'],
                 'gamename' => $row['gamename'],
                 'version' => $row['gameversion'],
-                'download_url' => $download_url['url'],
+                'download_url' => $this->tgdomain.'/Source/apidownload/'.$row['sourcesn'],
                 'gamesize' => $row['gamesize'].'MB',
                 'gameicon' => $this->iconurl.$row['gameicon'],
                 'texturename' => $this->texturedownloadurl.$row['texturename'],
@@ -102,7 +102,7 @@ class Channelgamev1Action extends Action
      */
     protected function success($data, $page, $page_size, $total, $uid, $msg = '')
     {
-         echo json_encode(array(
+          print_r(array(
                 'result' => 'success',
                 'message' => $msg,
                 'data' => array(
