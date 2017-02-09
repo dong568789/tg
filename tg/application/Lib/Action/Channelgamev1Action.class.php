@@ -11,17 +11,17 @@ class Channelgamev1Action extends CommonAction
 
     public function channel_games()
     {
-        $userid = isset($_GET['user_id']) ? $_GET['user_id'] : 0;
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $userid = isset($_GET['user_id']) ? (int)$_GET['user_id'] : 0;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $pageNum = isset($_GET['pageNum']) ? (int)$_GET['pageNum'] : 100;
         $sign = isset($_GET['sign']) ? $_GET['sign'] : '';
         $appKey = 'f4d0e057809264c01a6a279519b37df9';
-
         // $sign = $this->getSign(array('user_id' => $userid, 'page' => $page),$appKey);
         //if($this->getSign(array('user_id' => $userid, 'page' => $page), $appKey) <> $sign){
             //$this->error('签名失败');
         //}
 
-        $pageSize = 100;
+        $pageSize = $pageNum < 1 ? 100 : $pageNum;
         $offset = ($page -1)*$pageSize;
 
         if($userid <= 0){
@@ -36,7 +36,7 @@ class Channelgamev1Action extends CommonAction
         $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}'";
         $count = M('')->query($sql);
 
-        $sql = "SELECT a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.gamesize,b.gameicon,b.texturename FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' LIMIT {$offset},{$pageSize}";
+        $sql = "SELECT a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' LIMIT {$offset},{$pageSize}";
         $rs = M('')->query($sql);
         $data = array();
         $sourceAction = new SourceAction();
@@ -47,9 +47,11 @@ class Channelgamev1Action extends CommonAction
                 'gamename' => $row['gamename'],
                 'version' => $row['gameversion'],
                 'download_url' => $download_url['url'],
-                'gamesize' => $row['gamesize'],
+                'gamesize' => $row['gamesize'].'MB',
                 'gameicon' => $this->iconurl.$row['gameicon'],
-                'texturename' => $this->texturedownloadurl.$row['texturename']
+                'texturename' => $this->texturedownloadurl.$row['texturename'],
+                'packageversion' => $row['packageversion'],
+                'description' => $row['description']
             );
         }
 
@@ -108,6 +110,5 @@ class Channelgamev1Action extends CommonAction
                     'data' => $data
             ))
         );
-        exit;
     }
 }
