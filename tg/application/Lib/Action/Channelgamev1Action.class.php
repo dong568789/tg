@@ -21,7 +21,7 @@ class Channelgamev1Action extends CommonAction
             //$this->error('签名失败');
         //}
 
-        $pageSize = 5;
+        $pageSize = 100;
         $offset = ($page -1)*$pageSize;
 
         if($userid <= 0){
