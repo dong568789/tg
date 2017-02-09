@@ -545,6 +545,47 @@ class SourceAction extends CommonAction {
 		}
 	}
 
+
+	//推广链接
+	public function apidownload($sourcesn) {
+		$sourcemodel = M('tg_source');
+		$map["sourcesn"] = $sourcesn;
+		$source = $sourcemodel->where($map)->find();
+		if ($source) {
+			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
+			if($source["is_cdn_submit"] == 1 ){
+				$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
+				return array('code' => 1, 'url' => $cndurl, 'msg' => '');
+			}
+
+			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
+				return array('code' => 1, 'url' => $this->apkdownloadurl.$source["apkurl"], 'msg' => '');
+			} else {
+				$gamemodel = M('tg_game');
+				$game = $gamemodel->find($source["gameid"]);
+				$packagename = $game["packagename"];
+				if ($game["gameversion"] != "") {
+					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+				} else {
+					$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+				}
+
+				$result = $this->subpackage2($packagename,$newgamename,$sourcesn);
+
+				if ($result['code'] == 1) {
+					$data["isupload"] = 1;
+					$data["apkurl"] = $newgamename;
+					$upload = $sourcemodel->where($map)->save($data);
+					return array('code' => 1, 'url' => $this->apkdownloadurl.$newgamename, 'msg' => '');
+				} else {
+					return array('code' => 0, 'url' => '', 'msg' => $result['msg']);
+				}
+			}
+		} else {
+			return array('code' => 0, 'url' => 'source is empty');
+		}
+	}
+
 	// ---------自定义子账号的费率--------------------------------------
     // 自定义子账号的费率 视图
     public function defineRate(){
@@ -671,6 +712,32 @@ class SourceAction extends CommonAction {
 		}
     	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
 		exit();
+	}
+
+	public function subpackage2($packagename,$newgamename,$sourcesn){
+		$sourfile = $this->packageStoreFolder.$packagename;
+		//chmod($sourfile, 0777);
+		$newfile = $this->downloadStoreFolder.$newgamename;
+		if(!file_exists($sourfile)){
+			return array('code' => 0, 'msg' => '母包不存在');
+		}
+		if (!copy($sourfile, $newfile)) {
+			return array('code' => 0, 'msg' => '无法创建文件，打包失败');
+		}
+		$channelfile=$url."gamechannel";
+		fopen($channelfile, "w");
+		$zip = new ZipArchive;
+		if ($zip->open($newfile) === TRUE) {
+			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
+			$zip->close();
+
+			// 第一次分包的时候cdn提交
+			$this->cdnsubmit($sourcesn,$newgamename);
+
+			return array('code' => 1, 'msg' => '');
+		} else {
+			return array('code' => 0, 'msg' => '分包失败');
+		}
 	}
 
 	public function makeStr($length) { 
