@@ -102,7 +102,7 @@ class Channelgamev1Action extends CommonAction
      */
     protected function success($data, $page, $page_size, $total, $uid, $msg = '')
     {
-          print_r(array(
+          echo json_encode(array(
                 'result' => 'success',
                 'message' => $msg,
                 'data' => array(
