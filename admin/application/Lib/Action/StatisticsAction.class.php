@@ -8,7 +8,7 @@
  */
 class StatisticsAction extends CommonAction
 {
-    const HIDE_DEP = array(31);
+    const HIDE_DEP = 31;
 
     public function __construct()
     {
@@ -271,7 +271,7 @@ class StatisticsAction extends CommonAction
     {
         $usermodel = M('sys_admin');
         $user = $usermodel->where("id = '{$_SESSION['adminid']}'")->find();   //用户
-        if(in_array($user['department_id'], self::HIDE_DEP)){
+        if($user['department_id'] == self::HIDE_DEP){
             return false;
         }
         return true;
