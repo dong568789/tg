@@ -16,7 +16,7 @@ if ($checkgame == 'ok') {
     }
 }
 
-if ($checkbalance == 'ok') {
+if ($checkfinance == 'ok') {
     $page_nav["财务管理"]["title"] = "财务管理";
     $page_nav["财务管理"]["icon"] = "money-box";
     if ($checkbalanceall == 'ok') {
