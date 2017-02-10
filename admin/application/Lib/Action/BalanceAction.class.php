@@ -9,7 +9,7 @@ class BalanceAction extends CommonAction {
 		$this->logincheck();
         $this->authoritycheck(10120);
         if($this->authoritycheck(10120) == 'ok'){
-            $model= M('tg_balance');
+           /* $model= M('tg_balance');
             $condition["B.activeflag"] = 1;
             $balance = $model->alias("B")->join(C('DB_PREFIX')."tg_user U on B.userid = U.userid", "LEFT")->where($condition)->order("B.createtime desc")->select();
             foreach($balance as $k => $v){
@@ -26,7 +26,7 @@ class BalanceAction extends CommonAction {
 				$balance[$k]['totalamount'] = str_replace(",", "", number_format($v['totalamount'], 2));
 				$balance[$k]['actualamount'] = str_replace(",", "", number_format($v['actualamount'], 2));
             }
-            $this->assign('balance',$balance);
+            $this->assign('balance',$balance);*/
             $this->menucheck();
             $this->display();
         } else{
@@ -41,18 +41,47 @@ class BalanceAction extends CommonAction {
             exit();
         }
 
-        $balancestatus=$_POST['balancestatus'];
+        $balancestatus = isset($_POST['balancestatus']) ? $_POST['balancestatus'] : '';
+        $startdate = isset($_POST['startdate']) ? $_POST['startdate'] : '';
+        $enddate = isset($_POST['enddate']) ? $_POST['enddate'] : '';
+        $sourcetype = isset($_POST['sourcetype']) ? $_POST['sourcetype'] : '';
+        $account = isset($_POST['account']) ? $_POST['account'] : '';
+        $current    = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+        $rowCount   = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
 
+        $sort = $this->parseOrder();
         $where=array();
         if($balancestatus){
             $where["B.balancestatus"] = $balancestatus;
         }
+        if(!empty($startdate)){
+           $where["B.applytime"]  = array(array('egt',$startdate." 00:00:00"),array('elt',$enddate." 23:59:59"));
+        }
+        if(!empty($sourcetype)){
+            $where["U.sourcetype"] = $sourcetype;
+        }
+        if(!empty($account)){
+            $complex['U.account'] = array('like', "%{$account}%");
+            $complex['U.bindmobile'] = array('like', "%{$account}%");
+            $complex["U.bindemail"] = array('like','%'.$account.'%');
+            $complex['_logic'] = 'OR';
+            $where['_complex'] = $complex;
+        }
         $where["B.activeflag"] = 1;
 
         $model= M('tg_balance');
+        $count = $model->alias("B")
+            ->join(C('DB_PREFIX')."tg_user U on B.userid = U.userid", "LEFT")
+            ->where($where)
+            ->count();
+
         $balance = $model->alias("B")
-                    ->join(C('DB_PREFIX')."tg_user U on B.userid = U.userid", "LEFT")
-                    ->where($where)->order("B.createtime desc")->select();
+            ->join(C('DB_PREFIX')."tg_user U on B.userid = U.userid", "LEFT")
+            ->where($where)->order("B.createtime desc")
+            ->order($sort)
+            ->page($current, $rowCount)
+            ->select();
+        empty($balance) && $balance = array();
         foreach($balance as $k => $v){
             if($v['balancestatus'] == 1){
                 $balance[$k]['balancestatus'] = '待审核';
@@ -67,14 +96,25 @@ class BalanceAction extends CommonAction {
             $balance[$k]['totalamount'] = str_replace(",", "", number_format($v['totalamount'], 2));
             $balance[$k]['actualamount'] = str_replace(",", "", number_format($v['actualamount'], 2));
         }
-   
-        if (sizeof($balance) > 0) {
-            $this->ajaxReturn($balance,'success',1);
-            exit();
-        } else {
-            $this->ajaxReturn('fail',"该用户没有充值数据。",0);
-            exit();
+
+        echo json_encode(array(
+            'current' => $current,
+            'rowCount' => $rowCount,
+            'rows' => $balance,
+            'total' => $count
+        ));
+        exit;
+    }
+
+    protected function parseOrder(){
+        $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
+
+        $order = 'B.createtime desc';
+        foreach($sort as $k => $v){
+            $order = "{$k} {$v}";
         }
+
+        return $order;
     }
 	
     //结算单详情

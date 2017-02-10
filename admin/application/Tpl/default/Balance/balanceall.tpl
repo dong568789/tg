@@ -9,6 +9,9 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
 <include file="Inc:head" />
 <body>
+<style>
+    .bootgrid-header .daterange{margin-right:20px;}
+</style>
 <include file="Inc:logged-header" />
 
 <section id="main" data-layout="layout-1">
@@ -33,43 +36,71 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                         <div class="card-header">
                         </div>
                         <div class="card-body ">
+
                             <div  class="p-20">
+                                <div id="data-table-basic-header" class="bootgrid-header container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12 actionBar">
+                                            <div class='form-group col-sm-3'>
+                                                <select class='selectpicker form-group' id='select-balancestatus'>
+                                                    <option value='0'>结算单--全部</option>
+                                                    <option value='1'>待审核</option>
+                                                    <option value='4'>账单有误</option>
+                                                    <option value='3'>结算单审核</option>
+                                                    <option value='2'>已结算</option>
+                                                </select>
+                                            </div>
+                                            <div class='form-group col-sm-3'>
+                                                <select class='selectpicker form-group' id='select-sourcetype'>
+                                                    <option value='0'>用户类型--全部</option>
+                                                    <option value='1'>公会</option>
+                                                    <option value='2'>买量</option>
+                                                    <option value='3'>平台</option>
+                                                    <option value='4'>CPS</option>
+                                                    <option value='5'>应用商店</option>
+                                                    <option value='6'>其它</option>
+                                                </select>
+                                            </div>
+                                            <div class="daterange form-group" style="float: left;">
+                                                <div class="input-group">
+                                                    <span class="zmdi input-group-addon zmdi-calendar"></span>
+                                                    <input type="text" class="search-field form-control" placeholder="请选择日期" name="daterange" id="daterange" readonly="true">
+                                                    <a id="viewdaterange" class="input-group-addon btn-info">查看</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="search form-group col-sm-9 m-0 p-l-0">
+                                                <div class="input-group">
+                                                    <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                                    <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
+                                                </div>
+                                            </div>
+                                            <div class="actions btn-group">
+                                                <div class="dropdown btn-group">
+                                                    <a class="btn btn-default" href="javascript:void(0);" id="searchRecharge">搜索</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="table-responsive">
                                     <table id="data-table-basic" class="table table-hover table-vmiddle">
                                         <thead>
                                         <tr>
-                                            <th data-column-id="id" data-type="numeric" data-order="desc">账单号</th>
-                                            <th data-column-id="account">手机号/用户名</th>
-                                            <th data-column-id="realname">联系人</th>
+                                            <th data-column-id="id" data-type="numeric" >账单号</th>
+                                            <th data-column-id="account" data-sortable="false">手机号/用户名</th>
+                                            <th data-column-id="realname" data-sortable="false">联系人</th>
                                             <th data-column-id="applytime">申请日期</th>
                                             <th data-column-id="totalamount">提款金额</th>
                                             <th data-column-id="actualamount">税后金额</th>
                                             <th data-column-id="balancestatus" data-formatter="balancestatus">申请状态</th>
                                             <th data-column-id="paidamount">实际结算</th>
-                                            <th data-column-id="beizhu">备注</th>
+                                            <th data-column-id="beizhu" data-sortable="false">备注</th>
                                             <th data-column-id="commands" data-formatter="link" data-sortable="false">查看详情</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <foreach name="balance" item="vo" key="k">
-                                        <tr>
-                                            <td><{$vo['id']}></td>
-                                            <td><{$vo['account']}></td>
-                                            <td><{$vo['realname']}></td>
-                                            <td><{$vo['applytime']}></td>
-                                            <td><{$vo['totalamount']}></td>
-                                            <td><{$vo['actualamount']}></td>
-                                            <td><{$vo['balancestatus']}></td>
-                                            <td>
-                                                <if condition="$vo['accounttype'] eq '3' ">
-                                                    <{$vo['paidamount']|round=###*10}>游侠币
-                                                <else />
-                                                    <{$vo['paidamount']}>元
-                                                </if>
-                                            </td>
-                                            <td><{$vo['beizhu']}></td>
-                                        </tr>
-                                        </foreach>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -116,34 +147,31 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
     }
 
     $(document).ready(function(){
-        $("#data-table-basic").bootgrid({
-            css: {
-                icon: 'zmdi',
-                iconColumns: 'zmdi-menu',
-                iconDown: 'zmdi-caret-down-circle',
-                iconRefresh: 'zmdi-refresh',
-                iconUp: 'zmdi-caret-up-circle'
-            },
-            formatters: {
-                "link": function(column, row)
-                {
-                    return "<a href=\"/balancedetail/"+row.id+"/\">查看详情</a>";
-                },
-                "balancestatus": function(column, row){
-                    if(row.balancestatus=="账单有误"){
-                        return "<span style='color:red;'>账单有误</span>";
-                    }else{
-                        return row.balancestatus;
-                    }
-                }
-            },
-            templates: {
-                header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 actionBar\">"+
-                "<p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p>" +
-                "<div class=\"daterange form-group\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查看</a></div></div>" +
-                "<div class='form-group col-sm-3'><select class='selectpicker form-group' id='select-balancestatus'><option value='0'>结算单--全部</option><option value='1'>待审核</option><option value='4'>账单有误</option><option value='3'>结算单审核</option><option value='2'>已结算</option></select></div>"+
-                "</div></div></div>"
-            }
+        loadData();
+
+        $('#select-balancestatus').change(function(){
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+
+        $('#select-sourcetype').change(function(){
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+
+        $('#viewdaterange').click(function() {
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+
+        $('#searchRecharge').click(function(){
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+
+        $('#viewdaterange').click(function() {
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
         });
 
         $('#daterange').daterangepicker({
@@ -156,48 +184,79 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             locale: moment.locale('zh-cn')
         });
 
-        $('#viewdaterange').click(function() {
-            var date = $('#daterange').val();
-            if (date != "") {
-                var start = date.substr(0, 10);
-                var end = date.substr(-10, 10);
-                $.ajax({
-                    type : 'POST',
-                    url : "index.php?m=balance&a=viewDaterangeBalance",
-                    data : {startdate : start, enddate : end},
-                    cache : false,
-                    dataType : 'json',
-                    success : function (data) {
-                        if (data.status == "1") {
-                            $("#data-table-basic").bootgrid("clear");
-                            $("#data-table-basic").bootgrid("append", data.data);
-                            notify('数据获取成功', 'success');
-                        } else {
-                            $("#data-table-basic").bootgrid("clear");
-                            notify('数据获取失败，没有符合条件的数据', 'danger');
-                        }
-                        return false;
-                    },
-                    error : function (xhr) {
-                        notify('系统错误！', 'danger');
-                        return false;
-                    }
-                });
-            }
-        });
 
-        $('#select-balancestatus').change(function(){
-            search();
-        })
     });
 
-    function search() {
+    function loadData() {
+        var date = $('#daterange').val();
         var balancestatus = $('#select-balancestatus').val();
+        var sourcetype = $('#select-sourcetype').val();
+        var account = $('#account').val();
+        var startdate, enddate;
+        if (date) {
+            startdate = date.substr(0, 10);
+            enddate = date.substr(-10, 10);
+        }
 
+        $("#data-table-basic").bootgrid({
+            ajax: true,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    balancestatus: balancestatus,
+                    sourcetype: sourcetype,
+                    startdate: startdate,
+                    enddate: enddate,
+                    account: account
+                };
+            },
+            url: "<{:U('Balance/searchBalance')}>",
+            css: {
+                icon: 'zmdi',
+                iconColumns: 'zmdi-menu',
+                iconDown: 'zmdi-caret-down-circle',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-caret-up-circle'
+            },
+            formatters: {
+                "link": function (column, row) {
+                    return "<a href=\"/balancedetail/" + row.id + "/\">查看详情</a>";
+                },
+                "balancestatus": function (column, row) {
+                    if (row.balancestatus == "账单有误") {
+                        return "<span style='color:red;'>账单有误</span>";
+                    } else {
+                        return row.balancestatus;
+                    }
+                }
+            },
+            templates: {
+                header: ""
+            },
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true,
+            labels: {
+                loading: "Loading...", //加载时显示的内容
+                noResults: '没有符合条件的数据'//未查询到结果是显示内容
+            },
+        });
+    }
+
+
+    /*function search() {
+        var balancestatus = $('#select-balancestatus').val();
+        var sourcetype = $('#select-sourcetype').val();
+        var date = $('#daterange').val();
+        if (date) {
+            var start = date.substr(0, 10);
+            var end = date.substr(-10, 10);
+        }
         $.ajax({
             type: "POST",
             url: "/index.php?m=Balance&a=searchBalance",
-            data: {balancestatus:balancestatus},
+            data: {balancestatus:balancestatus,startdate : start, enddate : end,sourcetype:sourcetype},
             cache: false,
             dataType: 'json',
             beforeSend: function () {
@@ -224,7 +283,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 return false;
             }
         });
-    }
+    }*/
 </script>
 </body>
 </html>
