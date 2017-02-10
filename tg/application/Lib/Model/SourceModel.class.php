@@ -88,6 +88,7 @@ class SourceModel extends Model
                 $games = $gamemodel->alias("G")
                     ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
                     ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+                    ->field('G.*,C.categoryname,T.tagname')
                     ->where($map)
                     ->order($ordrestr)
                     ->select();
@@ -165,7 +166,13 @@ class SourceModel extends Model
 		$map['S.channelid'] = $channelid;
 		$map['S.activeflag'] = 1;
 		$map['G.activeflag'] = 1;
-        $games = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")->where($map)->order("G.gameauthority desc")->select();
+        $games = $sourcemodel->alias("S")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($map)
+            ->order("G.gameauthority desc")
+            ->select();
         $sourcestr = $this->createGameStr($games,"my");
         return $sourcestr;
     }
