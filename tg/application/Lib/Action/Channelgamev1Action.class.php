@@ -13,14 +13,16 @@ class Channelgamev1Action extends CommonAction
     {
         $userid = isset($_GET['user_id']) ? (int)$_GET['user_id'] : 0;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $pageNum = isset($_GET['pageNum']) ? (int)$_GET['pageNum'] : 100;
+        $pageNum = isset($_GET['pageNum']) ? (int)$_GET['pageNum'] : 0;
+        $size = isset($_GET['size']) ? (int)$_GET['size'] : 0;
+
         $sign = isset($_GET['sign']) ? $_GET['sign'] : '';
         $appKey = 'f4d0e057809264c01a6a279519b37df9';
         // $sign = $this->getSign(array('user_id' => $userid, 'page' => $page),$appKey);
         //if($this->getSign(array('user_id' => $userid, 'page' => $page), $appKey) <> $sign){
             //$this->error('签名失败');
         //}
-
+        $pageNum = $pageNum < 1 ? $size : $pageNum;
         $pageSize = $pageNum < 1 ? 100 : $pageNum;
         $offset = ($page -1)*$pageSize;
 
@@ -36,7 +38,7 @@ class Channelgamev1Action extends CommonAction
         $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}'";
         $count = M('')->query($sql);
 
-        $sql = "SELECT a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' LIMIT {$offset},{$pageSize}";
+        $sql = "SELECT a.id,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' ORDER  BY a.id DESC LIMIT {$offset},{$pageSize}";
         $rs = M('')->query($sql);
         $data = array();
 
@@ -48,8 +50,8 @@ class Channelgamev1Action extends CommonAction
                 'gameid' => $row['gameid'],
                 'gamename' => $row['gamename'],
                 'version' => $row['gameversion'],
-                'download_url' => $this->tgdomain.'/Source/apidownload/'.$row['sourcesn'],
-                'gamesize' => $row['gamesize'].'MB',
+                'download_url' => $this->tgdomain.'/Source/apidownload/source/'.$row['sourcesn'],
+                'gamesize' => $row['gamesize'],
                 'gameicon' => $this->iconurl.$row['gameicon'],
                 'texturename' => $this->texturedownloadurl.$row['texturename'],
                 'packageversion' => $row['packageversion'],
