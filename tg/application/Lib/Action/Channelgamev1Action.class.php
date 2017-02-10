@@ -38,7 +38,7 @@ class Channelgamev1Action extends CommonAction
         $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}'";
         $count = M('')->query($sql);
 
-        $sql = "SELECT a.id,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' ORDER  BY a.id DESC LIMIT {$offset},{$pageSize}";
+        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' ORDER  BY a.createtime DESC LIMIT {$offset},{$pageSize}";
         $rs = M('')->query($sql);
         $data = array();
 
