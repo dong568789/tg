@@ -37,7 +37,7 @@ class StatisticsAction extends CommonAction
         $startTime = I('request.startdate');
         $endTime = I('request.enddate');
         $channel = I('request.channel','','intval');
-        $realname = I('request.searchPhrase');
+        $realname = I('request.account','','trim');
 
 
         if(empty($startTime) || empty($endTime)){
@@ -53,7 +53,13 @@ class StatisticsAction extends CommonAction
 
         !empty($channel) && $where['a.channelid'] = $channel;
 
-        !empty($realname) && $where['b.realname'] = array('like', '%'.$realname.'%');
+        if(!empty($realname)){
+            $complex['b.channelbusiness'] = array(array('like', '%'.$realname.'%'));
+            $complex['b.realname'] = array(array('like', '%'.$realname.'%'));
+            $complex['_logic'] = 'OR';
+            $where['_complex'] = $complex;
+        }
+
         //每个渠道流水
         $dailyaccountModel = M('TgDailyaccount');
         $dailCount = $dailyaccountModel->alias('a')
@@ -118,6 +124,7 @@ class StatisticsAction extends CommonAction
         }
 
        // $balancemodel = D('Balance');
+        empty($dailCount) && $dailCount = array();
         foreach($dailCount as $key => &$value){
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
             $cpAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['cpamount'] : 0;
