@@ -85,7 +85,6 @@ class RegistrationAction extends CommonAction {
             $condition['_complex'] = $complex;
         }
         $condition['_logic'] = 'AND';
-       
         // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
         $count = $allusermodel->alias("AU")
             ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")

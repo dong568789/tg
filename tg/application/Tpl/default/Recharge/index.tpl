@@ -301,9 +301,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             multiSelect: true,
             rowSelect: true,
             keepSelection: true,
-            formatters: {
-
-            },
             labels: {
                 loading: "Loading...", //加载时显示的内容
                 noResults: '没有符合条件的数据'//未查询到结果是显示内容
