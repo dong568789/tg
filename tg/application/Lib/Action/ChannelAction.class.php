@@ -211,13 +211,38 @@ class ChannelAction extends CommonAction {
             $this->ajaxReturn("fail",'编辑子账号失败。',0);
         }
 
-        if($oldchannel['channelname'] == $data['channelname']){
+        if($oldchannel['channelname'] == $channelname){
+
             $this->insertLog($_SESSION['account'],'编辑渠道', 'ChannelAction.class.php', 'editchannel', $data['createtime'], $_SESSION['account']."编辑了“".$channelname."”渠道,更新子账号用户名为“".$sub_account."”");
         } else{
+            $this->updateAgentName($id, $channelname);
             $this->insertLog($_SESSION['account'],'编辑渠道', 'ChannelAction.class.php', 'editchannel', $data['createtime'], $_SESSION['account']."编辑了“".$oldchannel['channelname']."”渠道，渠道名更新为“".$channelname."”,更新子账号用户名为“".$sub_account."”");
         }
 
         $this->ajaxReturn('success','编辑成功',1);
+    }
+
+    /**
+     * 更新agentlist agentname
+     */
+    protected function updateAgentName($channelid,$channel_name)
+    {
+        $agentlistModel = M('sdk_agentlist');
+        $sourceModel = M('tg_source');
+        $tgUserModel = M('tg_user');
+
+        $account = $tgUserModel->where(array('userid' => $_SESSION['userid']))->getField('account');
+        $source = $sourceModel->where(array('channelid' => $channelid))->field('sourcesn')->select();
+        $sourcesn = getFieldArray($source, 'sourcesn');
+
+        $where = array(
+            'agent' => array('in', $sourcesn)
+        );
+        $res = $agentlistModel->where($where)->save(array(
+            'agentname' => $account.'_'.$channel_name
+        ));
+
+        return $res;
     }
 
     //删除渠道方法

@@ -335,6 +335,24 @@ function array2D_unique($array2D){
     return $temp;
 }
 
+/**
+ * 返回数组中某一个元素
+ * @param $data
+ * @param $field
+ * @return array
+ */
+function getFieldArray($data, $field)
+{
+	$item = array();
+	if(!is_array($data)) return $item;
+	foreach($data as $value){
+		if(isset($value[$field])){
+			$item[] = $value[$field];
+		}
+	}
+	return $item;
+}
+
 // 方便输出调试
 function vde($input){
     var_dump($input);
