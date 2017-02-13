@@ -54,10 +54,10 @@ class StatisticsAction extends CommonAction
         !empty($channel) && $where['a.channelid'] = $channel;
 
         if(!empty($realname)){
-            $complex['b.channelbusiness'] = array(array('like', '%'.$realname.'%'));
-            $complex['b.realname'] = array(array('like', '%'.$realname.'%'));
-            $complex['_logic'] = 'OR';
-            $where['_complex'] = $complex;
+            $where['b.channelbusiness'] = array(array('like', '%'.$realname.'%'));
+            //$complex['b.realname'] = array(array('like', '%'.$realname.'%'));
+            //$complex['_logic'] = 'OR';
+            //$where['_complex'] = $complex;
         }
 
         //每个渠道流水

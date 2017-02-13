@@ -240,7 +240,7 @@ class UserAction extends CommonAction {
 
             $source[$k]['gameiconstr'] = '<img width="50" height="50" src="'.$source[$k]["img"].'">';
             $source[$k]['userratestr'] = '<a href="/userrate/'.$v["sourceid"].'/">自定义资源费率</a>';
-            $source[$k]['downloadstr'] = '<a href="index.php?m=user&a=downloadapk&source='.$v["sourcesn"].'">立即下载游戏分包</a>';
+            $source[$k]['downloadstr'] = '<a href="javascript:void(0);" onclick=\'downloadUrl("'.$v["sourceid"].'");\'>立即下载游戏分包</a>';
             $source[$k]['developstr'] = '<a href="/material/'.$v["sourceid"].'/">查看推广</a>';
             
         }
@@ -1127,6 +1127,22 @@ class UserAction extends CommonAction {
         $this->assign("sourceid",$sourceid);
 
         $this->display();
+    }
+
+    /**
+     * 获取游戏推广链接
+     */
+    public function getGameDowUrl()
+    {
+        $this->logincheck();
+
+        $sourceid = isset($_POST['sourceid']) ? trim($_POST['sourceid']) : 0;
+        $Source = D('Source');
+        $data['long_url'] = $Source->getDownloadURL($sourceid);
+        $data['short_url'] = $Source->shortenSinaUrl($data['long_url']);
+        $data['status'] = 1;
+
+        $this->ajaxReturn($data, 'JSON');
     }
 
 

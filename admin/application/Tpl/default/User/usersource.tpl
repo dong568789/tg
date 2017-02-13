@@ -26,6 +26,45 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 <h2>所有用户</h2>
             </div>
 
+
+            <div class="clearfix modal-preview-demo">
+                <div class="modal" id="dowloadshow" style="display:none;"> <!-- Inline style just for preview -->
+                    <div class="modal-dialog modal-sm" style="width: 610px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title f-700 p-b-5 text-center" style="border-bottom:2px solid #ddd;">APK下载链接</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" role="form" >
+                                    <div class="card-body card-padding">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" style="width: auto;">长链接</label>
+                                            <div class="col-sm-7"  style="width: auto;">
+                                                <div class="fg-line">
+                                                    <a href='#' id="long_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
+                                                    <!--<span class="btn" onclick="copyUrl2('long_url')">复制</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label" style="width: auto;">短链接</label>
+                                            <div class="col-sm-7">
+                                                <div class="fg-line">
+                                                    <a href='#' id="short_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
+                                                    <!--<span class="btn" onclick="copyUrl2('short_url')">复制</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" data-dismiss="modal" >关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -248,6 +287,33 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             }
         });
     }
+
+    function downloadUrl(sourcesn)
+    {
+        $.ajax({
+            type: "POST",
+            url: "index.php?m=user&a=getGameDowUrl",
+            data: {sourceid : sourcesn},
+            cache: false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == "1") {
+                    $('#dowloadshow').show();
+                    $('#long_url').html(data.long_url).attr('href',data.long_url);
+                    $('#short_url').html(data.short_url).attr('href',data.short_url);
+                } else {
+                    notify('获取下载地址失败', 'danger');
+                    isdownloading = 0;
+                }
+                return false;
+            },
+            error : function (xhr, status) {
+                alert("系统错误");
+                isdownloading = 0;
+                return false;
+            }
+        });
+    }
 	
     $(document).ready(function() {
 		//Basic Example
@@ -284,6 +350,13 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 			templates: {
 				header: ""
 			}
+        });
+
+        var h = $(window).height();
+        $('.modal-dialog').css("margin-top",(h-235)/2 + 'px');
+
+        $('[data-dismiss=modal]').click(function(){
+            $(this).parents('.modal').hide();
         });
 
         search_page();

@@ -171,6 +171,7 @@ class SourceModel extends Model
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
             ->where($map)
+            ->field('*,S.id as sourceid')
             ->order("G.gameauthority desc")
             ->select();
         $sourcestr = $this->createGameStr($games,"my");
@@ -190,7 +191,14 @@ class SourceModel extends Model
         $where.= "OR G.gamesize like '%".$content."%'";
         $where.= "OR G.sharetype like '%".$content."%')";
 
-        $games = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")->where($where)->order("G.gameauthority desc")->select();
+        $games = $sourcemodel->alias("S")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($where)
+            ->field('*,S.id as sourceid')
+            ->order("G.gameauthority desc")
+            ->select();
         $sourcestr = $this->createGameStr($games,"my");
 
 
@@ -273,7 +281,7 @@ class SourceModel extends Model
 					/* 下载时分包
 					$gamestr .= "<td><a class='btn btn-default btn-icon-text' href='".$this->apkdownloadurl.$v["apkurl"]."'><i class='zmdi zmdi-android'></i> 下载APK包</a>";
 					*/
-					$gamestr .= "<td><a href='javascript:void(0);' onclick='downloadApk(\"".$v["sourcesn"]."\");'>下载APK包</a>&nbsp;&nbsp;";
+					$gamestr .= "<td><a href='javascript:void(0);' onclick='downloadUrl(\"".$v["sourceid"]."\");'>下载APK包</a>&nbsp;&nbsp;";
 					$gamestr .= "<a style='margin-top:3px;' href='javascript:void(0);' onclick='downloadTextture(\"".$v["sourcesn"]."\");'>下载素材包</a>&nbsp;&nbsp;";
                     $currentSource=$sourcemodel->field('id')->where('sourcesn="'.$v['sourcesn'].'"')->find();
 
