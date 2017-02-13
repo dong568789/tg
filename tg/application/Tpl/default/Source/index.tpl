@@ -119,20 +119,20 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                             <div class="tab-content p-20">
                                 <div role="tabpanel" class="tab-pane animated fadeIn in active" id="tab-1">
                                     <div class="btn-demo source m-l-25">
-                                        <p>
+                                        <p class="gametype">
                                             <span>游戏类型</span>
                                             <span><a class="type classify" data-state="全部">全部</a></span>
                                             <span><a class="type" data-state="单机">单机</a></span>
                                             <span><a class="type" data-state="网游">网游</a></span>
                                         </p>
-                                        <p>
+                                        <p class="gamecategory">
                                             <span>游戏分类</span>
                                             <span><a class="category classify" data-state="0">全部</a></span>
                                             <foreach name="category" item="vo" key="k">
                                                 <span><a href="javascript:" class="category" data-id="<{$vo['id']}>" data-type='category' data-state=<{$vo['id']}> ><{$vo['categoryname']}></a></span>
                                             </foreach>
                                         </p>
-                                        <p>
+                                        <p class="gamesize">
                                             <span>游戏大小</span>
                                             <span><a class="size classify" data-state="全部">全部</a></span>
                                             <span><a class="size" data-state="0-10M">0-10M</a></span>
@@ -141,7 +141,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                             <span><a class="size" data-state="50-100M">50-100M</a></span>
                                             <span><a class="size" data-state="大于100M">大于100M</a></span>
                                         </p>
-                                        <p>
+                                        <p class="gamelable">
                                             <span>游戏标签</span>
                                             <span><a class="tag classify" data-state="0">全部</a></span>
                                             <foreach name="tag" item="vo" key="k">
@@ -192,22 +192,26 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div id="loading" class="col-sm-12 text-center" style="display: none;">
+                                        <img src="__ROOT__/plus/public/img/progress.gif" alt=""/>
+                                        <p class="m-t-10">正在加载数据，请稍后</p>
+                                    </div>
                                     <div class="table-responsive">
                                         <table id="data-table-command-all" class="table table-hover table-bordered table-vmiddle">
                                             <thead>
                                             <tr>
-                                                <th width="25%">游戏名称</th>
-                                                <th width="11%">游戏分类</th>
-												<th width="11%">游戏标签</th>
-												<th width="11%">热度</th>
-                                                <th width="11%">游戏包大小</th>
-                                                <th width="11%">分成比例</th>
+                                                <th width="20%">游戏名称</th>
+                                                <th width="10%">游戏分类</th>
+												<th width="10%">游戏标签</th>
+                                                <th width="10%">创建时间</th>
+                                                <th width="10%" id="order-apply-hot">热度</th>
+                                                <th width="10%">游戏包大小</th>
+                                                <th width="10%">分成比例</th>
                                                 <th width="15%" id="order-apply-status" data-order="asc">申请状态</th>
                                             </tr>
                                             </thead>
                                             <tbody id="gamecontainer">
-												<{$gamestr}>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -335,20 +339,29 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 	
     //通过游戏类型筛选游戏
     function selectGame () {
-        var type = $(".type").attr('data-state');
+        var type = $('.gametype').find('.classify').attr('data-state');
         var category = $(".category.classify").attr('data-state');
         var size = $(".size.classify").attr('data-state');
         var tag = $(".tag.classify").attr('data-state');
         var channelid = $("#sourcechannel").val();
         var order = $("#order-apply-status").attr('data-order');
+        var orderHot = $("#order-apply-hot").attr('data-order');
 
         $.ajax({
             type: "POST",
             url: "/index.php?m=source&a=selectGame",
-            data: {gametype:type, gamecategory:category, gamesize:size, gametag:tag, gamechannel:channelid,order:order},
+            data: {gametype:type, gamecategory:category, gamesize:size, gametag:tag, gamechannel:channelid,order:order,order_hot:orderHot},
             cache: false,
             dataType: 'json',
+            beforeSend: function () {
+                $(".table-responsive").hide();
+                $("#data-table-basic-footer").hide();
+                $("#loading").show();
+            },
             success: function (data) {
+                $("#loading").hide();
+                $(".table-responsive").show();
+                $("#data-table-basic-footer").show();
                 if(data.data == "success") {
                     $("#gamecontainer").empty();
 					$("#gamecontainer").append(data.info);
@@ -358,6 +371,11 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                         perPage: 20
                     });
                 } else{
+                    $("#sourceholder").jPages({
+                        containerID    : "gamecontainer",
+                        scrollBrowse   : false,
+                        perPage: 20
+                    });
 					notify(data.info, 'danger');
                     $("#gamecontainer").empty();
                 }
@@ -441,6 +459,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 
     //筛选游戏
     $(document).ready(function() {
+        selectGame ();
 		$("#modalclose").click(function() {
 			$("#force").hide();
 		});
@@ -450,9 +469,9 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 		});
 
         // 全部推广，筛选点击时候的效果
-        $("span").click(function(){
-            $(this).parent().children().children().removeClass("classify");
-            $(this).children().addClass("classify");
+        $("span a").click(function(){
+            $(this).parents('p').children().children().removeClass("classify");
+            $(this).addClass("classify");
         });
         // 点击游戏类型
         $(".type").click(function() {
@@ -480,6 +499,22 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
             }else{
                 _this.attr('data-order','asc');
                 _this.html('申请状态 <span class="zmdi zmdi-caret-down-circle"></span>');
+            }
+            $("#order-apply-hot").attr('data-order', '');
+            $("#order-apply-hot").html('热度');
+            selectGame ();
+        });
+
+        // 点击排序
+        $("#order-apply-hot").click(function() {
+            var _this = $(this);
+            var order = _this.attr('data-order');
+            if(order=='asc'){
+                _this.attr('data-order','desc');
+                _this.html('热度 <span class="zmdi zmdi-caret-up-circle"></span>');
+            }else{
+                _this.attr('data-order','asc');
+                _this.html('热度 <span class="zmdi zmdi-caret-down-circle"></span>');
             }
             // alert($(this).attr('data-order'));
             selectGame ();

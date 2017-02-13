@@ -8,6 +8,7 @@
  */
 class StatisticsAction extends CommonAction
 {
+    const HIDE_DEP = 31;
 
     public function __construct()
     {
@@ -17,6 +18,8 @@ class StatisticsAction extends CommonAction
     public function index()
     {
         $this->menucheck();
+
+        $this->assign('hideDep', $this->checkUserDep());
         $this->display('index');
     }
 
@@ -29,13 +32,12 @@ class StatisticsAction extends CommonAction
         exit;
     }
 
-
     public function getData()
     {
         $startTime = I('request.startdate');
         $endTime = I('request.enddate');
         $channel = I('request.channel','','intval');
-        $realname = I('request.searchPhrase');
+        $realname = I('request.account','','trim');
 
 
         if(empty($startTime) || empty($endTime)){
@@ -51,7 +53,13 @@ class StatisticsAction extends CommonAction
 
         !empty($channel) && $where['a.channelid'] = $channel;
 
-        !empty($realname) && $where['b.realname'] = array('like', '%'.$realname.'%');
+        if(!empty($realname)){
+            $complex['b.channelbusiness'] = array(array('like', '%'.$realname.'%'));
+            $complex['b.realname'] = array(array('like', '%'.$realname.'%'));
+            $complex['_logic'] = 'OR';
+            $where['_complex'] = $complex;
+        }
+
         //每个渠道流水
         $dailyaccountModel = M('TgDailyaccount');
         $dailCount = $dailyaccountModel->alias('a')
@@ -116,6 +124,7 @@ class StatisticsAction extends CommonAction
         }
 
        // $balancemodel = D('Balance');
+        empty($dailCount) && $dailCount = array();
         foreach($dailCount as $key => &$value){
             $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
             $cpAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['cpamount'] : 0;
@@ -136,6 +145,9 @@ class StatisticsAction extends CommonAction
             $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje'] + $itemVoucher[$value['userid']]['sum_amount']);
             $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]['sum_amount']) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
 
+            if($value['sum_amount'] <= 0){
+                unset($dailCount[$key]);
+            }
             //$value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
             //sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
             /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
@@ -176,9 +188,23 @@ class StatisticsAction extends CommonAction
             'sum_amount' => $sum_amount,
             'yx_earnings' => $yx_earnings,
             'buyer_voucher' => $buyer_voucher
-
         );
-        $title = array('timeZone' => '日期','channelbusiness' => '部门' ,'realname' => '客户名称', 'sum_newpeople' => '注册数', 'sum_cpamount' => 'CP结算', 'sum_voucherje' => '优惠券', 'sum_dailyincome' => '渠道收益','buyer_voucher' => '购买代金券', 'yx_amount' => '官方流水', 'sum_amount' => '总充值', 'yx_earnings' => '收益');
+
+        $check = false;
+        if($this->checkUserDep()){
+            $check = true;
+        }
+        $title['timeZone'] = '日期';
+        $title['channelbusiness'] = '部门';
+        $title['realname'] = '客户名称';
+        $title['sum_newpeople'] = '注册数';
+        $check && $title['sum_cpamount'] = 'CP结算';
+        $title['sum_voucherje'] = '优惠券';
+        $title['sum_dailyincome'] = '渠道收益';
+        $title['buyer_voucher'] = '购买代金券';
+        $check && $title['yx_amount'] = '官方流水';
+        $title['sum_amount'] = '总充值';
+        $check && $title['yx_earnings'] = '收益';
         $this->exportFile($title, $dailCount);
     }
 
@@ -247,6 +273,19 @@ class StatisticsAction extends CommonAction
         echo json_encode($return, true);
     }
 
+    /**
+     * is hide dep
+     * @return bool
+     */
+    protected function checkUserDep()
+    {
+        $usermodel = M('sys_admin');
+        $user = $usermodel->where("id = '{$_SESSION['adminid']}'")->find();   //用户
+        if($user['department_id'] == self::HIDE_DEP){
+            return false;
+        }
+        return true;
+    }
 
 }
 

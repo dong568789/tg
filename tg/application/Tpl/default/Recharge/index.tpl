@@ -13,6 +13,14 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 
 <include file="Inc:head" />
 <body>
+<style>
+    .table > thead > tr > td.info, .table > tbody > tr > td.info, .table > tfoot > tr > td.info, .table > thead > tr > th.info, .table > tbody > tr > th.info, .table > tfoot > tr > th.info, .table > thead > tr.info > td, .table > tbody > tr.info > td, .table > tfoot > tr.info > td, .table > thead > tr.info > th, .table > tbody > tr.info > th, .table > tfoot > tr.info > th {
+        background-color: #fff;
+    }
+    .clear{
+        clear: both;
+    }
+</style>
 <include file="Inc:logged-header" />
 
 <section id="main" data-layout="layout-1">
@@ -63,20 +71,16 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                                     <option value="<{$vo['channelid']}>"><{$vo['channelname']}></option>
                                                 </foreach>
                                             </select>
-                               
+
                                             <select class="btn btn-default dropdown-menu f-14 m-l-20" id="gameselect">
                                                 <option value="0">选择游戏</option>
                                             </select>
 
                                             <div class="clear"></div>
-                                        <else />
-                                            <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>"> 
-
+                                            <else />
+                                            <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>">
                                             <select class="btn btn-default dropdown-menu f-14" id="gameselect">
                                                 <option value="0">选择游戏</option>
-                                                <foreach name="channelgame" item="vo" key="k">
-                                                    <option value="<{$vo['gameid']}>"><{$vo['gamename']}></option>
-                                                </foreach>
                                             </select>
                                             <div class="clear"></div>
                                         </if>
@@ -91,15 +95,10 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                     <div class="clear"></div>
                                 </div>
                             </div>
-
                             <div class="p-20" style="min-height: 100px;">
-                                <div id="loading" class="col-sm-12 text-center" style="display: none;">
-                                    <img src="__ROOT__/plus/public/img/progress.gif" alt=""/>
-                                    <p class="m-t-10">正在加载数据，请稍后</p>
-                                </div>
 
                                 <div class="table-responsive">
-                                    <table id="data-table-basic" class="table table-hover table-vmiddle">
+                                    <table id="grid-keep-selection" class="table table-hover table-vmiddle" aria-busy="false">
                                         <thead>
                                         <tr>
                                             <th data-column-id="orderid" data-type="numeric" data-order="desc" data-visible="false">订单号</th>
@@ -110,19 +109,11 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             <th data-column-id="status">状态</th>
                                             <th data-column-id="serverid">游戏区服</th>
                                             <th data-column-id="create_time" data-formatter="create_time">时间</th>
-                                            <th data-column-id="payname">充值方式</th>
+                                            <th data-column-id="payname" data-sortable="false">充值方式</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="rechargecontainer">
-                                        <foreach name="recharge" item="vo" key="k">
-                                            <tr>
-
-                                            </tr>
-                                        </foreach>
-                                        </tbody>
                                     </table>
                                 </div>
-                                <div class="row m-l-25 m-t-20"><h3 id="totalmoney">金额汇总：<span id="allmoney"></span>元</h3></div>
                             </div>
                         </div>
                     </div>
@@ -138,21 +129,12 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 
 <script src="__ROOT__/plus/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
 <script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+
 <script src="__ROOT__/plus/vendors/bower_components/jpages/js/jPages.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
 
-<style>
-    .table > thead > tr > td.info, .table > tbody > tr > td.info, .table > tfoot > tr > td.info, .table > thead > tr > th.info, .table > tbody > tr > th.info, .table > tfoot > tr > th.info, .table > thead > tr.info > td, .table > tbody > tr.info > td, .table > tfoot > tr.info > td, .table > thead > tr.info > th, .table > tbody > tr.info > th, .table > tfoot > tr.info > th {
-        background-color: #fff;
-    }
-    .clear{
-        clear: both;
-    }
-</style>
 <script type="text/javascript">
-    var search_data=''; //搜索之后的数据，方便导出使用excel
-
     //回车绑定事件
     document.onkeydown=function(event){
         var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -161,6 +143,95 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             document.getElementById("searchRecharge").click();
         }
     };
+    $(function(){
+        loadData();
+
+        $('#viewdaterange').click(function() {
+            $("#grid-keep-selection").bootgrid('destroy');
+            loadData();
+        });
+        $('#searchRecharge').click(function() {
+            $("#grid-keep-selection").bootgrid('destroy');
+            loadData();
+        });
+        $('#channelselect').change(function(){
+
+            var channelid = $(this).val();
+            getGame(channelid);
+
+            $("#grid-keep-selection").bootgrid('destroy');
+            loadData();
+        });
+        $('#gameselect').change(function(){
+            $("#grid-keep-selection").bootgrid('destroy');
+            loadData();
+        });
+
+
+        <if condition="$userpid GT 0">
+            getGame(<{$userchannelid}>);
+        </if>
+
+        //下拉框区分大小写
+        $(".btn").css("text-transform","none");
+
+        //综合筛选
+        $('#daterange').daterangepicker({
+            format: 'YYYY-MM-DD',
+            minDate: '2016-01-01',
+            drops: 'down',
+            opens: 'left',
+            buttonClasses: ['btn', 'btn-default'],
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-default',
+            locale: moment.locale('zh-cn')
+        });
+
+        // 导出excel表
+        $('#export').click(function() {
+            swal({
+                title: "确认导出excel？",
+                // text: "确认导出excel。",
+                showCancelButton: true,
+                confirmButtonColor: "#00ccff",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            }, function(){
+
+                var date = $('#daterange').val();
+                var startdate = "";
+                var enddate = "";
+                if (date != "") {
+                    startdate = date.substr(0, 10);
+                    enddate = date.substr(-10, 10);
+                }
+                var channelid = $('#channelselect').val();
+                var username = $('#account').val().trim();
+                var gameid = $('#gameselect').val();
+                $.ajax({
+                    type : 'POST',
+                    url : "index.php?m=recharge&a=export",
+                    data : {username:username,gameid:gameid,channelid:channelid,startdate:startdate,enddate:enddate},
+                    cache : false,
+                    dataType : 'json',
+                    success : function (data) {
+                        if (data.info == "success") {
+                            notify('导出结算单成功', 'success');
+                            location.href = '__ROOT__/'+data.url;
+                        } else {
+                            notify('记录为空，不能导出', 'danger');
+                        }
+                        return false;
+                    },
+                    error : function (xhr) {
+                        notify('系统错误！', 'danger');
+                        return false;
+                    }
+                });
+            })
+        });
+        });
 
     function notify(message, type){
         $.growl({
@@ -186,64 +257,20 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         });
     }
 
-    // 搜索
-    function search_page () {
+    function loadData(){
         var date = $('#daterange').val();
+        var startdate = "";
+        var enddate = "";
         if (date != "") {
-            var start = date.substr(0, 10);
-            var end = date.substr(-10, 10);
-        } else {
-            var startdate = "";
-            var enddate = "";
+            startdate = date.substr(0, 10);
+            enddate = date.substr(-10, 10);
         }
         var channelid = $('#channelselect').val();
         var username = $('#account').val().trim();
         var gameid = $('#gameselect').val();
 
-        $.ajax({
-            type: "POST",
-            url: "/index.php?m=recharge&a=search",
-            data: {username:username, gameid:gameid,channelid:channelid, startdate:start, enddate:end},
-            cache: false,
-            dataType: 'json',
-            beforeSend: function () {
-                $(".table-responsive").hide();
-                $("#data-table-basic-footer").hide();
-                $("#loading").show();
-            },
-            success: function (data) {
-                // console.log(data);
-                $("#loading").hide();
-                $(".table-responsive").show();
-                $("#data-table-basic-footer").show();
-                $("#data-table-basic").bootgrid("clear");
-                if (data.info == "success") {
-                    $("#data-table-basic").bootgrid("append", data.data.getmoney);
-                    $('#gameselect').html("");
-                    $('#gameselect').html(data.data.game);
-                    $('th[data-column-id=amount] .text').html('金额（汇总：'+data.data.allmoney+'）');
-                    search_data=data.data;
-                } else {
-                    $('#rechargecontainer').html("");
-                    $('#gameselect').html("");
-                    $('#gameselect').html(data.data.game);
-                    $('th[data-column-id=amount] .text').html('金额（汇总：0）');
-                    search_data=data.data;
-                    notify('没有符合条件的数据', 'danger');
-                }
-                return false;
-            },
-            error : function (xhr) {
-                notify('系统错误！', 'danger');
-                return false;
-            }
-        });
-    }
 
-    $(document).ready(function(){
-        $("#person").hide();
-        $("#totalmoney").hide();
-        $("#data-table-basic").bootgrid({
+        $("#grid-keep-selection").bootgrid({
             css: {
                 icon: 'zmdi',
                 iconColumns: 'zmdi-menu',
@@ -255,87 +282,64 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             },
             templates: {
                 header: ""
+            },
+            ajax: true,
+            post: function ()
+            {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    username:username,
+                    gameid:gameid,
+                    channelid:channelid,
+                    startdate:startdate,
+                    enddate:enddate
+
+                };
+            },
+            url: "<{:U('recharge/search')}>",
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true,
+            labels: {
+                loading: "Loading...", //加载时显示的内容
+                noResults: '没有符合条件的数据'//未查询到结果是显示内容
+            },
+            responseHandler:function(response){
+                $('th[data-column-id=amount] .text').html('金额（汇总：'+response.allmoney+'）');
+                return   response;
             }
         });
+    }
 
-        //综合筛选
-        $('#daterange').daterangepicker({
-            format: 'YYYY-MM-DD',
-            minDate: '2016-01-01',
-            drops: 'down',
-            opens: 'left',
-            buttonClasses: ['btn', 'btn-default'],
-            applyClass: 'btn-primary',
-            cancelClass: 'btn-default',
-            locale: moment.locale('zh-cn')
-        });
-
-        window.onload=function() {
-            search_page();
+    function getGame(channelid)
+    {
+        var html = '<option value="0">所有游戏</option>';
+        if(channelid <= 0){
+            $('#gameselect').html(html);
+            return false;
         };
 
-        $('#viewdaterange').click(function() {
-            search_page();
-        });
-        $('#searchRecharge').click(function() {
-            search_page();
-        });
-        $('#channelselect').change(function(){
-            search_page();
-        });
-        $('#gameselect').change(function(){
-            search_page();
-        });
+        $.ajax({
+            type:'post',
+            url:"<{:U('recharge/ajaxGame')}>",
+            data:{channelid:channelid},
+            dataType:'json',
+            success:function(response){
 
-        //下拉框区分大小写
-        $(".btn").css("text-transform","none");
-
-        // 导出excel表
-        $('#export').click(function() {
-            // alert(search_data.allmoney);
-            if(search_data.allmoney==''){
-                swal({
-                    title: "记录为空，不能导出",
-                    // text: "确认导出excel。",
-                    // showCancelButton: true,
-                    confirmButtonColor: "#00ccff",
-                    confirmButtonText: "确认",
-                });
-            }else{
-                swal({
-                    title: "确认导出excel？",
-                    // text: "确认导出excel。",
-                    showCancelButton: true,
-                    confirmButtonColor: "#00ccff",
-                    confirmButtonText: "确认",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: true
-                }, function(){
-                    $.ajax({
-                        type : 'POST',
-                        url : "index.php?m=recharge&a=export",
-                        data : {search_data : search_data},
-                        cache : false,
-                        dataType : 'json',
-                        success : function (data) {
-                            console.log(data);
-                            if (data.info == "success") {
-                                notify('导出结算单成功', 'success');
-                                location.href = '__ROOT__/'+data.url;
-                            } else {
-                                notify(data.data, 'danger');
-                            }
-                            return false;
-                        },
-                        error : function (xhr) {
-                            notify('系统错误！', 'danger');
-                            return false;
-                        }
-                    });
-                })
+                if(response.status == 1){
+                    for(j in response.data){
+                        var d = response.data[j];
+                        if(!d.gameid) continue;
+                        html += '<option value="' + d.gameid + '">' + d.gamename + '</option>';
+                    }
+                    $('#gameselect').html(html);
+                }
             }
         });
-    });
+
+    }
+
 </script>
 </body>
 </html>

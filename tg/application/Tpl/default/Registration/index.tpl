@@ -91,10 +91,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                             </div>
                            
                             <div class="p-20" style="min-height: 100px;">
-                                <div id="loading" class="col-sm-12 text-center" style="display: none;">
-                                    <img src="__ROOT__/plus/public/img/progress.gif" alt=""/>
-                                    <p class="m-t-10">正在加载数据，请稍后</p>
-                                </div>
                                 <div class="table-responsive">
                                     <table id="data-table-basic" class="table table-hover table-vmiddle">
                                         <thead>
@@ -153,6 +149,50 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         }
     };
 
+
+    $(document).ready(function(){
+        loadData();
+
+        $('#viewdaterange').click(function() {
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+        $('#channelselect').change(function(){
+            var channelid = $(this).val();
+            getGame(channelid);
+
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+        $('#gameselect').change(function(){
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+        $('#searchRecharge').click(function() {
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+
+        <if condition="$userpid GT 0">
+            getGame(<{$userchannelid}>);
+        </if>
+
+        //下拉框区分大小写
+        $(".btn").css("text-transform","none");
+
+        //综合筛选
+        $('#daterange').daterangepicker({
+            format: 'YYYY-MM-DD',
+            minDate: '2016-01-01',
+            drops: 'down',
+            opens: 'left',
+            buttonClasses: ['btn', 'btn-default'],
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-default',
+            locale: moment.locale('zh-cn')
+        });
+    });
+
     function notify(message, type){
         $.growl({
             message: message
@@ -177,57 +217,19 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         });
     }
 
-    // 搜索
-    function search_page (ischannelselect) {
-        var username = $('#account').val();
-        var channelid = $('#channelselect').val();
-        var gameid = $('#gameselect').val();
+    function loadData(){
         var date = $('#daterange').val();
+        var startdate = "";
+        var enddate = "";
         if (date != "") {
-            var startdate = date.substr(0, 10);
-            var enddate = date.substr(-10, 10);
-        } else {
-            var startdate = "";
-            var enddate = "";
+            startdate = date.substr(0, 10);
+            enddate = date.substr(-10, 10);
         }
+        var channelid = $('#channelselect').val();
+        var username = $('#account').val().trim();
+        var gameid = $('#gameselect').val();
 
-        $.ajax({
-            type: "POST",
-            url: "/index.php?m=registration&a=search",
-            data: {username:username, gameid:gameid,channelid:channelid, startdate:startdate, enddate:enddate, ischannel:ischannelselect},
-            cache: false,
-            dataType: 'json',
-            beforeSend: function () {
-                $(".table-responsive").hide();
-                $("#data-table-basic-footer").hide();
-                $("#loading").show();
-            },
-            success: function (data) {
-                // console.log(data);
-                $("#loading").hide();
-                $(".table-responsive").show();
-                $("#data-table-basic-footer").show();
-                $("#data-table-basic").bootgrid("clear");
-                if (data.info == "success") {
-                    $("#data-table-basic").bootgrid("append", data.data.userall);
-                    $('#gameselect').html("");
-                    $('#gameselect').html(data.data.game);
-                } else {
-                    $('#statisticcontainer').html("");
-                    $('#gameselect').html("");
-                    $('#gameselect').html(data.data.game);
-                    notify('没有符合条件的数据', 'danger');
-                }
-                return false;
-            },
-            error : function (xhr) {
-                notify('系统错误！', 'danger');
-                return false;
-            }
-        });
-    }
 
-    $(document).ready(function(){
         $("#data-table-basic").bootgrid({
             css: {
                 icon: 'zmdi',
@@ -237,52 +239,69 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                 iconUp: 'zmdi-caret-up-circle'
             },
             formatters: {
-                "payrateformat": function(column, row)
-                {
-                    if (parseInt(row.payrate) > 0) {
-                        return row.payrate+" %";
-                    } else {
-                        return "未统计";
-                    }
-                }
             },
             templates: {
                 header: ""
+            },
+            ajax: true,
+            post: function ()
+            {
+                /* To accumulate custom parameter with the request object */
+                return {
+                    username:username,
+                    gameid:gameid,
+                    channelid:channelid,
+                    startdate:startdate,
+                    enddate:enddate
+
+                };
+            },
+            url: "<{:U('registration/search')}>",
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true,
+            formatters: {
+
+            },
+            labels: {
+                loading: "Loading...", //加载时显示的内容
+                noResults: '没有符合条件的数据'//未查询到结果是显示内容
+            },
+            responseHandler:function(response){
+                $('th[data-column-id=amount] .text').html('金额（汇总：'+response.allmoney+'）');
+                return   response;
+            }
+        });
+    }
+
+    function getGame(channelid)
+    {
+        var html = '<option value="0">所有游戏</option>';
+        if(channelid <= 0){
+            $('#gameselect').html(html);
+            return false;
+        };
+
+        $.ajax({
+            type:'post',
+            url:"<{:U('recharge/ajaxGame')}>",
+            data:{channelid:channelid},
+            dataType:'json',
+            success:function(response){
+
+                if(response.status == 1){
+                    for(j in response.data){
+                        var d = response.data[j];
+                        if(!d.gameid) continue;
+                        html += '<option value="' + d.gameid + '">' + d.gamename + '</option>';
+                    }
+                    $('#gameselect').html(html);
+                }
             }
         });
 
-        //综合筛选
-        $('#daterange').daterangepicker({
-            format: 'YYYY-MM-DD',
-            minDate: '2016-01-01',
-            drops: 'down',
-            opens: 'left',
-            buttonClasses: ['btn', 'btn-default'],
-            applyClass: 'btn-primary',
-            cancelClass: 'btn-default',
-            locale: moment.locale('zh-cn')
-        });
-
-        window.onload=function() {
-            search_page();
-        };
-
-        $('#viewdaterange').click(function() {
-            search_page();
-        });
-        $('#channelselect').change(function(){
-            search_page();
-        });
-        $('#gameselect').change(function(){
-            search_page();
-        });
-        $('#searchRecharge').click(function() {
-            search_page();
-        });
-
-        //下拉框区分大小写
-        $(".btn").css("text-transform","none");
-    })
+    }
 </script>
 </body>
 </html>

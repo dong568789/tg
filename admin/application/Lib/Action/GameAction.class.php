@@ -888,7 +888,7 @@ class GameAction extends CommonAction {
 				// 游戏版本比较，1.9.0 应该 > 1.10.0
 				if (strnatcmp($data['gameversion'],$exsitpackage["gameversion"])>0) {
 					if ($_POST["isforcepackage"] == 1) {
-						if ($exsitpackage["packageversion"] != $data['packageversion']) {
+						if (!empty($exsitpackage["gameversion"]) && $exsitpackage["packageversion"] != $data['packageversion']) {
 							$this->ajaxReturn('fail',"游戏包名不相同.",0);
 							exit();
 						}
@@ -978,7 +978,7 @@ class GameAction extends CommonAction {
 						}
 					} else { 
 						// 上传普通包
-						if ($exsitpackage["packageversion"] != $data['packageversion']) {
+						if (!empty($exsitpackage["gameversion"]) && $exsitpackage["packageversion"] != $data['packageversion']) {
 							$this->ajaxReturn('fail',"游戏包名不相同.",0);
 							exit();
 						}

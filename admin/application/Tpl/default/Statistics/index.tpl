@@ -34,6 +34,31 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                         </div>
                         <div class="card-body ">
                             <div  class="p-20">
+                                <div id="data-table-basic-header" class="bootgrid-header container-fluid">
+                                    <div class="search form-group col-sm-9 m-0 p-l-0">
+                                        <div class="input-group">
+                                            <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                            <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
+                                        </div>
+                                    </div>
+                                    <div class="actions btn-group">
+                                        <div class="dropdown btn-group">
+                                            <a class="btn btn-default" href="javascript:void(0);" id="viewaccount">搜索</a>
+                                        </div>
+                                    </div>
+                                    <div class="daterange form-group">
+                                        <div class="input-group">
+                                            <span class="zmdi input-group-addon zmdi-calendar"></span>
+                                            <input type="text" class="search-field form-control" placeholder="请选择日期" name="daterange" id="daterange" readonly="true">
+                                            <a id="viewdaterange" class="input-group-addon btn-info">查看</a>
+                                        </div>
+                                    </div>
+                                    <div class="daterange form-group" style="width:150px;margin-left:210px;">
+                                        <div class="input-group">
+                                            <a href="javascript:void(0);" id="export" class="input-group-addon btn-info" style="display: inline-block:width: 150px;padding: 10px;">导出报表</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="table-responsive">
                                     <table id="data-table-basic" class="table table-hover table-bordered table-vmiddle">
                                         <thead>
@@ -42,13 +67,19 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th data-column-id="channelbusiness">部门</th>
                                             <th data-column-id="realname">客户名称</th>
                                             <th data-column-id="sum_newpeople" ddata-type="numeric">注册数</th>
-                                            <th data-column-id="sum_cpamount" data-type="numeric">CP结算</th>
+                                            <if condition="$hideDep">
+                                                <th data-column-id="sum_cpamount" data-type="numeric">CP结算</th>
+                                            </if>
                                             <th data-column-id="sum_voucherje" data-type="numeric">优惠券</th>
                                             <th data-column-id="sum_dailyincome" data-type="numeric">渠道收益</th>
                                             <th data-column-id="buyer_voucher" data-type="numeric">购买代金券</th>
-                                            <th data-column-id="yx_amount" data-type="numeric">官方流水</th>
+                                            <if condition="$hideDep">
+                                                <th data-column-id="yx_amount" data-type="numeric">官方流水</th>
+                                            </if>
                                             <th data-column-id="sum_amount" data-type="numeric">总充值</th>
-                                            <th data-column-id="yx_earnings" data-type="numeric">收益</th>
+                                            <if condition="$hideDep">
+                                                <th data-column-id="yx_earnings" data-type="numeric">收益</th>
+                                            </if>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -109,21 +140,19 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 iconUp: 'zmdi-caret-up-circle'
             },
             formatters: {
-                "balancestatus": function(column, row){
-                    if(row.balancestatus=="账单有误"){
-                        return "<span style='color:red;'>账单有误</span>";
-                    }else{
-                        return row.balancestatus;
-                    }
-                }
+
             },
             templates: {
-                header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 actionBar\">"+
-                "<p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p>" +
-                "<div class=\"daterange form-group\"><div class=\"input-group\"><span class=\"zmdi input-group-addon zmdi-calendar\"></span><input type=\"text\" class=\"search-field form-control\" placeholder=\"请选择日期\" name=\"daterange\" id=\"daterange\" readonly=\"true\"><a id=\"viewdaterange\" class=\"input-group-addon btn-info\">查看</a></div></div>" +
-                "<div class=\"daterange form-group\" style=\"width:150px;margin-left:210px;\"><div class=\"input-group\"> <a href=\"javascript:void(0);\" id=\"export\" class=\"input-group-addon btn-info\" style=\"display: inline-block:width: 150px;padding: 10px;\">导出报表</a></div></div>" +
-                "</div></div></div>"
+                header: ""
             }
+        });
+
+        $('#viewdaterange').click(function() {
+            loadData();
+        });
+
+        $('#viewaccount').click(function(){
+            loadData();
         });
 
         $('#daterange').daterangepicker({
@@ -136,28 +165,20 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             locale: moment.locale('zh-cn')
         });
 
-        $('#viewdaterange').click(function() {
-            var date = $('#daterange').val();
-            if (date != "") {
-                var start = date.substr(0, 10);
-                var end = date.substr(-10, 10);
-                loadData(start, end);
-            }
-        });
-
         $('#export').on('click', function(){
-            var url = "<{:U('Statistics/export')}>";
+            var account = $('#account').val();
             var date = $('#daterange').val();
             var start = '',end = '';
             if (date != "") {
                 start = date.substr(0, 10);
                 end = date.substr(-10, 10);
             }
+            var url = "<{:U('Statistics/export')}>";
             loading(true);
             $.ajax({
                 type : 'POST',
                 url : url,
-                data : {startdate : start, enddate : end},
+                data : {startdate : start, enddate : end, account : account},
                 cache : false,
                 dataType : 'json',
 
@@ -192,13 +213,22 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         }
     }
 
-    function loadData(start, end)
+    function loadData()
     {
+        var account = $('#account').val();
+        var date = $('#daterange').val();
+        var start,end;
+        if (date) {
+            start = date.substr(0, 10);
+            end = date.substr(-10, 10);
+        }
+
+
         $('#data-table-basic').find('tbody').html('<tr><td colspan="8" class="loading" style="padding: 20px 0px 1650px;">加载中...</td></tr>');
         $.ajax({
             type : 'POST',
             url : "index.php?m=Statistics&a=ajaxData",
-            data : {startdate : start, enddate : end},
+            data : {startdate : start, enddate : end, account : account},
             cache : false,
             dataType : 'json',
             success : function (data) {
@@ -218,6 +248,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 return false;
             }
         });
+
     }
 </script>
 </body>

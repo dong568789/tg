@@ -53,7 +53,7 @@ class SourceModel extends Model
     }
 
     //游戏分类筛选
-    public function selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order){
+    public function selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order,$order_hot=''){
         $userid = $_SESSION['userid'];
         $gamemodel = M("tg_game");
 		$sourcemodel = M("tg_source");
@@ -63,50 +63,60 @@ class SourceModel extends Model
         if($gamecategory != 0){
             $map['gamecategory'] = $gamecategory;
         }
-        if($gamesize == '全部'){
-            //do nothing
-        } else {
-			if($gamesize == '0-10M'){
-				$map['gamesize'] = array(array('egt',0),array('elt',10)) ;
-			}
-			if($gamesize == '10-30M'){
-				$map['gamesize'] = array(array('egt',10),array('elt',30)) ;
-			}
-			if($gamesize == '30-50M'){
-				$map['gamesize'] = array(array('egt',30),array('elt',50)) ;
-			}
-			if($gamesize == '50-100M'){
-				$map['gamesize'] = array(array('egt',50),array('elt',100)) ;
-			}
-			if($gamesize == '大于100M'){
-				$map['gamesize'] = array('gt',100) ;
-			}
-		}
+
+        if($gamesize == '0-10M'){
+            $map['gamesize'] = array(array('egt',0),array('elt',10)) ;
+        }elseif($gamesize == '10-30M'){
+            $map['gamesize'] = array(array('egt',10),array('elt',30)) ;
+        }elseif($gamesize == '30-50M'){
+            $map['gamesize'] = array(array('egt',30),array('elt',50)) ;
+        }elseif($gamesize == '50-100M'){
+            $map['gamesize'] = array(array('egt',50),array('elt',100)) ;
+        }elseif($gamesize == '大于100M'){
+            $map['gamesize'] = array('gt',100) ;
+        }
+
         if($gametag != 0){
             $map['gametag'] = $gametag;
         }
+
+        if(!empty($order_hot)){
+            $ordrestr = ($order_hot == 'asc' ? 'G.gameauthority ASC' : 'G.gameauthority DESC');
+
+        }
 		$map['G.activeflag'] = 1;
-                $games = $gamemodel->alias("G")->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")->where($map)->select();
-                $sourcecondition["userid"] = $userid;
+                $games = $gamemodel->alias("G")
+                    ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+                    ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+                    ->field('G.*,C.categoryname,T.tagname')
+                    ->where($map)
+                    ->order($ordrestr)
+                    ->select();
+
+        $sourcecondition["userid"] = $userid;
 		$sourcecondition["channelid"] = $channelid;
 		$source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
+        $sourceItem = array();
+        foreach($source as $value){
+            $sourceItem[] = $value['gameid'];
+        }
         foreach($games as $k1 =>$v1){
             $games[$k1]['isapply'] = 0;
-            foreach($source as $k2 =>$v2){
-                if($v1['gameid'] == $v2['gameid']){
-                    $games[$k1]['isapply'] = 1;
-                }
+            if(in_array($v1['gameid'], $sourceItem)){
+                $games[$k1]['isapply'] = 1;
             }
+
             $isonstack[$k1] = $v1["isonstack"];
-            // $gameauthority[$k1] = $v1["gameauthority"];
+            //$gameauthority[$k1] = $v1["gameauthority"];
             $createtime[$k1] = $v1["createtime"];
             $isapply[$k1] = $games[$k1]["isapply"]; //$v1在循环之前已经确定。$v1["isapply"]!=$games[$k1]['isapply']
         }
-
-        if($order == 'asc'){
-            array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
-        }else{
-            array_multisort($isonstack, SORT_DESC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
+        if(empty($order_hot)) {
+            if ($order == 'asc') {
+                array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
+            } else {
+                array_multisort($isonstack, SORT_DESC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
+            }
         }
         
 		$gamestr = $this->createGameStr($games,"all");
@@ -126,7 +136,12 @@ class SourceModel extends Model
         $where.= "OR gametag like '%".$content."%'";
         $where.= "OR gamesize like '%".$content."%'";
         $where.= "OR sharetype like '%".$content."%')";
-        $games = $gamemodel->alias("G")->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")->where($where)->order("G.gameauthority desc")->select();
+        $games = $gamemodel->alias("G")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($where)
+            ->order("G.gameauthority desc")
+            ->select();
         $sourcecondition["userid"] = $userid;
 		$sourcecondition["channelid"] = $channelid;
 		$source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
@@ -151,7 +166,13 @@ class SourceModel extends Model
 		$map['S.channelid'] = $channelid;
 		$map['S.activeflag'] = 1;
 		$map['G.activeflag'] = 1;
-        $games = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")->where($map)->order("G.gameauthority desc")->select();
+        $games = $sourcemodel->alias("S")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($map)
+            ->order("G.gameauthority desc")
+            ->select();
         $sourcestr = $this->createGameStr($games,"my");
         return $sourcestr;
     }
@@ -192,8 +213,8 @@ class SourceModel extends Model
 				$gamestr .= "</td>";
 				$gamestr .= "<td>".$v["categoryname"]."</td>";
 				$gamestr .= "<td>".$v["tagname"]."</td>";
-				$gamestr .= "<td>".$v["gameauthority"]."</td>";
-
+                $gamestr .= "<td>".$v["createtime"]."</td>";
+                $gamestr .= "<td>".$v["gameauthority"]."</td>";
                 /*if($v["isonstack"]  == -1 ){
                     $gamestr .= "<td></td>";
                     $gamestr .= "<td></td>";

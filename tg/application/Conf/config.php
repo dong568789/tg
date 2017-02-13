@@ -48,4 +48,9 @@ return array(
 
 	// 此项目相关的配置
 	'app_fastapply_channelname' => 'CHANNEL_CO',//合作会员的一键申请资源的系统渠道
+
+	'URL_ROUTER_ON' => TRUE,
+	'URL_ROUTE_RULES' => array(
+		'api/v1/channel_games' => 'm=Channelgamev1&a=channel_games'
+	)
 );
