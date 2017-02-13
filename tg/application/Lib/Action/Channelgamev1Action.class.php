@@ -46,6 +46,7 @@ class Channelgamev1Action extends CommonAction
         foreach ($rs as $row) {
 
             //$download_url = $sourceAction->apidownload($row['sourcesn']);
+            $screenshot = array();
             !empty($row['screenshot1']) && $screenshot[] = $this->screenshoturl.$row['screenshot1'];
             !empty($row['screenshot2']) && $screenshot[] = $this->screenshoturl.$row['screenshot2'];
             !empty($row['screenshot3']) && $screenshot[] = $this->screenshoturl.$row['screenshot3'];
