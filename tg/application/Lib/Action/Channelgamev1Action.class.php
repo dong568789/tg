@@ -38,7 +38,7 @@ class Channelgamev1Action extends CommonAction
         $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}'";
         $count = M('')->query($sql);
 
-        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.texturename,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' ORDER  BY a.createtime DESC LIMIT {$offset},{$pageSize}";
+        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.screenshot1,b.screenshot2,b.screenshot3,b.screenshot4,b.screenshot5,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' ORDER  BY a.createtime DESC LIMIT {$offset},{$pageSize}";
         $rs = M('')->query($sql);
         $data = array();
 
@@ -46,6 +46,12 @@ class Channelgamev1Action extends CommonAction
         foreach ($rs as $row) {
 
             //$download_url = $sourceAction->apidownload($row['sourcesn']);
+            !empty($row['screenshot1']) && $screenshot[] = $this->screenshoturl.$row['screenshot1'];
+            !empty($row['screenshot2']) && $screenshot[] = $this->screenshoturl.$row['screenshot2'];
+            !empty($row['screenshot3']) && $screenshot[] = $this->screenshoturl.$row['screenshot3'];
+            !empty($row['screenshot4']) && $screenshot[] = $this->screenshoturl.$row['screenshot4'];
+            !empty($row['screenshot5']) && $screenshot[] = $this->screenshoturl.$row['screenshot5'];
+
             $data[] = array(
                 'gameid' => $row['gameid'],
                 'gamename' => $row['gamename'],
@@ -53,7 +59,7 @@ class Channelgamev1Action extends CommonAction
                 'download_url' => $this->tgdomain.'/Source/apidownload/source/'.$row['sourcesn'],
                 'gamesize' => $row['gamesize'],
                 'gameicon' => $this->iconurl.$row['gameicon'],
-                'texturename' => $this->texturedownloadurl.$row['texturename'],
+                'screenshot' => $screenshot,
                 'packageversion' => $row['packageversion'],
                 'gametype' => $row['gametype'],
                 'description' => $row['description']
