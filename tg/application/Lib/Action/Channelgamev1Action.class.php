@@ -35,10 +35,11 @@ class Channelgamev1Action extends CommonAction
         if(empty($user['channelid']))
             $this->error('用户渠道不存在');
 
-        $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}'";
+        $where = "a.channelid='{$user['channelid']}' AND b.isonstack=0 and b.activeflag=1";
+        $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE {$where}";
         $count = M('')->query($sql);
 
-        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.screenshot1,b.screenshot2,b.screenshot3,b.screenshot4,b.screenshot5,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE a.channelid='{$user['channelid']}' ORDER  BY a.createtime DESC LIMIT {$offset},{$pageSize}";
+        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.screenshot1,b.screenshot2,b.screenshot3,b.screenshot4,b.screenshot5,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE {$where} ORDER  BY a.createtime DESC LIMIT {$offset},{$pageSize}";
         $rs = M('')->query($sql);
         $data = array();
 
