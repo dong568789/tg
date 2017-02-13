@@ -52,12 +52,11 @@ class Channelgamev1Action extends CommonAction
             !empty($row['screenshot3']) && $screenshot[] = $this->screenshoturl.$row['screenshot3'];
             !empty($row['screenshot4']) && $screenshot[] = $this->screenshoturl.$row['screenshot4'];
             !empty($row['screenshot5']) && $screenshot[] = $this->screenshoturl.$row['screenshot5'];
-
             $data[] = array(
                 'gameid' => $row['gameid'],
                 'gamename' => $row['gamename'],
                 'version' => $row['gameversion'],
-                'download_url' => $this->tgdomain.'/Source/apidownload/source/'.$row['sourcesn'],
+                'download_url' => $this->tgdomain.'/publicdownload/'.$row['sourcesn'],
                 'gamesize' => $row['gamesize'],
                 'gameicon' => $this->iconurl.$row['gameicon'],
                 'screenshot' => $screenshot,
