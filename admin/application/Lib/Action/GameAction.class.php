@@ -1385,6 +1385,7 @@ class GameAction extends CommonAction {
 		$now = $_POST['now'];
 		$sourceModel = M('tg_source');
 		$sourcecondition["S.id"] = array('gt',$now);
+		$sourcecondition["S.apkurl"] = array('gt',''); //对于没有生成下载包的，强更时候不生成渠道包
 		$sourcecondition["S.gameid"] = $gameid;
 		$sourcecondition["S.activeflag"] = 1;
 		$sourcecondition["G.activeflag"] = 1;
