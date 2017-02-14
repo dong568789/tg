@@ -23,7 +23,6 @@ class RechargeAction extends CommonAction {
             $map["activeflag"] = 1;
             $channel = $channelmodel->where($map)->select();
             $this->assign('channel',$channel);
-            $this->assign('channel',userchannelid);
         }
         $this->display();
     }

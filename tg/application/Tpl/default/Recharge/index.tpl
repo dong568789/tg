@@ -78,7 +78,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 
                                             <div class="clear"></div>
                                             <else />
-                                            <input type="hidden" name="channelselect" id="channelselect" value="<{$userchannelid}>">
                                             <select class="btn btn-default dropdown-menu f-14" id="gameselect">
                                                 <option value="0">选择游戏</option>
                                             </select>
