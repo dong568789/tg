@@ -295,7 +295,9 @@ class SourceModel extends Model
 					$gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>未上架</button></td>";
 				} else if ($v["isonstack"] == 2) {
 					$gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>已下架</button></td>";
-				}
+				}else if ($v["isonstack"] == '-1') {
+                    $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>待上架</button></td>";
+                }
 				$gamestr .= "</tr>";
 			}
 			return $gamestr;

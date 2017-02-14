@@ -245,6 +245,42 @@ class ChannelAction extends CommonAction {
         return $res;
     }
 
+    public function updateBaiBao()
+    {
+        $account = 'yxtest';
+        $isupload = 0;
+        $activeflag = 1;
+        $userid = M('tg_user')->where(array('account'=> $account))->getField('userid');
+        $channelid = M('tg_user')->where(array('pid' => $userid))->getField('channelid');
+
+        $sql = "insert into `yx_tg_source`(userid,gameid,channelid,createtime,sourcesn,activeflag,textureurl,isupload,sourcesharerate,sourcechannelrate,createuser)
+                SELECT
+                    {$userid} as userid,
+                    b.gameid,
+                    {$channelid} as channelid,
+                    FROM_UNIXTIME(create_time,'%Y-%m-%d %H:%i:%s') AS createtime,
+                    a.agent,
+                    {$activeflag} as activeflag,
+                    b.texturename,
+                    {$isupload} as isupload,
+                    b.sharerate as sourcesharerate,
+                    b.channelrate as sourcechannelrate,
+                    '{$account}' as createuser
+                FROM
+                    yx_sdk_agentlist a
+                INNER JOIN yx_tg_game b ON a.gameid = b.sdkgameid
+                WHERE
+                    a.agentname = '白包'
+                AND a.agent LIKE '%-01';";
+
+        $res = M('')->query($sql);
+        if($res){
+            echo 'success';
+        }else{
+            echo 'error';
+        }
+    }
+
     //删除渠道方法
     public function deletechannel(){
         $this->logincheck();
