@@ -39,7 +39,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                     <div class="card-body card-padding">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" style="width: auto;">长链接</label>
-                                            <div class="col-sm-7"  style="width: auto;">
+                                            <div class="col-sm-7"  style="width: auto;padding:0px;">
                                                 <div class="fg-line">
                                                     <a href='#' id="long_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
                                                     <!--<span class="btn" onclick="copyUrl2('long_url')">复制</span>-->
@@ -48,7 +48,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-5 control-label" style="width: auto;">短链接</label>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-7" style="width: auto;padding:0px;">
                                                 <div class="fg-line">
                                                     <a href='#' id="short_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
                                                     <!--<span class="btn" onclick="copyUrl2('short_url')">复制</span>-->
