@@ -305,8 +305,14 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 		});
 	}
 
+    var urlData = [];
     function downloadUrl(sourcesn)
     {
+        if(urlData[sourcesn]){
+            showDownUrl(urlData[sourcesn]);
+            return ;
+        }
+
         $.ajax({
             type: "POST",
             url: "index.php?m=source&a=getGameDowUrl",
@@ -315,9 +321,8 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
             dataType: 'json',
             success: function (data) {
                 if (data.status == "1") {
-                    $('#dowloadshow').show();
-                    $('#long_url').html(data.long_url).attr('href',data.long_url);
-                    $('#short_url').html(data.short_url).attr('href',data.short_url);
+                    showDownUrl(data);
+                    urlData[sourcesn] = data;
                 } else {
                     notify('获取下载地址失败', 'danger');
                     isdownloading = 0;
@@ -330,6 +335,17 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                 return false;
             }
         });
+    }
+
+    /**
+     * 显示下载地址
+     * @param data
+     */
+    function showDownUrl(data)
+    {
+        $('#dowloadshow').show();
+        $('#long_url').html(data.long_url).attr('href',data.long_url);
+        $('#short_url').html(data.short_url).attr('href',data.short_url);
     }
 
     //下载素材包
