@@ -39,7 +39,13 @@ class Channelgamev1Action extends CommonAction
         $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE {$where}";
         $count = M('')->query($sql);
 
-        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.screenshot1,b.screenshot2,b.screenshot3,b.screenshot4,b.screenshot5,b.gametype FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE {$where} ORDER  BY a.createtime DESC LIMIT {$offset},{$pageSize}";
+        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.screenshot1,b.screenshot2,b.screenshot3,b.screenshot4,b.screenshot5,b.gametype,c.categoryname
+                FROM yx_tg_source as a
+                INNER JOIN yx_tg_game as b on a.gameid=b.gameid
+                INNER JOIN yx_tg_gamecategory as c ON b.gamecategory = c.id
+                WHERE {$where}
+                ORDER  BY a.createtime
+                DESC LIMIT {$offset},{$pageSize}";
         $rs = M('')->query($sql);
         $data = array();
 
@@ -63,7 +69,8 @@ class Channelgamev1Action extends CommonAction
                 'screenshot' => $screenshot,
                 'packageversion' => $row['packageversion'],
                 'gametype' => $row['gametype'],
-                'description' => $row['description']
+                'description' => $row['description'],
+                'gamecategory' => $row['categoryname']
             );
         }
 
