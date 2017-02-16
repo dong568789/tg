@@ -253,12 +253,17 @@ class ChannelAction extends CommonAction {
         $userid = M('tg_user')->where(array('account'=> $account))->getField('userid');
         $channelid = M('tg_user')->where(array('pid' => $userid))->getField('channelid');
 
+        $gameid = isset($_GET['gameid']) && $_GET['gameid'] > 0 ? (int)$_GET['gameid'] : 0;
+        if($gameid > 0){
+            $where = " AND a.gameid={$gameid}";
+        }
+
         $sql = "insert into `yx_tg_source`(userid,gameid,channelid,createtime,sourcesn,activeflag,textureurl,isupload,sourcesharerate,sourcechannelrate,createuser)
                 SELECT
                     {$userid} as userid,
                     b.gameid,
                     {$channelid} as channelid,
-                    FROM_UNIXTIME(create_time,'%Y-%m-%d %H:%i:%s') AS createtime,
+                    FROM_UNIXTIME(a.create_time,'%Y-%m-%d %H:%i:%s') AS createtime,
                     a.agent,
                     {$activeflag} as activeflag,
                     b.texturename,
@@ -270,9 +275,8 @@ class ChannelAction extends CommonAction {
                     yx_sdk_agentlist a
                 INNER JOIN yx_tg_game b ON a.gameid = b.sdkgameid
                 WHERE
-                    a.agentname = '白包'
-                AND a.agent LIKE '%-01';";
-
+                   a.agentname like '%白包'
+                AND a.agent LIKE '%-01' {$where}";
         $res = M('')->query($sql);
         if($res){
             echo 'success';
