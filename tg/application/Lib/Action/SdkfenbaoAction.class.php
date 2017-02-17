@@ -46,7 +46,7 @@ class SdkfenbaoAction extends CommonAction {
 				$data['channelid'] = $channel['channelid'];
 				$data['createtime'] = $time;
 				$packagename = $game["packagename"];
-				$newgamename = $this->makeStr(30);
+				$newgamename = createstr(30);
 				$sourcesn = "tg_".$newgamename;
 				$newgamename = $newgamename.".apk";
 				$texturename = $game["texturename"];
@@ -93,7 +93,7 @@ class SdkfenbaoAction extends CommonAction {
 			$data['channelid'] = $channel;
 			$data['createtime'] = $time;
 			$packagename = $game["packagename"];
-			$newgamename = $this->makeStr(30);
+			$newgamename = createstr(30);
 			$sourcesn = "tg_".$newgamename;
 			$newgamename = $newgamename.".apk";
 			$texturename = $game["texturename"];
@@ -146,9 +146,9 @@ class SdkfenbaoAction extends CommonAction {
 						$game = $gamemodel->find($source["gameid"]);
 						$packagename = $game["packagename"];
 						if ($game["gameversion"] != "") {
-							$oldgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$oldgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 						} else {
-							$oldgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$oldgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 						}
 						$result = $this->subpackage($packagename,$oldgamename,$sourcesn);
 						if ($result == "true") {
@@ -172,9 +172,9 @@ class SdkfenbaoAction extends CommonAction {
 						$game = $gamemodel->find($source["gameid"]);
 						$packagename = $package["packagename"];
 						if ($package["gameversion"] != "") {
-							$newgamename = $game["gamepinyin"]."_".$package["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$newgamename = $game["gamepinyin"]."_".$package["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 						} else {
-							$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 						}
 						$result = $this->subpackage($packagename,$newgamename,$sourcesn);
 						if ($result == "true") {
@@ -224,9 +224,9 @@ class SdkfenbaoAction extends CommonAction {
 						$game = $gamemodel->find($source["gameid"]);
 						$packagename = $game["packagename"];
 						if ($game["gameversion"] != "") {
-							$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 						} else {
-							$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 						}
 						$result = $this->subpackage($packagename,$newgamename,$sourcesn);
 						if ($result == "true") {
@@ -252,9 +252,9 @@ class SdkfenbaoAction extends CommonAction {
 					$game = $gamemodel->find($source["gameid"]);
 					$packagename = $game["packagename"];
 					if ($game["gameversion"] != "") {
-						$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+						$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 					} else {
-						$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+						$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 					}
 					$result = $this->subpackage($packagename,$newgamename,$sourcesn);
 					if ($result == "true") {
@@ -309,9 +309,9 @@ class SdkfenbaoAction extends CommonAction {
 				$game = $gamemodel->find($source["gameid"]);
 				$packagename = $game["packagename"];
 				if ($game["gameversion"] != "") {
-					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 				} else {
-					$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+					$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 				}
 				$result = $this->subpackage($packagename,$newgamename,$sourcesn);
 				if ($result == "true") {
@@ -382,17 +382,6 @@ class SdkfenbaoAction extends CommonAction {
     	echo '无法创建文件，打包失败。';
 		exit();
 	}
-
-
-	public function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
-		$str = ""; 
-		while(strlen($str) < $length) {
-			$str .= substr($possible, (rand() % strlen($possible)), 1);
-		}
-		return($str); 
-	}
-
 
     // 用户-资源-推广链接-手机页面
     public function page(){
