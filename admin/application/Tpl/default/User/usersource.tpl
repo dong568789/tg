@@ -32,7 +32,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                     <div class="modal-dialog modal-sm" style="width: 610px;">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title f-700 p-b-5 text-center" style="border-bottom:2px solid #ddd;">APK下载链接</h4>
+                                <h4 class="modal-title f-700 p-b-5 text-center" style="border-bottom:2px solid #ddd;">游戏包推广链接</h4>
                             </div>
                             <div class="modal-body">
                                 <form class="form-horizontal" role="form" >
