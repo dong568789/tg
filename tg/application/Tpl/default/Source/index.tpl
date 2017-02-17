@@ -825,6 +825,11 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                     if(data.data == "success") {
                         $("#sourcecontainer").empty();
                         $("#sourcecontainer").append(data.info);
+                        $("#applyholder").jPages({
+                            containerID    : "sourcecontainer",
+                            scrollBrowse   : false,
+                            perPage: 20
+                        });
                     } else{
                         notify(data.info, 'danger');
                         $("#sourcecontainer").empty();

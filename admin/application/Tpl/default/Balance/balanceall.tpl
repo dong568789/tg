@@ -41,7 +41,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                 <div id="data-table-basic-header" class="bootgrid-header container-fluid">
                                     <div class="row">
                                         <div class="col-sm-12 actionBar">
-                                            <div class='form-group col-sm-3'>
+                                            <div class='form-group col-sm-2'>
                                                 <select class='selectpicker form-group' id='select-balancestatus'>
                                                     <option value='0'>结算单--全部</option>
                                                     <option value='1'>待审核</option>
@@ -50,7 +50,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                                     <option value='2'>已结算</option>
                                                 </select>
                                             </div>
-                                            <div class='form-group col-sm-3'>
+                                            <div class='form-group col-sm-2'>
                                                 <select class='selectpicker form-group' id='select-sourcetype'>
                                                     <option value='0'>用户类型--全部</option>
                                                     <option value='1'>公会</option>
