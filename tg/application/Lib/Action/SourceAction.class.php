@@ -58,7 +58,7 @@ class SourceAction extends CommonAction {
 			$data['channelid'] = $channelid;
 			$data['createtime'] = date('Y-m-d : H-i-s',time());
 			$packagename = $game["packagename"];
-			$newgamename = $this->makeStr(30);
+			$newgamename = createstr(30);
 			$sourcesn = "tg_".$newgamename;
 			$newgamename = $newgamename.".apk";
 			$texturename = $game["texturename"];
@@ -105,195 +105,6 @@ class SourceAction extends CommonAction {
 		*/
     }
 
-    // 下载apk包
-	public function downloadapk(){
-		$userid = $_SESSION["userid"];
-		if (isset($userid) && $userid > 0) {
-			$sourcesn = $_POST["source"];
-			$sourcemodel = M('tg_source');
-            $gamemodel = M('tg_game');
-            $channelmodel = M('tg_channel');
-			$map["sourcesn"] = $sourcesn;
-			$source = $sourcemodel->where($map)->find();
-            $gameid = $source['gameid'];
-            $channelid = $source['channelid'];
-            $oldgame = $gamemodel->where("gameid = '$gameid'")->find();
-            $oldchannel = $channelmodel->where("channelid = '$channelid'")->find();
-
-			$packagemodel = M('tg_package');
-			$packagemap["activeflag"] = 1;
-			$packagemap["isnowactive"] = 1;
-			$packagemap["isforcepackage"] = 1;
-			$packagemap["gameid"] = $source["gameid"];
-			$package = $packagemodel->where($packagemap)->find();
-			// 是否存在强更包
-			if ($package) {
-				if (strtotime($package["forcetime"]) > time()) {
-					// 如果强更时间没到
-					$oldgamename = $source["apkurl"];
-
-					// 获取$oldapkurl
-					//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
-					if($source["is_cdn_submit"] == 1 ){
-						$oldapkurl = $this->apkdownloadcdnurl.$oldgamename;
-					}elseif ($source["isupload"] == 1) {
-						$oldapkurl = $this->apkdownloadurl.$oldgamename;
-					} else {
-						// 如果不存在，根据游戏的母包重新生成
-						$gamemodel = M('tg_game');
-						$game = $gamemodel->find($source["gameid"]);
-						$packagename = $game["packagename"];
-						if ($game["gameversion"] != "") {
-							$oldgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-						} else {
-							$oldgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-						}
-						$result = $this->subpackage($packagename,$oldgamename,$sourcesn);
-						if ($result == "true") {
-							$data["isupload"] = 1;
-							$data["apkurl"] = $oldgamename;
-							$upload = $sourcemodel->where($map)->save($data);
-							$oldapkurl = $this->apkdownloadurl.$oldgamename;
-						}
-					}
-
-					$forcepackagemodel = M('tg_forcepackage');
-					$forcepackagemap["activeflag"] = 1;
-					$forcepackagemap["isforce"] = 0;
-					$forcepackagemap["userid"] = $source["userid"];
-					$forcepackagemap["channelid"] = $source["channelid"];
-					$forcepackagemap["gameid"] = $source["gameid"];
-					$forcepackage = $forcepackagemodel->where($forcepackagemap)->find();
-					if($forcepackage["is_cdn_submit"] == 1 ){
-						$newapkurl = $this->apkdownloadcdnurl.$forcepackage["apkurl"];
-					}elseif($forcepackage) {
-						$newapkurl = $this->apkdownloadurl.$forcepackage["apkurl"];
-					} else {
-						// 如果不存在，根据强更包的母包重新生成
-						$gamemodel = M('tg_game');
-						$game = $gamemodel->find($source["gameid"]);
-						$packagename = $package["packagename"];
-						if ($package["gameversion"] != "") {
-							$newgamename = $game["gamepinyin"]."_".$package["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-						} else {
-							$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-						}
-						$result = $this->subpackage($packagename,$newgamename,$sourcesn);
-						if ($result == "true") {
-							$forcepackagedata["userid"] = $source["userid"];
-							$forcepackagedata["channelid"] = $source["channelid"];
-							$forcepackagedata["gameid"] = $source["gameid"];
-							$forcepackagedata["apkurl"] = $newgamename;
-							$forcepackagedata["isforce"] = 0;
-							$forcepackagedata["isdelete"] = 0;
-							$forcepackagedata["activeflag"] = 1;
-							$forcepackagedata['createtime'] = date('Y-m-d H:i:s',time());
-							$forcepackagedata['createuser'] = "Admin";
-							$newforcepackage = $forcepackagemodel->add($forcepackagedata);
-							if ($newforcepackage) {
-								$agentModel = M('sdk_agentlist');
-								$agentcondition["agent"] = $source["sourcesn"];
-								$agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
-								$agent = $agentModel->where($agentcondition)->save($agentdata);
-								if ($agent) {
-									$newapkurl = $this->apkdownloadurl.$newgamename;
-								} else {
-									$this->ajaxReturn('fail','失败，未能更新强更链接.',0);
-									exit();
-								}			
-							} else {
-								$this->ajaxReturn('fail','失败，未能新增强更包信息.',0);
-								exit();
-							}
-						} else {
-							$this->ajaxReturn('fail','分包失败.',0);
-							exit();
-						}
-					}
-					$info["oldapkurl"] = $oldapkurl;
-					$info["newapkurl"] = $newapkurl;
-					$info["forcetime"] = date("m月d日 H时i分",strtotime($package["forcetime"]));
-					$this->ajaxReturn('force',$info,1);
-					exit();
-				} else {
-					// 过了强更时间
-					$newgamename = $source["apkurl"];
-
-					//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
-					if($source["is_cdn_submit"] == 1 ){
-						$this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
-	                    $this->ajaxReturn('success',$this->apkdownloadcdnurl.$newgamename,1);
-						exit();
-					}
-
-					if ($source["isupload"] == 1) {
-                        $time = date('Y-m-d H:i:s',time());
-                        $this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
-                        $this->ajaxReturn('success',$this->apkdownloadurl.$newgamename,1);
-						exit();
-					} else {
-						// 如果不存在，根据游戏的母包，生成
-						$gamemodel = M('tg_game');
-						$game = $gamemodel->find($source["gameid"]);
-						$packagename = $game["packagename"];
-						if ($game["gameversion"] != "") {
-							$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-						} else {
-							$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-						}
-						$result = $this->subpackage($packagename,$newgamename,$sourcesn);
-						if ($result == "true") {
-							$data["isupload"] = 1;
-							$data["apkurl"] = $newgamename;
-							$upload = $sourcemodel->where($map)->save($data);
-                            $time = date('Y-m-d H:i:s',time());
-                            $this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
-                            $this->ajaxReturn('success',$this->apkdownloadurl.$newgamename,1);
-							exit();
-						}
-					}
-				}
-			} else {
-				$newgamename = $source["apkurl"];
-
-				//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
-				if($source["is_cdn_submit"] == 1 ){
-					$this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
-                    $this->ajaxReturn('success',$this->apkdownloadcdnurl.$newgamename,1);
-					exit();
-				}
-
-				if ($source["isupload"] == 1) {
-                    $time = date('Y-m-d H:i:s',time());
-                    $this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
-                    $this->ajaxReturn('success',$this->apkdownloadurl.$newgamename,1);
-					exit();
-				} else {
-					// 没有上传，（当更新包时候，会清空资源的游戏下载链接）
-					// 重新分包
-					$gamemodel = M('tg_game');
-					$game = $gamemodel->find($source["gameid"]);
-					$packagename = $game["packagename"];
-					if ($game["gameversion"] != "") {
-						$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-					} else {
-						$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-					}
-					$result = $this->subpackage($packagename,$newgamename,$sourcesn);
-					if ($result == "true") {
-						$data["isupload"] = 1;
-						$data["apkurl"] = $newgamename;
-						$upload = $sourcemodel->where($map)->save($data);
-                        $time = date('Y-m-d H:i:s',time());
-                        $this->insertLog($_SESSION['account'],'下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”游戏包");
-                        $this->ajaxReturn('success',$this->apkdownloadurl.$newgamename,1);
-						exit();
-					}
-				}
-			}
-		}
-	}
-	
     //下载素材包
     public function downloadTextture(){
         $sourcesn = $_POST["source"];
@@ -496,7 +307,7 @@ class SourceAction extends CommonAction {
         $this->display();
     }
 
-    //推广链接
+    //推广链接，下载资源包
 	public function publicdownload() {
         $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
         $is_pc = (stripos($agent, 'windows nt')) ? true : false;
@@ -531,102 +342,20 @@ class SourceAction extends CommonAction {
 					Header("Location: ".$cndurl." ");
 					exit();
 				}else{
-					$this->createSourePackage($sourcesn);
+					$sourceModel = D('Source');
+					$sourceModel->createSourePackage($sourcesn);
 				}
 			}
 
 			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
-				$time = date('Y-m-d H:i:s',time());
-				// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
 				Header("Location: ".$this->apkdownloadurl.$source["apkurl"]." ");
 				exit();
 			} else {
-				$this->createSourePackage($sourcesn);
+				$sourceModel = D('Source');
+				$sourceModel->createSourePackage($sourcesn);
 			}
 		} else {
 			echo "Can't find APK package.";
-		}
-	}
-
-	// 生成资源包
-	public function createSourePackage($sourcesn){
-		$sourcemodel = M('tg_source');
-		$map["sourcesn"] = $sourcesn;
-        $source = $sourcemodel->where($map)->find();
-
-		$gamemodel = M('tg_game');
-		$game = $gamemodel->find($source["gameid"]);
-		$packagename = $game["packagename"];
-		if ($game["gameversion"] != "") {
-			$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-		} else {
-			$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-		}
-		$result = $this->subpackage($packagename,$newgamename,$sourcesn);
-		if ($result == "true") {
-			$data["isupload"] = 1;
-			$data["apkurl"] = $newgamename;
-			$upload = $sourcemodel->where($map)->save($data);
-
-
-			$time = date('Y-m-d H:i:s',time());
-			// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
-			Header("Location: ".$this->apkdownloadurl.$newgamename." ");
-			exit();
-		} else {
-			echo "System Error.";
-		}
-	}
-
-
-	//推广链接
-	public function apidownload() {
-		$sourcesn = isset($_GET['source']) ? $_GET['source'] : '';
-		if(empty($sourcesn)){
-			echo json_encode(array('result' => 'failure', 'url' => '', 'msg' => '资源不存在'));
-			exit;
-		}
-		$sourcemodel = M('tg_source');
-		$map["sourcesn"] = $sourcesn;
-		$source = $sourcemodel->where($map)->find();
-		if ($source) {
-			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
-			if($source["is_cdn_submit"] == 1 ){
-				$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
-				echo json_encode(array('result' => 'success', 'url' => $cndurl, 'msg' => ''));
-				exit;
-			}
-
-			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
-				echo json_encode(array('result' => 'success', 'url' => $this->apkdownloadurl.$source["apkurl"], 'msg' => ''));
-				exit;
-			} else {
-				$gamemodel = M('tg_game');
-				$game = $gamemodel->find($source["gameid"]);
-				$packagename = $game["packagename"];
-				if ($game["gameversion"] != "") {
-					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-				} else {
-					$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-				}
-
-				$result = $this->subpackage2($packagename,$newgamename,$sourcesn);
-
-				if ($result['code'] == 1) {
-					$data["isupload"] = 1;
-					$data["apkurl"] = $newgamename;
-					$upload = $sourcemodel->where($map)->save($data);
-					echo json_encode(array('result' => 'success', 'url' => $this->apkdownloadurl.$newgamename, 'msg' => ''));
-					exit;
-
-				} else {
-					echo json_encode( array('result' => 'failure', 'url' => '', 'msg' => $result['msg']));
-					exit;
-				}
-			}
-		} else {
-			echo json_encode( array('result' => 'failure', 'url' => 'source is empty'));
-			exit;
 		}
 	}
 
@@ -726,123 +455,5 @@ class SourceAction extends CommonAction {
     }
 
 
-    // ----公共代码-----------------------------------------------------------
-    //分包
-	public function subpackage($packagename,$newgamename,$sourcesn){
-		$sourfile = $this->packageStoreFolder.$packagename;
-		//chmod($sourfile, 0777);		
-		$newfile = $this->downloadStoreFolder.$newgamename;
-		if(!file_exists($sourfile)){
-			$this->ajaxReturn('fail',"母包不存在。",0);
-			exit();
-		}
-		if (!copy($sourfile, $newfile)) {
-			$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-			exit();
-		}
-		$channelfile=$url."gamechannel";
-		fopen($channelfile, "w");
-		try{
-			$zip = new ZipArchive;
-			if ($zip->open($newfile) === TRUE) {
-				$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-				$zip->close();
-
-				// 第一次分包的时候cdn提交
-				$this->cdnsubmit($sourcesn,$newgamename);
-
-				return "true";
-			} else {
-				return "false";
-			}
-	    	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-			exit();
-		}catch(Exception $e){
-			// 输出日志
-			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
-			$log_content=date('Y-m-d H:i:s')."\n";
-			$log_content.="第一次生成分包，并做cdn提交：\n";
-			$log_content.="error：".$e->getMessage()."\n";
-			error_log($log_content, 3, $log_file);
-		}
-	}
-
-	public function subpackage2($packagename,$newgamename,$sourcesn){
-		$sourfile = $this->packageStoreFolder.$packagename;
-		//chmod($sourfile, 0777);
-		$newfile = $this->downloadStoreFolder.$newgamename;
-		if(!file_exists($sourfile)){
-			return array('code' => 0, 'msg' => '母包不存在');
-		}
-		if (!copy($sourfile, $newfile)) {
-			return array('code' => 0, 'msg' => '无法创建文件，打包失败');
-		}
-		$channelfile=$url."gamechannel";
-		fopen($channelfile, "w");
-
-		try{
-			$zip = new ZipArchive;
-			if ($zip->open($newfile) === TRUE) {
-				$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-				$zip->close();
-
-				// 第一次分包的时候cdn提交
-				$this->cdnsubmit($sourcesn,$newgamename);
-
-				return array('code' => 1, 'msg' => '');
-			} else {
-				return array('code' => 0, 'msg' => '分包失败');
-			}
-		}catch(Exception $e){
-			// 输出日志
-			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
-			$log_content=date('Y-m-d H:i:s')."\n";
-			$log_content.="第一次生成分包，并做cdn提交：\n";
-			$log_content.="error：".$e->getMessage()."\n";
-			error_log($log_content, 3, $log_file);
-		}
-	}
-
-	public function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
-		$str = ""; 
-		while(strlen($str) < $length) {
-			$str .= substr($possible, (rand() % strlen($possible)), 1);
-		}
-		return($str); 
-	}
-
-	// cdn提交接口
-	public function cdnsubmit($sourcesn,$newgamename){
-		// 允许用户提交cdn才提交cdn
-		$sourceModel = M('tg_source');
-		$where = array('sourcesn'=>$sourcesn);
-		$is_allow_cdn = $sourceModel->alias('S')
-					->field('U.is_allow_cdn')
-					->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
-					->where($where)
-					->find();
-		if($is_allow_cdn['is_allow_cdn'] == '1'){
-			// 输出日志
-			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
-			$log_content=date('Y-m-d H:i:s')."\n";
-			$log_content.="下载包cdn提交：\n";
-			$log_content.="sourcesn：".$sourcesn."\n";
-			$log_content.="newgamename：".$newgamename."\n";
-			error_log($log_content, 3, $log_file);
-
-			/*************CDN*******************/
-			$Url = 'http://c.yxgames.com/api/cdn';
-			$Callback = $this->admindomain.'/?m=game&a=cdncallback&sourcesn='.$sourcesn;
-			$packageurl  = $this->apkdownloadcdnurl.$newgamename;
-			$Params = array(
-				'url'=>$packageurl,
-				'callback'=>$Callback,
-				'of'=>'json',
-			);
-			$rs = $this->httpreq($Url, http_build_query($Params),'post');
-			/****************CDN*******************/
-		}
-	}
 }
 ?>

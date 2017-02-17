@@ -687,7 +687,7 @@ class UserAction extends CommonAction {
 				$data['gameid'] = $gameid;
 				$data['channelid'] = $channelid;
 				$data['createtime'] = date('Y-m-d : H-i-s',time());
-				$newgamename = $this->makeStr(30);
+                $newgamename = createstr(30);
 				$sourcesn = "tg_".$newgamename;
 				$data['sourcesn'] = $sourcesn;
 				if ($game["sharerate"] != "") {
@@ -1059,38 +1059,6 @@ class UserAction extends CommonAction {
 		} 
 	}
 
-	public function downloadapk(){
-		$adminid = $_SESSION["adminid"];
-		if (isset($adminid) && $adminid > 0) {
-			$sourcesn = $_GET["source"];
-			$sourcemodel = M('tg_source');
-			$map["sourcesn"] = $sourcesn;
-			$source = $sourcemodel->where($map)->find();
-			$newgamename = $source["apkurl"];
-			if ($source["isupload"] == 1) {
-				Header("Location: ".$this->apkdownloadurl.$newgamename." ");
-				exit();
-			} else {
-				$gamemodel = M('tg_game');
-				$game = $gamemodel->find($source["gameid"]);
-				$packagename = $game["packagename"];
-				if ($game["gameversion"] != "") {
-					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-				} else {
-					$newgamename = $game["gamepinyin"]."_".$source["channelid"].".apk";
-				}
-				$result = $this->subpackage($packagename,$newgamename,$sourcesn);
-				if ($result == "true") {
-					$data["isupload"] = 1;
-					$data["apkurl"] = $newgamename;
-					$upload = $sourcemodel->where($map)->save($data);
-					Header("Location: ".$this->apkdownloadurl.$newgamename." ");
-					exit();
-				}
-			}
-		}
-	}
-
     public function error505(){
         $this->display();
     }
@@ -1149,42 +1117,5 @@ class UserAction extends CommonAction {
         $this->ajaxReturn($data, 'JSON');
     }
 
-
-    // ----------------内部函数--------------
-	//分包
-	private function subpackage($packagename,$newgamename,$sourcesn){
-		$sourfile = $this->packageStoreFolder.$packagename;
-		//chmod($sourfile, 0777);		
-		$newfile = $this->downloadStoreFolder.$newgamename;
-		if(!file_exists($sourfile)){
-			$this->ajaxReturn('fail',"母包不存在。",0);
-			exit();
-		}
-		if (!copy($sourfile, $newfile)) {
-			$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-			exit();
-		}
-		$channelfile=$url."gamechannel";
-		fopen($channelfile, "w");
-		$zip = new ZipArchive;
-		if ($zip->open($newfile) === TRUE) {
-			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-			$zip->close();
-			return "true";
-		} else {
-			return "false";
-		}
-    	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-		exit();
-	}
-
-    private function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
-		$str = ""; 
-		while(strlen($str) < $length) {
-			$str .= substr($possible, (rand() % strlen($possible)), 1);
-		}
-		return($str); 
-	}
 }
 ?>

@@ -353,6 +353,43 @@ function getFieldArray($data, $field)
 	return $item;
 }
 
+/**
+ * HTTP请求
+ * @param string $Url       地址
+ * @param string $Params    请求参数
+ * @param string $Method    请求方法
+ * @return array $callback  返回数组
+ */
+function httpreqCommon($Url, $Params, $Method='post'){
+        $Curl = curl_init();//初始化curl
+        if ('get' == $Method){//以GET方式发送请求
+            curl_setopt($Curl, CURLOPT_URL, "$Url?$Params");
+        }else{//以POST方式发送请求
+            curl_setopt($Curl, CURLOPT_URL, $Url);
+            curl_setopt($Curl, CURLOPT_POST, 1);//post提交方式
+            curl_setopt($Curl, CURLOPT_POSTFIELDS, $Params);//设置传送的参数
+        }
+
+        curl_setopt($Curl, CURLOPT_HEADER, false);//设置header
+        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);//要求结果为字符串且输出到屏幕上
+        //curl_setopt($Curl, CURLOPT_CONNECTTIMEOUT, 3);//设置等待时间
+
+        $Res = curl_exec($Curl);//运行curl
+        curl_close($Curl);//关闭curl
+        return $Res;
+}
+
+// 生成一个不重复的字符串
+// 为了和其他控制器中的makeStr名字区分,是一个函数
+function createstr($length) { 
+    $possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
+    $str = ""; 
+    while(strlen($str) < $length) {
+        $str .= substr($possible, (rand() % strlen($possible)), 1);
+    }
+    return($str); 
+}
+
 // 方便输出调试
 function vde($input){
     var_dump($input);
@@ -362,4 +399,5 @@ function vde($input){
 function vd($input){
     var_dump($input);
 }
+
 ?>
