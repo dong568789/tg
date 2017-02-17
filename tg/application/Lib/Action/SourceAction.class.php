@@ -72,10 +72,6 @@ class SourceAction extends CommonAction {
 			$data['textureurl'] = $texturename;
 			$data['isupload'] = 0;
 			$data['createuser'] = $user["realname"];
-			/* 分包改为下载时
-			$result = $this->subpackage($packagename,$newgamename,$sourcesn); 
-			if ($result == "true") {
-			*/
 			$sourceid = $sourcemodel->add($data);
 			$agentdata["gameid"] = $game["sdkgameid"];
 			$agentdata["agent"] = $sourcesn;
@@ -509,9 +505,13 @@ class SourceAction extends CommonAction {
 		if ($source) {
 			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
 			if($source["is_cdn_submit"] == 1 ){
-				$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
-				Header("Location: ".$cndurl." ");
-				exit();
+				if ($source["isupload"] == 1 && $source["apkurl"] != "") {
+					$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
+					Header("Location: ".$cndurl." ");
+					exit();
+				}else{
+					$this->createSourePackage($sourcesn);
+				}
 			}
 
 			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
@@ -520,29 +520,40 @@ class SourceAction extends CommonAction {
 				Header("Location: ".$this->apkdownloadurl.$source["apkurl"]." ");
 				exit();
 			} else {
-				$gamemodel = M('tg_game');
-				$game = $gamemodel->find($source["gameid"]);
-				$packagename = $game["packagename"];
-				if ($game["gameversion"] != "") {
-					$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-				} else {
-					$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-				}
-				$result = $this->subpackage($packagename,$newgamename,$sourcesn);
-				if ($result == "true") {
-					$data["isupload"] = 1;
-					$data["apkurl"] = $newgamename;
-					$upload = $sourcemodel->where($map)->save($data);
-					$time = date('Y-m-d H:i:s',time());
-					// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
-					Header("Location: ".$this->apkdownloadurl.$newgamename." ");
-					exit();
-				} else {
-					echo "System Error.";
-				}
+				$this->createSourePackage($sourcesn);
 			}
 		} else {
 			echo "Can't find APK package.";
+		}
+	}
+
+	// 生成资源包
+	public function createSourePackage($sourcesn){
+		$sourcemodel = M('tg_source');
+		$map["sourcesn"] = $sourcesn;
+        $source = $sourcemodel->where($map)->find();
+
+		$gamemodel = M('tg_game');
+		$game = $gamemodel->find($source["gameid"]);
+		$packagename = $game["packagename"];
+		if ($game["gameversion"] != "") {
+			$newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+		} else {
+			$newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+		}
+		$result = $this->subpackage($packagename,$newgamename,$sourcesn);
+		if ($result == "true") {
+			$data["isupload"] = 1;
+			$data["apkurl"] = $newgamename;
+			$upload = $sourcemodel->where($map)->save($data);
+
+
+			$time = date('Y-m-d H:i:s',time());
+			// $this->insertLog('推广链接','下载APK包', 'SourceAction.class.php', 'downloadapk', $time, "用户通过推广链接在ID为“".$source["channelid"]."”渠道下下载了ID为“".$source['gameid']."”游戏包");
+			Header("Location: ".$this->apkdownloadurl.$newgamename." ");
+			exit();
+		} else {
+			echo "System Error.";
 		}
 	}
 
@@ -710,20 +721,29 @@ class SourceAction extends CommonAction {
 		}
 		$channelfile=$url."gamechannel";
 		fopen($channelfile, "w");
-		$zip = new ZipArchive;
-		if ($zip->open($newfile) === TRUE) {
-			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-			$zip->close();
+		try{
+			$zip = new ZipArchive;
+			if ($zip->open($newfile) === TRUE) {
+				$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
+				$zip->close();
 
-			// 第一次分包的时候cdn提交
-			$this->cdnsubmit($sourcesn,$newgamename);
+				// 第一次分包的时候cdn提交
+				$this->cdnsubmit($sourcesn,$newgamename);
 
-			return "true";
-		} else {
-			return "false";
+				return "true";
+			} else {
+				return "false";
+			}
+	    	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
+			exit();
+		}catch(Exception $e){
+			// 输出日志
+			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="第一次生成分包，并做cdn提交：\n";
+			$log_content.="error：".$e->getMessage()."\n";
+			error_log($log_content, 3, $log_file);
 		}
-    	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-		exit();
 	}
 
 	public function subpackage2($packagename,$newgamename,$sourcesn){
@@ -738,17 +758,27 @@ class SourceAction extends CommonAction {
 		}
 		$channelfile=$url."gamechannel";
 		fopen($channelfile, "w");
-		$zip = new ZipArchive;
-		if ($zip->open($newfile) === TRUE) {
-			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-			$zip->close();
 
-			// 第一次分包的时候cdn提交
-			$this->cdnsubmit($sourcesn,$newgamename);
+		try{
+			$zip = new ZipArchive;
+			if ($zip->open($newfile) === TRUE) {
+				$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
+				$zip->close();
 
-			return array('code' => 1, 'msg' => '');
-		} else {
-			return array('code' => 0, 'msg' => '分包失败');
+				// 第一次分包的时候cdn提交
+				$this->cdnsubmit($sourcesn,$newgamename);
+
+				return array('code' => 1, 'msg' => '');
+			} else {
+				return array('code' => 0, 'msg' => '分包失败');
+			}
+		}catch(Exception $e){
+			// 输出日志
+			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="第一次生成分包，并做cdn提交：\n";
+			$log_content.="error：".$e->getMessage()."\n";
+			error_log($log_content, 3, $log_file);
 		}
 	}
 

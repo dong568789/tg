@@ -700,6 +700,17 @@ class UserAction extends CommonAction {
 				$data['isupload'] = 0;
 				$data['createuser'] = $_SESSION['adminname'];
 				$newSourceid = $sourceModel->add($data);
+
+                // 输出日志
+                $log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/source/game.log';
+                $log_content=date('Y-m-d H:i:s')."\n";
+                $log_content.="Admin/User/fastApplyInner\n";
+                $log_content.="sourceid：".$newSourceid."\n";
+                $log_content.="isupload：0\n";
+                $log_content.="is_cdn_submit：-1\n";
+                $log_content.="apkurl：空\n";
+                error_log($log_content, 3, $log_file);
+
 				// 添加sdk_agentlist表
 				$agentdata=array();
 				$agentdata["gameid"] = $game["sdkgameid"];
@@ -779,13 +790,6 @@ class UserAction extends CommonAction {
 				}
 			}
         }
-
-        // 生成相应资源的游戏包
-        // $config=array(
-        // 	'userid'=>$userid,
-        // 	'channelid'=>$newChannelid,
-        // );
-        // $sourceModel->createBao($config);
 
         if($isPrintLog){
 			$log_content=date('Y-m-d H:i:s')."\n";

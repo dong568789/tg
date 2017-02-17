@@ -67,57 +67,7 @@ class SourceModel extends Model
         //输入二维码到浏览器
        // QRcode::png($data);
     }
-// 生成相应资源的游戏包
-    public function createBao($outerConfig){
-        $innerConfig=array(
-            'userid'=>'',
-            'gameid'=>'',
-            'channelid'=>'',
-        );
-        $config=array_merge($innerConfig,$outerConfig);
 
-        $condition=array();
-        if($config['userid']){
-            $condition['userid'] = $config['userid'];
-        }
-        if($config['gameid']){
-            $condition['gameid'] = $config['gameid'];
-        }
-        if($config['channelid']){
-            $condition['channelid'] = $config['channelid'];
-        }
-        $condition['activeflag'] = 1;
-
-        $where['isupload'] = 0;
-        $where['apkurl'] = '';
-        $where['_logic'] = 'or';
-        $condition['_complex']=$where;
-
-        // 找出所有没有上传的
-        $sourceRecords = $this->where($condition)->select();
-
-        foreach ($sourceRecords as $key => $value) {
-            $gameModel = M('tg_game');
-            $game = $gameModel->find($value["gameid"]);
-            $packagename = $game["packagename"];
-            if ($game["gameversion"] != "") {
-                $newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$value["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-            } else {
-                $newgamename = $game["gamepinyin"]."_".$value["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
-            }
-            $result = $this->subpackage($packagename,$newgamename,$value['sourcesn']);
-            if ($result == "true") {
-                $where=array();
-                $where["id"] = $value['id'];
-                $data=array();
-                $data["isupload"] = 1;
-                $data["apkurl"] = $newgamename;
-                $upload = $this->where($where)->save($data);
-            } else {
-                echo "系统错误，请重试";
-            }
-        }
-    }
 
     //分包
     public function subpackage($packagename,$newgamename,$sourcesn){
@@ -134,16 +84,52 @@ class SourceModel extends Model
         }
         $channelfile=$url."gamechannel";
         fopen($channelfile, "w");
-        $zip = new ZipArchive;
-        if ($zip->open($newfile) === TRUE) {
-            $zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-            $zip->close();
-            return "true";
-        } else {
-            return "false";
+        try{
+            $zip = new ZipArchive;
+            if ($zip->open($newfile) === TRUE) {
+                $zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
+                $zip->close();
+
+                // 第一次分包的时候cdn提交
+                $this->cdnsubmit($sourcesn,$newgamename);
+
+                return "true";
+            } else {
+                return "false";
+            }
+            $this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
+            exit();
+        }catch(Exception $e){
+            // 输出日志
+            $log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
+            $log_content=date('Y-m-d H:i:s')."\n";
+            $log_content.="第一次生成分包，并做cdn提交：\n";
+            $log_content.="error：".$e->getMessage()."\n";
+            error_log($log_content, 3, $log_file);
         }
-        $this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-        exit();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>

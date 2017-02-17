@@ -1025,6 +1025,17 @@ class GameAction extends CommonAction {
 							$sourcedata["apkurl"] = "";
 							$sourceresult = $sourceModel->where($sourcecondition)->save($sourcedata);
 
+							// 输出日志
+							$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/source/game.log';
+							$log_content=date('Y-m-d H:i:s')."\n";
+							$log_content.="Admin/Game/uploadpackage 编辑包时候，原来包存在，版本比原来大，且不是强更包\n";
+							$log_content.="gameid：".$gameid."\n";
+							$log_content.="该游戏下的所有资源\n";
+							$log_content.="isupload：0\n";
+							$log_content.="is_cdn_submit：-1\n";
+							$log_content.="apkurl：空\n";
+							error_log($log_content, 3, $log_file);
+
 							$oldModel = M('tg_oldpackage');
 							$olddata = array();
 							foreach ($sourcelist as $k => $v) {
@@ -1239,6 +1250,17 @@ class GameAction extends CommonAction {
 						$sourcedata["apkurl"] = "";
 						$sourceresult = $sourceModel->where($sourcecondition)->save($sourcedata);
 
+						// 输出日志
+						$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/source/game.log';
+						$log_content=date('Y-m-d H:i:s')."\n";
+						$log_content.="Admin/Game/uploadpackage 编辑包时候，原来包不存在，且不是强更包\n";
+						$log_content.="gameid：".$gameid."\n";
+						$log_content.="该游戏下的所有资源\n";
+						$log_content.="isupload：0\n";
+						$log_content.="is_cdn_submit：-1\n";
+						$log_content.="apkurl：空\n";
+						error_log($log_content, 3, $log_file);
+
 						// 将该游戏 所有的资源的游戏包的下载链接，放在tg_oldpackage表中
 						$oldModel = M('tg_oldpackage');
 						$olddata = array();
@@ -1325,6 +1347,18 @@ class GameAction extends CommonAction {
 			$sourcedata["is_cdn_submit"] = -1;
 			$sourcedata["apkurl"] = "";
 			$sourceresult = $sourceModel->where($sourcecondition)->save($sourcedata);
+
+			// 输出日志
+			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/source/game.log';
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="Admin/Game/coverPackage\n";
+			$log_content.="gameid：".$package["gameid"]."\n";
+			$log_content.="该游戏下的所有资源\n";
+			$log_content.="isupload：0\n";
+			$log_content.="is_cdn_submit：-1\n";
+			$log_content.="apkurl：空\n";
+			error_log($log_content, 3, $log_file);
+
 			// 将该游戏 所有的资源的游戏包的下载链接，放在tg_oldpackage表中
 			$oldModel = M('tg_oldpackage');
 			$olddata = array();
@@ -1638,8 +1672,21 @@ class GameAction extends CommonAction {
 			$condition["activeflag"] = 1;
 			$sourcelist = $sourceModel->where($condition)->order("id desc")->select();
 			$data["isupload"] = 0;
+			$data["is_cdn_submit"] = -1;
 			$data["apkurl"] = "";
 			$sourceresult = $sourceModel->where($condition)->save($data);
+
+			// 输出日志
+			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/source/game.log';
+			$log_content=date('Y-m-d H:i:s')."\n";
+			$log_content.="Admin/Game/activePackage\n";
+			$log_content.="gameid：".$package["gameid"]."\n";
+			$log_content.="该游戏下的所有资源\n";
+			$log_content.="isupload：0\n";
+			$log_content.="is_cdn_submit：-1\n";
+			$log_content.="apkurl：空\n";
+			error_log($log_content, 3, $log_file);
+
 			$oldModel = M('tg_oldpackage');
 			$olddata = array();
 			foreach ($sourcelist as $k => $v) {
