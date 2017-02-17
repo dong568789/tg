@@ -432,7 +432,7 @@ class GameAction extends CommonAction {
 			$packagemodel= M('tg_package');
 			$packagecondition["gameid"] = $gameid;
 			$packagecondition["activeflag"] = 1;
-			$packagelist = $packagemodel->where($packagecondition)->order("packageid asc")->select();
+			$packagelist = $packagemodel->where($packagecondition)->order("createtime desc")->select();
 			$latestpackage = $packagemodel->where($packagecondition)->order("packageid desc")->find();
 			$versionstr = "";
 			foreach ($packagelist as $k => $v) {

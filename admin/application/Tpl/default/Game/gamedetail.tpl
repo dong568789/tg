@@ -463,26 +463,6 @@
 										</div>
 									</div>
 									<div class="form-group m-t-25">
-										<label class="col-sm-3 f-15 control-label">母包查看</label>
-										<div class="col-sm-7">
-											<div class="fg-line">
-												<select class="selectpicker">
-													<foreach name="packagelist" item="vo" key="k">
-														<option value="<{$vo['packageid']}>" <if condition="$vo['isnowactive'] eq 1 ">selected="true"</if>><{$vo['gamename']}> - <{$vo['packagename']}> - <{$vo['gamesize']}>MB
-														<if condition="$vo['isnowactive'] eq 1 ">
-															【当前包】
-															<else/>
-															【旧包】
-														</if>
-														</option>
-													</foreach>
-												</select>
-											</div>
-										</div>
-										<div class="col-sm-2">
-										</div>
-									</div>
-									<div class="form-group m-t-25">
 										<label class="col-sm-3 f-15 control-label">强更历史版本号</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
