@@ -392,7 +392,12 @@ class SourceAction extends CommonAction {
         if (!$this->isPost()){
 			$this->ajaxReturn('fail',"非法访问",0);
 		}
-        $channelid = $_POST['channelid'];
+        $channelid = isset($_POST['channelid'])? (int)$_POST['channelid'] : 0;
+
+		if($channelid <= 0){
+			$this->ajaxReturn('fail','没有数据。',0);
+			exit();
+		}
         $Index = D("Source");
         $gamestr = $Index->selectSource($channelid);
         if($gamestr){
@@ -437,6 +442,22 @@ class SourceAction extends CommonAction {
 
         $this->display();
     }
+
+	/**
+	 * 获取游戏推广链接
+	 */
+	public function getGameDowUrl()
+	{
+		$this->logincheck();
+
+		$sourceid = isset($_POST['sourceid']) ? trim($_POST['sourceid']) : 0;
+		$Source = D('Source');
+		$data['long_url'] = $Source->getDownloadURL($sourceid);
+		$data['short_url'] = $Source->shortenSinaUrl($data['long_url']);
+		$data['status'] = 1;
+
+		$this->ajaxReturn($data, 'JSON');
+	}
 
     // 用户-资源-推广链接-手机页面
     public function page(){

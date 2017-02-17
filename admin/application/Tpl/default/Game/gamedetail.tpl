@@ -440,7 +440,7 @@
 											<div class="fg-line">
 												<select class="selectpicker" name="packagelist" id="packagelist">
 													<foreach name="packagelist" item="vo" key="k">
-														<option value="<{$vo['packageid']}>" <if condition="$vo['isnowactive'] eq 1 ">selected="true"</if>><{$vo['gamename']}> - <{$vo['viewname']}> - <{$vo['gamesize']}>MB
+														<option value="<{$vo['packageid']}>" <if condition="$vo['isnowactive'] eq 1 ">selected="true"</if>><{$vo['gamename']}> - <{$vo['viewname']}> - <{$vo['gamesize']}>MB-母包<{$vo['packagename']}>
 														<if condition="$vo['isnowactive'] eq 1 ">
 															【当前包】
 														<else/>

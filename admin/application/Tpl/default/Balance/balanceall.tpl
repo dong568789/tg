@@ -68,18 +68,20 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                                     <a id="viewdaterange" class="input-group-addon btn-info">查看</a>
                                                 </div>
                                             </div>
+                                            <div class="form-group col-sm-3">
+                                                <div class="search col-sm-8 m-0 p-l-0" style="width: 80%">
+                                                    <div class="input-group">
+                                                        <span class="zmdi icon input-group-addon glyphicon-search"></span>
+                                                        <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
+                                                    </div>
+                                                </div>
+                                                <div class="actions btn-group" style="width: 20%">
+                                                    <div class="dropdown btn-group">
+                                                        <a class="btn btn-default" href="javascript:void(0);" id="searchRecharge">搜索</a>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            <div class="search form-group col-sm-9 m-0 p-l-0">
-                                                <div class="input-group">
-                                                    <span class="zmdi icon input-group-addon glyphicon-search"></span>
-                                                    <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
-                                                </div>
-                                            </div>
-                                            <div class="actions btn-group">
-                                                <div class="dropdown btn-group">
-                                                    <a class="btn btn-default" href="javascript:void(0);" id="searchRecharge">搜索</a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
