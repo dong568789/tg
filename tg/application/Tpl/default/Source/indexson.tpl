@@ -96,38 +96,40 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 					</div>
 				</div>
 
-                <div class="modal" id="dowloadshow" style="display:none;"> <!-- Inline style just for preview -->
-                    <div class="modal-dialog modal-sm" style="width: 610px;">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title f-700 p-b-5 text-center" style="border-bottom:2px solid #ddd;">APK下载链接</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form class="form-horizontal" role="form" >
-                                    <div class="card-body card-padding">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" style="width: auto;">长链接</label>
-                                            <div class="col-sm-7"  style="width: auto;padding:0px; ">
-                                                <div class="fg-line">
-                                                    <a href='#' id="long_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
-                                                     <!--<span class="btn" onclick="copyUrl2('long_url')">复制</span>-->
+                <div class="clearfix modal-preview-demo"> <!-- Inline style just for preview -->
+                    <div class="modal" id="dowloadshow" style="display:none;"> <!-- Inline style just for preview -->
+                        <div class="modal-dialog modal-sm" style="width: 660px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title f-700 p-b-5 text-center" style="border-bottom:2px solid #ddd;">APK下载链接</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" role="form" >
+                                        <div class="card-body card-padding">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" style="width: auto;">长链接</label>
+                                                <div class="col-sm-7"  style="width: auto;padding:0px;">
+                                                    <div class="fg-line">
+                                                        <a href="#" id="long_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
+                                                        <span class="btn" id="long_text" data-clipboard-action="copy" data-clipboard-target="#long_url">复制</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label" style="width: auto;">短链接</label>
+                                                <div class="col-sm-7" style="width: auto;padding:0px;">
+                                                    <div class="fg-line">
+                                                        <a href='#' id="short_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
+                                                        <span class="btn" id="short_text" data-clipboard-action="copy" data-clipboard-target="#short_url">复制</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-5 control-label" style="width: auto;">短链接</label>
-                                            <div class="col-sm-7" style="width: auto;padding:0px;">
-                                                <div class="fg-line">
-                                                    <a href='#' id="short_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
-                                                    <!--<span class="btn" onclick="copyUrl2('short_url')">复制</span>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-link" data-dismiss="modal" >关闭</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link" data-dismiss="modal" >关闭</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -203,6 +205,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 
 <script src="__ROOT__/plus/vendors/bower_components/jpages/js/jPages.js"></script>
 <script src="__ROOT__/plus/clipboard/dist/clipboard.min.js"></script>
+<script src="__ROOT__/plus/js/clipboard.min.js"></script>
 
 <script type="text/javascript">
     //回车绑定事件
@@ -435,6 +438,26 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
 		//滚动条
 		$(".table-responsive").css("overflow-x","visible");
         $(".search-content").attr("placeholder","请输入游戏名称");
+
+        var longObj = new Clipboard('#long_text');
+
+        longObj.on('success', function(e) {
+            notify('复制成功', 'success');
+        });
+
+        longObj.on('error', function(e) {
+            notify('复制失败', 'danger');
+        });
+
+        var shortObj = new Clipboard('#short_text');
+
+        shortObj.on('success', function(e) {
+            notify('复制成功', 'success');
+        });
+
+        shortObj.on('error', function(e) {
+            notify('复制失败', 'danger');
+        });
 
     });
 </script>
