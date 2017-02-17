@@ -90,7 +90,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏包格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$packageFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$packageFile)) {  
 					$this->ajaxReturn('fail',"上传游戏包失败。",0);
@@ -115,7 +115,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传素材包格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$textureFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$textureFile)) {  
 					$this->ajaxReturn('fail',"上传素材包失败。",0);
@@ -140,7 +140,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏图标格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$gameiconFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$gameiconFile)) {  
 					$this->ajaxReturn('fail',"上传游戏图标失败。",0);
@@ -165,7 +165,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏背景格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$gamebgFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$gamebgFile)) {  
 					$this->ajaxReturn('fail',"上传游戏背景失败。",0);
@@ -190,7 +190,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图1格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot1File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot1File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图1失败。",0);
@@ -215,7 +215,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图2格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot2File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot2File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图2失败。",0);
@@ -240,7 +240,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图3格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot3File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot3File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图3失败。",0);
@@ -265,7 +265,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图4格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot4File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot4File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图4失败。",0);
@@ -290,7 +290,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图5格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot5File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot5File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图5失败。",0);
@@ -394,7 +394,7 @@ class GameAction extends CommonAction {
 				$packagedata['gamesize'] = $data['gamesize'];
 				$packagedata['packagename'] = $data['packagename'];
 				$packagedata['packageversion'] = $data['packageversion'];
-				$packagedata['viewname'] = $data["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".$this->makeStr(4).".apk";
+				$packagedata['viewname'] = $data["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".createstr(4).".apk";
 				$packagedata['activeflag'] = 1;
 				$packagedata['createtime'] = date('Y-m-d H:i:s',time());
 				$packagedata['createuser'] = "Admin";
@@ -631,7 +631,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$packageFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$packageFile)) {  
 					$this->ajaxReturn('fail',"上传游戏失败。",0);
@@ -656,7 +656,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传素材格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$textureFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$textureFile)) {  
 					$this->ajaxReturn('fail',"上传素材失败。",0);
@@ -681,7 +681,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏图标格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$gameiconFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$gameiconFile)) {  
 					$this->ajaxReturn('fail',"上传游戏图标失败。",0);
@@ -706,7 +706,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏图标格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$gamebgFile = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$gamebgFile)) {  
 					$this->ajaxReturn('fail',"上传游戏图标失败。",0);
@@ -731,7 +731,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图1格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot1File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot1File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图1失败。",0);
@@ -756,7 +756,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图2格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot2File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot2File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图2失败。",0);
@@ -781,7 +781,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图3格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot3File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot3File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图3失败。",0);
@@ -806,7 +806,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图4格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot4File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot4File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图4失败。",0);
@@ -831,7 +831,7 @@ class GameAction extends CommonAction {
 					$this->ajaxReturn('fail',"上传游戏截图5格式不正确。",0);
 					exit();
 				}
-				$cacheFileName = $this->makeStr(30).".".$ftype;
+				$cacheFileName = createstr(30).".".$ftype;
 				$screenshot5File = $targetPath.$cacheFileName;
 				if (!move_uploaded_file($tempFile,$screenshot5File)) {  
 					$this->ajaxReturn('fail',"上传游戏截图5失败。",0);
@@ -907,7 +907,7 @@ class GameAction extends CommonAction {
 							$packagedata['gamesize'] = $data['gamesize'];
 							$packagedata['packagename'] = $data['packagename'];
 							$packagedata['packageversion'] = $data['packageversion'];
-							$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".createstr(4).".apk";
 							$packagedata['activeflag'] = 1;
 							$packagedata['createtime'] = date('Y-m-d H:i:s',time());
 							$packagedata['createuser'] = "Admin";
@@ -993,7 +993,7 @@ class GameAction extends CommonAction {
 						$packagedata['gamesize'] = $data['gamesize'];
 						$packagedata['packagename'] = $data['packagename'];
 						$packagedata['packageversion'] = $data['packageversion'];
-						$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".$this->makeStr(4).".apk";
+						$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".createstr(4).".apk";
 						$packagedata['activeflag'] = 1;
 						$packagedata['createtime'] = date('Y-m-d H:i:s',time());
 						$packagedata['createuser'] = "Admin";
@@ -1078,7 +1078,7 @@ class GameAction extends CommonAction {
 							$packagedata['gamesize'] = $data['gamesize'];
 							$packagedata['packagename'] = $data['packagename'];
 							$packagedata['packageversion'] = $data['packageversion'];
-							$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".$this->makeStr(4).".apk";
+							$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".createstr(4).".apk";
 							$packagedata['activeflag'] = 0;
 							$packagedata['createtime'] = date('Y-m-d H:i:s',time());
 							$packagedata['createuser'] = "Admin";
@@ -1121,7 +1121,7 @@ class GameAction extends CommonAction {
 						$packagedata['gamesize'] = $data['gamesize'];
 						$packagedata['packagename'] = $data['packagename'];
 						$packagedata['packageversion'] = $data['packageversion'];
-						$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".$this->makeStr(4).".apk";
+						$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".createstr(4).".apk";
 						$packagedata['activeflag'] = 1;
 						$packagedata['createtime'] = date('Y-m-d H:i:s',time());
 						$packagedata['createuser'] = "Admin";
@@ -1205,7 +1205,7 @@ class GameAction extends CommonAction {
 					$packagedata['gamesize'] = $data['gamesize'];
 					$packagedata['packagename'] = $data['packagename'];
 					$packagedata['packageversion'] = $data['packageversion'];
-					$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".$this->makeStr(4).".apk";
+					$packagedata['viewname'] = $game["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".createstr(4).".apk";
 					$packagedata['activeflag'] = 1;
 					$packagedata['createtime'] = date('Y-m-d H:i:s',time());
 					$packagedata['createuser'] = "Admin";
@@ -1414,12 +1414,14 @@ class GameAction extends CommonAction {
 				if ($exsitpackage) {
 					// 生成强更包文件
 					if ($source["gameversion"] != "") {
-						$newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".$this->makeStr(4).".apk";
+						$newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
 					} else {
 						$newgamename = $source["gamepinyin"]."_".$source["channelid"].".apk";
 					}
-					$result = $this->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"]);
-					if ($result == "true") {
+
+					$sourceModel = D('Source');
+					$result = $sourceModel->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"]);
+					if ($result['code'] == 1) {
 						// 添加记录到tg_forcepackage表中，记录该资源强更包的游戏下载链接
 						$data["userid"] = $source["userid"];
 						$data["channelid"] = $source["channelid"];
@@ -1433,6 +1435,10 @@ class GameAction extends CommonAction {
 						$forcepackage = $forcepackageModel->add($data);
 
 						if ($forcepackage) {
+							// 第一次分包的时候cdn提交
+							$soureceModel = D('Source');
+							$soureceModel->cdnsubmit($source["sourcesn"],$newgamename,true);
+
 							// sdk_agentlist增加资源的强更链接
 							$agentModel = M('sdk_agentlist');
 							$agentcondition["agent"] = $source["sourcesn"];
@@ -1450,6 +1456,8 @@ class GameAction extends CommonAction {
 							$this->ajaxReturn('fail','分包失败，未能新增强更包信息.',0);
 							exit();
 						}
+					}else{
+						$this->ajaxReturn('fail','生成分包失败。',0);
 					}
 				} else {
 					$this->ajaxReturn('fail','分包失败，未找到合适的强更包.',0);
@@ -1459,70 +1467,6 @@ class GameAction extends CommonAction {
 		} else {
 			$this->ajaxReturn('finish',"分包已完成。",1);
 			exit();
-		}
-	}
-
-	//分包
-	public function subpackage($packagename,$newgamename,$sourcesn){
-		$sourfile = $this->packageStoreFolder.$packagename;
-		//chmod($sourfile, 0777);		
-		$newfile = $this->downloadStoreFolder.$newgamename;
-		if(!file_exists($sourfile)){
-			$this->ajaxReturn('fail',"母包不存在。",0);
-			exit();
-		}
-		if (!copy($sourfile, $newfile)) {
-			$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-			exit();
-		}
-		$channelfile=$url."gamechannel";
-		fopen($channelfile, "w");
-		$zip = new ZipArchive;
-		if ($zip->open($newfile) === TRUE) {
-			$zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
-			$zip->close();
-
-			// 第一次分包的时候cdn提交
-			$this->cdnsubmit($sourcesn,$newgamename);
-
-			return "true";
-		} else {
-			return "false";
-		}
-    	$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-		exit();
-	}
-
-	// cdn提交接口
-	public function cdnsubmit($sourcesn,$newgamename){
-		// 允许用户提交cdn才提交cdn
-		$sourceModel = M('tg_source');
-		$where = array('S.sourcesn'=>$sourcesn);
-		$is_allow_cdn = $sourceModel->alias('S')
-					->field('U.is_allow_cdn')
-					->join(C('DB_PREFIX').'tg_user U on U.userid=S.userid')
-					->where($where)
-					->find();
-		if($is_allow_cdn['is_allow_cdn'] == '1'){
-			// 输出日志
-			$log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-sub.log';
-			$log_content=date('Y-m-d H:i:s')."\n";
-			$log_content.="强更cdn提交：\n";
-			$log_content.="sourcesn：".$sourcesn."\n";
-			$log_content.="newgamename：".$newgamename."\n";
-			error_log($log_content, 3, $log_file);
-
-			/*************CDN*******************/
-			$Url = 'http://c.yxgames.com/api/cdn';
-			$Callback = $this->admindomain.'/?m=game&a=forcecdncallback&sourcesn='.$sourcesn;
-			$packageurl  = $this->apkdownloadcdnurl.$newgamename;
-			$Params = array(
-				'url'=>$packageurl,
-				'callback'=>$Callback,
-				'of'=>'json',
-			);
-			$rs = $this->httpreq($Url, http_build_query($Params),'post');
-			/****************CDN*******************/
 		}
 	}
 
@@ -1620,61 +1564,6 @@ class GameAction extends CommonAction {
 		}
 	}
 
-	//激活游戏包
-	public function activePackage(){
-		$this->logincheck();
-		$packageid = $_POST['packageid'];
-		$packageModel = M('tg_package');
-		$package = $packageModel->find($packageid);
-		if ($package["isnowactive"] == 0) {
-			$packagedata["isnowactive"] = 0;
-			$packagecondition["gameid"] = $package["gameid"];
-			$packageresult = $packageModel->where($packagecondition)->save($packagedata);
-			$activedata["isnowactive"] = 1;
-			$activecondition["packageid"] = $packageid;
-			$activeresult = $packageModel->where($activecondition)->save($activedata);
-			$sourceModel = M('tg_source');
-			$condition["gameid"] = $package["gameid"];
-			$condition["activeflag"] = 1;
-			$sourcelist = $sourceModel->where($condition)->order("id desc")->select();
-			$data["isupload"] = 0;
-			$data["apkurl"] = "";
-			$sourceresult = $sourceModel->where($condition)->save($data);
-			$oldModel = M('tg_oldpackage');
-			$olddata = array();
-			foreach ($sourcelist as $k => $v) {
-				$olddata[$k]["userid"] = $v["userid"];
-				$olddata[$k]["channelid"] = $v["channelid"];
-				$olddata[$k]["gameid"] = $v["gameid"];
-				$olddata[$k]["apkurl"] = $v["apkurl"];
-				$olddata[$k]["isdelete"] = 0;
-				$olddata[$k]['activeflag'] = 1;
-				$olddata[$k]['createtime'] = date('Y-m-d H:i:s',time());
-				$olddata[$k]['createuser'] = "Admin";
-			}
-			if (sizeof($olddata) > 0) {
-				$oldresult = $oldModel->addAll($olddata);
-			}
-			$gameModel = M('tg_game');
-			$gamedata["gamesize"] = $package["gamesize"];
-			$gamedata["gameversion"] = $package["gameversion"];
-			$gamedata["packagename"] = $package["packagename"];
-			$gamedata["packageversion"] = $package["packageversion"];
-			$gamecondition["gameid"] = $package["gameid"];
-			$gameresult = $gameModel->where($gamecondition)->save($gamedata);
-			if ($packageresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
-				$this->ajaxReturn('success','success',1);
-				exit();
-			} else {
-				$this->ajaxReturn('fail',"激活游戏包失败。",0);
-				exit();
-			}
-		} else {
-			$this->ajaxReturn('fail',"请勿激活相同的游戏包。",0);
-			exit();
-		}
-	}
-
 	//获取包的版本号
 	public function getPackageVersion(){
 		$this->logincheck();
@@ -1688,15 +1577,6 @@ class GameAction extends CommonAction {
 			$this->ajaxReturn('fail',"获取游戏包版本信息失败。",0);
 			exit();
 		}
-	}
-
-	public function makeStr($length) { 
-		$possible = "0123456789"."abcdefghijklmnopqrstuvwxyz"; 
-		$str = ""; 
-		while(strlen($str) < $length) {
-			$str .= substr($possible, (rand() % strlen($possible)), 1);
-		}
-		return($str); 
 	}
 
 }
