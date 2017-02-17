@@ -29,7 +29,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
             <div class="clearfix modal-preview-demo">
                 <div class="modal" id="dowloadshow" style="display:none;"> <!-- Inline style just for preview -->
-                    <div class="modal-dialog modal-sm" style="width: 660px;">
+                    <div class="modal-dialog modal-sm" style="width: 610px;">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title f-700 p-b-5 text-center" style="border-bottom:2px solid #ddd;">APK下载链接</h4>
@@ -42,7 +42,6 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <div class="col-sm-7"  style="width: auto;padding:0px;">
                                                 <div class="fg-line">
                                                     <a href="#" id="long_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
-                                                    <span class="btn" id="long_text" data-clipboard-action="copy" data-clipboard-target="#long_url">复制</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -51,9 +50,12 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <div class="col-sm-7" style="width: auto;padding:0px;">
                                                 <div class="fg-line">
                                                     <a href='#' id="short_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
-                                                    <span class="btn" id="short_text" data-clipboard-action="copy" data-clipboard-target="#short_url">复制</span>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="btn" style="margin-left: 20px;" id="long_text" data-clipboard-action="copy" data-clipboard-target="#long_url">复制长链接</span>
+                                            <span class="btn" style="margin-left: 20px;" id="short_text" data-clipboard-action="copy" data-clipboard-target="#short_url">复制短链接</span>
                                         </div>
                                     </div>
                                 </form>
