@@ -28,6 +28,10 @@ class StatisticsAction extends CommonAction
     {
         $dailCount = $this->getData();
         sort($dailCount);
+        if(count($dailCount) <= 0){
+            $this->ajaxReturn($dailCount,'error',0);
+            exit;
+        }
         $this->ajaxReturn($dailCount,'success',1);
         exit;
     }

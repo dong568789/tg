@@ -53,9 +53,9 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <a id="viewdaterange" class="input-group-addon btn-info">查看</a>
                                         </div>
                                     </div>
-                                    <div class="daterange form-group" style="width:150px;margin-left:210px;">
+                                    <div class="daterange form-group" style="width:150px;">
                                         <div class="input-group">
-                                            <a href="javascript:void(0);" id="export" class="input-group-addon btn-info" style="display: inline-block:width: 150px;padding: 10px;">导出报表</a>
+                                            <a href="javascript:void(0);" id="export" class="input-group-addon btn-info" style="display: inline-block;width: 150px;padding: 10px;">导出报表</a>
                                         </div>
                                     </div>
                                 </div>

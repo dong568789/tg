@@ -41,8 +41,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <label class="col-sm-2 control-label" style="width: auto;">长链接</label>
                                             <div class="col-sm-7"  style="width: auto;padding:0px;">
                                                 <div class="fg-line">
-                                                    <a href='#' id="long_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
-                                                    <!--<span class="btn" onclick="copyUrl2('long_url')">复制</span>-->
+                                                    <a href="#" id="long_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -51,9 +50,12 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <div class="col-sm-7" style="width: auto;padding:0px;">
                                                 <div class="fg-line">
                                                     <a href='#' id="short_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
-                                                    <!--<span class="btn" onclick="copyUrl2('short_url')">复制</span>-->
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="btn" style="margin-left: 20px;" id="long_text" data-clipboard-action="copy" data-clipboard-target="#long_url">复制长链接</span>
+                                            <span class="btn" style="margin-left: 20px;" id="short_text" data-clipboard-action="copy" data-clipboard-target="#short_url">复制短链接</span>
                                         </div>
                                     </div>
                                 </form>
@@ -72,7 +74,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                             <img class="i-logo" src="__ROOT__/plus/img/demo/invoice-logo.png" alt="">
                         </div>
                         <div class="card-body">
-							
+
 
 							<div class="p-20" >
 								<div class="row" >
@@ -98,7 +100,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 											</span>
 										</div>
 									</div>
-									
+
 									<div class="col-xs-6">
 										<div class="i-to">
 											<h4><{$user['realname']}></h4>
@@ -224,6 +226,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
 <script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
 <script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+<script src="__ROOT__/plus/js/clipboard.min.js"></script>
 
 <script type="text/javascript">
 	function notify(message, type){
@@ -330,7 +333,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         $('#long_url').html(data.long_url).attr('href',data.long_url);
         $('#short_url').html(data.short_url).attr('href',data.short_url);
     }
-	
+
     $(document).ready(function() {
 		//Basic Example
         $("#data-table-basic").bootgrid({
@@ -389,6 +392,26 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 		$("#channelselect").change(function() {
 			search_page();
 		});
+
+        var longObj = new Clipboard('#long_text');
+
+        longObj.on('success', function(e) {
+            notify('复制成功', 'success');
+        });
+
+        longObj.on('error', function(e) {
+            notify('复制失败', 'danger');
+        });
+
+        var shortObj = new Clipboard('#short_text');
+
+        shortObj.on('success', function(e) {
+            notify('复制成功', 'success');
+        });
+
+        shortObj.on('error', function(e) {
+            notify('复制失败', 'danger');
+        });
     })
 </script>
 
