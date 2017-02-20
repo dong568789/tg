@@ -27,7 +27,11 @@ class StatisticsAction extends CommonAction
     public function ajaxData()
     {
         $dailCount = $this->getData();
+
+        $this->totalData($dailCount);
+
         sort($dailCount);
+
         if(count($dailCount) <= 0){
             $this->ajaxReturn($dailCount,'error',0);
             exit;
@@ -157,6 +161,8 @@ class StatisticsAction extends CommonAction
             /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
                 unset($dailCount[$key]);
             }*/
+
+            //合度
         }
 
         return $dailCount;
@@ -170,6 +176,32 @@ class StatisticsAction extends CommonAction
            $this->error('数据获取失败，没有符合条件的数据');
         }
 
+        $this->totalData($dailCount);
+
+        $check = false;
+        if($this->checkUserDep()){
+            $check = true;
+        }
+        $title['timeZone'] = '日期';
+        $title['channelbusiness'] = '部门';
+        $title['realname'] = '客户名称';
+        $title['sum_newpeople'] = '注册数';
+        $check && $title['sum_cpamount'] = 'CP结算';
+        $title['sum_voucherje'] = '优惠券';
+        $title['sum_dailyincome'] = '渠道收益';
+        $title['buyer_voucher'] = '购买代金券';
+        $check && $title['yx_amount'] = '官方流水';
+        $title['sum_amount'] = '总充值';
+        $check && $title['yx_earnings'] = '收益';
+        $this->exportFile($title, $dailCount);
+    }
+
+    /**
+     * @param $dailCount
+     * @return array
+     */
+    protected function totalData(&$dailCount)
+    {
         $sum_newpeople = $sum_cpamount = $sum_voucherje = $sum_dailyincome = $yx_amount = $sum_amount = $yx_earnings = $buyer_voucher =  0;
         foreach($dailCount as $v3){
             $sum_newpeople += $v3['sum_newpeople'];
@@ -193,23 +225,6 @@ class StatisticsAction extends CommonAction
             'yx_earnings' => $yx_earnings,
             'buyer_voucher' => $buyer_voucher
         );
-
-        $check = false;
-        if($this->checkUserDep()){
-            $check = true;
-        }
-        $title['timeZone'] = '日期';
-        $title['channelbusiness'] = '部门';
-        $title['realname'] = '客户名称';
-        $title['sum_newpeople'] = '注册数';
-        $check && $title['sum_cpamount'] = 'CP结算';
-        $title['sum_voucherje'] = '优惠券';
-        $title['sum_dailyincome'] = '渠道收益';
-        $title['buyer_voucher'] = '购买代金券';
-        $check && $title['yx_amount'] = '官方流水';
-        $title['sum_amount'] = '总充值';
-        $check && $title['yx_earnings'] = '收益';
-        $this->exportFile($title, $dailCount);
     }
 
 
