@@ -125,6 +125,7 @@ class SourceModel extends CommonModel
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
             ->where($where)
+            ->field('G.*,C.categoryname,T.tagname')
             ->order("G.gameauthority desc")
             ->select();
         $sourcecondition["userid"] = $userid;
