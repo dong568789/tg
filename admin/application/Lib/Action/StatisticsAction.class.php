@@ -149,7 +149,7 @@ class StatisticsAction extends CommonAction
             $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje'] + $itemVoucher[$value['userid']]['sum_amount']);
             $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]['sum_amount']) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
 
-            if($value['sum_amount'] <= 0){
+            if($value['sum_amount'] <= 0 && $value['sum_newpeople'] <= 0){
                 unset($dailCount[$key]);
             }
             //$value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
