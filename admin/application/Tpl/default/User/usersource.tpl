@@ -49,7 +49,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <label class="col-sm-5 control-label" style="width: auto;">短链接</label>
                                             <div class="col-sm-7" style="width: auto;padding:0px;">
                                                 <div class="fg-line">
-                                                    <a href='#' id="short_url" style="padding: 6px 12px;text-transform: Lowercase; display: inline-block;"></a>
+                                                    <a href='#' id="short_url" style="padding: 6px 12px;display: inline-block;"></a>
                                                 </div>
                                             </div>
                                         </div>
