@@ -960,6 +960,7 @@ class GameAction extends CommonAction {
 								$forcedata["lastupver"] = $latestversion;
 								$forcecondition["id"] = $game["sdkgameid"];
 								$forceresult = $forceModel->where($forcecondition)->save($forcedata);
+								$this->insertLog($_SESSION['adminname'],'上传游戏包', 'GameAction.class.php', 'uploadpackage',  $packagedata['createtime'], $_SESSION['adminname']."上传了游戏“".$packagedata['gamename']."”，".$forceModel->getLastSql().",data:".json_encode($forcedata));
 
 								if ($forceresult && $oldactiveresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
 									$this->ajaxReturn('force','force',1);
@@ -1176,6 +1177,7 @@ class GameAction extends CommonAction {
 							$forcedata["lastupver"] = $latestversion;
 							$forcecondition["id"] = $game["sdkgameid"];
 							$forceresult = $forceModel->where($forcecondition)->save($forcedata);
+							$this->insertLog($_SESSION['adminname'],'上传游戏包', 'GameAction.class.php', 'uploadpackage',  $packagedata['createtime'], $_SESSION['adminname']."上传了游戏“".$packagedata['gamename']."”，".$forceModel->getLastSql().",data:".json_encode($forcedata));
 
 							if ($forceresult && $oldactiveresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
 								$this->ajaxReturn('force','force',1);
