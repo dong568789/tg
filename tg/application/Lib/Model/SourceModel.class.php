@@ -207,7 +207,7 @@ class SourceModel extends CommonModel
 				$gamestr .= "</td>";
 				$gamestr .= "<td>".$v["categoryname"]."</td>";
 				$gamestr .= "<td>".$v["tagname"]."</td>";
-                $gamestr .= "<td>".$v["createtime"]."</td>";
+                $gamestr .= "<td>".$v["publishtime"]."</td>";
                 $gamestr .= "<td>".$v["gameauthority"]."</td>";
                 /*if($v["isonstack"]  == -1 ){
                     $gamestr .= "<td></td>";

@@ -242,7 +242,7 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                                 <th width="20%">游戏名称</th>
                                                 <th width="10%">游戏分类</th>
 												<th width="10%">游戏标签</th>
-                                                <th width="10%">创建时间</th>
+                                                <th width="10%">发布日期</th>
                                                 <th width="10%" id="order-apply-hot">热度</th>
                                                 <th width="10%">游戏包大小</th>
                                                 <th width="10%">分成比例</th>
