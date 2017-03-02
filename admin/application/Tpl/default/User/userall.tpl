@@ -100,7 +100,6 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             <th data-column-id="companyname">公司名字</th>
                                             <th data-column-id="channelbusiness">渠道商务</th>
                                             <th data-column-id="createtime">创建时间</th>
-                                            <if condition="$seeSoureceRight eq 'ok'"><th data-column-id="sourcestr">渠道</th></if>
                                             <th data-column-id="isverified" data-visible="false">是否通过审核</th>
                                             <if condition="$editUser eq 'ok' || $ptbAuthorization eq 'ok' || $auditUser eq 'ok'"><th data-column-id="operationstr">操作</th></if>
                                         </tr>

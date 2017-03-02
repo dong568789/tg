@@ -151,6 +151,11 @@ class UserAction extends CommonAction {
                         }
                         $operationstr .= '<a href="javascript:;" onclick="fastApply(this,'.$value['userid'].');" >一键申请资源</a>';
                     }
+
+                    $operationstr .= '&nbsp;|&nbsp;<a href="/channel/'.$value['userid'].'/">渠道管理</a>';
+                    $operationstr .= '&nbsp;|&nbsp;<a href="/source/'.$value['userid'].'/">推广资源</a>';
+                    $operationstr .= '&nbsp;|&nbsp;<a href="/statisticstg/'.$value['userid'].'/">数据统计</a>';
+
                     $users[$key]['operationstr'] = $operationstr;
                 }elseif($value['isverified'] == 0){
                     $users[$key]['operationstr'] = '<a href="/userdetail/'.$value['userid'].'/" class="btn btn-warning btn-xs">审核新用户</a>';
@@ -158,11 +163,6 @@ class UserAction extends CommonAction {
                     $users[$key]['operationstr'] = '<a href="/userdetail/'.$value['userid'].'/" class="btn btn-danger btn-xs">未通过审核</a>';
                 }else{
                     $users[$key]['operationstr'] = "没有操作权限";
-                }
-                if ($seeSoureceRight == 'ok') {
-                    $users[$key]['sourcestr'] = '<a href="/usersource/'.$value['userid'].'/">查看</a>';
-                }else{
-                    $users[$key]['sourcestr'] = '';
                 }
             }
             // vde($users);
@@ -234,7 +234,13 @@ class UserAction extends CommonAction {
         $sourcecondition["G.isonstack"] = 0;
         $sourcecondition["G.isonstack"] = 0;
 
-        $source = $sourcemodel->field("S.id as sourceid,G.gameicon as img,G.gamename,C.channelname,S.sourcesn,S.sourcesharerate,S.sourcechannelrate")->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select(); //vde();
+        $source = $sourcemodel
+            ->field("S.id as sourceid,G.gameicon as img,G.gamename,C.channelname,S.sourcesn,S.sourcesharerate,S.sourcechannelrate")
+            ->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->where($sourcecondition)
+            ->order("S.createtime desc")
+            ->select(); //vde();
         foreach ($source as $k => $v) {
             $source[$k]["img"] = $this->iconurl.$v["img"];
 
@@ -1115,6 +1121,96 @@ class UserAction extends CommonAction {
         $data['status'] = 1;
 
         $this->ajaxReturn($data, 'JSON');
+    }
+
+    // ---------自定义子账号的费率--------------------------------------
+    // 自定义子账号的费率 视图
+    public function defineRate(){
+        $this->logincheck();
+        $this->menucheck();
+
+        $sourceid = $_GET['sourceid'];
+
+        $sourceModel = M('tg_source');
+        //获取该资源的相关信息
+        $where = array('id' => $sourceid );
+        $source = $sourceModel->alias('S')
+            ->join(C('DB_PREFIX').'tg_channel as C on S.channelid=C.channelid','left')
+            ->join(C('DB_PREFIX').'tg_game as G on S.gameid=G.gameid','left')
+            ->join(C('DB_PREFIX').'tg_user as U on S.channelid=U.channelid','left')
+            ->field('S.id,S.sourcesharerate,S.sourcechannelrate,S.sub_share_rate,S.sub_channel_rate,C.channelname,G.gamename,U.account')
+            ->where($where)
+            ->find();
+
+        $this->assign('source',$source);
+        $this->display();
+    }
+
+    // 自定义子账号的费率 处理
+    public function defineRateHandle(){
+        if (!$this->isAjax()){
+            $this->ajaxReturn("fail",'非法访问',0);
+        }
+
+        $sourceid = $_POST['sourceid'];
+        $sub_share_rate = trim($_POST['sub_share_rate']);
+        $sub_channel_rate = trim($_POST['sub_channel_rate']);
+
+        $sourceModel= M('tg_source');
+
+        if(!isset($sub_channel_rate)){
+            $this->ajaxReturn("fail",'分成比例不能为空',0);
+        }
+        if(!isset($sub_channel_rate)){
+            $this->ajaxReturn("fail",'渠道费不能为空',0);
+        }
+
+        $reg = '/^0|([0-9]+.?[0-9]*)$/';
+        if(!preg_match($reg,$sub_channel_rate)){
+            $this->ajaxReturn("fail",'分成比例必须为大于等于0小于1的小数',0);
+        }
+        if(!preg_match($reg,$sub_channel_rate)){
+            $this->ajaxReturn("fail",'渠道费必须为大于等于0小于1的小数',0);
+        }
+
+        //获取原来的资源信息
+        $where = array('id'=>$sourceid);
+        $oldsource = $sourceModel->field('sourcesharerate,sourcechannelrate,sub_share_rate,sub_channel_rate,channelid,gameid')->where($where)->find();
+
+        //分成比例不能母账号的大
+        if($sub_share_rate > $oldsource['sourcesharerate']){
+            $this->ajaxReturn("fail",'子账号的分成比例不能大于等于母账号的分成比例',0);
+        }
+        //渠道费必须大于等于母账号的
+        if($sub_channel_rate < $oldsource['sourcechannelrate']){
+            $this->ajaxReturn("fail",'子账号的渠道费不能小于母账号的渠道费',0);
+        }
+
+        // 保存子账号资源费率
+        $data = array();
+        $data["sub_share_rate"] = $sub_share_rate;
+        $data["sub_channel_rate"] = $sub_channel_rate;
+        $source = $sourceModel->where($where)->save($data);
+
+        if ($source!==false) {
+            $channelid = $oldsource['channelid'];
+            $gameid = $oldsource['gameid'];
+
+            $channelmodel =  M('tg_channel');
+            $channel = $channelmodel->alias('C')
+                ->join(C('DB_PREFIX').'tg_user as U on U.channelid=C.channelid','left')
+                ->field('C.channelname,U.account')
+                ->where("C.channelid = '$channelid'")
+                ->find();
+
+            $gameModel = M('tg_game');
+            $game = $gameModel->field('gamename')->where("gameid = '$gameid'")->find();
+
+            $this->insertLog($_SESSION['account'],'自定义子账号资源费率', 'SourceAction.class.php', 'defineRateHandle', $time, $_SESSION['account']."编辑了子账户“".$channel['account']."”的渠道名为“".$channel['channelname']."”游戏名为“".$game['gamename']."”，分成比例由“".$oldsource['sub_share_rate']."变为".$data["sub_share_rate"] ."”，通道费由“".$oldsource['sub_channel_rate']."变为".$data['sub_channel_rate']."”");
+            $this->ajaxReturn('success',"成功。",1);
+        } else {
+            $this->ajaxReturn('fail','出现一个错误，请联系管理员。',0);
+        }
     }
 
 }

@@ -6,6 +6,265 @@ class SourceModel extends CommonModel
         parent::__construct();
     }
 
+    public function index($userid){
+        $categorymodel = M("tg_gamecategory");
+        $tagmodel = M("tg_gametag");
+        $channelmodel = M("tg_channel");
+        $usermodel = M("tg_user");
+        $game['category'] = $categorymodel->where('activeflag = 1')->order("createtime desc")->select();
+        $game['tag'] = $tagmodel->where('activeflag = 1')->order("createtime desc")->select();
+
+        $game['channel'] = $channelmodel->where("activeflag = 1 and userid = $userid")->order("createtime desc")->select();
+        $channelid = $game['channel'][0]["channelid"];
+
+        $game['gamestr'] = $this->selectGame('全部',0,'全部',0,$channelid,'asc');
+        $game['sourcestr'] = $this->selectSource($channelid);
+        return $game;
+    }
+
+    // 子账号首页
+    public function indexson($userid){
+
+        $usermodel = M("tg_user");
+
+        $where = array('userid' => $userid);
+        $channelid = $usermodel->field('channelid')->where($where)->find();
+        $channelid = $channelid['channelid'];
+
+        $game['sourcestr'] = $this->selectSource($channelid);
+        return $game;
+    }
+
+    //游戏分类筛选
+    public function selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order,$order_hot='',$userid){
+        $gamemodel = M("tg_game");
+        $sourcemodel = M("tg_source");
+        if($gametype !== '全部'){
+            $map['gametype'] = $gametype;
+        }
+        if($gamecategory != 0){
+            $map['gamecategory'] = $gamecategory;
+        }
+
+        if($gamesize == '0-10M'){
+            $map['gamesize'] = array(array('egt',0),array('elt',10)) ;
+        }elseif($gamesize == '10-30M'){
+            $map['gamesize'] = array(array('egt',10),array('elt',30)) ;
+        }elseif($gamesize == '30-50M'){
+            $map['gamesize'] = array(array('egt',30),array('elt',50)) ;
+        }elseif($gamesize == '50-100M'){
+            $map['gamesize'] = array(array('egt',50),array('elt',100)) ;
+        }elseif($gamesize == '大于100M'){
+            $map['gamesize'] = array('gt',100) ;
+        }
+
+        if($gametag != 0){
+            $map['gametag'] = $gametag;
+        }
+
+        if(!empty($order_hot)){
+            $ordrestr = ($order_hot == 'asc' ? 'G.gameauthority ASC' : 'G.gameauthority DESC');
+
+        }
+        $map['G.activeflag'] = 1;
+        $games = $gamemodel->alias("G")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->field('G.*,C.categoryname,T.tagname')
+            ->where($map)
+            ->order($ordrestr)
+            ->select();
+
+        $sourcecondition["userid"] = $userid;
+        $sourcecondition["channelid"] = $channelid;
+        $source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
+        $sourceItem = array();
+        foreach($source as $value){
+            $sourceItem[] = $value['gameid'];
+        }
+        foreach($games as $k1 =>$v1){
+            $games[$k1]['isapply'] = 0;
+            if(in_array($v1['gameid'], $sourceItem)){
+                $games[$k1]['isapply'] = 1;
+            }
+
+            $isonstack[$k1] = $v1["isonstack"];
+            //$gameauthority[$k1] = $v1["gameauthority"];
+            $createtime[$k1] = $v1["createtime"];
+            $isapply[$k1] = $games[$k1]["isapply"]; //$v1在循环之前已经确定。$v1["isapply"]!=$games[$k1]['isapply']
+        }
+        if(empty($order_hot)) {
+            if ($order == 'asc') {
+                array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
+            } else {
+                array_multisort($isonstack, SORT_DESC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
+            }
+        }
+
+        $gamestr = $this->createGameStr($games,"all");
+        return $gamestr;
+    }
+    //搜索游戏
+    public function searchGame($content,$channelid){
+        $userid = $_SESSION['userid'];
+        $gamemodel = M("tg_game");
+        $sourcemodel = M("tg_source");
+        $where = '';
+        $where.= "G.activeflag = '1' AND(";
+        $where.= "gamename like '%".$content."%'";
+        $where.= "OR gamepinyin like'%".$content."%'";
+        $where.= "OR gametype like '%".$content."%'";
+        $where.= "OR gamecategory like '%".$content."%'";
+        $where.= "OR gametag like '%".$content."%'";
+        $where.= "OR gamesize like '%".$content."%'";
+        $where.= "OR sharetype like '%".$content."%')";
+        $games = $gamemodel->alias("G")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($where)
+            ->field('G.*,C.categoryname,T.tagname')
+            ->order("G.gameauthority desc")
+            ->select();
+        $sourcecondition["userid"] = $userid;
+        $sourcecondition["channelid"] = $channelid;
+        $source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
+        foreach($games as $k1 =>$v1){
+            $games[$k1]['isapply'] = 0;
+            foreach($source as $k2 =>$v2){
+                if($v1['gameid'] == $v2['gameid']){
+                    $games[$k1]['isapply'] = 1;
+                }
+            }
+            $isonstack[$k1] = $v1["isonstack"];
+            $gameauthority[$k1] = $v1["gameauthority"];
+            $isapply[$k1] = $games[$k1]["isapply"]; //$v1在循环之前已经确定。$v1["isapply"]!=$games[$k1]['isapply']
+        }
+        array_multisort($isonstack, SORT_ASC, $isapply, SORT_ASC, $gameauthority, SORT_DESC, $games);
+        $gamestr = $this->createGameStr($games,"all");
+        return $gamestr;
+    }
+    //TAB2渠道搜索
+    public function selectSource ($channelid) {
+        $sourcemodel = M("tg_source");
+        $map['S.channelid'] = $channelid;
+        $map['S.activeflag'] = 1;
+        $map['G.activeflag'] = 1;
+
+        $games = $sourcemodel->alias("S")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($map)
+            ->field('*,S.id as sourceid')
+            ->order("G.gameauthority desc")
+            ->select();
+        $sourcestr = $this->createGameStr($games,"my");
+        return $sourcestr;
+    }
+
+    //搜索资源
+    public function searchSource ($content,$channelid) {
+        $sourcemodel = M("tg_source");
+        $where['S.channelid'] = $channelid;
+        $where["S.activeflag"] = 1;
+        $where["G.activeflag"] = 1;
+
+        if(!empty($content)){
+            $condition['G.gamename'] = array("like", "%{$content}%");
+            $condition['G.gamepinyin'] = array("like", "%{$content}%");
+            $condition['G.gametype'] = array("like", "%{$content}%");
+            $condition['_logic'] = 'OR';
+            $where['_complex'] = $condition;
+        }
+
+        $source = $sourcemodel
+            ->field("S.id as sourceid,G.gameicon,G.gamename,G.gameversion,C.channelname,S.sourcesn,S.sourcesharerate,S.sourcechannelrate,S.sub_share_rate,S.sub_channel_rate")
+            ->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->where($where)
+            ->order("G.gameauthority desc")
+            ->select();
+        $sourcestr = $this->createGameStr($source,"my");
+        return $sourcestr;
+    }
+
+    public function createGameStr($games,$tab){
+        if ($tab == "all") {
+            $gamestr = "";
+            foreach($games as $k =>$v){
+                $gamestr .= "<tr>";
+                $gamestr .= "<td>";
+                $gamestr .= "<a class='gameinfo'>";
+                $gamestr .= "<img src=".$this->admindomain."/upfiles/gameicon/".$v["gameicon"].">";
+                $gamestr .= "<div>";
+                $gamestr .= "<span href='javascript:void(0)' class='gamename'>".$v["gamename"]."</span>";
+                $gamestr .= "<span href='javascript:void(0)' class='gameversion'>".$v["gameversion"]."</span>";
+                $gamestr .= "</div>";
+                $gamestr .= "</a>";
+                $gamestr .= "</td>";
+                $gamestr .= "<td>".$v["categoryname"]."</td>";
+                $gamestr .= "<td>".$v["tagname"]."</td>";
+                $gamestr .= "<td>".$v["publishtime"]."</td>";
+                $gamestr .= "<td>".$v["gameauthority"]."</td>";
+                /*if($v["isonstack"]  == -1 ){
+                    $gamestr .= "<td></td>";
+                    $gamestr .= "<td></td>";
+                    $gamestr .= "<td></td>";
+                }else{*/
+                $gamestr .= "<td>".($v["gamesize"] <= 0 ? "0" : $v["gamesize"])." MB</td>";
+                /*                    $gamestr .= "<td>".$v["sharetype"]."</td>";*/
+                $gamestr .= "<td style='position: relative;top: -1px;'>".$v["sharerate"]."</td>";
+                //}
+
+                if ($v["isonstack"] == 0) {
+                    if ($v["isapply"] == 1) {
+                        $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>已申请</button></td>";
+                    } else {
+                        $gamestr .= "<td><button class='btn btn-primary app-apply' data-gameid='".$v["gameid"]."'>申请</button></td>";
+                    }
+                } else if ($v["isonstack"] == 1) {
+                    $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>未上架</button></td>";
+                } else if ($v["isonstack"] == 2) {
+                    $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>已下架</button></td>";
+                } else if ($v["isonstack"] == -1) {
+                    $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>待上架</button></td>";
+                }
+                $gamestr .= "</tr>";
+            }
+            return $gamestr;
+        } else if ($tab == "my") {
+            $gamestr = "";
+            $sourcemodel = M("tg_source");
+            foreach($games as $k =>$v){
+                $gamestr .= "<tr>";
+                $gamestr .= "<td>";
+                $gamestr .= "<a class='gameinfo'>";
+                $gamestr .= "<img src=".$this->admindomain."/upfiles/gameicon/".$v["gameicon"].">";
+                $gamestr .= "<div>";
+                $gamestr .= "<span href='javascript:void(0)' class='gamename'>".$v["gamename"]."</span>";
+                $gamestr .= "<span href='javascript:void(0)' class='gameversion'>".$v["gameversion"]."</span>";
+                $gamestr .= "</div>";
+                $gamestr .= "</a>";
+                $gamestr .= "</td>";
+                $gamestr .= "<td>".$v["channelname"]."</td>";
+                $gamestr .= "<td>".$v["sourcesn"]."</td>";
+                $gamestr .= "<td>".$v["isfixrate"]."</td>";
+                $gamestr .= "<td>".$v["sourcesharerate"]."</td>";
+                $gamestr .= "<td>".$v["sourcechannelrate"]."</td>";
+                $gamestr .= "<td>".$v["sub_share_rate"]."</td>";
+                $gamestr .= "<td>".$v["sub_channel_rate"]."</td>";
+
+                $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/userrate/".$v['sourceid']."/'>修改</a></td>";
+                $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/definerate/".$v['sourceid']."/'>修改</a></td>";
+
+                $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/material/".$v['sourceid']."/'>查看</a></td>";
+
+                $gamestr .= "</tr>";
+            }
+            return $gamestr;
+        }
+    }
+
     //推广链接长
     public function getDownloadURL($sourceid){
         $sourcemodel = M("tg_source");

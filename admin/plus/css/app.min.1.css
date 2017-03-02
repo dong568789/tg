@@ -15949,7 +15949,8 @@ a.guidetitle {
 }
 
 .card .table th {
-  background-color: #ddd; 
+  background-color: #dedede;
   font-weight: 400;
-  color: #999;
+  color: #333;
+  border-right:1px solid #f6f4f4;
 }

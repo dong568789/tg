@@ -1,0 +1,21 @@
+.bootgrid-header {
+    padding: 0 !important;
+	margin: 0 !important;
+}
+
+.m-t-3 {
+	margin-top: 3px;
+}
+
+.p-l-40 {
+	padding-left: 40px !important;
+}
+
+.dataall {
+	position: fixed;
+	width: 100%;
+	height: 40px;
+	bottom: 0;
+	background-color: #eeeeee;
+	
+}

@@ -269,7 +269,7 @@
 						</div>
                         <div class="card-body">
 							<div class="p-20">
-								<form id="uploadpackage" class="form-horizontal" enctype="multipart/form-data" role="form" action="index.php?m=game&a=uploadpackage" method="post" >
+								<form id="uploadpackage" class="form-horizontal" enctype="multipart/form-data" role="form" action="<{:U('game/uploadpackage')}>" method="post" >
 									<input type="hidden" id="uploadgameid" name="uploadgameid" value="<{$game['gameid']}>">
 									<input type="hidden" id="isconfirmed" name="isconfirmed" value="0">
 									<div class="form-group">
@@ -438,7 +438,7 @@
 										<label class="col-sm-3 f-15 control-label">游戏包查看</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
-												<select class="selectpicker" name="packagelist" id="packagelist">
+												<select class="selectpicker" name="packagelist" id="packagelist" data-clipboard-action="copy" data-clipboard-target="#packagelist">
 													<foreach name="packagelist" item="vo" key="k">
 														<option value="<{$vo['packageid']}>" <if condition="$vo['isnowactive'] eq 1 ">selected="true"</if>><{$vo['gamename']}> - <{$vo['viewname']}> - <{$vo['gamesize']}>MB-母包<{$vo['packagename']}>
 														<if condition="$vo['isnowactive'] eq 1 ">
@@ -519,6 +519,7 @@
 <script src="__ROOT__/plus/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="__ROOT__/plus/vendors/fileinput/fileinput.min.js"></script>
 <script src="__ROOT__/plus/vendors/jquery-lazyload/jquery.lazyload.js"></script>
+<script src="__ROOT__/plus/js/clipboard.min.js"></script>
 <script type="text/javascript">
 	var gameid = $('#uploadgameid').val();
 
@@ -1054,6 +1055,17 @@
 			placeholder : "__ROOT__/plus/img/progress.gif", //用图片提前占位
 			// placeholder,值为某一图片路径.此图片用来占据将要加载的图片的位置,待图片加载时,占位图则会隐藏
 			effect: "fadeIn", // 载入使用何种效果
+		});
+
+
+		var longObj = new Clipboard('#packagelist:selected');
+
+		longObj.on('success', function(e) {
+			notify('复制成功', 'success');
+		});
+
+		longObj.on('error', function(e) {
+			notify('复制失败', 'danger');
 		});
     });
 </script>

@@ -78,28 +78,15 @@ class CommonAction extends Action {
 	 * @return void
 	 */
     public function logincheck(){
-    	if(isset($_COOKIE["sessionstorage"]) && $_COOKIE["sessionstorage"] != null){
-			session_id($_COOKIE["sessionstorage"]);
-			session_start();
-			if ((isset($_SESSION["adminid"]) && $_SESSION["adminid"] != null) && ($_SESSION["loginkey"] == $this->LOGIN_KEY)) {
-				$adminid = $_SESSION["adminid"];
-				return $adminid;
-			} else {
-				$_SESSION["requestpage"] = $_SERVER["REQUEST_URI"];
-				Header("Location: /login/ ");
-				exit();
-			}
-		} else {
-			session_start();
-			if ((isset($_SESSION["adminid"]) && $_SESSION["adminid"] != null) && ($_SESSION["loginkey"] == $this->LOGIN_KEY)) {
-				$adminid = $_SESSION["adminid"];
-				return $adminid;
-			} else {
-				$_SESSION["requestpage"] = $_SERVER["REQUEST_URI"];
-				Header("Location: /login/ ");
-				exit();
-			}
-		}
+
+        if ((isset($_SESSION["adminid"]) && $_SESSION["adminid"] != null) && ($_SESSION["loginkey"] == $this->LOGIN_KEY)) {
+            $adminid = $_SESSION["adminid"];
+            return $adminid;
+        } else {
+            $_SESSION["requestpage"] = $_SERVER["REQUEST_URI"];
+            Header("Location: /login/ ");
+            exit();
+        }
     }
 
     /**
@@ -124,6 +111,11 @@ class CommonAction extends Action {
     }
 
     public function menucheck(){
+        $uri = $_SERVER['REQUEST_URI'];
+        $menu = $this->getMenu($uri);
+        //print_r($menu);exit;
+        $this->assign('_menu',$menu);
+        /*
         $checkgame = $this->authoritycheck(10091);
         $checknewgame = $this->authoritycheck(10092);
         $checkgameall = $this->authoritycheck(10103);
@@ -171,43 +163,123 @@ class CommonAction extends Action {
         $this->assign('log',$log);
         $this->assign('checkoperate',$checkoperate);
         $this->assign('checkChannel',$checkChannel);
-        $this->assign('checkfinance',$checkfinance);
+        $this->assign('checkfinance',$checkfinance);*/
     }
 
     //后台菜单权限
     public function authoritycheck($authorityid){
         $id = isset($authorityid) ? $authorityid : '1';
-        $userid = $_SESSION["adminid"];
 
-        $usermodel = M('sys_admin');
-        $dpmodel = M('sys_department');
-        $user = $usermodel->where("id = '$userid'")->find();   //用户
-        $departmentid = $user['department_id'];
-        $department = $dpmodel ->where("id='$departmentid'")->find(); //该用户对应的部门
-        $menuids = $department['menuids'];
-        $menuidarr = explode(',', $menuids);   //该部门对应的权限id
-
-        foreach($menuidarr as $k => $v){
-            $menumodel = M('sys_menu');
-            $menu = $menumodel->where("id = '$v'")->find();
-            if($menu && $menu['parentsid'] != 0){
-                $parentsid = $menu['parentsid'];
-               if(!in_array($parentsid,$menuidarr)){
-                   $data['menuids'] = $menuids.','.$parentsid;
-                   $newdptment = $dpmodel->where("id='$departmentid'")->save($data);//没有父id的插入父id
-               }
-            }
-        }
-
-        $newdepartment = $dpmodel ->where("id='$departmentid'")->find(); //该用户对应的部门
-        $newmenuids = $newdepartment['menuids'];
-        $newmenuidarr = explode(',', $newmenuids);   //该部门对应的权限id
-
-        if(in_array($id,$newmenuidarr)){
+        $newmenuidarr = $this->getUserPermissions();
+        if(array_key_exists($id,$newmenuidarr)){
             return 'ok';
         } else{
             return 'fail';
         }
+    }
+
+    /**
+     * 获取菜单项
+     * @return array
+     */
+    public function  getMenu($uri)
+    {
+        $menu = $this->getUserPermissions();
+        $itemMenu = array();
+        foreach($menu as $value){
+            if($value['status']  > 0)
+                continue;
+
+            if($value['parent'] == 0){
+                $itemMenu[$value['id']]['id'] = $value['id'];
+                $itemMenu[$value['id']]['title'] = $value['title'];
+                $itemMenu[$value['id']]['url'] = $value['url'];
+                $itemMenu[$value['id']]['parent'] = $value['parent'];
+                $itemMenu[$value['id']]['icon'] = $value['icon'];
+            }else{
+                $itemMenu[$value['parent']]['children'][$value['id']] = $value;
+
+                if($uri == $value['url']){
+                    $itemMenu[$value['parent']]['active'] = true;
+                    $itemMenu[$value['parent']]['children'][$value['id']]['active'] = true;
+                }
+            }
+        }
+
+        ksort($itemMenu);
+        return $itemMenu;
+    }
+
+
+    protected function getUserPermissions()
+    {
+        $adminpermissions = session('adminpermissions');
+        if(empty($adminpermissions)){
+            $departmentModel = M('sys_department');
+            $menumodel = M('sys_menu');
+            $usermodel = M('sys_admin');
+
+            $where = array(
+                'id' => $_SESSION['adminid']
+            );
+            $admin = $usermodel->where($where)->field('id,department_id,status')->find();
+
+            if(empty($admin['department_id'])){
+                return array();
+            }
+
+            $where = array(
+                'id' => $admin['department_id']
+            );
+            $dep = $departmentModel->where($where)->field('id,menuids')->find();
+
+            $arrMenu = explode(',', $dep['menuids']);
+
+            $where = array(
+                'id' => array('in', $arrMenu),
+                'type' => 11
+            );
+            $menu = $menumodel->where($where)
+                ->field("id,(CASE WHEN `first` > '' THEN `first` ELSE `second` END) as title,parentsid as parent,status,url,icon")
+                ->select();
+
+            //更新用户父节点
+            $parentMenu = $this->updateParent($menu, $arrMenu);
+            $menu = array_merge($menu, $parentMenu);
+            $adminpermissions = array();
+            foreach($menu as $value){
+                $adminpermissions[$value['id']] = $value;
+            }
+            session('adminpermissions',$adminpermissions);
+        }
+
+        return $adminpermissions;
+    }
+
+    protected function updateParent(&$menu, $allperm)
+    {
+        $item = array();
+        foreach($menu as $value){
+            if($value['parent'] <> 0 && !in_array($value['parent'], $allperm)){
+                $item[] = $value['parent'];
+            }
+        }
+
+        if(empty($item)){
+            return array();
+        }
+
+        $menumodel = M('sys_menu');
+        $where = array(
+            'id' => array('in', array_unique($item)),
+            'status' => 0,
+            'type' => 11
+        );
+        $parentMenu = $menumodel->where($where)
+            ->field("id,(CASE WHEN `first` > '' THEN `first` ELSE `second` END) as title,parentsid as parent,status,url,icon")
+            ->select();
+
+        return (array)$parentMenu;
     }
 
     /**
