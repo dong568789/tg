@@ -311,57 +311,5 @@ class SourceAction extends CommonAction {
     public function llq(){
         $this->display();
     }
-
-    //推广链接，下载资源包
-	public function publicdownload() {
-        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-        $is_pc = (stripos($agent, 'windows nt')) ? true : false;
-        $is_iphone = (stripos($agent, 'iphone')) ? true : false;
-        $is_ipad = (stripos($agent, 'ipad')) ? true : false;
-        $is_android = (stripos($agent, 'android')) ? true : false;
-        $is_weixin = (stripos($agent, 'MicroMessenger')) ? true : false;
-        $is_qq = (stripos($agent, 'QQ')) ? true : false;
-        $is_qqbrowser = (stripos($agent, 'QQBrowser')) ? true : false;
-        $is_weibo = (stripos($agent, 'weibo')) ? true : false;
-
-        if($is_weixin || $is_weibo || ($is_qq ^ $is_qqbrowser)){
-            $this->display("llq");
-            exit();
-        } else if($is_iphone){
-            echo ("暂不支持苹果iOS下载，请关注我们更多游戏。");
-            exit();
-        } else if($is_ipad){
-            echo ("暂不支持苹果iOS下载，请关注我们更多游戏。");
-            exit();
-        }
-
-        $sourcesn = $_GET["sourcesn"];
-		$sourcemodel = M('tg_source');
-		$map["sourcesn"] = $sourcesn;
-        $source = $sourcemodel->where($map)->find();
-		if ($source) {
-			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
-			if($source["is_cdn_submit"] == 1 ){
-				if ($source["isupload"] == 1 && $source["apkurl"] != "") {
-					$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
-					Header("Location: ".$cndurl." ");
-					exit();
-				}else{
-					$sourceModel = D('Source');
-					$sourceModel->createSourePackage($sourcesn);
-				}
-			}
-
-			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
-				Header("Location: ".$this->apkdownloadurl.$source["apkurl"]." ");
-				exit();
-			} else {
-				$sourceModel = D('Source');
-				$sourceModel->createSourePackage($sourcesn);
-			}
-		} else {
-			echo "Can't find APK package.";
-		}
-	}
 }
 ?>
