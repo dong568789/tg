@@ -54,37 +54,12 @@ class SourceModel extends CommonModel
 
 
     // -------------资源包下载-------------------------
-    // 生成资源包
-    public function createSourePackage($sourcesn){
-        $sourcemodel = M('tg_source');
-        $map["sourcesn"] = $sourcesn;
-        $source = $sourcemodel->where($map)->find();
-
-        $gamemodel = M('tg_game');
-        $game = $gamemodel->find($source["gameid"]);
-        $packagename = $game["packagename"];
-        if ($game["gameversion"] != "") {
-            $newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
-        } else {
-            $newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
-        }
-        $result = $this->subpackage($packagename,$newgamename,$sourcesn);
-        if ($result['code'] == 1) {
-            $data["isupload"] = 1;
-            $data["apkurl"] = $newgamename;
-            $upload = $sourcemodel->where($map)->save($data);
-
-            // 第一次分包的时候cdn提交
-            $this->cdnsubmit($sourcesn,$newgamename);
-
-            return array('code' => 1, 'msg' => '生成资源包成功。', 'data' => $this->apkdownloadurl.$newgamename );
-        } else {
-            return array('code' => 0, 'msg' => '生成资源包失败。');
-        }
-    }
-
     // 生成包
     public function subpackage($packagename,$newgamename,$sourcesn){
+        $sourcemodel = M('tg_source');
+        $map["sourcesn"] = $sourcesn;
+        $source = $sourcemodel->field('id')->where($map)->find();
+
         $sourfile = $this->packageStoreFolder.$packagename;      
         $newfile = $this->downloadStoreFolder.$newgamename;
         if(!file_exists($sourfile)){
@@ -100,6 +75,9 @@ class SourceModel extends CommonModel
             if ($zip->open($newfile) === TRUE) {
                 $zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
                 $zip->close();
+
+                //分包完成后，修改文件一处特征值，避免QQ离线重复上传
+                app_channel($this->downloadStoreFolder.$packagename,$source['id']);
 
                 return array('code' => 1, 'msg' => '生成包成功');
             } else {
