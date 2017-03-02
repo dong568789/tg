@@ -372,8 +372,9 @@ class SourceModel extends CommonModel
 
     // 生成强更包等一系列操作
     public function createForcePackage($sourceid){
+        $sourcemodel = M("tg_source");
         $sourcecondition = array('id'=>$sourceid);
-        $source = $sourceModel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->find();
+        $source = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->find();
 
         $packageModel = M('tg_package');
         $packagecondition["gameid"] = $source["gameid"];
