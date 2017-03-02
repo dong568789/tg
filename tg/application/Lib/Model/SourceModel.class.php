@@ -358,14 +358,95 @@ class SourceModel extends CommonModel
             // 第一次分包的时候cdn提交
             $this->cdnsubmit($sourcesn,$newgamename,false);
 
+            // 生成强更包等一系列操作
+            $forceReturn =$this->createForcePackage($source['id']);
+            if(!$forceReturn['code']){
+                return array('code' => 0, 'msg' => $forceReturn['msg'], 'data' => '' );
+            }
+
             return array('code' => 1, 'msg' => '生成资源包成功。', 'data' => $this->apkdownloadurl.$newgamename );
         } else {
             return array('code' => 0, 'msg' => '生成资源包失败。');
         }
     }
 
+    // 生成强更包等一系列操作
+    public function createForcePackage($sourceid){
+        $sourcemodel = M("tg_source");
+        $sourcecondition = array('id'=>$sourceid);
+        $source = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->find();
+
+        $packageModel = M('tg_package');
+        $packagecondition["gameid"] = $source["gameid"];
+        $packagecondition["activeflag"] = 1;
+        $packagecondition["isnowactive"] = 1;
+        $packagecondition["isforcepackage"] = 1;
+        $packagecondition["isforced"] = 0; // 没有强更过
+        $exsitpackage = $packageModel->where($packagecondition)->order("packageid desc")->find();
+
+        // 如果存在  该游戏 没有强更过 的强更包
+        // 在提前生成新包之后，强更时间点到了之前。中间这个时间范围内生成包，同时生成新包等操作（和Admin/Game/createForcePackage操作一样）
+        $nowTime = time();
+        if ($exsitpackage  && $nowTime>strtotime($exsitpackage['createtime']) && $nowTime<strtotime($exsitpackage['forcetime']) )  {
+            $forcepackageModel = M('tg_forcepackage');
+            $forcecondition["userid"] = $source["userid"];
+            $forcecondition["channelid"] = $source["channelid"];
+            $forcecondition["gameid"] = $source["gameid"];
+            $forcecondition["isforce"] = 0; // 增加这个条件，解决以前第二次强更不会强更
+            $isexsit = $forcepackageModel->where($forcecondition)->find();
+            if(!$isexsit){
+                // 不存在强更包，则生成生成强更包文件
+                if ($source["gameversion"] != "") {
+                    $newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
+                } else {
+                    $newgamename = $source["gamepinyin"]."_".$source["channelid"].".apk";
+                }
+
+                $result = $this->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"]);
+                if ($result['code'] == 1) {
+                    // 添加记录到tg_forcepackage表中，记录该资源强更包的游戏下载链接
+                    $data["userid"] = $source["userid"];
+                    $data["channelid"] = $source["channelid"];
+                    $data["gameid"] = $source["gameid"];
+                    $data["apkurl"] = $newgamename;
+                    $data["isforce"] = 0;
+                    $data["isdelete"] = 0;
+                    $data["activeflag"] = 1;
+                    $data['createtime'] = date('Y-m-d H:i:s',time());
+                    $data['createuser'] = "Admin";
+                    $forcepackage = $forcepackageModel->add($data);
+
+                    if ($forcepackage) {
+                        // 第一次分包的时候cdn提交
+                        $this->cdnsubmit($source["sourcesn"],$newgamename,true);
+
+                        // sdk_agentlist增加资源的强更链接
+                        $agentModel = M('sdk_agentlist');
+                        $agentcondition["agent"] = $source["sourcesn"];
+                        $agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
+                        $agent = $agentModel->where($agentcondition)->save($agentdata);
+
+                        if ($agent) {
+                            return array('code' => 1, 'msg' => '生成生成强更包成功。', 'data' => '' );
+                        } else {
+                            return array('code' => 0, 'msg' => '分包失败，未能更新强更链接', 'data' => '' );
+                        }           
+                    } else {
+                        return array('code' => 0, 'msg' => '分包失败，未能新增强更包信息', 'data' => '' );
+                    }
+                }else{
+                    return array('code' => 0, 'msg' => '生成强更分包失败。', 'data' => '' );
+                }
+            }
+        }
+    }
+
     // 生成包
     public function subpackage($packagename,$newgamename,$sourcesn){
+        $sourcemodel = M('tg_source');
+        $map["sourcesn"] = $sourcesn;
+        $source = $sourcemodel->field('id')->where($map)->find();
+
         $sourfile = $this->packageStoreFolder.$packagename;      
         $newfile = $this->downloadStoreFolder.$newgamename;
         if(!file_exists($sourfile)){
@@ -381,6 +462,9 @@ class SourceModel extends CommonModel
             if ($zip->open($newfile) === TRUE) {
                 $zip->addFile($url.'gamechannel','META-INF/gamechannel_'.$sourcesn);
                 $zip->close();
+
+                //分包完成后，修改文件一处特征值，避免QQ离线重复上传
+                app_channel($this->downloadStoreFolder.$packagename,$source['id']);
 
                 return array('code' => 1, 'msg' => '生成包成功');
             } else {

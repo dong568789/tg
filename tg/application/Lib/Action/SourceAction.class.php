@@ -339,11 +339,17 @@ class SourceAction extends CommonAction {
 			if($source["is_cdn_submit"] == 1 ){
 				if ($source["isupload"] == 1 && $source["apkurl"] != "") {
 					$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
-					Header("Location: ".$cndurl." ");
+					Header("Location: ".$cndurl);
 					exit();
 				}else{
 					$sourceModel = D('Source');
-					$sourceModel->createSourePackage($sourcesn);
+					$return = $sourceModel->createSourePackage($sourcesn);
+                    if($return['code']==1){
+                        Header("Location: ".$return['data']);
+                        exit();
+                    }else{
+                        echo '发生错误：'.$return['msg'];
+                    }
 				}
 			}
 
@@ -352,7 +358,13 @@ class SourceAction extends CommonAction {
 				exit();
 			} else {
 				$sourceModel = D('Source');
-				$sourceModel->createSourePackage($sourcesn);
+				$return = $sourceModel->createSourePackage($sourcesn);
+                if($return['code']==1){
+                    Header("Location: ".$return['data']);
+                    exit();
+                }else{
+                    echo '发生错误：'.$return['msg'];
+                }
 			}
 		} else {
 			echo "Can't find APK package.";

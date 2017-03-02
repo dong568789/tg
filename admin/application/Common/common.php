@@ -495,4 +495,35 @@ function vd($input){
     var_dump($input);
 }
 
+function timestamp2dos($timestamp)
+{
+    $bit = empty($timestamp) ? getdate() : getdate($timestamp);
+    if ($bit['year'] < 1980)
+        return (1 << 21 | 1 << 16);
+    $bit['year'] -= 1980;
+
+    return $bit['year'] << 25 |
+        $bit['mon'] << 21 |
+        $bit['mday'] << 16 |
+        $bit['hours'] << 11 |
+        $bit['minutes'] << 5 |
+        $bit['seconds'] >> 1;
+}
+
+function app_channel($path, $source_id)
+{
+    if (!file_exists($path) || !is_writable($path))
+        return false;
+    $fp = fopen($path, 'r+b');
+    $str = fread($fp, 2);
+    if ($str != 'PK')
+        throw new \Exception('File is not a ZIP archive: '. $path);
+    fseek($fp, 0xa);
+    $str = pack('V', timestamp2dos($source_id * 2 + mktime(0, 0, 0, 1, 1, 2000)));
+    fwrite($fp, $str);
+    fclose($fp);
+    
+    return true;
+}
+
 ?>
