@@ -439,6 +439,8 @@ class SourceModel extends CommonModel
                 }
             }
         }
+
+        return array('code' => 1, 'msg' => '生成生成强更包成功。', 'data' => '' );
     }
 
     // 生成包
