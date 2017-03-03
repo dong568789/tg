@@ -336,7 +336,7 @@ class SourceModel extends CommonModel
                 $zip->close();
 
                 //分包完成后，修改文件一处特征值，避免QQ离线重复上传
-                app_channel($this->downloadStoreFolder.$packagename,$source['id']);
+                app_channel($this->downloadStoreFolder.$newgamename,$source['id']);
 
                 return array('code' => 1, 'msg' => '生成包成功');
             } else {
