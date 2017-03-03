@@ -101,7 +101,7 @@ $page_css[] = "vendors/bower_components/bootstrap-select/dist/css/bootstrap-sele
                                     <div class="form-group m-t-25">
                                         <div class="col-sm-12 text-center">
                                             <button type="submit" class="btn btn-primary btn-lg m-r-15" id="savechannel">保存信息</button>
-                                            <a href="/channel/" type="button" class="btn btn-default btn-lg c-gray">取消</a>
+                                            <a href="/channel/<{$tguserid}>/" type="button" class="btn btn-default btn-lg c-gray">取消</a>
                                         </div>
                                     </div>
                                 </form>

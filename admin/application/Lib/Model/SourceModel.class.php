@@ -191,6 +191,9 @@ class SourceModel extends CommonModel
     public function createGameStr($games,$tab){
         if ($tab == "all") {
             $gamestr = "";
+
+            $commonAction = new CommonAction();
+            $applySourceRight = $commonAction->authoritycheck(10225);//申请资源
             foreach($games as $k =>$v){
                 $gamestr .= "<tr>";
                 $gamestr .= "<td>";
@@ -220,7 +223,11 @@ class SourceModel extends CommonModel
                     if ($v["isapply"] == 1) {
                         $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>已申请</button></td>";
                     } else {
-                        $gamestr .= "<td><button class='btn btn-primary app-apply' data-gameid='".$v["gameid"]."'>申请</button></td>";
+                        if($applySourceRight == 'ok'){
+                            $gamestr .= "<td><button class='btn btn-primary app-apply' data-gameid='".$v["gameid"]."'>申请</button></td>";
+                        }else{
+                            $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>未申请</button></td>";
+                        }
                     }
                 } else if ($v["isonstack"] == 1) {
                     $gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>未上架</button></td>";
@@ -234,7 +241,11 @@ class SourceModel extends CommonModel
             return $gamestr;
         } else if ($tab == "my") {
             $gamestr = "";
-            $sourcemodel = M("tg_source");
+            $commonAction = new CommonAction();
+            $customRateRight = $commonAction->authoritycheck(10136);//自定义资源费率
+            $seeDevelopRight = $commonAction->authoritycheck(10138);//查看推广
+            $childRateRight = $commonAction->authoritycheck(10224);//自定义子账号费率
+
             foreach($games as $k =>$v){
                 $gamestr .= "<tr>";
                 $gamestr .= "<td>";
@@ -254,11 +265,17 @@ class SourceModel extends CommonModel
                 $gamestr .= "<td>".$v["sub_share_rate"]."</td>";
                 $gamestr .= "<td>".$v["sub_channel_rate"]."</td>";
 
-                $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/userrate/".$v['sourceid']."/'>修改</a></td>";
-                $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/definerate/".$v['sourceid']."/'>修改</a></td>";
+                if($customRateRight == 'ok'){
+                    $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/userrate/".$v['sourceid']."/'>修改</a></td>";
+                }
 
-                $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/material/".$v['sourceid']."/'>查看</a></td>";
+                if($childRateRight == 'ok'){
+                    $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/definerate/".$v['sourceid']."/'>修改</a></td>";
+                }
 
+                if($seeDevelopRight == 'ok') {
+                    $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/material/" . $v['sourceid'] . "/'>查看</a></td>";
+                }
                 $gamestr .= "</tr>";
             }
             return $gamestr;

@@ -101,7 +101,6 @@ class UserAction extends CommonAction {
                     ->select();
                     // vde($model->getlastsql());
         if($users){
-            $seeSoureceRight = $this->authoritycheck(10109);
             $ptbAuthorization = $this->authoritycheck(10110);
             $editUser = $this->authoritycheck(10111);
             $fastApply = $this->authoritycheck(10175);

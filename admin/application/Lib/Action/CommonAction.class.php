@@ -112,174 +112,21 @@ class CommonAction extends Action {
 
     public function menucheck(){
         $uri = $_SERVER['REQUEST_URI'];
-        $menu = $this->getMenu($uri);
+        $menu = A('Permissions','Event')->getMenu($uri);
         //print_r($menu);exit;
         $this->assign('_menu',$menu);
-        /*
-        $checkgame = $this->authoritycheck(10091);
-        $checknewgame = $this->authoritycheck(10092);
-        $checkgameall = $this->authoritycheck(10103);
-        $checkbalance = $this->authoritycheck(10104);
-        $checkuserall = $this->authoritycheck(10105);
-        $checkuser = $this->authoritycheck(10106);
-        $newuser = $this->authoritycheck(10107);
-        $checksendmail = $this->authoritycheck(10112);
-        $checkannounce = $this->authoritycheck(10113);
-        $announceall = $this->authoritycheck(10114);
-        $checkguide = $this->authoritycheck(10115);
-        $newguide = $this->authoritycheck(10116);
-        $checkother = $this->authoritycheck(10117);
-        $checkgamecategory = $this->authoritycheck(10118);
-        $checkgametag = $this->authoritycheck(10119);
-        $checkbalanceall = $this->authoritycheck(10120);
-        $checkguidedetail = $this->authoritycheck(10121);
-        $announcetype = $this->authoritycheck(10122);
-        $newannounce = $this->authoritycheck(10123);
-        $checklog = $this->authoritycheck(10124);
-        $log = $this->authoritycheck(10125);
-        $checkoperate = $this->authoritycheck(10126);
-        $checkChannel = $this->authoritycheck(10182);
-        $checkfinance = $this->authoritycheck(10183);
-        $this->assign('checkgame',$checkgame);
-        $this->assign('checknewgame',$checknewgame);
-        $this->assign('checkgameall',$checkgameall);
-        $this->assign('checkbalance',$checkbalance);
-        $this->assign('checkuserall',$checkuserall);
-        $this->assign('checkuser',$checkuser);
-        $this->assign('newuser',$newuser);
-        $this->assign('checksendmail',$checksendmail);
-        $this->assign('checkannounce',$checkannounce);
-        $this->assign('announceall',$announceall);
-        $this->assign('checkguide',$checkguide);
-        $this->assign('newguide',$newguide);
-        $this->assign('checkother',$checkother);
-        $this->assign('checkgamecategory',$checkgamecategory);
-        $this->assign('checkgametag',$checkgametag);
-        $this->assign('checkbalanceall',$checkbalanceall);
-        $this->assign('checkguidedetail',$checkguidedetail);
-        $this->assign('announcetype',$announcetype);
-        $this->assign('newannounce',$newannounce);
-        $this->assign('checklog',$checklog);
-        $this->assign('log',$log);
-        $this->assign('checkoperate',$checkoperate);
-        $this->assign('checkChannel',$checkChannel);
-        $this->assign('checkfinance',$checkfinance);*/
     }
 
     //后台菜单权限
     public function authoritycheck($authorityid){
         $id = isset($authorityid) ? $authorityid : '1';
 
-        $newmenuidarr = $this->getUserPermissions();
+        $newmenuidarr = A('Permissions','Event')->getUserPermissions();
         if(array_key_exists($id,$newmenuidarr)){
             return 'ok';
         } else{
             return 'fail';
         }
-    }
-
-    /**
-     * 获取菜单项
-     * @return array
-     */
-    public function  getMenu($uri)
-    {
-        $menu = $this->getUserPermissions();
-        $itemMenu = array();
-        foreach($menu as $value){
-            if($value['status']  > 0)
-                continue;
-
-            if($value['parent'] == 0){
-                $itemMenu[$value['id']]['id'] = $value['id'];
-                $itemMenu[$value['id']]['title'] = $value['title'];
-                $itemMenu[$value['id']]['url'] = $value['url'];
-                $itemMenu[$value['id']]['parent'] = $value['parent'];
-                $itemMenu[$value['id']]['icon'] = $value['icon'];
-            }else{
-                $itemMenu[$value['parent']]['children'][$value['id']] = $value;
-
-                if($uri == $value['url']){
-                    $itemMenu[$value['parent']]['active'] = true;
-                    $itemMenu[$value['parent']]['children'][$value['id']]['active'] = true;
-                }
-            }
-        }
-
-        ksort($itemMenu);
-        return $itemMenu;
-    }
-
-
-    protected function getUserPermissions()
-    {
-        $adminpermissions = session('adminpermissions');
-        if(empty($adminpermissions)){
-            $departmentModel = M('sys_department');
-            $menumodel = M('sys_menu');
-            $usermodel = M('sys_admin');
-
-            $where = array(
-                'id' => $_SESSION['adminid']
-            );
-            $admin = $usermodel->where($where)->field('id,department_id,status')->find();
-
-            if(empty($admin['department_id'])){
-                return array();
-            }
-
-            $where = array(
-                'id' => $admin['department_id']
-            );
-            $dep = $departmentModel->where($where)->field('id,menuids')->find();
-
-            $arrMenu = explode(',', $dep['menuids']);
-
-            $where = array(
-                'id' => array('in', $arrMenu),
-                'type' => 11
-            );
-            $menu = $menumodel->where($where)
-                ->field("id,(CASE WHEN `first` > '' THEN `first` ELSE `second` END) as title,parentsid as parent,status,url,icon")
-                ->select();
-
-            //更新用户父节点
-            $parentMenu = $this->updateParent($menu, $arrMenu);
-            $menu = array_merge($menu, $parentMenu);
-            $adminpermissions = array();
-            foreach($menu as $value){
-                $adminpermissions[$value['id']] = $value;
-            }
-            session('adminpermissions',$adminpermissions);
-        }
-
-        return $adminpermissions;
-    }
-
-    protected function updateParent(&$menu, $allperm)
-    {
-        $item = array();
-        foreach($menu as $value){
-            if($value['parent'] <> 0 && !in_array($value['parent'], $allperm)){
-                $item[] = $value['parent'];
-            }
-        }
-
-        if(empty($item)){
-            return array();
-        }
-
-        $menumodel = M('sys_menu');
-        $where = array(
-            'id' => array('in', array_unique($item)),
-            'status' => 0,
-            'type' => 11
-        );
-        $parentMenu = $menumodel->where($where)
-            ->field("id,(CASE WHEN `first` > '' THEN `first` ELSE `second` END) as title,parentsid as parent,status,url,icon")
-            ->select();
-
-        return (array)$parentMenu;
     }
 
     /**

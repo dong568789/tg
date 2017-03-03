@@ -23,6 +23,8 @@ class SourceAction extends CommonAction {
 
 		$this->assign('customRateRight',$this->authoritycheck(10136));//自定义资源费率
 		$this->assign('seeDevelopRight',$this->authoritycheck(10138));//查看推广
+		$this->assign('childRateRight',$this->authoritycheck(10224));//自定义子账号费率
+		$this->assign('applySourceRight',$this->authoritycheck(10225));//申请资源
 		$this->assign('category',$game['category']);
 		$this->assign('tag',$game['tag']);
 		$this->assign('channel',$game['channel']);
@@ -173,7 +175,7 @@ class SourceAction extends CommonAction {
         $content = $_POST['content'];
 		$channelid = $_POST['channelid'];
         $Index = D("Source");
-        $gamestr = $Index->searchSource($content,$channelid);
+        $gamestr = $Index->searchGame($content,$channelid);
         if($gamestr){
 			$this->ajaxReturn('success',$gamestr,1);
 			exit();
@@ -181,25 +183,6 @@ class SourceAction extends CommonAction {
 			$this->ajaxReturn('fail','没有数据。',0);
 			exit();
 		}
-    }
-
-    //搜索资源
-    public function searchMygame(){
-        $this->logincheck();
-        if (!$this->isPost()){
-			$this->ajaxReturn('fail',"非法访问",0);
-		}
-		$channelid = isset($_POST['channelid'])? (int)$_POST['channelid'] : 0;
-		$content = isset($_POST['content']) ? $_POST['content'] : '';
-        $Index = D("Source");
-        $sourcestr = $Index->searchSource($content,$channelid);
-        if($sourcestr){
-            $this->ajaxReturn('success',$sourcestr,1);
-            exit();
-        }else{
-            $this->ajaxReturn('fail','没有数据。',0);
-            exit();
-        }
     }
 
 	//tab2选择渠道进行搜索

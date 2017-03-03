@@ -307,20 +307,22 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                     <div class="table-responsive">
                                         <table id="data-table-command-my" class="table table-hover table-bordered table-vmiddle">
                                             <thead>
-                                            <th width="15%">游戏名称</th>
-                                            <th width="9%">渠道名</th>
-                                            <th width="9%">资源编码</th>
-                                            <th  width="5%">固定费率</th>
-                                            <th width="7%">分成比例</th>
-                                            <th width="7%">渠道费</th>
-                                            <th width="8%">子账号分成比例</th>
-                                            <th width="10%">子账号渠道费</th>
+                                            <th>游戏名称</th>
+                                            <th>渠道名</th>
+                                            <th style="width:250px">资源编码</th>
+                                            <th  style="width:80px">固定费率</th>
+                                            <th style="width:80px">分成比例</th>
+                                            <th style="width:80px">渠道费</th>
+                                            <th style="width:80px">子账号分成比例</th>
+                                            <th style="width:80px">子账号渠道费</th>
                                             <if condition="$customRateRight eq 'ok'">
-                                                <th width="8%" data-sortable="false">自定义费率</th>
+                                                <th style="width:80px" data-sortable="false">自定义费率</th>
                                             </if>
-                                            <th width="9%" data-sortable="false">自定义子账号费率</th>
-                                            <if width="9%" condition="$seeDevelopRight eq 'ok'">
-                                                <th data-sortable="false">推广素材</th>
+                                            <if condition="$childRateRight eq 'ok'">
+                                             <th style="width:80px" data-sortable="false">自定义子账号费率</th>
+                                            </if>
+                                            <if style="width:80px" condition="$seeDevelopRight eq 'ok'">
+                                                <th style="width:80px" data-sortable="false">推广素材</th>
                                             </if>
                                             </thead>
                                             <tbody id="sourcecontainer">
