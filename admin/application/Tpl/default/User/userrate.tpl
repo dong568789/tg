@@ -224,7 +224,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 									isdoinguserrate = 0;
 									var userid = $('#hiddenuserid').val();
 									setTimeout(function () {
-										self.location.href = " /usersource/"+userid+"/ ";
+										self.location.href = " /userrate/"+userid+"/ ";
 									}, 2000);
 								} else {
 									notify(data.info, 'danger');
