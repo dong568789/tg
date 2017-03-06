@@ -932,7 +932,7 @@
                     bankaccount : {
                         required : true,
                         digits : true,
-                        minlength :12
+                        minlength :10
 
                     },
                     bankusername : {
@@ -959,7 +959,7 @@
                     bankaccount : {
                         required : '请填写正确的银行卡账号',
                         digits : '银行卡账号必须为数字',
-                        minlength : '银行卡账号长度不得低于12位'
+                        minlength : '银行卡账号长度不得低于10位'
 
                     },
                     bankusername : {
@@ -1037,7 +1037,7 @@
                     bankaccount : {
                         required : true,
                         digits : true,
-                        minlength :12
+                        minlength :10
 
                     },
                     bankusername : {
@@ -1064,7 +1064,7 @@
                     bankaccount : {
                         required : '请填写正确的银行卡账号',
                         digits : '银行卡账号必须为数字',
-                        minlength : '银行卡账号长度不得低于12位'
+                        minlength : '银行卡账号长度不得低于10位'
 
                     },
                     bankusername : {
