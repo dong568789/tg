@@ -259,22 +259,22 @@ class SourceModel extends CommonModel
                 $gamestr .= "</td>";
                 $gamestr .= "<td>".$v["channelname"]."</td>";
                 $gamestr .= "<td>".$v["sourcesn"]."</td>";
-                $gamestr .= "<td>".$v["isfixrate"]."</td>";
-                $gamestr .= "<td>".$v["sourcesharerate"]."</td>";
-                $gamestr .= "<td>".$v["sourcechannelrate"]."</td>";
-                $gamestr .= "<td>".$v["sub_share_rate"]."</td>";
-                $gamestr .= "<td>".$v["sub_channel_rate"]."</td>";
+                $gamestr .= "<td class=\"text-right\">".$v["isfixrate"]."</td>";
+                $gamestr .= "<td class=\"text-right\">".$v["sourcesharerate"]."</td>";
+                $gamestr .= "<td class=\"text-right\">".$v["sourcechannelrate"]."</td>";
+                $gamestr .= "<td class=\"text-right\">".$v["sub_share_rate"]."</td>";
+                $gamestr .= "<td class=\"text-right\">".$v["sub_channel_rate"]."</td>";
 
                 if($customRateRight == 'ok'){
-                    $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/userrate/".$v['sourceid']."/'>修改</a></td>";
+                    $gamestr .= "<td class=\"text-center\"><a style='margin-top:3px;' id='link' href='/userrate/".$v['sourceid']."/'>修改</a></td>";
                 }
 
                 if($childRateRight == 'ok'){
-                    $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/definerate/".$v['sourceid']."/'>修改</a></td>";
+                    $gamestr .= "<td class=\"text-center\"><a style='margin-top:3px;' id='link' href='/definerate/".$v['sourceid']."/'>修改</a></td>";
                 }
 
                 if($seeDevelopRight == 'ok') {
-                    $gamestr .= "<td><a style='margin-top:3px;' id='link' href='/material/" . $v['sourceid'] . "/'>查看</a></td>";
+                    $gamestr .= "<td class=\"text-center\"><a style='margin-top:3px;' id='link' href='/material/" . $v['sourceid'] . "/'>查看</a></td>";
                 }
                 $gamestr .= "</tr>";
             }

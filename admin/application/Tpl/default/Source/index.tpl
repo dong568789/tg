@@ -311,12 +311,12 @@ $page_css[] = "vendors/bower_components/jpages/css/github.css";
                                             <th>渠道名</th>
                                             <th style="width:250px">资源编码</th>
                                             <th  style="width:80px">固定费率</th>
-                                            <th style="width:80px">分成比例</th>
-                                            <th style="width:80px">渠道费</th>
-                                            <th style="width:80px">子账号分成比例</th>
-                                            <th style="width:80px">子账号渠道费</th>
+                                            <th class="text-center" style="width:80px">分成比例</th>
+                                            <th class="text-center" style="width:80px">渠道费</th>
+                                            <th class="text-center" style="width:80px">子账号分成比例</th>
+                                            <th class="text-center" style="width:80px">子账号渠道费</th>
                                             <if condition="$customRateRight eq 'ok'">
-                                                <th style="width:80px" data-sortable="false">自定义费率</th>
+                                                <th class="text-center" style="width:80px" data-sortable="false">自定义费率</th>
                                             </if>
                                             <if condition="$childRateRight eq 'ok'">
                                              <th style="width:80px" data-sortable="false">自定义子账号费率</th>
