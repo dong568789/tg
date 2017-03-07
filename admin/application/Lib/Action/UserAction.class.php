@@ -994,6 +994,7 @@ class UserAction extends CommonAction {
 		$user = $userModel->find($source["userid"]);
 		$this->assign('source',$source);
 		$this->assign('user',$user);
+		$this->assign('sourceid',$sourceid);
         $this->menucheck();
 		$this->display();
 			
