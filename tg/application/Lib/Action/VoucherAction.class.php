@@ -48,8 +48,6 @@ class VoucherAction extends CommonAction {
 			'S.gameid',
 			'S.sourcesharerate',
 			'S.sourcechannelrate',
-			'S.sub_share_rate',
-			'S.sub_channel_rate',
 			'G.gamename',
 			'C.channelname',
 		);
@@ -61,18 +59,12 @@ class VoucherAction extends CommonAction {
 						->order('S.id desc')
 						->group('S.gameid')
 						->select();
-		// 子账号
-		if(isset($this->userpid) && $this->userpid>0){
-			foreach ($source as $key => $value) {
-				$source[$key]['dicount']=1-(1-$value['sub_channel_rate'])*$value['sub_share_rate'];
-				$source[$key]['dicount_zhe']=$source[$key]['dicount']*10;
-			}
-		}else{
-			foreach ($source as $key => $value) {
-				$source[$key]['dicount']=1-(1-$value['sourcechannelrate'])*$value['sourcesharerate'];
-				$source[$key]['dicount_zhe']=$source[$key]['dicount']*10;
-			}
+
+		foreach ($source as $key => $value) {
+			$source[$key]['dicount']=1-(1-$value['sourcechannelrate'])*$value['sourcesharerate'];
+			$source[$key]['dicount_zhe']=$source[$key]['dicount']*10;
 		}
+		
 		
         $this->assign('user',$user);
         $this->assign('source',$source);
@@ -115,7 +107,14 @@ class VoucherAction extends CommonAction {
 		} else {
 			$sourceid = $_POST['sourceid'];
 			$rechargemoney = $_POST['rechargemoney'];
-			$paymoney = $_POST['paymoney'];
+
+			// 获取资源折扣
+			$where = array('id'=>$sourceid);
+			$source=$sourceModel->field('sourcechannelrate,sourcesharerate')->where($where)->find();
+			$dicount=1-(1-$source['sourcechannelrate'])*$source['sourcesharerate'];
+			// 实际支付的金额
+			$paymoney = round($rechargemoney*$dicount,1);
+
 			$rechargeway = 'ptb';
 			$newcoinpreauth = $rechargeuser["coinpreauth"] - $paymoney*10;
 
@@ -435,18 +434,21 @@ class VoucherAction extends CommonAction {
 			/**************************请求参数**************************/
 			$sourceid = $_POST['sourceid'];
 			$rechargemoney = $_POST['rechargemoney'];
-			$paymoney = $_POST['paymoney'];
 			$rechargeway = $_POST['rechargeway'];
 
 			// 获取游戏
-			$sourceModel = M('tg_source');
 			$where=array('S.id'=>$sourceid);
 			$newsource=$sourceModel->alias('S')
 						->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
 						->join(C('DB_PREFIX')."all_game AG on G.sdkgameid = AG.id", "LEFT")
-						->field('S.sourcesn,AG.id,AG.name')
+						->field('S.sourcechannelrate,S.sourcesharerate,S.sourcesn,AG.id,AG.name')
 						->where($where)
 						->find();
+
+			// 获取资源折扣
+			$dicount=1-(1-$newsource['sourcechannelrate'])*$newsource['sourcesharerate'];
+			// 实际支付的金额
+			$paymoney = round($rechargemoney*$dicount,1);
 
 	        //商户订单号，商户网站订单系统中唯一订单号，必填
 	        $out_trade_no = get_orderid();
