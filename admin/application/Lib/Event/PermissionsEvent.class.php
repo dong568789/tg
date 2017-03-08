@@ -43,7 +43,7 @@ class PermissionsEvent
 
     public function getUserPermissions()
     {
-        $adminpermissions = session('adminpermissions');
+        $adminpermissions = S('adminpermissions');
         if(empty($adminpermissions)){
             $departmentModel = M('sys_department');
             $menumodel = M('sys_menu');
@@ -80,7 +80,7 @@ class PermissionsEvent
             foreach($menu as $value){
                 $adminpermissions[$value['id']] = $value;
             }
-            session('adminpermissions',$adminpermissions);
+            S('adminpermissions',$adminpermissions);
         }
         //print_r($adminpermissions);exit;
         return $adminpermissions;

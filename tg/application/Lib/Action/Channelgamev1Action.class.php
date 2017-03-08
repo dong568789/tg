@@ -74,6 +74,8 @@ class Channelgamev1Action extends CommonAction
             );
         }
 
+        unset($rs);
+
         $this->success($data, $page, $pageSize, (int)$count[0]['count'], $userid);
     }
 
