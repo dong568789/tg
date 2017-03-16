@@ -91,7 +91,7 @@ class ChannelAction extends CommonAction {
         $data['activeflag'] = 1;
         $data['createtime'] = date('Y-m-d H:i:s',time());
         $new_channelid = $model->add($data);
-        if($new_channelid === false){
+        if( empty($new_channelid) ){
             $this->ajaxReturn('fail','添加渠道失败。',0);
             exit();
         }
@@ -108,7 +108,7 @@ class ChannelAction extends CommonAction {
             'createuser' => $_SESSION['account'],
         );
         $result = $user_model->add($data);
-        if($result === false){
+        if( empty($result) ){
             $this->ajaxReturn("fail",'添加子账号失败。',0);
         }
 
@@ -194,9 +194,6 @@ class ChannelAction extends CommonAction {
         $data['description'] = $_POST['description'];
         $data['createtime'] = date('Y-m-d H:i:s',time());
         $channel = $model->where("channelid = '$id'")->save($data);
-        if($channel === false){
-            $this->ajaxReturn('fail','渠道更新失败。',0);
-        }
 
         // 更新子账号用户名密码
         $where = array('channelid'=>$id);
@@ -205,9 +202,6 @@ class ChannelAction extends CommonAction {
             $data = array('password' => sha1($sub_password));
         }
         $result = $user_model->where($where)->save($data);
-        if($result === false){
-            $this->ajaxReturn("fail",'编辑子账号失败。',0);
-        }
 
         if($oldchannel['channelname'] == $channelname){
 
@@ -352,7 +346,7 @@ class ChannelAction extends CommonAction {
                 'createuser' => $value['account'],
             );
             $result = $userModel->add($data);
-            if($result === false){
+            if( empty($result) ){
                 echo '添加channelid为'.$value['id'].'子账号失败';
                 exit();
             }

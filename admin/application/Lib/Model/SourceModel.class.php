@@ -386,7 +386,7 @@ class SourceModel extends CommonModel
 
                 /*************CDN*******************/
                 $Url = 'http://c.yxgames.com/api/cdn';
-                $Callback = $this->admindomain.'/?m=game&a=forcecdncallback&sourcesn='.$sourcesn;
+                $Callback = $this->admindomain.'/?m=game&a=forcecdncallback&sourcesn='.$sourcesn.'&newgamename='.$newgamename;
                 $packageurl  = $this->apkdownloadcdnurl.$newgamename;
                 $Params = array(
                     'url'=>$packageurl,
@@ -406,7 +406,7 @@ class SourceModel extends CommonModel
 
                 /*************CDN*******************/
                 $Url = 'http://c.yxgames.com/api/cdn';
-                $Callback = $this->admindomain.'/?m=game&a=cdncallback&sourcesn='.$sourcesn;
+                $Callback = $this->admindomain.'/?m=game&a=cdncallback&sourcesn='.$sourcesn.'&newgamename='.$newgamename;
                 $packageurl  = $this->apkdownloadcdnurl.$newgamename;
                 $Params = array(
                     'url'=>$packageurl,
