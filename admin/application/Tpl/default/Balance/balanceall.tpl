@@ -222,7 +222,10 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             },
             formatters: {
                 "link": function (column, row) {
-                    return "<a href=\"/balancedetail/" + row.id + "/\">查看详情</a>";
+
+                    var html = "<a href=\"/balancedetail/" + row.id + "/\">查看详情</a>"
+                    html += (row.balancestatus == '已结算' ? " | <a href=\"javascript:void(0);\" onclick=\"resetBalance(" + row.id + ",this);\">撤销</a>" : '');
+                    return html;
                 },
                 "balancestatus": function (column, row) {
                     if (row.balancestatus == "账单有误") {
@@ -243,6 +246,39 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 loading: "Loading...", //加载时显示的内容
                 noResults: '没有符合条件的数据'//未查询到结果是显示内容
             },
+        });
+    }
+
+    //撤销
+    function resetBalance(id,obj)
+    {
+        if(!confirm('确认撤销？')){
+            return false;
+        }
+        if(!id){
+            notify('参数错误','danger');
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=Balance&a=resetBalance",
+            data: {id:id},
+            cache: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if (data.info == "success") {
+                    notify('撤销成功!','success');
+                    window.location.reload();
+                } else {
+                    notify('操作失败', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
         });
     }
 

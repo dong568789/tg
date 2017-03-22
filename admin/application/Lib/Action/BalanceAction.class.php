@@ -227,6 +227,30 @@ class BalanceAction extends CommonAction {
         $this->display();
     }
 
+    public function resetBalance(){
+        $this->logincheck();
+
+        $id = isset($_POST["id"]) ? (int)$_POST["id"] : '';
+
+        if(empty($id)){
+            $this->ajaxReturn('参数错误','error',0);
+        }
+
+        $modal = M('tg_balance');
+        $condition["id"] = $id;
+        $data["balancestatus"] = 1;//待审核
+        $data["updatetime"] = date("Y-m-d H:i:s");
+        $data["updateuser"] = $_SESSION["userid"];
+        $result = $modal->where($condition)->save($data);
+        if($result){
+            $this->ajaxReturn($result,'success',1);
+            exit();
+        }else{
+            $this->ajaxReturn('未能更新成功','fail',0);
+            exit();
+        }
+    }
+
     //查看指定日期每日流水
     public function viewDaterangeDaily(){
 		$this->logincheck();
