@@ -240,19 +240,25 @@ class BalanceAction extends CommonAction {
 
         $modal = M('tg_balance');
 
-
         $condition["id"] = $id;
         $balance = $modal->where($condition)->find();
 
+        if($balance['accounttype'] == 3){
+            $this->ajaxReturn('游侠币提现不能撤销','fail',0);
+        }
+
+        if($balance['balancestatus'] <> 2){
+            $this->ajaxReturn('未结算不能撤销','fail',0);
+        }
+
         $data["paidamount"] = $money;
         $data["beizhu"] = $beizhu;
+        $data["balancestatus"] = 1;
         $data["updatetime"] = date("Y-m-d H:i:s");
         $data["updateuser"] = $_SESSION["userid"];
         $result = $modal->where($condition)->save($data);
-      //  echo $modal->_sql();exit;
 
-        $this->insertLog($_SESSION['adminname'],'结算单重置', 'BalanceAction.class.php', 'resetBalance', $data['updatetime'], $_SESSION['adminname']."重置“".$balance['createuser']."”结算单,“时间".$balance["createtime"].",原始结算：".$balance["paidamount"].",修改结算:".$data["paidamount"]."”");
-
+        $this->insertLog($_SESSION['adminname'],'结算单重置', 'BalanceAction.class.php', 'resetBalance', $data['updatetime'], $_SESSION['adminname']."重置【".$balance['createuser']."】结算单,时间【".$balance["createtime"]."】,原始结算：".$balance["paidamount"].",修改>结算:".$data["paidamount"]);
         if($result){
             $this->ajaxReturn($result,'success',1);
             exit();
@@ -474,7 +480,7 @@ class BalanceAction extends CommonAction {
             );
             $messageModal = M('tg_message');
             if ($messageModal->add($messageData)) {
-                $this->insertLog($_SESSION['adminname'],'发送消息', 'UserAction.class.php', 'sendMailAction', $messageData['createtime'], $_SESSION['adminname']."向用户“".$user['account']."”发送类型为：“".$messageData["category"]."”标题为：“".$messageData["title"]."”的消息");
+                $this->insertLog($_SESSION['adminname'],'发送消息', 'UserAction.class.php', 'sendMailAction', $messageData['createtime'], $_SESSION['adminname']."向用户【".$user['account']."发送类型为：".$messageData["category"]."标题为：".$messageData["title"]."的消息】");
             } else {
                 $this->ajaxReturn('fail','给用户发站内消息失败。',0);
                 exit();

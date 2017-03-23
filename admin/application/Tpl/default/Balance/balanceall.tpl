@@ -269,7 +269,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 "link": function (column, row) {
 
                     var html = "<a href=\"/balancedetail/" + row.id + "/\">查看详情</a>"
-                    html += (row.balancestatus == '已结算' ? " | <a href=\"javascript:void(0);\" onclick=\"showBalance(" + row.id + ",'" +row.paidamount+ "','" +row.beizhu+ "');\">撤销</a>" : '');
+                    html += (row.balancestatus == '已结算' && row.accounttype != 3 ? " | <a href=\"javascript:void(0);\" onclick=\"showBalance(" + row.id + ",'" +row.paidamount+ "','" +row.beizhu+ "');\">撤销</a>" : '');
                     return html;
                 },
                 "balancestatus": function (column, row) {
