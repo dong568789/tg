@@ -34,7 +34,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title f-700 p-b-5 text-center">撤销</h4>
+                                <h4 class="modal-title f-700 p-b-5 text-center">撤销结算单</h4>
                             </div>
 
                             <fieldset class="col-sm-10">
