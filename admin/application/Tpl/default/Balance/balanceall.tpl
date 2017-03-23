@@ -297,7 +297,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
     function showBalance(id,paidamount,beizhu){
         $('#balanceid').val(id);
         $('#balance_money').val(paidamount);
-        $('#beizhu').val((beizhu?beizhu : ''));
+        $('#beizhu').val((beizhu != 'null' ? beizhu : ''));
         $('#resetBalance').show();
     }
 
