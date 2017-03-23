@@ -229,6 +229,9 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             $("#resetBalance").hide();
         });
 
+        var h = $(window).height();
+        $('.modal-dialog').css("margin-top",(h-237)/2 + 'px');
+
     });
 
     function loadData() {
