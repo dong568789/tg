@@ -231,7 +231,7 @@ class BalanceAction extends CommonAction {
         $this->logincheck();
 
         $id = isset($_POST["id"]) ? (int)$_POST["id"] : '';
-        $money = isset($_POST["money"]) ? (int)$_POST["money"] : 0;
+        $money = isset($_POST["money"]) ? $_POST["money"] : 0;
         $beizhu = isset($_POST["beizhu"]) ? $_POST["beizhu"] : '';
 
         if(empty($id)){
