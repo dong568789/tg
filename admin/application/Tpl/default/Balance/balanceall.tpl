@@ -51,7 +51,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                     <label class="col-sm-3 control-label ">备注</label>
                                     <div class="col-sm-7">
                                         <p class="form-control">
-                                            <textarea type="text" id="beizhu" class="form-control"></textarea>
+                                            <textarea type="text" id="beizhu" style="height: 37px" class="form-control"></textarea>
                                         </p>
                                     </div>
                                 </div>
