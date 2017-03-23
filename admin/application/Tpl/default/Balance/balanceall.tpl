@@ -29,7 +29,46 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             <div class="block-header">
                 <h2>所有结算单</h2>
             </div>
+            <div class="clearfix modal-preview-demo">
+                <div class="modal" id="resetBalance" style="display:none;"> <!-- Inline style just for preview -->
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title f-700 p-b-5 text-center">撤销</h4>
+                            </div>
 
+                            <fieldset class="col-sm-10">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label ">实际结算</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control">
+                                            <input type="text" id="balance_money" class="form-control">
+                                            <input type="hidden" id="balanceid" value="">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label ">备注</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control">
+                                            <textarea type="text" id="beizhu" class="form-control"></textarea>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <a href="javascript:void(0);" role="button" onclick="resetBalance()" class="btn btn-success btn-block btn-lg">提交</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" style="position: absolute;top:0px;right: 0px;" data-dismiss="modal" id="downloadurl-modalclose">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card p-b-25">
@@ -186,6 +225,9 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             locale: moment.locale('zh-cn')
         });
 
+        $("#downloadurl-modalclose").click(function() {
+            $("#resetBalance").hide();
+        });
 
     });
 
@@ -224,7 +266,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 "link": function (column, row) {
 
                     var html = "<a href=\"/balancedetail/" + row.id + "/\">查看详情</a>"
-                    html += (row.balancestatus == '已结算' ? " | <a href=\"javascript:void(0);\" onclick=\"resetBalance(" + row.id + ",this);\">撤销</a>" : '');
+                    html += (row.balancestatus == '已结算' ? " | <a href=\"javascript:void(0);\" onclick=\"showBalance(" + row.id + ",'" +row.paidamount+ "','" +row.beizhu+ "');\">撤销</a>" : '');
                     return html;
                 },
                 "balancestatus": function (column, row) {
@@ -249,12 +291,22 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         });
     }
 
+    function showBalance(id,paidamount,beizhu){
+        $('#balanceid').val(id);
+        $('#balance_money').val(paidamount);
+        $('#beizhu').val(beizhu);
+        $('#resetBalance').show();
+    }
+
     //撤销
-    function resetBalance(id,obj)
+    function resetBalance()
     {
         if(!confirm('确认撤销？')){
             return false;
         }
+        var id = $('#balanceid').val();
+        var money = $('#balance_money').val();
+        var beizhu = $('#beizhu').val();
         if(!id){
             notify('参数错误','danger');
             return false;
@@ -262,13 +314,13 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         $.ajax({
             type: "POST",
             url: "/index.php?m=Balance&a=resetBalance",
-            data: {id:id},
+            data: {id:id,money:money,beizhu:beizhu},
             cache: false,
             dataType: 'json',
             success: function (data) {
                 console.log(data);
                 if (data.info == "success") {
-                    notify('撤销成功!','success');
+                    notify('修改结算金额成功!','success');
                     window.location.reload();
                 } else {
                     notify('操作失败', 'danger');

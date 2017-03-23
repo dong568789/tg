@@ -231,17 +231,28 @@ class BalanceAction extends CommonAction {
         $this->logincheck();
 
         $id = isset($_POST["id"]) ? (int)$_POST["id"] : '';
+        $money = isset($_POST["money"]) ? (int)$_POST["money"] : 0;
+        $beizhu = isset($_POST["beizhu"]) ? $_POST["beizhu"] : '';
 
         if(empty($id)){
             $this->ajaxReturn('参数错误','error',0);
         }
 
         $modal = M('tg_balance');
+
+
         $condition["id"] = $id;
-        $data["balancestatus"] = 1;//待审核
+        $balance = $modal->where($condition)->find();
+
+        $data["paidamount"] = $money;
+        $data["beizhu"] = $beizhu;
         $data["updatetime"] = date("Y-m-d H:i:s");
         $data["updateuser"] = $_SESSION["userid"];
         $result = $modal->where($condition)->save($data);
+      //  echo $modal->_sql();exit;
+
+        $this->insertLog($_SESSION['adminname'],'结算单重置', 'BalanceAction.class.php', 'resetBalance', $data['updatetime'], $_SESSION['adminname']."重置“".$balance['createuser']."”结算单,“时间".$balance["createtime"].",原始结算：".$balance["paidamount"].",修改结算:".$data["paidamount"]."”");
+
         if($result){
             $this->ajaxReturn($result,'success',1);
             exit();
