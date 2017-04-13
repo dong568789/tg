@@ -15,9 +15,9 @@
 	<div class="end_bottom">
             <img src="__PUBLIC__/default/img/logo.png" width="188" height="41" alt="" />
             <div class="eb_top">
-                <a href="http://www.yxgames.com/about/" target="_blank">关于我们</a><span>|</span>
-        		<a href="http://www.yxgames.com/contact/" target="_blank">联系我们</a><span>|</span>
-        		<a href="http://www.yxgames.com/copright/" target="_blank">版权声明</a>
+                <a href="http://www.yxgames.com/about.html" target="_blank">关于我们</a><span>|</span>
+        		<a href="http://www.yxgames.com/contact.html" target="_blank">联系我们</a><span>|</span>
+        		<a href="http://www.yxgames.com/copright.html" target="_blank">版权声明</a>
 		        <p>Copyright @ 2015 www.yxgames.com  武汉游侠精灵科技有限公司版权所有 </p>
 		        <p>增值电信业务经营许可证:鄂B2-20160033  鄂ICP备15011329号-1</p>
             </div>
