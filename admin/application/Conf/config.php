@@ -13,9 +13,7 @@ return array(
 	'URL_PATHINFO_DEPR'=>'/',
 	//配置后缀
 	'TMPL_TEMPLATE_SUFFIX' => '.tpl',
-    'DB_PORT' => '3306',
-    'DB_PREFIX' => 'yx_',
-    'DB_CHARSET' => 'UTF8', // 数据库编码默认采用UTF
+
 	// 项目设置
 	'MEMCACHE_STATUS' => TRUE,
     'BEANSDB_STATUS' => TRUE,
