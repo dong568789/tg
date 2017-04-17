@@ -172,6 +172,20 @@
 										</div>
 									</div>
 									<div class="form-group m-t-25">
+										<label class="col-sm-3 f-15 control-label">开放范围</label>
+										<div class="col-sm-7">
+											<div class="fg-line">
+												<foreach name="sourceType" item="vo" key="k">
+													<label class="checkbox radio-inline m-r-20">
+														<input type="checkbox" name="guard[]" value="<{$k}>" <if condition="in_array($k,$game['guardArr'])">checked="checked"</if>>
+														<i class="input-helper p-relative" style="left:-26px;"></i>
+														<{$vo}>
+													</label>
+												</foreach>
+											</div>
+										</div>
+									</div>
+									<div class="form-group m-t-25">
 										<label class="col-sm-3 f-15 control-label">备注信息</label>
 										<div class="col-sm-7">
 											<div class="fg-line">

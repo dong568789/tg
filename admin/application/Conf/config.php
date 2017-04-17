@@ -1,5 +1,4 @@
 <?php
-
 return array(
 	//'配置项'=>'配置值'
 	'URL_MODEL' => 2,
@@ -11,11 +10,6 @@ return array(
 	// 默认输出编码
 	'DEFAULT_CHARSET' => 'UTF-8', 
 	// 数据库配置,模块的配置在模块对于的model里面设置
-	'DB_TYPE' => 'mysql',
-        'DB_HOST' => '192.168.1.32',
-        'DB_NAME' => 'db_youxia_new',    
-	'DB_USER' => 'root',   
-	'DB_PWD' => 'hy123456', 
 	'URL_PATHINFO_DEPR'=>'/',
 	//配置后缀
 	'TMPL_TEMPLATE_SUFFIX' => '.tpl',
@@ -47,5 +41,6 @@ return array(
 	'VAR_FILTERS'=>'htmlspecialchars',  //系统变量的全局过滤
 
 	// 此项目相关的配置
-	'app_fastapply_channelname' => 'CHANNEL_CO'//合作会员的一键申请资源的系统渠道
+	'app_fastapply_channelname' => 'CHANNEL_CO',//合作会员的一键申请资源的系统渠道
+	'LOAD_EXT_CONFIG' => 'config_db,web',
 );
