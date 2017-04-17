@@ -111,7 +111,7 @@ class SourceModel extends CommonModel
         return $gamestr;
     }
 	//搜索游戏
-    public function searchGame($content,$channelid){
+    public function searchGame($content,$channelid,$source_type=''){
         $userid = $_SESSION['userid'];
         $gamemodel = M("tg_game");
         $sourcemodel = M("tg_source");
@@ -124,6 +124,10 @@ class SourceModel extends CommonModel
         $where.= "OR gametag like '%".$content."%'";
         $where.= "OR gamesize like '%".$content."%'";
         $where.= "OR sharetype like '%".$content."%')";
+
+        if(!empty($source_type)){
+            $where .= " AND G.guard like '%,{$source_type},%'";
+        }
         $games = $gamemodel->alias("G")
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
