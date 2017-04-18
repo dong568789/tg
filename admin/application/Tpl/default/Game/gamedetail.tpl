@@ -512,6 +512,7 @@
 										<div class="col-sm-12 text-center">
 											<button type="button" class="btn btn-warning btn-lg m-r-10" id="forceupdatesubmit">继续生成强更渠道包</button>
 											<button type="button" class="btn btn-primary btn-lg" id="uploadpackagesubmit">登陆包信息</button>
+											<button type="button" class="btn btn-danger btn-lg m-l-10" id="repealpackagesubmit">撤销强更</button>
 										</div>
 									</div> 
 								</form>
@@ -1064,6 +1065,10 @@
 			}
 			
         });
+
+		$('#repealpackagesubmit').on('click',function(){
+
+		});
 
 		$("img.lazy").lazyload({
 			placeholder : "__ROOT__/plus/img/progress.gif", //用图片提前占位

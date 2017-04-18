@@ -1599,5 +1599,11 @@ class GameAction extends CommonAction {
 			exit();
 		}
 	}
+
+	public function checkGameForce($current_package){
+		if(!empty($current_package) && $current_package['is_forcepackage'] == 1){
+			strtotime($current_package['forcetime'])
+		}
+	}
 }
 ?>
