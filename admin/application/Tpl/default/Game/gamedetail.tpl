@@ -512,7 +512,9 @@
 										<div class="col-sm-12 text-center">
 											<button type="button" class="btn btn-warning btn-lg m-r-10" id="forceupdatesubmit">继续生成强更渠道包</button>
 											<button type="button" class="btn btn-primary btn-lg" id="uploadpackagesubmit">登陆包信息</button>
+											<if condition="$isForce">
 											<button type="button" class="btn btn-danger btn-lg m-l-10" id="repealpackagesubmit">撤销强更</button>
+											</if>
 										</div>
 									</div> 
 								</form>
@@ -1067,7 +1069,53 @@
         });
 
 		$('#repealpackagesubmit').on('click',function(){
-
+			var text = $('#packagelist').find('option:last').text();
+			//alert(text);
+			swal({
+				title: "确认撤销",
+				text: "确定撤销" + text + "强更版本？",
+				type: "warning",
+				showConfirmButton: true,
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "是的,撤销!",
+				cancelButtonText: "取消",
+				closeOnConfirm: false,
+				closeOnCancel: false
+			}, function(isConfirm){
+				if (isConfirm) {
+					$.ajax({
+						type: "POST",
+						url: "index.php?m=game&a=repealForce",
+						data: {gameid : gameid},
+						cache: false,
+						dataType: 'json',
+						success: function (data) {
+							if (data.data == "success") {
+								swal({
+									title: "撤销强更成功",
+									text: '',
+									type: "success",
+									showConfirmButton: true
+								});
+								window.location.reload();
+							}else{
+								swal({
+									title: "撤销强更失败",
+									text: data.info,
+									type: "error",
+									showConfirmButton: true
+								});
+							}
+							return false;
+						},
+						error : function (xhr) {
+							alert('系统错误！');
+							return false;
+						}
+					});
+				}
+			});
 		});
 
 		$("img.lazy").lazyload({

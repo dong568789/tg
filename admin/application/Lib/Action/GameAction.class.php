@@ -444,6 +444,7 @@ class GameAction extends CommonAction {
 			}
 			$game['guardArr'] = explode(',',trim($game['guard'],','));
 
+			$this->assign('isForce',$this->checkGameForce($latestpackage));
 			$this->assign('game',$game);
 			$this->assign('sdkgamelist',$sdkgamelist);
 			$this->assign('gamecategory',$gamecategory);
@@ -1602,10 +1603,93 @@ class GameAction extends CommonAction {
 		}
 	}
 
-	public function checkGameForce($current_package){
-		if(!empty($current_package) && $current_package['is_forcepackage'] == 1){
-			strtotime($current_package['forcetime'])
+	/**
+	 * 撤销强更
+	 */
+	public function repealForce()
+	{
+		$gameid = isset($_POST['gameid']) ? intval($_POST['gameid']) : 0;
+
+		if(empty($gameid)){
+			$this->ajaxReturn('fail',"参数错误。",0);
 		}
+
+		$packageModel = M('tg_package');
+		$where['gameid'] = $gameid;
+		$where['activeflag'] = 1;
+		$where['isforcepackage'] = 1;
+		$where['isforced'] = 0;
+		$package = $packageModel->where($where)->order('packageid desc')->find();
+		if(!empty($package)){
+
+			//获取上一个包
+			$uppackage = $packageModel->where(array(
+				'gameid' => $gameid,
+				'packageid' => array('lt',$package['packageid'])
+			))->order('packageid desc')->find();
+			//更新上一个包为当前包
+			$returnuppackage = $packageModel->where(array(
+				'gameid' => $gameid,
+				'packageid' => $uppackage['packageid']
+			))->save(array(
+				'activeflag' => 1,
+				'isnowactive' => 1
+			));
+
+			$forcepackageModel = M('tg_forcepackage');
+			$returnforce = $forcepackageModel->where(array(
+				'gameid' => $gameid,
+				'apkurl' => array('like',"%{$package['gameversion']}%")
+			))->save(array(
+				'isforce' => 1,
+				'activeflag' => 0
+			));
+
+			$allgameModel = M('all_game');
+			$gameModel = M('tg_game');
+			$game = $gameModel->where(array('gameid' => $gameid))->find();
+			$allgameWhere = array(
+				'id' => $game['sdkgameid']
+			);
+			$allGame = $allgameModel->where(array($allgameWhere))->find();
+			$itemupversions = explode(',',trim($allGame['upversions'],','));
+			array_pop($itemupversions);
+			$returngame = $allgameModel->where($allgameWhere)->save(array(
+				'lastupver' => $game['gameversion'],
+				'upversions'=> implode(',',$itemupversions).',',
+			));
+
+			//撤销强更
+			$returnpackage = $packageModel->where(array(
+				'gameid' => $gameid,
+				'packageid' => $package['packageid']
+			))->save(array(
+				'activeflag' => 0,
+				'isnowactive' => 0
+			));
+
+			$agentModel = M('sdk_agentlist');
+			$returnagent = $agentModel->where(array('gameid' => $game['sdkgameid']))->save(array('upurl' => ''));
+
+			$this->insertLog($_SESSION['adminname'],'撤销强更', 'GameAction.class.php', 'repealForce',  date('Y-m-d H:i:s',time()), $_SESSION['adminname']."撤销强更游戏：“".$game['gamename']."”游戏,版本从【{$package['gameversion']}】到【{$uppackage['gameversion']}】");
+			if($returnuppackage && $returnpackage && $returnforce && $returnagent && $returngame){
+				$this->ajaxReturn('success','撤销强更成功',1);
+			}else{
+				$this->ajaxReturn('fail','撤销强更失败',0);
+			}
+		}else{
+			$this->ajaxReturn('fail','强更包不存在',0);
+		}
+	}
+
+	private function checkGameForce($current_package)
+	{
+		if(!empty($current_package) && $current_package['isforcepackage'] == 1){
+			if(strtotime($current_package['isforced']) < 1){
+				return true;
+			}
+		}
+		return false;
 	}
 }
 ?>
