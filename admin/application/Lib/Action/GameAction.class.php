@@ -1534,10 +1534,13 @@ class GameAction extends CommonAction {
 		}else{
 			$forcepackage = $forcepackageModel->where($where)->find();
 
-			if( $source['apkurl'] ==  $newgamename){
-				$agentModel = M('sdk_agentlist');
-				$agentcondition = array();
-				$agentcondition["agent"] = $sourcesn;
+			$agentModel = M('sdk_agentlist');
+			$agentcondition = array();
+			$agentcondition["agent"] = $sourcesn;
+			$agent = $agentModel->where($agentcondition)->find();
+			$agentUpurlArr = explode('/',$agent['upurl']);
+			$agentUpurl = $agentUpurlArr[7];
+			if($agentUpurl ==  $newgamename ){
 				$agentdata = array();
 				$agentdata["upurl"] = $this->apkdownloadcdnurl.$forcepackage['apkurl'];
 				$result = $agentModel->where($agentcondition)->save($agentdata);
@@ -1557,7 +1560,6 @@ class GameAction extends CommonAction {
 					echo "【sourcesn='".$sourcesn."',newgamename='".$newgamename."'】强更包cdn回调，修改forcepackage表的is_cdn_submit成功，修改agentlist的upurl成功。\n";
 				}
 			}
-
 		}
 	}
 	//---------------------------------------------------------------
