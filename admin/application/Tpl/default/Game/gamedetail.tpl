@@ -894,20 +894,27 @@
 		});
 
 		// 修改包信息提交
+        var forcetime = $('#forcetime').val();
 		$('#uploadpackagesubmit').click(function() {
 			if ($('#uploadpackage').valid()) {
 				var confirmcontent = "确认上传游戏包？";
 				if(confirm(confirmcontent)) {
+                    var newForceTime = $('#forcetime').val();
+                    if(forcetime!='' && forcetime != newForceTime){
+                        if(!confirm('强更时间有变化，是否确认修改？')){
+                            return false;
+                        }
+                    }
 					swal({
-						title: "请稍侯...",   
-						text: "文件正在上传中，请等待完成，不要关闭页面", 
+						title: "请稍侯...",
+						text: "文件正在上传中，请等待完成，不要关闭页面",
 						type: "hold",
 						showConfirmButton: false
 					});
-					$('#uploadpackage').ajaxSubmit({  
+					$('#uploadpackage').ajaxSubmit({
 						dataType : 'json',
 						cache : false,
-						beforeSend : function() {		
+						beforeSend : function() {
 							//do nothing
 						},
 						uploadProgress : function(event, position, total, percentComplete) {
@@ -927,8 +934,8 @@
 							setTimeoutFlag = 0;
 							if (data.data == "success") {
 								swal({
-									title: "已上传",   
-									text: "游戏包已成功上传，如果要使用新上传的包，请刷新页面.", 
+									title: "已上传",
+									text: "游戏包已成功上传，如果要使用新上传的包，请刷新页面.",
 									type: "success",
 									showConfirmButton: true
 									},function(){
@@ -936,17 +943,17 @@
 								});
 							} else if (data.data == "warning") {
 								swal({
-									title: "确认覆盖",   
-									text: "已存在相同版本的游戏包，确认覆盖？", 
+									title: "确认覆盖",
+									text: "已存在相同版本的游戏包，确认覆盖？",
 									type: "warning",
 									showConfirmButton: true,
 									showCancelButton: true,
 									confirmButtonColor: "#DD6B55",
-									confirmButtonText: "是的,覆盖!",   
-									cancelButtonText: "取消",   
-									closeOnConfirm: false,   
-									closeOnCancel: false 
-									}, function(isConfirm){   
+									confirmButtonText: "是的,覆盖!",
+									cancelButtonText: "取消",
+									closeOnConfirm: false,
+									closeOnCancel: false
+									}, function(isConfirm){
 										if (isConfirm) {
 											$('#isconfirmed').val(1);
 											var packageid = data.info;
@@ -959,8 +966,8 @@
 												success: function (data) {
 													if (data.data == "success") {
 														swal({
-															title: "已激活",   
-															text: "已成功上传并激活游戏包，非强更场景所有原有渠道包都被清空，使用新渠道包，强更场景将保留老渠道包至强更，同时可以使用新渠道包.", 
+															title: "已激活",
+															text: "已成功上传并激活游戏包，非强更场景所有原有渠道包都被清空，使用新渠道包，强更场景将保留老渠道包至强更，同时可以使用新渠道包.",
 															type: "success",
 															showConfirmButton: true
 															},function(){
@@ -968,8 +975,8 @@
 														});
 													} else {
 														swal({
-															title: "上传游戏包失败",   
-															text: data.info, 
+															title: "上传游戏包失败",
+															text: data.info,
 															type: "error",
 															showConfirmButton: true
 														});
@@ -981,33 +988,33 @@
 													return false;
 												}
 											});
-										} else {     
-											swal("已取消", "上传游戏包已取消", "error");   
-										} 
+										} else {
+											swal("已取消", "上传游戏包已取消", "error");
+										}
 								});
 							} else if (data.data == "force") {
 								swal({
-									title: "确认开始生成强更渠道包",   
-									text: "强更包和信息上传成功，即将开始生成渠道包，请确认.", 
+									title: "确认开始生成强更渠道包",
+									text: "强更包和信息上传成功，即将开始生成渠道包，请确认.",
 									type: "warning",
 									showConfirmButton: true,
 									showCancelButton: true,
 									confirmButtonColor: "#DD6B55",
-									confirmButtonText: "好的!",   
-									cancelButtonText: "取消",   
-									closeOnConfirm: false,   
-									closeOnCancel: false 
-									}, function(isConfirm){   
+									confirmButtonText: "好的!",
+									cancelButtonText: "取消",
+									closeOnConfirm: false,
+									closeOnCancel: false
+									}, function(isConfirm){
 										if (isConfirm) {
 											createForcePackage(1, 0);
-										} else {     
-											swal("已取消", "生成强更渠道包已取消，您可以点击“继续生成强更渠道包”按钮来继续生成强更渠道包.", "error");   
-										} 
+										} else {
+											swal("已取消", "生成强更渠道包已取消，您可以点击“继续生成强更渠道包”按钮来继续生成强更渠道包.", "error");
+										}
 								});
 							} else {
 								swal({
-									title: "上传失败",   
-									text: data.info, 
+									title: "上传失败",
+									text: data.info,
 									type: "error",
 									showConfirmButton: true
 								});
@@ -1018,8 +1025,8 @@
 							checkTimeout (1);
 							setTimeoutFlag = 0;
 							swal({
-								title: "系统错误",   
-								text: "页面错误编号 "+xhr.status, 
+								title: "系统错误",
+								text: "页面错误编号 "+xhr.status,
 								type: "error",
 								showConfirmButton: true
 							});
@@ -1079,9 +1086,6 @@
 				showCancelButton: true,
 				confirmButtonColor: "#DD6B55",
 				confirmButtonText: "是的,撤销!",
-				cancelButtonText: "取消",
-				closeOnConfirm: false,
-				closeOnCancel: false
 			}, function(isConfirm){
 				if (isConfirm) {
 					$.ajax({
@@ -1114,7 +1118,9 @@
 							return false;
 						}
 					});
-				}
+				}else{
+                    return false;
+                }
 			});
 		});
 
@@ -1125,7 +1131,7 @@
 		});
 
 
-		var longObj = new Clipboard('#packagelist:selected');
+		/*var longObj = new Clipboard('#packagelist:selected');
 
 		longObj.on('success', function(e) {
 			notify('复制成功', 'success');
@@ -1133,7 +1139,7 @@
 
 		longObj.on('error', function(e) {
 			notify('复制失败', 'danger');
-		});
+		});*/
     });
 </script>
 </body>

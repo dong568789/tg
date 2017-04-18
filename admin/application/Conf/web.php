@@ -26,6 +26,14 @@ return array(
 //        'gamebgurl' => "http://downloadcdn.yxgames.com/images/upfiles/gamebg/", //游戏背景
 //        'screenshoturl' => "http://downloadcdn.yxgames.com/images/upfiles/screenshot/", //游戏截图
 //        'diylogourl' => "http://img.yxgames.com/DataGames/upfiles/diylogo/", //自定义合作会员logo
+        'packageStoreFolder' => "../admin/DataGames/upfiles/basicpackage/",
+        'downloadStoreFolder' => "../admin/DataGames/upfiles/downloadpackage/",
+        'textureStoreFolder' => "../admin/DataGames/upfiles/texture/",
+        'iconStoreFolder' => "../admin/upfiles/gameicon/",
+        'gamebgStoreFolder' => "../admin/DataGames/upfiles/gamebg/",
+        'diylogoStoreFolder' => "../admin/DataGames/upfiles/diylogo/",
+        'screenshotStoreFolder' => "../admin/DataGames/upfiles/screenshot/",
+        'signCheckFolder' => "/var/www/admin/DataGames/upfiles/basicpackage/",
         'sourceType' => array(
                 1 => '公会',
                 3 => '平台YXGAMES',
