@@ -149,7 +149,7 @@ class SourceAction extends CommonAction {
         $order = $_POST['order'];
         $order_hot = $_POST['order_hot'];
         $Index = D("Source");
-        $gamestr = $Index->selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order,$order_hot);
+        $gamestr = $Index->selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order,$order_hot,$this->sourcetype);
         if($gamestr){
 			$this->ajaxReturn('success',$gamestr,1);
 			exit();
@@ -168,7 +168,7 @@ class SourceAction extends CommonAction {
         $content = $_POST['content'];
 		$channelid = $_POST['channelid'];
         $Index = D("Source");
-        $gamestr = $Index->searchGame($content,$channelid);
+        $gamestr = $Index->searchGame($content,$channelid,$this->sourcetype);
         if($gamestr){
 			$this->ajaxReturn('success',$gamestr,1);
 			exit();

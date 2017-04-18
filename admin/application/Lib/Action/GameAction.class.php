@@ -2,6 +2,8 @@
 class GameAction extends CommonAction {
 	public function __construct(){
     	parent::__construct();
+
+
     }
 
 	//游戏列表
@@ -48,6 +50,7 @@ class GameAction extends CommonAction {
         $this->assign('sdkgamelist',$sdkgamelist);
         $this->assign('gamecategory',$gamecategory);
         $this->assign('gametag',$gametag);
+        $this->assign('sourceType',C('sourceType'));
         $this->menucheck();
         $this->display();
     }
@@ -300,8 +303,9 @@ class GameAction extends CommonAction {
 			}
 		}
 
+		$data['guard'] = !empty($_POST['guard']) ? ','.implode(',',$_POST['guard']).',' : '';
 		$data['sdkgameid'] = $_POST['sdkgameid'];
-        $data['gamename'] = $_POST['gamename'];		
+        $data['gamename'] = $_POST['gamename'];
         $data['gamepinyin'] = $_POST['gamepinyin'];
 		$data['gametype'] = $_POST['gametype'];
 		$data['gamecategory'] = $_POST['gamecategory'];
@@ -438,6 +442,8 @@ class GameAction extends CommonAction {
 			foreach ($packagelist as $k => $v) {
 				$versionstr .= $v["gameversion"].",";
 			}
+			$game['guardArr'] = explode(',',trim($game['guard'],','));
+
 			$this->assign('game',$game);
 			$this->assign('sdkgamelist',$sdkgamelist);
 			$this->assign('gamecategory',$gamecategory);
@@ -445,6 +451,7 @@ class GameAction extends CommonAction {
 			$this->assign('packagelist',$packagelist);
 			$this->assign('latestpackage',$latestpackage);
 			$this->assign('versionstr',$versionstr);
+			$this->assign('sourceType',C('sourceType'));
             $this->menucheck();
 			$this->display();
 		}
@@ -524,6 +531,8 @@ class GameAction extends CommonAction {
         } elseif($data['isusedvoucher'] == 1){
             $data['isusedvouchername'] = "能";
         }
+
+		$data['guard'] = !empty($_POST['guard']) ? ','.implode(',',$_POST['guard']).',' : '';
         $game = $model->where($condition)->save($data);
 
 		if ($game) {
@@ -877,7 +886,6 @@ class GameAction extends CommonAction {
 		$infodata['description'] = $_POST['description'];
 		$gameModel = M('tg_game');
 		$game = $gameModel->find($gameid);
-
 		if ($packagename != "") {
 			$packageModel = M('tg_package');
 			$packagecondition["gameid"] = $gameid;
@@ -1593,6 +1601,5 @@ class GameAction extends CommonAction {
 			exit();
 		}
 	}
-
 }
 ?>

@@ -38,7 +38,7 @@ class SourceModel extends CommonModel
     }
 
     //游戏分类筛选
-    public function selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order,$order_hot=''){
+    public function selectGame($gametype,$gamecategory,$gamesize,$gametag,$channelid,$order,$order_hot='',$source_type=''){
         $userid = $_SESSION['userid'];
         $gamemodel = M("tg_game");
 		$sourcemodel = M("tg_source");
@@ -61,13 +61,16 @@ class SourceModel extends CommonModel
             $map['gamesize'] = array('gt',100) ;
         }
 
+        if(!empty($source_type)){
+            $map['guard'] = array('like', "%,{$source_type},%");
+        }
+
         if($gametag != 0){
             $map['gametag'] = $gametag;
         }
 
         if(!empty($order_hot)){
             $ordrestr = ($order_hot == 'asc' ? 'G.gameauthority ASC' : 'G.gameauthority DESC');
-
         }
 		$map['G.activeflag'] = 1;
                 $games = $gamemodel->alias("G")
@@ -108,7 +111,7 @@ class SourceModel extends CommonModel
         return $gamestr;
     }
 	//搜索游戏
-    public function searchGame($content,$channelid){
+    public function searchGame($content,$channelid,$source_type=''){
         $userid = $_SESSION['userid'];
         $gamemodel = M("tg_game");
         $sourcemodel = M("tg_source");
@@ -121,6 +124,10 @@ class SourceModel extends CommonModel
         $where.= "OR gametag like '%".$content."%'";
         $where.= "OR gamesize like '%".$content."%'";
         $where.= "OR sharetype like '%".$content."%')";
+
+        if(!empty($source_type)){
+            $where .= " AND G.guard like '%,{$source_type},%'";
+        }
         $games = $gamemodel->alias("G")
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
@@ -158,8 +165,9 @@ class SourceModel extends CommonModel
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
             ->where($map)
             ->field('*,S.id as sourceid')
-            ->order("G.gameauthority desc")
+            ->order("S.id desc")
             ->select();
+
         $sourcestr = $this->createGameStr($games,"my");
         return $sourcestr;
     }

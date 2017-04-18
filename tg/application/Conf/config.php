@@ -9,19 +9,11 @@ return array(
 	//定义主题目录
 	'DEFAULT_THEME'=>'default', 
 	// 默认输出编码
-	'DEFAULT_CHARSET' => 'UTF-8', 
-	// 数据库配置,模块的配置在模块对于的model里面设置
-	'DB_TYPE' => 'mysql',
-	'DB_HOST' => '192.168.1.32',
-    'DB_NAME' => 'db_youxia_new',    
-	'DB_USER' => 'root',   
-	'DB_PWD' => 'hy123456', 
+	'DEFAULT_CHARSET' => 'UTF-8',
+
 	'URL_PATHINFO_DEPR'=>'/',
 	//配置后缀
 	'TMPL_TEMPLATE_SUFFIX' => '.tpl',
-    'DB_PORT' => '3306',
-    'DB_PREFIX' => 'yx_',
-    'DB_CHARSET' => 'UTF8', // 数据库编码默认采用UTF
 	// 项目设置
 	'MEMCACHE_STATUS' => TRUE,
     'BEANSDB_STATUS' => TRUE,	
@@ -52,5 +44,6 @@ return array(
 	'URL_ROUTER_ON' => TRUE,
 	'URL_ROUTE_RULES' => array(
 		'api/v1/channel_games' => 'm=Channelgamev1&a=channel_games'
-	)
+	),
+	'LOAD_EXT_CONFIG' => 'config_db,web',
 );
