@@ -1685,7 +1685,7 @@ class GameAction extends CommonAction {
 	private function checkGameForce($current_package)
 	{
 		if(!empty($current_package) && $current_package['isforcepackage'] == 1){
-			if(strtotime($current_package['isforced']) < 1){
+			if($current_package['isforced'] < 1){
 				return true;
 			}
 		}
