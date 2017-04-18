@@ -35,50 +35,59 @@ class Channelgamev1Action extends CommonAction
         if(empty($user['channelid']))
             $this->error('用户渠道不存在');
 
-        $where = "a.channelid='{$user['channelid']}' AND b.isonstack=0 and b.activeflag=1";
-        $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE {$where}";
-        $count = M('')->query($sql);
+        $data = $this->getGameAll($user['channelid'], $offset, $pageSize);
 
-        $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.screenshot1,b.screenshot2,b.screenshot3,b.screenshot4,b.screenshot5,b.gametype,c.categoryname
+        unset($rs);
+
+        $this->success($data, $page, $pageSize, count($data), $userid);
+    }
+
+    protected function getGameAll($channelid, $offset, $pageSize)
+    {
+        $sourceData = S('API_SOURCE_DATA_'.$channelid);
+
+        if(empty($sourceData)){
+            $where = "a.channelid='{$channelid}' AND b.isonstack=0 and b.activeflag=1";
+           /* $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE {$where}";
+            $count = M('')->query($sql);*/
+
+            $sql = "SELECT a.createtime,a.apkurl,a.is_cdn_submit,a.isupload,a.sourcesn,b.gamename,b.gameid,b.gameversion,b.packageversion,b.description,b.gamesize,b.gameicon,b.screenshot1,b.screenshot2,b.screenshot3,b.screenshot4,b.screenshot5,b.gametype,c.categoryname
                 FROM yx_tg_source as a
                 INNER JOIN yx_tg_game as b on a.gameid=b.gameid
                 INNER JOIN yx_tg_gamecategory as c ON b.gamecategory = c.id
                 WHERE {$where}
                 ORDER  BY a.createtime
                 DESC LIMIT {$offset},{$pageSize}";
-        $rs = M('')->query($sql);
-        $data = array();
+            $rs = M('')->query($sql);
+            $data = array();
 
-       // $sourceAction = new SourceAction();
-        foreach ($rs as $row) {
+            // $sourceAction = new SourceAction();
+            foreach ($rs as $row) {
 
-            //$download_url = $sourceAction->apidownload($row['sourcesn']);
-            $screenshot = array();
-            !empty($row['screenshot1']) && $screenshot[] = $this->screenshoturl.$row['screenshot1'];
-            !empty($row['screenshot2']) && $screenshot[] = $this->screenshoturl.$row['screenshot2'];
-            !empty($row['screenshot3']) && $screenshot[] = $this->screenshoturl.$row['screenshot3'];
-            !empty($row['screenshot4']) && $screenshot[] = $this->screenshoturl.$row['screenshot4'];
-            !empty($row['screenshot5']) && $screenshot[] = $this->screenshoturl.$row['screenshot5'];
-            $data[] = array(
-                'gameid' => $row['gameid'],
-                'gamename' => $row['gamename'],
-                'version' => $row['gameversion'],
-                'download_url' => $this->tgdomain.'/publicdownload/'.$row['sourcesn'],
-                'gamesize' => $row['gamesize'],
-                'gameicon' => $this->iconurl.$row['gameicon'],
-                'screenshot' => $screenshot,
-                'packageversion' => $row['packageversion'],
-                'gametype' => $row['gametype'],
-                'description' => $row['description'],
-                'gamecategory' => $row['categoryname']
-            );
+                //$download_url = $sourceAction->apidownload($row['sourcesn']);
+                $screenshot = array();
+                !empty($row['screenshot1']) && $screenshot[] = $this->screenshoturl.$row['screenshot1'];
+                !empty($row['screenshot2']) && $screenshot[] = $this->screenshoturl.$row['screenshot2'];
+                !empty($row['screenshot3']) && $screenshot[] = $this->screenshoturl.$row['screenshot3'];
+                !empty($row['screenshot4']) && $screenshot[] = $this->screenshoturl.$row['screenshot4'];
+                !empty($row['screenshot5']) && $screenshot[] = $this->screenshoturl.$row['screenshot5'];
+                $data[] = array(
+                    'gameid' => $row['gameid'],
+                    'gamename' => $row['gamename'],
+                    'version' => $row['gameversion'],
+                    'download_url' => $this->tgdomain.'/publicdownload/'.$row['sourcesn'],
+                    'gamesize' => $row['gamesize'],
+                    'gameicon' => $this->iconurl.$row['gameicon'],
+                    'screenshot' => $screenshot,
+                    'packageversion' => $row['packageversion'],
+                    'gametype' => $row['gametype'],
+                    'description' => $row['description'],
+                    'gamecategory' => $row['categoryname']
+                );
+            }
         }
 
-        unset($rs);
-
-        $this->success($data, $page, $pageSize, (int)$count[0]['count'], $userid);
     }
-
 
     /**
      * 功    能:	获取签名
