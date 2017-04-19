@@ -901,11 +901,11 @@ class GameAction extends CommonAction {
 							$this->ajaxReturn('fail',"游戏包名不相同.",0);
 							exit();
 						}
-						/*$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
+						$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
 						if (!stripos($newsign, 'yxgames')) {
 							$this->ajaxReturn('fail',"游戏签名有错误.",0);
 							exit();
-						}*/
+						}
 						$historyversion = $_POST["historyversion"];
 						$forcetime = $_POST["forcetime"];
 						$latestversion = $data['gameversion'];
@@ -992,11 +992,11 @@ class GameAction extends CommonAction {
 							$this->ajaxReturn('fail',"游戏包名不相同.",0);
 							exit();
 						}
-						/*$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
+						$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
 						if (!stripos($newsign, 'yxgames')) {
 							$this->ajaxReturn('fail',"游戏签名有错误.",0);
 							exit();
-						}*/
+						}
 						$packagedata['gameid'] = $gameid;
 						$packagedata['gamename'] = $game['gamename'];
 						$packagedata['gameversion'] = $data['gameversion'];
@@ -1077,11 +1077,11 @@ class GameAction extends CommonAction {
 								$this->ajaxReturn('fail',"游戏包名不相同.",0);
 								exit();
 							}
-							/*$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
+							$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
 							if (!stripos($newsign, 'yxgames')) {
 								$this->ajaxReturn('fail',"游戏签名有错误.",0);
 								exit();
-							}*/
+							}
 							$packagedata['gameid'] = $gameid;
 							$packagedata['gamename'] = $game['gamename'];
 							$packagedata['gameversion'] = $data['gameversion'];
@@ -1120,11 +1120,11 @@ class GameAction extends CommonAction {
 					$forcetime = $_POST["forcetime"];
 					$latestversion = $data['gameversion'];
 					if ($forcetime != "") {
-						/*$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
+						$newsign = shell_exec("/usr/java/jdk1.7.0_79/bin/jarsigner -verify -verbose -certs ".$this->signCheckFolder.$packagename." | grep YXGames");
 						if (!stripos($newsign, 'yxgames')) {
 							$this->ajaxReturn('fail',"游戏签名有错误.",0);
 							exit();
-						}*/
+						}
 						$packagedata['gameid'] = $gameid;
 						$packagedata['gamename'] = $game['gamename'];
 						$packagedata['gameversion'] = $data['gameversion'];
