@@ -1306,7 +1306,7 @@ class GameAction extends CommonAction {
 				$packageModel->where(array('packageid'=>$package['packageid']))->save($packageData);
 
 				$sdkgameModel = M('all_game');
-				$sdkgameModel->where(array('id' => $game['sdkgameid']))->save(
+				$resultsdkgame = $sdkgameModel->where(array('id' => $game['sdkgameid']))->save(
 					array(
 						'uptime' => strtotime($forcetime.":00")
 					)
@@ -1315,7 +1315,7 @@ class GameAction extends CommonAction {
 			$gamecondition["gameid"] = $game["gameid"];
 			$gameresult = $gameModel->where($gamecondition)->save($infodata);
 
-			if ($gameresult) {
+			if ($gameresult || $resultsdkgame) {
 				$this->ajaxReturn('success',"上传素材和游戏图标成功。",1);
 				exit();
 			} else {
