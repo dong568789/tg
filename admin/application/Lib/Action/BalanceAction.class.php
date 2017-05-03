@@ -27,7 +27,9 @@ class BalanceAction extends CommonAction {
 				$balance[$k]['actualamount'] = str_replace(",", "", number_format($v['actualamount'], 2));
             }
             $this->assign('balance',$balance);*/
+            $usertype = I('get.usertype','','intval');
             $this->menucheck();
+            $this->assign('usertype',$usertype);
             $this->display();
         } else{
             Header("Location: /error505/ ");
@@ -48,6 +50,7 @@ class BalanceAction extends CommonAction {
         $account = isset($_POST['account']) ? $_POST['account'] : '';
         $current    = isset($_POST['current']) ? (int)$_POST['current'] : 1;
         $rowCount   = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
+        $usertype   = isset($_POST['usertype']) ? (int)$_POST['usertype'] : '';
 
         $sort = $this->parseOrder();
         $where=array();
@@ -67,6 +70,11 @@ class BalanceAction extends CommonAction {
             $complex['_logic'] = 'OR';
             $where['_complex'] = $complex;
         }
+
+        if($usertype > 0){
+            $where['U.usertype'] = $usertype;
+        }
+
         $where["B.activeflag"] = 1;
 
         $model= M('tg_balance');
@@ -74,7 +82,6 @@ class BalanceAction extends CommonAction {
             ->join(C('DB_PREFIX')."tg_user U on B.userid = U.userid", "LEFT")
             ->where($where)
             ->count();
-
         $balance = $model->alias("B")
             ->join(C('DB_PREFIX')."tg_user U on B.userid = U.userid", "LEFT")
             ->where($where)->order("B.createtime desc")

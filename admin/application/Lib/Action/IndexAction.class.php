@@ -13,6 +13,7 @@ class IndexAction extends CommonAction {
 	public function login(){
 		session_start();
 		$_SESSION = array();
+		S('adminpermissions',null);
 		session_destroy();
         $this->display();
     }
