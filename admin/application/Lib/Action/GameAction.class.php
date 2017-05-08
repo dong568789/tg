@@ -404,6 +404,8 @@ class GameAction extends CommonAction {
 				$packagedata['createuser'] = "Admin";
 				$packagedata['isnowactive'] = 1;
 				$packageModel->add($packagedata);
+
+				$this->addGuard($game);
                 $this->insertLog($_SESSION['adminname'],'新增游戏', 'GameAction.class.php', 'addgame',  $data['createtime'], $_SESSION['adminname']."添加游戏名为：“".$data['gamename']."”游戏");
                 $this->ajaxReturn('success','游戏上传成功。',1);
 				exit();
@@ -413,6 +415,17 @@ class GameAction extends CommonAction {
 			}
 		}  
     }
+
+	private function addGuard($gameid)
+	{
+		$isOfftg = $_POST['isTg'];
+		if($isOfftg == 'on'){
+			A('Guard')->addGuard(json_decode($_POST['guard_data'], true), 'tg_game', $gameid);
+		}else{
+			A('Guard')->removeGuard('tg_game', $gameid);
+		}
+		return true;
+	}
 
 	//编辑游戏 视图
     public function gamedetail(){
@@ -444,6 +457,8 @@ class GameAction extends CommonAction {
 			}
 			$game['guardArr'] = explode(',',trim($game['guard'],','));
 
+			$guardModel = M('guard');
+			$checkGuard = $guardModel->where(array('from_table' => 'tg_game','from_id'=>$gameid))->find();
 			$this->assign('isForce',$this->checkGameForce($latestpackage));
 			$this->assign('game',$game);
 			$this->assign('sdkgamelist',$sdkgamelist);
@@ -453,6 +468,7 @@ class GameAction extends CommonAction {
 			$this->assign('latestpackage',$latestpackage);
 			$this->assign('versionstr',$versionstr);
 			$this->assign('sourceType',C('sourceType'));
+			$this->assign('checkGuard',$checkGuard);
             $this->menucheck();
 			$this->display();
 		}
@@ -534,6 +550,9 @@ class GameAction extends CommonAction {
         }
 
 		$data['guard'] = !empty($_POST['guard']) ? ','.implode(',',$_POST['guard']).',' : '';
+
+		$this->addGuard($gameid);
+
         $game = $model->where($condition)->save($data);
 
 		if ($game) {

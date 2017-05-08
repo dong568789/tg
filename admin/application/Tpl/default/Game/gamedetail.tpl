@@ -186,6 +186,18 @@
 										</div>
 									</div>
 									<div class="form-group m-t-25">
+										<label class="col-sm-3 f-15 control-label">推广</label>
+										<div class="col-sm-7">
+											<div class="fg-line">
+												<div class="toggle-switch" style="margin-top: 8px;">
+													<input id="pub_switch_tg" name="isTg" type="checkbox" hidden="hidden" <if condition="!empty($checkGuard)">checked="checked"</if>>
+													<label for="pub_switch_tg" class="ts-helper"></label>
+												</div>
+												<button type="button" id="J_foragent" class="btn bgm-pink waves-effect" style="<if condition="empty($checkGuard)">display: none;</if>margin-left: 10px;">编辑白名单</button>
+											</div>
+										</div>
+									</div>
+									<div class="form-group m-t-25">
 										<label class="col-sm-3 f-15 control-label">备注信息</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
@@ -537,6 +549,8 @@
 <script src="__ROOT__/plus/vendors/fileinput/fileinput.min.js"></script>
 <script src="__ROOT__/plus/vendors/jquery-lazyload/jquery.lazyload.js"></script>
 <script src="__ROOT__/plus/js/clipboard.min.js"></script>
+<script src="__ROOT__/plus/vendors/layer/layer.js"></script>
+<script src="__ROOT__/plus/js/guard.js"></script>
 <script type="text/javascript">
 	var gameid = $('#uploadgameid').val();
 
@@ -1130,6 +1144,21 @@
 			effect: "fadeIn", // 载入使用何种效果
 		});
 
+		$('#J_foragent').guard({
+			from_table:'tg_game',
+			data_append:'#editgame',
+			from_id:'<{$game.gameid}>'
+		});
+
+		$('#pub_switch_tg').click(function () {
+			var _this = $(this);
+			var _val = _this.prop('checked');
+			if( _val){
+				$('#J_foragent').show();
+			}else{
+				$('#J_foragent').hide();
+			}
+		});
 
 		/*var longObj = new Clipboard('#packagelist:selected');
 

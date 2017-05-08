@@ -185,6 +185,20 @@
 										</div>
 									</div>
 									<div class="form-group m-t-25">
+										<label class="col-sm-3 f-15 control-label">推广</label>
+										<div class="col-sm-7">
+											<div class="fg-line">
+												<div class="toggle-switch" style="margin-top: 8px;">
+													<input id="pub_switch_tg" name="isTg" type="checkbox" hidden="hidden">
+													<label for="pub_switch_tg" name="isTg" class="ts-helper"></label>
+												</div>
+												<div class="toggle-switch" style="display: none;margin-left: 10px;" id="J_foragent_box">
+													<button type="button" id="J_foragent" class="btn bgm-pink waves-effect">编辑白名单</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group m-t-25">
 										<label class="col-sm-3 f-15 control-label">备注信息</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
@@ -424,7 +438,6 @@
         </div>
     </section>
 </section>
-
 <include file="Inc:footer" />
 <include file="Inc:scripts" />
 
@@ -432,6 +445,8 @@
 <script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="__ROOT__/plus/vendors/fileinput/fileinput.min.js"></script>
+<script src="__ROOT__/plus/vendors/layer/layer.js"></script>
+<script src="__ROOT__/plus/js/guard.js"></script>
 
 
 <script type="text/javascript">
@@ -686,6 +701,21 @@
 			}
 			return false;
         });
+
+		$('#J_foragent').guard({
+			'from_table':'tg_game',
+			'data_append':'#addgame'
+		});
+
+		$('#pub_switch_tg').click(function () {
+			var _this = $(this);
+			var _val = _this.prop('checked');
+			if( _val){
+				$('#J_foragent_box').show();
+			}else{
+				$('#J_foragent_box').hide();
+			}
+		});
     });
 </script>
 </body>
