@@ -40,6 +40,7 @@
                             <div class="p-20">
 								<form id="editgame" class="form-horizontal" enctype="multipart/form-data" role="form" action="index.php?m=game&a=editgame" method="post" >
 									<input type="hidden" id="gameid" name="gameid" value="<{$game['gameid']}>">
+									<input type="hidden" id="sdmgameid" name="sdmgameid" value="<{$game['sdkgameid']}>">
 									<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">游戏名称</label>
 										<div class="col-sm-7">
@@ -1147,7 +1148,7 @@
 		$('#J_foragent').guard({
 			from_table:'tg_game',
 			data_append:'#editgame',
-			from_id:'<{$game.gameid}>'
+			from_id:'<{$game.sdkgameid}>'
 		});
 
 		$('#pub_switch_tg').click(function () {

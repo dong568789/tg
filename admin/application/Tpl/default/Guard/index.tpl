@@ -1,1 +1,0 @@
-<iframe src="<{:U('guard/data')}>" width="740" height="570" style="overflow: hidden;" id="iframe_guard" name="iframe_guard"></iframe>

@@ -31,7 +31,7 @@
         $('.guard_btn').on('click',function(){
            // $.setGameData(opts.data_id);
             $.setChannelData(opts.data_id);
-            //$.setUserData(opts.data_id);
+            $.setUserData(opts.data_id);
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index);
         });
@@ -109,6 +109,7 @@
 
     $.getGuardData = function(opt){
         $('#' + opt.data_id).val('');
+        console.log(opt);
         if(!opt.from_table || !opt.from_id)
             return false;
 
@@ -129,7 +130,7 @@
 
     $.formatData = function(data_id,key,d){
         var data = parent.$('#' + data_id).val();
-        console.log(data);
+       // console.log(data);
         var jsonData = data ? JSON.parse(data) : '';
         if(!jsonData || jsonData instanceof Array){
             jsonData = {};

@@ -178,12 +178,11 @@ class GuardAction extends CommonAction
         if(!isset($guard_data['user_id']) || empty($guard_data['user_id'])){
             $guard_data['user_id'] = array();
         }
-
         $time = time();
         $item = array();
         foreach($guard_data as $key=>$value){
             if($key == 'user_id')  {
-                $value = array();//$this->parseUser($value);
+                $value = $this->parseUser($value);
             }elseif($key == 'channel_id'){
                 $value = $this->parseChannel($value);
             }elseif($key == 'game_id'){
@@ -225,7 +224,7 @@ class GuardAction extends CommonAction
             return $item;
         }
 
-        $userid = '\'' . implode('\',\'',$userid). '\'';
+        $userid = implode(',',$userid);
         $where['username'] = array('in', $userid);
         $where['mobile'] = array('in', $userid);
         $where['email'] = array('in', $userid);

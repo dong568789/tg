@@ -21,7 +21,7 @@
     <div class="card-body card-padding">
         <ul class="tab-nav" role="tablist">
             <li class="active"><a href="#tab_home" aria-controls="tab_home" role="tab" data-toggle="tab">渠道</a></li>
-           <!-- <li><a href="#tab_agent" aria-controls="tab_agent" role="tab" data-toggle="tab">用户</a></li>-->
+           <li><a href="#tab_agent" aria-controls="tab_agent" role="tab" data-toggle="tab">用户</a></li>
         </ul>
         <div class="tab-content" style="position: relative;">
             <div role="tabpanel" class="tab-pane active" id="tab_home">
@@ -30,11 +30,11 @@
                 </div>
                 <ul id="treeDemo" class="ztree"></ul>
             </div>
-           <!-- <div role="tabpanel" class="tab-pane" id="tab_agent">
+            <div role="tabpanel" class="tab-pane" id="tab_agent">
                 <textarea style="width:500px;height: 200px" id="guard_user"></textarea>
 
                 </select>
-            </div>-->
+            </div>
 
             <div class="right-btn" style="position: absolute;bottom:5px;right: 0px;">
                 <button class="btn bgm-green waves-effect guard_btn">保存</button>
@@ -179,7 +179,7 @@
             $('#J_foragent').guard({
                 from_table:'tg_game',
                 data_append:'#addgame',
-                from_id:parent.$('#uploadgameid').val()
+                from_id:parent.$('#sdmgameid').val()
             });
 
         var guardData = parent.$('#guard_data').val();
