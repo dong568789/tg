@@ -108,7 +108,12 @@ class BalanceAction extends CommonAction {
 			}
 		}
 		$this->assign('startdate',$startdate);
-		$this->assign('enddate',date("Y-m-d", strtotime("-1 day")));
+		if(time() < mktime(1,0,0)){
+			$time = date("Y-m-d", strtotime("-2 day"));
+		}else{
+			$time = date("Y-m-d", strtotime("-1 day"));
+		}
+		$this->assign('enddate',$time);
 		$usermodel = M('tg_user');
 		$user = $usermodel->find($userid);
 		$this->assign('user',$user);

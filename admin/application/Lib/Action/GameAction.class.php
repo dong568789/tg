@@ -404,6 +404,8 @@ class GameAction extends CommonAction {
 				$packagedata['createuser'] = "Admin";
 				$packagedata['isnowactive'] = 1;
 				$packageModel->add($packagedata);
+
+				$this->addGuard($game);
                 $this->insertLog($_SESSION['adminname'],'新增游戏', 'GameAction.class.php', 'addgame',  $data['createtime'], $_SESSION['adminname']."添加游戏名为：“".$data['gamename']."”游戏");
                 $this->ajaxReturn('success','游戏上传成功。',1);
 				exit();
@@ -413,6 +415,20 @@ class GameAction extends CommonAction {
 			}
 		}  
     }
+
+	private function addGuard($gameid)
+	{
+		$isOfftg = $_POST['isTg'];
+
+		$gameModel = M('tg_game');
+		$sdkgameid = $gameModel->where(array('gameid' => $gameid))->getField('sdkgameid');
+		if($isOfftg == 'on'){
+			A('Guard')->addGuard(json_decode($_POST['guard_data'], true), 'tg_game', $sdkgameid);
+		}else{
+			A('Guard')->removeGuard('tg_game', $sdkgameid);
+		}
+		return true;
+	}
 
 	//编辑游戏 视图
     public function gamedetail(){
@@ -443,7 +459,8 @@ class GameAction extends CommonAction {
 				$versionstr .= $v["gameversion"].",";
 			}
 			$game['guardArr'] = explode(',',trim($game['guard'],','));
-
+			$guardModel = M('guard');
+			$checkGuard = $guardModel->where(array('from_table' => 'tg_game','from_id'=>$game['sdkgameid']))->find();
 			$this->assign('isForce',$this->checkGameForce($latestpackage));
 			$this->assign('game',$game);
 			$this->assign('sdkgamelist',$sdkgamelist);
@@ -453,6 +470,7 @@ class GameAction extends CommonAction {
 			$this->assign('latestpackage',$latestpackage);
 			$this->assign('versionstr',$versionstr);
 			$this->assign('sourceType',C('sourceType'));
+			$this->assign('checkGuard',$checkGuard);
             $this->menucheck();
 			$this->display();
 		}
@@ -534,9 +552,11 @@ class GameAction extends CommonAction {
         }
 
 		$data['guard'] = !empty($_POST['guard']) ? ','.implode(',',$_POST['guard']).',' : '';
-        $game = $model->where($condition)->save($data);
 
+        $game = $model->where($condition)->save($data);
 		if ($game) {
+			//推广白名单
+			$this->addGuard($gameid);
             $this->insertLog($_SESSION['adminname'],'编辑游戏', 'GameAction.class.php', 'editgame',  $data['updatetime'], $_SESSION['adminname']."编辑了游戏“".$oldgame['gamename']."”，权重由“".$oldgame['gameauthority']."变为".$data["gameauthority"] ."”，分成比例由“".$oldgame['sharerate']."变为".$data['sharerate']."”通道费由“".$oldgame['channelrate']."”变为“".$data['channelrate']."”上架状态由“".$oldgame['stackname']."”变为“".$data['stackname']."”"."”是否能使用代金券由“".$oldgame['isusedvouchername']."”变为“".$data['isusedvouchername']."”");
 
 	        // 并把所有渠道中 没有固定分成比例的 分成比例改成最新的

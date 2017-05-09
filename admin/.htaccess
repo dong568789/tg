@@ -27,7 +27,7 @@
    RewriteRule ^(gamecategory)/$					index.php?m=other&a=gamecategory				[N,L]
    RewriteRule ^(gametag)/$						index.php?m=other&a=gametag					[N,L]
 
-   RewriteRule ^(balanceall)/$						index.php?m=balance&a=balanceall				[N,L]
+   RewriteRule ^(balanceall)/([0-9]+)?[\/]?$               index.php?m=balance&a=balanceall&usertype=$2			[N,L]
    RewriteRule ^(balancedetail)/([0-9]+?)/$				index.php?m=balance&a=balancedetail&balanceid=$2		[N,L]
    RewriteRule ^(accountdetail)/([0-9]+?)/([0-9]+?)/$			index.php?m=balance&a=accountdetail&balanceid=$2&sourceid=$3	[N,L]
 

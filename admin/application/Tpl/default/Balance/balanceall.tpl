@@ -150,7 +150,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                     </div>
                 </div>
             </div>
-
+            <input type="hidden" name="usertype" id="usertype" value="<{$usertype}>">
         </div>
     </section>
 </section>
@@ -239,6 +239,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         var balancestatus = $('#select-balancestatus').val();
         var sourcetype = $('#select-sourcetype').val();
         var account = $('#account').val();
+        var usertype = $('#usertype').val();
         var startdate, enddate;
         if (date) {
             startdate = date.substr(0, 10);
@@ -254,7 +255,8 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                     sourcetype: sourcetype,
                     startdate: startdate,
                     enddate: enddate,
-                    account: account
+                    account: account,
+                    usertype:usertype
                 };
             },
             url: "<{:U('Balance/searchBalance')}>",
