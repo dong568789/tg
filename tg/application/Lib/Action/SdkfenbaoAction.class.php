@@ -63,7 +63,7 @@ class SdkfenbaoAction extends CommonAction {
 			$data['createuser'] = 'sdk';
 			$channelid = $channelmodel->add($data);
     	}else{
-    		$channelid = $channel['id'];
+    		$channelid = $channel['channelid'];
     	}
 
     	$map = array();
@@ -83,8 +83,8 @@ class SdkfenbaoAction extends CommonAction {
 			$newgamename = $newgamename.".apk";
 			$texturename = $game["texturename"];
 			$data['sourcesn'] = $sourcesn;
-			$data['sourcesharerate'] = $game["sharerate"];
-			$data['sourcechannelrate'] = $game["channelrate"];
+			$data['sourcesharerate'] = 0.1;
+			$data['sourcechannelrate'] = 0;
 			$data['textureurl'] = $texturename;
 			$data['isupload'] = 0;
 			$data['createuser'] = 'sdk';
