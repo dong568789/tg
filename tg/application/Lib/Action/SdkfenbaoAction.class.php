@@ -79,7 +79,7 @@ class SdkfenbaoAction extends CommonAction {
 			$data['createtime'] = $time;
 			$packagename = $game["packagename"];
 			$newgamename = createstr(30);
-			$sourcesn = "tg_".$newgamename;
+			$sourcesn = "gr_".$newgamename;
 			$newgamename = $newgamename.".apk";
 			$texturename = $game["texturename"];
 			$data['sourcesn'] = $sourcesn;
