@@ -116,6 +116,21 @@
             return false;
         };
 
+        method.removeAll = function(treeNode){
+            if(!treeNode.checked){
+
+                var ids = treeNode.id.split('-');
+                var wildcard = '';
+                if (ids[1] != '*')
+                {
+                    wildcard = ids[0] + '-' + ids[1] + '-';
+                }else{
+                    wildcard = ids[0] + '-' ;
+                }
+                $('input[name^="channel_id[' + wildcard+'"]', '#channel_ids').remove();
+            }
+        }
+
         var setting = {
             view: {
                 selectedMulti: false
@@ -137,23 +152,15 @@
                 onAsyncError: onAsyncError,
                 onAsyncSuccess: function(event, treeId, treeNode, msg) {
                     var data = JSON.parse(msg);
-                    if(!treeNode.checked){
-
-                        var ids = treeNode.id.split('-');
-                        var wildcard = '';
-                        if (ids[1] != '*')
-                        {
-                            wildcard = ids[0] + '-' + ids[1] + '-';
-                        }else{
-                            wildcard = ids[0] + '-' ;
-                        }
-                        $('input[name^="channel_id[' + wildcard+'"]', '#channel_ids').remove();
-                    }
+                    method.removeAll(treeNode);
                     for(var i = 0; i < data.length; ++i){
 						method.checkChannel(data[i].id);
 					}
                 },
                 onCheck: function(event, treeId, treeNode){
+
+                    method.removeAll(treeNode);
+
                     if(treeNode.getCheckStatus().checked)
                         method.addChannel(treeNode.id);
                     else
