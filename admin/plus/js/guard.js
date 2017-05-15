@@ -28,13 +28,14 @@
             $.openGuard(opts);
         });
 
-        $('.guard_btn').on('click',function(){
+
+       /* $('.guard_btn').on('click',function(){
            // $.setGameData(opts.data_id);
             $.setChannelData(opts.data_id);
             $.setUserData(opts.data_id);
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index);
-        });
+        });*/
     }
 
     $.openGuard = function(opt){
@@ -44,7 +45,18 @@
             skin: 'layui-layer-rim', //加上边框
             area: ['790px', '540px'], //宽高
             content:"/guard/data",
+            btn: ['保存','取消'],
+            btn2:function(index, layero){
+                layer.close(index);
+            },
+            btn1:function(index, layero){
+                console.log(layero);
+                $.setChannelData(opt.data_id,layero);
+                $.setUserData(opt.data_id,layero);
+                layer.close(index);
+            }
         });
+
 
         if(opt.table_hide.length > 0){
             setTimeout(function(){
@@ -86,17 +98,16 @@
         $.formatData(data_id, 'game_id', gameid)
     }
 
-    $.setChannelData = function(data_id){
+    $.setChannelData = function(data_id,layero){
         var data = [];
-        $('input[name^="channel_id["]').each(function() {
+        $(layero).find('iframe').contents().find('input[name^="channel_id["]').each(function() {
             data.push(this.value);
         });
         $.formatData(data_id, 'channel_id', data)
     }
 
-    $.setUserData = function(data_id){
-        //var user=$('#guard_user').val();
-        var user = $('#guard_user').val();
+    $.setUserData = function(data_id,layero){
+        var user = $(layero).find('iframe').contents().find('#guard_user').val();
 
         var itemuser;
         if (!user) {
@@ -109,13 +120,13 @@
 
     $.getGuardData = function(opt){
         $('#' + opt.data_id).val('');
-        console.log(opt);
+       //console.log(opt);
         if(!opt.from_table || !opt.from_id)
             return false;
 
         $.ajax({
             type:'post',
-            url:'?c=guard&a=getGuardData',
+            url:'/?m=guard&a=getGuardData',
             data:{from_table:opt.from_table, from_id:opt.from_id},
             dataType:'json',
             async:false,

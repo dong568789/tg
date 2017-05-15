@@ -35,10 +35,6 @@
 
                 </select>
             </div>
-
-            <div class="right-btn" style="position: absolute;bottom:5px;right: 0px;">
-                <button class="btn bgm-green waves-effect guard_btn">保存</button>
-            </div>
         </div>
 
     </div>
@@ -180,14 +176,8 @@
 
         });
 
-            $('#J_foragent').guard({
-                from_table:'tg_game',
-                data_append:'#addgame',
-                from_id:parent.$('#sdmgameid').val()
-            });
-
         var guardData = parent.$('#guard_data').val();
-            console.log(guardData);
+           // console.log(guardData);
         if(guardData){
             // select2
             var jsonData = $.parseJSON(guardData);
