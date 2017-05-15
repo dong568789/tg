@@ -106,6 +106,8 @@
             }
             else if (method.existsChildren(id))
             {
+                console.log(id);
+
                 root.halfCheck = true;
                 root.checked = true;
                 zTree.updateNode(root);
@@ -135,10 +137,19 @@
                 onAsyncError: onAsyncError,
                 onAsyncSuccess: function(event, treeId, treeNode, msg) {
                     var data = JSON.parse(msg);
-                    for(var i = 0; i < data.length; ++i){
-						if(!treeNode.checked){
-                            method.removeChannel(data[i].id)
+                    if(!treeNode.checked){
+
+                        var ids = treeNode.id.split('-');
+                        var wildcard = '';
+                        if (ids[1] != '*')
+                        {
+                            wildcard = ids[0] + '-' + ids[1] + '-';
+                        }else{
+                            wildcard = ids[0] + '-' ;
                         }
+                        $('input[name^="channel_id[' + wildcard+'"]', '#channel_ids').remove();
+                    }
+                    for(var i = 0; i < data.length; ++i){
 						method.checkChannel(data[i].id);
 					}
                 },
