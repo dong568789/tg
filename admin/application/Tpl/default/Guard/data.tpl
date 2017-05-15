@@ -139,8 +139,12 @@
                 onAsyncError: onAsyncError,
                 onAsyncSuccess: function(event, treeId, treeNode, msg) {
                     var data = JSON.parse(msg);
-                    for(var i = 0; i < data.length; ++i)
-                        method.checkChannel(data[i].id);
+                    for(var i = 0; i < data.length; ++i){
+						if(!treeNode.checked){
+                            method.removeChannel(data[i].id)
+                        }
+						method.checkChannel(data[i].id);
+					}
                 },
                 onCheck: function(event, treeId, treeNode){
                     if(treeNode.getCheckStatus().checked)
