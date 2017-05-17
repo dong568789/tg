@@ -335,6 +335,7 @@ class SourceAction extends CommonAction {
 		$map["sourcesn"] = $sourcesn;
         $source = $sourcemodel->where($map)->find();
 		if ($source) {
+
 			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
 			if($source["is_cdn_submit"] == 1 ){
 				if ($source["isupload"] == 1 && $source["apkurl"] != "") {
@@ -354,7 +355,16 @@ class SourceAction extends CommonAction {
 			}
 
 			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
-				Header("Location: ".$this->apkdownloadurl.$source["apkurl"]." ");
+				$apkdownloadurl = $this->apkdownloadurl;
+				//开启新分包
+				$gamemodel = M('tg_game');
+				$game = $gamemodel->find($source["gameid"]);
+				$sourceModel = D('Source');
+				$checkNewPackage = $sourceModel->checkNewPackage($source['sourcesn'], $game['sdkgameid']);
+				if($checkNewPackage === true){
+					$apkdownloadurl = C('mountedFolder');
+				}
+				Header("Location: ".$apkdownloadurl.$source["apkurl"]." ");
 				exit();
 			} else {
 				$sourceModel = D('Source');
