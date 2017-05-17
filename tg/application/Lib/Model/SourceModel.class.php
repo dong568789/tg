@@ -352,12 +352,33 @@ class SourceModel extends CommonModel
         $gamemodel = M('tg_game');
         $game = $gamemodel->find($source["gameid"]);
         $packagename = $game["packagename"];
-        if ($game["gameversion"] != "") {
-            $newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
-        } else {
-            $newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
+
+
+
+
+        $apkdownloadurl = $this->apkdownloadurl;
+        //开启新分包
+
+        $checkNewPackage = $this->checkNewPackage($source['sourcesn'], $game['sdkgameid']);
+        $packStr = '';
+        if($checkNewPackage === true){
+            $packStr = '-merged-';
+            $apkdownloadurl = C('mountedFolder');
         }
-        $result = $this->subpackage($packagename,$newgamename,$sourcesn);
+
+        if ($game["gameversion"] != "") {
+            $newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4)."_".$packStr.".apk";
+        } else {
+            $newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4)."_".$packStr.".apk";
+        }
+        if($checkNewPackage === true){
+            $this->createTgApp($packagename, $source['id'], $source['sourcesn'], $newgamename);
+            //mountedfiles
+            $result['code'] = 1;
+        }else{
+            $result = $this->subpackage($packagename,$newgamename,$sourcesn);
+        }
+
         if ($result['code'] == 1) {
             $data["isupload"] = 1;
             $data["apkurl"] = $newgamename;
@@ -372,10 +393,13 @@ class SourceModel extends CommonModel
                 return array('code' => 0, 'msg' => $forceReturn['msg'], 'data' => '' );
             }
 
-            return array('code' => 1, 'msg' => '生成资源包成功。', 'data' => $this->apkdownloadurl.$newgamename );
+            return array('code' => 1, 'msg' => '生成资源包成功。', 'data' => $apkdownloadurl.$newgamename );
         } else {
             return array('code' => 0, 'msg' => '生成资源包失败。');
         }
+
+
+
     }
 
     // 生成强更包等一系列操作
@@ -403,11 +427,17 @@ class SourceModel extends CommonModel
             $forcecondition["isforce"] = 0; // 增加这个条件，解决以前第二次强更不会强更
             $isexsit = $forcepackageModel->where($forcecondition)->find();
             if(!$isexsit){
+
+                $checkNewPackage = $this->checkNewPackage($source['sourcesn'], $source['sdkgameid']);
+                $packStr = '';
+                if($checkNewPackage === true){
+                    $packStr = '-merged-';
+                }
                 // 不存在强更包，则生成生成强更包文件
                 if ($source["gameversion"] != "") {
-                    $newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
+                    $newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).'_'.$packStr.".apk";
                 } else {
-                    $newgamename = $source["gamepinyin"]."_".$source["channelid"].".apk";
+                    $newgamename = $source["gamepinyin"]."_".$source["channelid"].'_'.$packStr.".apk";
                 }
 
                 $result = $this->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"]);
@@ -541,6 +571,61 @@ class SourceModel extends CommonModel
            
         }
     }
+
+
+    public function createTgSource($sourceid, $source)
+    {
+        $path = C('tgPackageFolder').$sourceid.'.txt';
+        !file_exists($path) && file_put_contents($path, $source);
+        return $path;
+    }
+
+    public function createTgApp($basicName, $sourceid, $source, $filename)
+    {
+        $this->createTgSource($sourceid, $source);
+        $path = C('downloadStoreFolder').$filename;
+        //文件不正确
+        if (strpos($filename, '-merged-') === false)
+            return false;
+
+        $data = [
+            [
+                'path' => '../basicpackage/'.$basicName,
+                'replaces' => [
+                    //防止串包
+                    [
+                        'offset' => 10,
+                        'length' => 4,
+                        'content' => base64_encode(pack('V', timestamp2dos($sourceid * 2 + mktime(0, 0, 0, 1, 1, 2000)))) ,
+                    ],
+                    //结尾Comment长度
+                    [
+                        'offset' => -2,
+                        'length' => 2,
+                        'content' => base64_encode(pack('v', strlen($source))),
+                    ],
+                ],
+            ],
+            [
+                'path' => '../tgpackage/'.$sourceid.'.txt',
+            ]
+        ];
+        file_put_contents($path, json_encode($data));
+        return true;
+    }
+
+    public function checkNewPackage($source, $gameid)
+    {
+        $allGameModel = M('all_game');
+        $allGame = $allGameModel->where(array('id' => $gameid))->find();
+        $sdkversion = $allGame['sdkversion'];
+
+        if(C('IS_NEW_PACKAGE') === true && (!empty($sdkversion) && strcasecmp($sdkversion, '3.0') > 0) && strpos($source, 'gr_') !== false){
+            return true;
+        }
+        return false;
+    }
+
 
 
 }

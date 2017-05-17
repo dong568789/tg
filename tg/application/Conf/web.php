@@ -5,6 +5,7 @@ return array(
     'LOGIN_KEY' => '5dfb49dkm1c25n7cgh6s_tg',
     'appkeysign' => "chuyou_sdk_2014",
     'tgdomain' => "http://tg.yxgames.com",
+    'IS_NEW_PACKAGE' => false,
     'admindomain' => "http://tgadmin.yxgames.com",
     'domainhost' => "http://www.yxgames.com",
     'iconurl' => "http://tgadmin.yxgames.com/upfiles/gameicon/", //图标单独上传到admin/upfiles
@@ -16,6 +17,8 @@ return array(
      'texturedownloadurl' => "http://tgadmin.yxgames.com/DataGames/upfiles/texture/", //素材包
      'gamebgurl' => "http://tgadmin.yxgames.com/DataGames/upfiles/gamebg/", //游戏背景
     'screenshoturl' => "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/", //游戏截图
+    'mountedFolder' => 'http://tgadmin.yxgames.com/DataGames/mountedfiles/',
+
 
     // 正式服务器上使用
 //    'apkstoreurl' => "http://download.yxgames.com/dataGames/apk/upfiles/basicpackage/", //母包
@@ -30,4 +33,6 @@ return array(
     'iconStoreFolder' => "../admin/upfiles/gameicon/",
     'gamebgStoreFolder' => "../admin/DataGames/upfiles/gamebg/",
     'screenshotStoreFolder' => "../admin/DataGames/upfiles/screenshot/",
+
+    'tgPackageFolder' => '/var/www/tg/admin/DataGames/upfiles/tgpackage/',
 );
