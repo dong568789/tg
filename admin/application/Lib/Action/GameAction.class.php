@@ -1464,15 +1464,31 @@ class GameAction extends CommonAction {
 				$exsitpackage = $packageModel->where($packagecondition)->order("packageid desc")->find();
 				// 是否存在强更包
 				if ($exsitpackage) {
-					// 生成强更包文件
-					if ($source["gameversion"] != "") {
-						$newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).".apk";
-					} else {
-						$newgamename = $source["gamepinyin"]."_".$source["channelid"].".apk";
+					$sourceModel = D('Source');
+					//是否开启新分包机制
+					$checkNewPackage = $sourceModel->checkNewPackage($source['sourcesn'], $source['sdkgameid']);
+					$packStr = '';
+					$apkdownloadurl = $this->apkdownloadurl;
+					if($checkNewPackage === true){
+						$packStr = '-merged-';
+						$apkdownloadurl = C('mountedFolder');
 					}
 
-					$sourceModel = D('Source');
-					$result = $sourceModel->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"]);
+					// 生成强更包文件
+					if ($source["gameversion"] != "") {
+						$newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).$packStr.".apk";
+					} else {
+						$newgamename = $source["gamepinyin"]."_".$source["channelid"].$packStr.".apk";
+					}
+
+					if($checkNewPackage === true){
+						$this->createTgApp($exsitpackage["packagename"], $source['id'], $source['sourcesn'], $newgamename);
+						//mountedfiles
+						$result['code'] = 1;
+					}else{
+						$result = $sourceModel->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"]);
+					}
+
 					if ($result['code'] == 1) {
 						// 添加记录到tg_forcepackage表中，记录该资源强更包的游戏下载链接
 						$data["userid"] = $source["userid"];
@@ -1494,7 +1510,7 @@ class GameAction extends CommonAction {
 							// sdk_agentlist增加资源的强更链接
 							$agentModel = M('sdk_agentlist');
 							$agentcondition["agent"] = $source["sourcesn"];
-							$agentdata["upurl"] = $this->apkdownloadurl.$newgamename;
+							$agentdata["upurl"] = $apkdownloadurl.$newgamename;
 							$agent = $agentModel->where($agentcondition)->save($agentdata);
 
 							if ($agent) {

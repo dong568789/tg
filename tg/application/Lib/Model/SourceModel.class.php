@@ -358,7 +358,6 @@ class SourceModel extends CommonModel
 
         $apkdownloadurl = $this->apkdownloadurl;
         //开启新分包
-
         $checkNewPackage = $this->checkNewPackage($source['sourcesn'], $game['sdkgameid']);
         $packStr = '';
         if($checkNewPackage === true){
@@ -367,9 +366,9 @@ class SourceModel extends CommonModel
         }
 
         if ($game["gameversion"] != "") {
-            $newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4)."_".$packStr.".apk";
+            $newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).$packStr.".apk";
         } else {
-            $newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4)."_".$packStr.".apk";
+            $newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).$packStr.".apk";
         }
         if($checkNewPackage === true){
             $this->createTgApp($packagename, $source['id'], $source['sourcesn'], $newgamename);
@@ -435,9 +434,9 @@ class SourceModel extends CommonModel
                 }
                 // 不存在强更包，则生成生成强更包文件
                 if ($source["gameversion"] != "") {
-                    $newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).'_'.$packStr.".apk";
+                    $newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).$packStr.".apk";
                 } else {
-                    $newgamename = $source["gamepinyin"]."_".$source["channelid"].'_'.$packStr.".apk";
+                    $newgamename = $source["gamepinyin"]."_".$source["channelid"].$packStr.".apk";
                 }
 
                 $result = $this->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"]);
@@ -588,28 +587,28 @@ class SourceModel extends CommonModel
         if (strpos($filename, '-merged-') === false)
             return false;
 
-        $data = [
-            [
+        $data = array(
+            array(
                 'path' => '../basicpackage/'.$basicName,
-                'replaces' => [
+                'replaces' => array(
                     //防止串包
-                    [
+                    array(
                         'offset' => 10,
                         'length' => 4,
                         'content' => base64_encode(pack('V', timestamp2dos($sourceid * 2 + mktime(0, 0, 0, 1, 1, 2000)))) ,
-                    ],
+                    ),
                     //结尾Comment长度
-                    [
+                    array(
                         'offset' => -2,
                         'length' => 2,
                         'content' => base64_encode(pack('v', strlen($source))),
-                    ],
-                ],
-            ],
-            [
+                    ),
+                ),
+            ),
+            array(
                 'path' => '../tgpackage/'.$sourceid.'.txt',
-            ]
-        ];
+            )
+        );
         file_put_contents($path, json_encode($data));
         return true;
     }
@@ -625,8 +624,5 @@ class SourceModel extends CommonModel
         }
         return false;
     }
-
-
-
 }
 ?>

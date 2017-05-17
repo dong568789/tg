@@ -18,6 +18,7 @@ return array(
          'gamebgurl' => "http://tgadmin.yxgames.com/DataGames/upfiles/gamebg/",  //游戏背景
          'screenshoturl' => "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/", //游戏截图
          'diylogourl' => "http://tgadmin.yxgames.com/DataGames/upfiles/diylogo/", //自定义合作会员logo
+         'mountedFolder' => 'http://tgadmin.yxgames.com/DataGames/mountedfiles/downloadpackage/',
 
         // 正式服务器上使用
 //        'apkstoreurl' => "http://download.yxgames.com/dataGames/apk/upfiles/basicpackage/", //母包
@@ -33,6 +34,8 @@ return array(
         'gamebgStoreFolder' => "../admin/DataGames/upfiles/gamebg/",
         'diylogoStoreFolder' => "../admin/DataGames/upfiles/diylogo/",
         'screenshotStoreFolder' => "../admin/DataGames/upfiles/screenshot/",
+        'tgPackageFolder' => '../admin/DataGames/upfiles/tgpackage/',
+
         'signCheckFolder' => "/var/www/admin/DataGames/upfiles/basicpackage/",
         'sourceType' => array(
                 1 => '公会',

@@ -364,6 +364,18 @@ class SourceModel extends CommonModel
         }
     }
 
+    public function checkNewPackage($source, $gameid)
+    {
+        $allGameModel = M('all_game');
+        $allGame = $allGameModel->where(array('id' => $gameid))->find();
+        $sdkversion = $allGame['sdkversion'];
+
+        if(C('IS_NEW_PACKAGE') === true && (!empty($sdkversion) && strcasecmp($sdkversion, '3.0') > 0) && strpos($source, 'gr_') !== false){
+            return true;
+        }
+        return false;
+    }
+
     // cdn提交接口
     public function cdnsubmit($sourcesn,$newgamename,$isforce){
         // 允许用户提交cdn才提交cdn

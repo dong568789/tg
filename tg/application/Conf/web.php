@@ -16,8 +16,8 @@ return array(
      'apkdownloadurl' => "http://tgadmin.yxgames.com/DataGames/upfiles/downloadpackage/", //分包
      'texturedownloadurl' => "http://tgadmin.yxgames.com/DataGames/upfiles/texture/", //素材包
      'gamebgurl' => "http://tgadmin.yxgames.com/DataGames/upfiles/gamebg/", //游戏背景
-    'screenshoturl' => "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/", //游戏截图
-    'mountedFolder' => 'http://tgadmin.yxgames.com/DataGames/mountedfiles/',
+     'screenshoturl' => "http://tgadmin.yxgames.com/DataGames/upfiles/screenshot/", //游戏截图
+     'mountedFolder' => 'http://tgadmin.yxgames.com/DataGames/mountedfiles/downloadpackage/',
 
 
     // 正式服务器上使用
@@ -33,6 +33,5 @@ return array(
     'iconStoreFolder' => "../admin/upfiles/gameicon/",
     'gamebgStoreFolder' => "../admin/DataGames/upfiles/gamebg/",
     'screenshotStoreFolder' => "../admin/DataGames/upfiles/screenshot/",
-
     'tgPackageFolder' => '/var/www/tg/admin/DataGames/upfiles/tgpackage/',
 );
