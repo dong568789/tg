@@ -31,7 +31,7 @@ class SdkTgEvent
         $this->startTime = strtotime($nowday) - 86400; //统计当天的0点的时间戳
         $this->endTime = strtotime($nowday) - 1; //统计当天的23:59:59的时间戳
 
-        //0 1 * * * curl -s "http://tgadmin.yxgames.com/?m=crond&a=sdktg"
+        //0 1 * * * curl -s "http://192.168.1.205/tg/admin/?m=crond&a=sdktg"
 
     }
 

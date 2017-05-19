@@ -5,6 +5,7 @@ return array(
         'AUTH_KEY' => '9e13yK8RN2M0lKP8CLRLhGs468d1WMaSlbDeCcI_1tsdk@you@sdk@2015',
         'LOGIN_KEY' => '5dfb49dkm1c25n7cgh6s_tg',
         'appkeysign' => "chuyou_sdk_2014",
+        'IS_NEW_PACKAGE' => true,
         'tgdomain' => "http://tg.yxgames.com",
         'admindomain' => "http://tgadmin.yxgames.com",
         'domainhost' => "http://www.yxgames.com",

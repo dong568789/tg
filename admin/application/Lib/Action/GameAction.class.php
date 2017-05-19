@@ -1505,7 +1505,7 @@ class GameAction extends CommonAction {
 						if ($forcepackage) {
 							// 第一次分包的时候cdn提交
 							$soureceModel = D('Source');
-							$soureceModel->cdnsubmit($source["sourcesn"],$newgamename,true);
+							$soureceModel->cdnsubmit($source["sourcesn"], $newgamename,true);
 
 							// sdk_agentlist增加资源的强更链接
 							$agentModel = M('sdk_agentlist');

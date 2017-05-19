@@ -5,7 +5,7 @@ return array(
     'LOGIN_KEY' => '5dfb49dkm1c25n7cgh6s_tg',
     'appkeysign' => "chuyou_sdk_2014",
     'tgdomain' => "http://tg.yxgames.com",
-    'IS_NEW_PACKAGE' => false,
+    'IS_NEW_PACKAGE' => true,
     'admindomain' => "http://tgadmin.yxgames.com",
     'domainhost' => "http://www.yxgames.com",
     'iconurl' => "http://tgadmin.yxgames.com/upfiles/gameicon/", //图标单独上传到admin/upfiles
