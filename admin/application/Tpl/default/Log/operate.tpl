@@ -42,23 +42,10 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th data-column-id="type">操作类型</th>
                                             <th data-column-id="class">操作的类</th>
                                             <th data-column-id="function">操作的方法</th>
-                                            <th data-column-id="operatecontent" style="width: 20%;">操作内容</th>
+                                            <th data-column-id="content" style="width: 20%;">操作内容</th>
                                             <th data-column-id="createtime" data-formatter="createtime">操作时间</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="logincontainer">
-                                        <foreach name="operate" item="vo" key="k">
-                                            <tr>
-                                                <td><{$vo['id']}></td>
-                                                <td><{$vo['username']}></td>
-                                                <td><{$vo['type']}></td>
-                                                <td><{$vo['class']}></td>
-                                                <td><{$vo['function']}></td>
-                                                <td><{$vo['content']}></td>
-                                                <td><{$vo['createtime']}></td>
-                                            </tr>
-                                        </foreach>
-                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -105,7 +92,21 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
     $(document).ready(function() {
         //Basic Example
+        loadData();
+
+    })
+
+    function loadData()
+    {
         $("#data-table-basic").bootgrid({
+            ajax: true,
+            post: function () {
+                /* To accumulate custom parameter with the request object */
+                return {
+
+                };
+            },
+            url: "<{:U('log/operate')}>",
             css: {
                 icon: 'zmdi',
                 iconColumns: 'zmdi-menu',
@@ -116,11 +117,18 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
             templates: {
                 header: "<div id=\"{{ctx.id}}\" class=\"{{css.header}}\"><div class=\"row\"><div class=\"col-sm-12 actionBar\"><p class=\"{{css.search}}\"></p><p class=\"{{css.actions}}\"></p></div></div></div>"
-            }
+            },
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true,
+            labels: {
+                loading: "Loading...", //加载时显示的内容
+                noResults: '没有符合条件的数据'//未查询到结果是显示内容
+            },
         });
         $(".card .table th").css("width","3%");
-
-    })
+    }
 </script>
 
 </body>

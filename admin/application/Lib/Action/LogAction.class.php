@@ -1,7 +1,10 @@
 <?php
-class LogAction extends CommonAction {
 
-    public function __construct(){
+class LogAction extends CommonAction
+{
+
+    public function __construct()
+    {
         parent::__construct();
 
     }
@@ -11,11 +14,24 @@ class LogAction extends CommonAction {
      *
      */
 
-    public function index(){
+    public function index()
+    {
+        if (IS_AJAX) {
+            $current = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+            $rowCount = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
+
+            $userlogmodel = M('tg_userlog');
+            $count = $userlogmodel->count();
+            $log = $userlogmodel->order("createtime desc")->page($current, $rowCount)->select();
+            echo json_encode(array(
+                'current' => $current,
+                'rowCount' => $rowCount,
+                'rows' => $log,
+                'total' => $count
+            ));
+            exit;
+        }
         $this->authoritycheck(10125);
-        $userlogmodel = M('tg_userlog');
-        $userlog = $userlogmodel->order("createtime desc")->select();
-        $this->assign('userlog',$userlog);
         $this->menucheck();
         $this->display();
 
@@ -26,12 +42,31 @@ class LogAction extends CommonAction {
      * 操作日志页面
      *
      */
-    public function operate() {
+    public function operate()
+    {
+        if (IS_AJAX) {
+            $current = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+            $rowCount = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
+            $keyword = !empty($_POST['searchPhrase']) ? trim($_POST['searchPhrase']) : '';
+            $model = M('tg_log');
+            if (!empty($keyword)) {
+                $where['type'] = array('like', "%" . $keyword . "%");
+                $where['content'] = array('like', "%" . $keyword . "%");
+                $where['_logic'] = 'OR';
+            }
+            $count = $model->where($where)->count();
+            $operate = $model->order("createtime desc")->where($where)->page($current, $rowCount)->select();
+            echo json_encode(array(
+                'current' => $current,
+                'rowCount' => $rowCount,
+                'rows' => $operate,
+                'total' => $count
+            ));
+            exit;
+        }
         $this->logincheck();
         $this->authoritycheck(10126);
-        $model = M('tg_log');
-        $operate = $model->order("createtime desc")->select();
-        $this->assign('operate',$operate);
+
         $this->menucheck();
         $this->display();
 
