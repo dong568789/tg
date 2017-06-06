@@ -1709,7 +1709,8 @@ class GameAction extends CommonAction {
 			);
 			$allGame = $allgameModel->where(array($allgameWhere))->find();
 			$itemupversions = explode(',',trim($allGame['upversions'],','));
-			array_pop($itemupversions);
+			$key = array_search($package['gameversion'], $itemupversions);
+			unset($itemupversions[$key]);
 			$returngame = $allgameModel->where($allgameWhere)->save(array(
 				'lastupver' => $game['gameversion'],
 				'upversions'=> implode(',',$itemupversions).',',
