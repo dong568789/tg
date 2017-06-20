@@ -842,7 +842,7 @@ class BalanceAction extends CommonAction {
             $secondContent.='银行账户：1279 0736 3810 506'."\n";
             $secondContent.='开票地址：武汉市东湖开发区关山一路1号曙光软件园内恒隆大楼'."\n";
             $secondContent.='电话：027-87782538'."\n";
-            $secondContent.='联系地址：武汉洪山区光谷软件园D8栋3楼'."\n";
+            $secondContent.='联系地址：湖北省武汉市洪山区东湖开发区关山大道465号光谷创意基地C-1303'."\n";
             $secondContent.='联系人：'.$user['channelbusiness'].' '.$system['mobile']."\n";
             $secondContent.='盖章：'."\n";
             $objPHPExcel->getActiveSheet()->mergeCells('E'.$current_line.':H'.$current_line);
