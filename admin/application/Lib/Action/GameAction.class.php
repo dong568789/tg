@@ -625,7 +625,7 @@ class GameAction extends CommonAction {
 		$this->logincheck();
 		$gameid = $_POST['uploadgameid'];
 
-		$max_file_size = '1000000000'; //文件小于1GB
+		$max_file_size = '1500000000'; //文件小于1GB
 		$max_image_size = '5000000'; //图片小于5MB
 		$packagename = ""; //游戏白包名
 		$gameicon = ""; //游戏图标
