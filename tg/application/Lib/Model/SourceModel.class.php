@@ -394,7 +394,7 @@ class SourceModel extends CommonModel
 
             return array('code' => 1, 'msg' => '生成资源包成功。', 'data' => $apkdownloadurl.$newgamename );
         } else {
-            return array('code' => 0, 'msg' => '生成资源包失败。');
+            return array('code' => 0, 'msg' => (!empty($result['msg']) ? $result['msg'] : '生成资源包失败。'));
         }
 
 
