@@ -300,8 +300,13 @@ class SourceModel extends CommonModel
         $sourcemodel = M("tg_source");
         $where = array('activeflag' =>1);
         $where = array('id' =>$sourceid);
-        $games = $sourcemodel->field('sourcesn')->where($where)->find();
-        $url = $this->tgdomain."/publicdownload/".$games["sourcesn"];
+        $games = $sourcemodel->field('sourcesn,apkurl')->where($where)->find();
+       // print_r($games);exit;
+        if(strpos($games['apkurl'],'http') !== false){
+            $url = $games['apkurl'];
+        }else{
+            $url = $this->tgdomain."/publicdownload/".$games["sourcesn"];
+        }
         return $url;
     }
 
