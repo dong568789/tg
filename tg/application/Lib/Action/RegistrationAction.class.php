@@ -92,16 +92,39 @@ class RegistrationAction extends CommonAction {
             ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
             ->where($condition)
             ->count();
-        $user = $allusermodel->alias("AU")
-                    ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
-                    ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
-                    ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
-                    ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename')
-                    ->where($condition)
-                    ->order($sort)
-                    ->page($current, $rowCount)
-                    ->select();
-                    // vde($allusermodel->getLastSql());
+
+        $cpsUserModel = M('cps_user');
+        $cpsUserSql = $cpsUserModel->alias("AU")
+            ->join(C('DB_PREFIX')."cps_source S on AU.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
+            ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename')
+            ->where($condition)
+            ->buildSql();
+
+        $userSql = $allusermodel->alias("AU")
+            ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename')
+            ->where($condition)
+            ->union($cpsUserSql)
+            ->buildSql();
+
+        $user = M('')->table($userSql.' a')
+            ->order($sort)
+            ->page($current, $rowCount)
+            ->select();
+        $cpsCount = $cpsUserModel->alias("AU")
+            ->join(C('DB_PREFIX')."cps_source S on AU.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
+            ->where($condition)
+            ->count();
+
+
+        $count += (int)$cpsCount;
+
         $result = array(); //返回结果
         $result["game"] = $gameresult;//根据渠道的 游戏列表
         $result["userall"] = array(); //注册列表 
@@ -134,8 +157,12 @@ class RegistrationAction extends CommonAction {
     {
         $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
 
-        foreach($sort as $k => $v){
-            $order = "{$k} {$v}";
+        if(empty($sort)){
+            $order = "reg_time desc";
+        }else{
+            foreach($sort as $k => $v){
+                $order = "{$k} {$v}";
+            }
         }
 
         return $order;

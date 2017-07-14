@@ -73,17 +73,34 @@ class SourceModel extends CommonModel
             $ordrestr = ($order_hot == 'asc' ? 'G.gameauthority ASC' : 'G.gameauthority DESC');
         }
 		$map['G.activeflag'] = 1;
-                $games = $gamemodel->alias("G")
-                    ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
-                    ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
-                    ->field('G.*,C.categoryname,T.tagname')
-                    ->where($map)
-                    ->order($ordrestr)
-                    ->select();
+        $games = $gamemodel->alias("G")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->field('G.*,C.categoryname,T.tagname')
+            ->where($map)
+            ->order($ordrestr)
+            ->select();
+
+        $cpsGamemodel = M("cps_game");
+        $cpsGames = $cpsGamemodel->alias("G")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->field('G.*,C.categoryname,T.tagname')
+            ->where($map)
+            ->order($ordrestr)
+            ->select();
+
+        $games = array_merge($games, (array)$cpsGames);
 
         $sourcecondition["userid"] = $userid;
 		$sourcecondition["channelid"] = $channelid;
-		$source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
+
+        $csourceModel = M('cps_source');
+        $cpsSql = $csourceModel->where($sourcecondition)->field('gameid')->buildSql();
+        $source = $sourcemodel->where($sourcecondition)
+            ->union($cpsSql)
+            ->field('gameid')
+            ->select();
         $sourceItem = array();
         foreach($source as $value){
             $sourceItem[] = $value['gameid'];
@@ -106,8 +123,7 @@ class SourceModel extends CommonModel
                 array_multisort($isonstack, SORT_DESC, $isapply, SORT_ASC, $createtime, SORT_DESC, $games);
             }
         }
-        
-		$gamestr = $this->createGameStr($games,"all");
+        $gamestr = $this->createGameStr($games,"all");
         return $gamestr;
     }
 	//搜索游戏
@@ -126,18 +142,41 @@ class SourceModel extends CommonModel
         $where.= "OR sharetype like '%".$content."%')";
 
         if(!empty($source_type)){
-            $where .= " AND G.guard like '%,{$source_type},%'";
+            $where .= ' AND G.guard like "%,'.$source_type.',%"';
         }
-        $games = $gamemodel->alias("G")
+
+        $cgamemodel = M("cps_game");
+
+        $cgameSql = $cgamemodel->alias("G")
+            ->where($where)
+            ->field('G.gamecategory,G.gametag,G.gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G
+            .sharerate,G
+            .isonstack,G.gameid')
+            ->buildSql();
+
+        $gameSql = $gamemodel->alias("G")
+            ->where($where)
+            ->field('G.gamecategory,G.gametag,G.gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G
+            .sharerate,G
+            .isonstack,G.gameid')
+            ->union($cgameSql)
+            ->buildSql();
+
+        $sql = M('')->table($gameSql.' G')
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
-            ->where($where)
-            ->field('G.*,C.categoryname,T.tagname')
-            ->order("G.gameauthority desc")
-            ->select();
+            ->order("gameauthority desc")
+            ->field("G.*,C.categoryname,T.tagname")
+            ->buildSql();
+        $games=  M('')->query(str_replace('`','',$sql));
         $sourcecondition["userid"] = $userid;
 		$sourcecondition["channelid"] = $channelid;
-		$source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
+        $csourceModel = M('cps_source');
+        $cpsSql = $csourceModel->where($sourcecondition)->field('gameid')->buildSql();
+		$source = $sourcemodel->where($sourcecondition)
+            ->union($cpsSql)
+            ->field('gameid')
+            ->select();
         foreach($games as $k1 =>$v1){
             $games[$k1]['isapply'] = 0;
             foreach($source as $k2 =>$v2){
@@ -164,9 +203,28 @@ class SourceModel extends CommonModel
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
             ->where($map)
-            ->field('*,S.id as sourceid')
+            ->field('*,S.id as sourceid,S.createtime as stime')
             ->order("S.id desc")
             ->select();
+
+        $cpsSourceModel = M("cps_source");
+        $cgames = $cpsSourceModel->alias("S")
+            ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($map)
+            ->field('*,S.id as sourceid,S.createtime as stime')
+            ->order("S.id desc")
+            ->select();
+
+        $games = array_merge((array)$games,(array)$cgames);
+
+        $item = array();
+        foreach($games as $key=>$value){
+            $item[$key] = $value['stime'];
+        }
+
+        array_multisort($item,SORT_DESC,$games);
 
         $sourcestr = $this->createGameStr($games,"my");
         return $sourcestr;
@@ -190,11 +248,30 @@ class SourceModel extends CommonModel
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
             ->where($where)
-            ->field('*,S.id as sourceid')
+            ->field('G.gamecategory,G.gametag,G,gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G.sharerate,G.isonstack,G.gameid,C.categoryname,T.tagname,S.id as sourceid')
             ->order("G.gameauthority desc")
             ->select();
-        $sourcestr = $this->createGameStr($games,"my");
 
+        $cpsSourceModel = M("cps_source");
+        $cgames = $cpsSourceModel->alias("S")
+            ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->where($where)
+            ->field('G.gamecategory,G.gametag,G.gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G.sharerate,G.isonstack,G.gameid,C.categoryname,T.tagname,S.id as sourceid')
+            ->order("G.gameauthority desc")
+            ->select();
+
+        $games = array_merge((array)$games,(array)$cgames);
+
+        $item = array();
+        foreach($games as $key=>$value){
+            $item[$key] = $value['gameauthority'];
+        }
+
+        array_multisort($item,SORT_DESC,$games);
+
+        $sourcestr = $this->createGameStr($games,"my");
 
         return $sourcestr;
     }
@@ -245,7 +322,6 @@ class SourceModel extends CommonModel
 			return $gamestr;
 		} else if ($tab == "my") {
 			$gamestr = "";
-                        $sourcemodel = M("tg_source");
 			foreach($games as $k =>$v){
 				$gamestr .= "<tr>";
 				$gamestr .= "<td>";
@@ -274,13 +350,12 @@ class SourceModel extends CommonModel
 				if ($v["isonstack"] == 0) {
 					$gamestr .= "<td><a href='javascript:void(0);' onclick='downloadUrl(\"".$v["sourceid"]."\");'>下载APK包</a>&nbsp;&nbsp;";
 					$gamestr .= "<a style='margin-top:3px;' href='javascript:void(0);' onclick='downloadTextture(\"".$v["sourcesn"]."\");'>下载素材包</a>&nbsp;&nbsp;";
-                    $currentSource=$sourcemodel->field('id')->where('sourcesn="'.$v['sourcesn'].'"')->find();
 
                     if(isset($_SESSION['userpid']) && $_SESSION['userpid']==0){
-                        $gamestr .= "<a style='margin-top:3px;' id='link' href='/definerate/".$currentSource['id']."/'>自定义子账号资源费率</a>&nbsp;&nbsp;";
+                        $gamestr .= "<a style='margin-top:3px;' id='link' href='/definerate/".$v['sourceid']."/'>自定义子账号资源费率</a>&nbsp;&nbsp;";
                     }
                     
-                    $gamestr .= "<a style='margin-top:3px;' id='link' href='/material/".$currentSource['id']."/'>获取推广素材</a></td>";
+                    $gamestr .= "<a style='margin-top:3px;' id='link' href='/material/".$v['sourceid']."/'>获取推广素材</a></td>";
 
                 } else if ($v["isonstack"] == 1) {
 					$gamestr .= "<td><button class='btn btn-gray app-apply' style='color: #999;' data-gameid='".$v["gameid"]."' disabled>未上架</button></td>";
@@ -301,6 +376,11 @@ class SourceModel extends CommonModel
         $where = array('activeflag' =>1);
         $where = array('id' =>$sourceid);
         $games = $sourcemodel->field('sourcesn,apkurl')->where($where)->find();
+
+        if(empty($games)){
+            $sourcemodel = M("cps_source");
+            $games = $sourcemodel->field('sourcesn,apkurl')->where($where)->find();
+        }
        // print_r($games);exit;
         if(strpos($games['apkurl'],'http') !== false){
             $url = $games['apkurl'];
@@ -406,6 +486,63 @@ class SourceModel extends CommonModel
 
     }
 
+    // -------------资源包下载-------------------------
+    // 生成资源包
+    public function cpsCreateSourePackage($sourcesn){
+        $sourcemodel = M('cps_source');
+        $map["sourcesn"] = $sourcesn;
+        $source = $sourcemodel->where($map)->find();
+
+        $gamemodel = M('cps_game');
+        $game = $gamemodel->find($source["gameid"]);
+        $packagename = $game["packagename"];
+
+
+        $apkdownloadurl = $this->apkdownloadurl;
+        //开启新分包
+        $checkNewPackage = $this->checkNewPackage($source['sourcesn'], $game['sdkgameid']);
+        $packStr = '';
+        if($checkNewPackage === true){
+            $packStr = '-merged-';
+            $apkdownloadurl = C('mountedFolder');
+        }
+
+        if ($game["gameversion"] != "") {
+            $newgamename = $game["gamepinyin"]."_".$game["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).$packStr.".apk";
+        } else {
+            $newgamename = $game["gamepinyin"]."_".$source["channelid"]."_".date("md")."_".createstr(4).$packStr.".apk";
+        }
+        if($checkNewPackage === true){
+            $this->createTgApp($packagename, $source['id'], $source['sourcesn'], $newgamename);
+            //mountedfiles
+            $result['code'] = 1;
+        }else{
+            $result = $this->subpackage($packagename,$newgamename,$sourcesn,'cps_source');
+        }
+
+        if ($result['code'] == 1) {
+            $data["isupload"] = 1;
+            $data["apkurl"] = $newgamename;
+            $upload = $sourcemodel->where($map)->save($data);
+
+            // 第一次分包的时候cdn提交
+            $this->cdnsubmit($sourcesn,$newgamename,false,'cps_source');
+
+            // 生成强更包等一系列操作
+            $forceReturn =$this->cpsCreateForcePackage($source['id']);
+            if(!$forceReturn['code']){
+                return array('code' => 0, 'msg' => $forceReturn['msg'], 'data' => '' );
+            }
+
+            return array('code' => 1, 'msg' => '生成资源包成功。', 'data' => $apkdownloadurl.$newgamename );
+        } else {
+            return array('code' => 0, 'msg' => (!empty($result['msg']) ? $result['msg'] : '生成资源包失败。'));
+        }
+
+
+
+    }
+
     // 生成强更包等一系列操作
     public function createForcePackage($sourceid){
         $sourcemodel = M("tg_source");
@@ -485,9 +622,90 @@ class SourceModel extends CommonModel
         return array('code' => 1, 'msg' => '生成生成强更包成功。', 'data' => '' );
     }
 
+    // 生成强更包等一系列操作
+    public function cpsCreateForcePackage($sourceid){
+        $sourcemodel = M("cps_source");
+        $gameModel = M('cps_game');
+        $sourcecondition = array('id'=>$sourceid);
+        $source = $sourcemodel->alias("S")->join(C('DB_PREFIX')."cps_game G on S.gameid = G.gameid", "LEFT")->where
+        ($sourcecondition)->find();
+
+        $packageModel = M('cps_package');
+        $packagecondition["gameid"] = $source["gameid"];
+        $packagecondition["activeflag"] = 1;
+        $packagecondition["isnowactive"] = 1;
+        $packagecondition["isforcepackage"] = 1;
+        $packagecondition["isforced"] = 0; // 没有强更过
+        $exsitpackage = $packageModel->where($packagecondition)->order("packageid desc")->find();
+
+        // 如果存在  该游戏 没有强更过 的强更包
+        // 在提前生成新包之后，强更时间点到了之前。中间这个时间范围内生成包，同时生成新包等操作（和Admin/Game/createForcePackage操作一样）
+        $nowTime = time();
+        if ($exsitpackage  && $nowTime>strtotime($exsitpackage['createtime']))  {
+            $forcepackageModel = M('cps_forcepackage');
+            $forcecondition["userid"] = $source["userid"];
+            $forcecondition["channelid"] = $source["channelid"];
+            $forcecondition["gameid"] = $source["gameid"];
+            $forcecondition["isforce"] = 0; // 增加这个条件，解决以前第二次强更不会强更
+            $isexsit = $forcepackageModel->where($forcecondition)->find();
+            if(!$isexsit){
+
+                $checkNewPackage = $this->checkNewPackage($source['sourcesn'], $source['sdkgameid']);
+                $packStr = '';
+                if($checkNewPackage === true){
+                    $packStr = '-merged-';
+                }
+                // 不存在强更包，则生成生成强更包文件
+                if ($source["gameversion"] != "") {
+                    $newgamename = $source["gamepinyin"]."_".$exsitpackage["gameversion"]."_".$source["channelid"]."_".date("md")."_".createstr(4).$packStr.".apk";
+                } else {
+                    $newgamename = $source["gamepinyin"]."_".$source["channelid"].$packStr.".apk";
+                }
+
+                $result = $this->subpackage($exsitpackage["packagename"],$newgamename,$source["sourcesn"],'cps_source');
+                if ($result['code'] == 1) {
+                    // 添加记录到tg_forcepackage表中，记录该资源强更包的游戏下载链接
+                    $data["userid"] = $source["userid"];
+                    $data["channelid"] = $source["channelid"];
+                    $data["gameid"] = $source["gameid"];
+                    $data["apkurl"] = $newgamename;
+                    $data["isforce"] = 0;
+                    $data["isdelete"] = 0;
+                    $data["activeflag"] = 1;
+                    $data['createtime'] = date('Y-m-d H:i:s',time());
+                    $data['createuser'] = "Admin";
+                    $forcepackage = $forcepackageModel->add($data);
+
+                    if ($forcepackage) {
+                        // 第一次分包的时候cdn提交
+                        $this->cdnsubmit($source["sourcesn"],$newgamename,true,'cps_source');
+
+                        // sdk_agentlist增加资源的强更链接
+                        $agentcondition["gameid"] = $source["gameid"];
+                        $agentdata["upurl"] = $this->apkstoreurl.$exsitpackage['packagename'];
+
+                        $agent = $gameModel->where($agentcondition)->save($agentdata);
+
+                        if ($agent) {
+                            return array('code' => 1, 'msg' => '生成生成强更包成功。', 'data' => '' );
+                        } else {
+                            return array('code' => 0, 'msg' => '分包失败，未能更新强更链接', 'data' => '' );
+                        }
+                    } else {
+                        return array('code' => 0, 'msg' => '分包失败，未能新增强更包信息', 'data' => '' );
+                    }
+                }else{
+                    return array('code' => 0, 'msg' => '生成强更分包失败。', 'data' => '' );
+                }
+            }
+        }
+
+        return array('code' => 1, 'msg' => '生成生成强更包成功。', 'data' => '' );
+    }
+
     // 生成包
-    public function subpackage($packagename,$newgamename,$sourcesn){
-        $sourcemodel = M('tg_source');
+    public function subpackage($packagename,$newgamename,$sourcesn,$model='tg_source'){
+        $sourcemodel = M($model);
         $map["sourcesn"] = $sourcesn;
         $source = $sourcemodel->field('id')->where($map)->find();
 
@@ -520,9 +738,9 @@ class SourceModel extends CommonModel
     }
 
     // cdn提交接口
-    public function cdnsubmit($sourcesn,$newgamename,$isforce){
+    public function cdnsubmit($sourcesn,$newgamename,$isforce,$model='tg_source'){
         // 允许用户提交cdn才提交cdn
-        $sourceModel = M('tg_source');
+        $sourceModel = M($model);
         $where = array('sourcesn'=>$sourcesn);
         $is_allow_cdn = $sourceModel->alias('S')
                     ->field('U.is_allow_cdn')

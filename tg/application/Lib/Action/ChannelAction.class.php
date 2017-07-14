@@ -285,6 +285,52 @@ class ChannelAction extends CommonAction {
         }
     }
 
+
+    public function updateCpsBaiBao()
+    {
+        $account = 'yxtest';
+        $isupload = 0;
+        $activeflag = 1;
+        $userid = M('tg_user')->where(array('account'=> $account))->getField('userid');
+        $channelid = M('tg_user')->where(array('pid' => $userid))->getField('channelid');
+
+        $gameid = isset($_GET['gameid']) && $_GET['gameid'] > 0 ? (int)$_GET['gameid'] : 0;
+        if($gameid > 0){
+            $where['gameid'] = $gameid;
+        }
+
+        $game = M('cps_game')->where($where)->find();
+
+        $agent  = $game['gamepinyin']."-{$gameid}-01";
+
+        $source = M('cps_source');
+        $source->userid = $userid;
+        $source->gameid = $gameid;
+        $source->channelid = $channelid;
+        $source->createtime = date("Y-m-d H:i:s");
+        $source->sourcesn = $agent;
+        $source->activeflag = $activeflag;
+        $source->textureurl = '';
+        $source->isupload = $isupload;
+        $source->sourcesharerate = $game['sharerate'];
+        $source->sourcechannelrate = $game['channelrate'];
+        $source->createuser = "admin";
+
+        $res = $source->add();
+
+        echo "agent：{$agent}";
+        echo "<br />";
+        echo "gameid：{$gameid}";
+        echo "<br />";
+        echo "channelid：{$channelid}";
+        echo "<br />";
+        if($res){
+            echo 'success';
+        }else{
+            echo 'error';
+        }
+    }
+
     //删除渠道方法
     public function deletechannel(){
         $this->logincheck();

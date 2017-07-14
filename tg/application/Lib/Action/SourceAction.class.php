@@ -36,9 +36,14 @@ class SourceAction extends CommonAction {
 		$gameid = $_POST["game"];
 		$channelid = $_POST["channel"];
         $userid = $_SESSION['userid'];
-		$usermodel = M('tg_user');
-        $sourcemodel = M('tg_source');
+
         $gamemodel = M('tg_game');
+		$checkgame = $gamemodel->where(array('gameid' => $gameid))->find();
+		if(empty($checkgame)){
+			$this->applyCgame($gameid,$channelid,$userid);
+		}
+		$usermodel = M('tg_user');
+		$sourcemodel = M('tg_source');
         $channelmodel = M('tg_channel');
 		$agentmodel = M('sdk_agentlist');
 		$condition['userid'] = $userid;
@@ -105,6 +110,57 @@ class SourceAction extends CommonAction {
 		*/
     }
 
+
+	protected function applyCgame($gameid,$channelid,$userid)
+	{
+		$usermodel = M('tg_user');
+		$sourcemodel = M('cps_source');
+		$channelmodel = M('tg_channel');
+		$gamemodel = M('cps_game');
+		$condition['userid'] = $userid;
+		$condition['gameid'] = $gameid;
+		$condition['channelid'] = $channelid;
+		$condition['activeflag'] = 1;
+		$source = $sourcemodel->where($condition)->find();
+		if($source) {
+			$this->ajaxReturn('fail',"您已经申请过该资源。",0);
+			exit();
+		} else {
+			$game = $gamemodel->find($gameid);
+			$user = $usermodel->find($userid);
+			$data['activeflag'] = 1;
+			$data['userid'] = $userid;
+			$data['gameid'] = $gameid;
+			$data['channelid'] = $channelid;
+			$data['createtime'] = date('Y-m-d : H-i-s', time());
+			$newgamename = createstr(30);
+			$sourcesn = "cp_" . $newgamename;
+			$texturename = $game["texturename"];
+			$data['sourcesn'] = $sourcesn;
+			if ($game["sharerate"] != "") {
+				$data['sourcesharerate'] = $game["sharerate"];
+			}
+			if ($game["channelrate"] != "") {
+				$data['sourcechannelrate'] = $game["channelrate"];
+			}
+			$data['textureurl'] = $texturename;
+			$data['isupload'] = 0;
+			$data['createuser'] = $user["realname"];
+			$sourceid = $sourcemodel->add($data);
+			$time = date('Y-m-d H:i:s', time());
+			if ($sourceid) {
+				$inccondition["channelid"] = $channelid;
+				$channelmodel->where($inccondition)->setInc('gamecount');
+				$this->insertLog($_SESSION['account'], '申请资源', 'SourceAction.class.php', 'applyCgame', $time, "用户" . $_SESSION['account'] . "在“" . $channel["channelname"] . "”渠道下申请了“" . $game['gamename'] . "”游戏");
+				$this->ajaxReturn('success', $data, 1);
+				exit();
+			} else {
+				$this->ajaxReturn('fail', "失败，请联系管理员。", 0);
+				exit();
+			}
+		}
+	}
+
     //下载素材包
     public function downloadTextture(){
         $sourcesn = $_POST["source"];
@@ -114,6 +170,9 @@ class SourceAction extends CommonAction {
         
         $map["sourcesn"] = $sourcesn;
         $source = $sourcemodel->where($map)->find();
+		if(empty($source)){
+			$this->cpsDownTextture($sourcesn);
+		}
         // $texturename = $source['textureurl'];
         $gameid = $source['gameid'];
         $channelid = $source['channelid'];
@@ -134,6 +193,34 @@ class SourceAction extends CommonAction {
             exit();
         }
     }
+
+	public function cpsDownTextture($sourcesn)
+	{
+		$sourcemodel = M('cps_source');
+		$gamemodel = M('cps_game');
+		$channelmodel = M('tg_channel');
+
+		$map["sourcesn"] = $sourcesn;
+		$source = $sourcemodel->where($map)->find();
+		// $texturename = $source['textureurl'];
+		$gameid = $source['gameid'];
+		$channelid = $source['channelid'];
+
+		// 改成获取游戏的素材包
+		$oldgame = $gamemodel->where("gameid = '$gameid'")->find();
+		$texturename = $oldgame['texturename'];
+		$oldchannel = $channelmodel->where("channelid = '$channelid'")->find();
+
+		$time = date('Y-m-d H:i:s',time());
+		if($texturename){
+			$this->insertLog($_SESSION['account'],'下载素材包', 'SourceAction.class.php', 'downloadTextture', $time, "用户".$_SESSION['account']."在“".$oldchannel["channelname"]."”渠道下下载了“".$oldgame['gamename']."”素材包");
+			$this->ajaxReturn('success',$this->texturedownloadurl.$texturename,1);
+			exit();
+		} else{
+			$this->ajaxReturn('fail','该素材包不存在',0);
+			exit();
+		}
+	}
 
     //游戏分类筛选，以及渠道筛选
     public function selectGame(){
@@ -238,6 +325,16 @@ class SourceAction extends CommonAction {
         $result=M()->query($sql);
         $game=$result[0];
 
+		if(empty($game)){
+			$sql="SELECT
+        		b.gameid,
+                b.gamepinyin
+				FROM {$prefix}cps_source a
+				LEFT JOIN {$prefix}cps_game b ON a.gameid=b.gameid
+				WHERE 1 ".$where;
+			$result=M()->query($sql);
+			$game=$result[0];
+		}
         $Source = D('Source');
     	$long_url = $Source->getDownloadURL($sourceid);
     	$short_url = $Source->shortenSinaUrl($long_url);
@@ -284,6 +381,17 @@ class SourceAction extends CommonAction {
         LEFT JOIN {$prefix}tg_gamecategory c ON b.gamecategory=c.id
         WHERE 1 ".$where;
         $result=M()->query($sql);
+
+		if(empty($result)){
+			$sql="SELECT
+                b.*,
+                c.categoryname
+			FROM {$prefix}cps_source a
+			LEFT JOIN {$prefix}cps_game b ON b.gameid=a.gameid
+			LEFT JOIN {$prefix}tg_gamecategory c ON b.gamecategory=c.id
+			WHERE 1 ".$where;
+			$result=M()->query($sql);
+		}
         $game=$result[0];
         $yel_num=intval($game['score']/2);//黄星星个数
         $half_num=$game['score']%2;//半星星个数
@@ -377,6 +485,61 @@ class SourceAction extends CommonAction {
                 }
 			}
 		} else {
+
+			$this->cpsDownload($sourcesn);
+//			echo "Can't find APK package.";
+		}
+	}
+
+	public function cpsDownload($sourcesn)
+	{
+		$sourcemodel = M('cps_source');
+		$map["sourcesn"] = $sourcesn;
+		$source = $sourcemodel->where($map)->find();
+
+		if ($source) {
+
+			//如果cdn已经提交成功，并且cdn文件存在，读取cdn。
+			if($source["is_cdn_submit"] == 1 ){
+				if ($source["isupload"] == 1 && $source["apkurl"] != "") {
+					$cndurl = $this->apkdownloadcdnurl.$source["apkurl"];
+					Header("Location: ".$cndurl);
+					exit();
+				}else{
+					$sourceModel = D('Source');
+					$return = $sourceModel->cpsCreateSourePackage($sourcesn);
+					if($return['code']==1){
+						Header("Location: ".$return['data']);
+						exit();
+					}else{
+						echo '发生错误：'.$return['msg'];
+					}
+				}
+			}
+
+			if ($source["isupload"] == 1 && $source["apkurl"] != "") {
+				$apkdownloadurl = $this->apkdownloadurl;
+				//开启新分包
+				$gamemodel = M('cps_game');
+				$game = $gamemodel->find($source["gameid"]);
+				$sourceModel = D('Source');
+				$checkNewPackage = $sourceModel->checkNewPackage($source['sourcesn'], $game['sdkgameid']);
+				if($checkNewPackage === true){
+					$apkdownloadurl = C('mountedFolder');
+				}
+				Header("Location: ".$apkdownloadurl.$source["apkurl"]." ");
+				exit();
+			} else {
+				$sourceModel = D('Source');
+				$return = $sourceModel->cpsCreateSourePackage($sourcesn);
+				if($return['code']==1){
+					Header("Location: ".$return['data']);
+					exit();
+				}else{
+					echo '发生错误：'.$return['msg'];
+				}
+			}
+		} else {
 			echo "Can't find APK package.";
 		}
 	}
@@ -404,10 +567,30 @@ class SourceAction extends CommonAction {
     			->field('S.id,S.sourcesharerate,S.sourcechannelrate,S.sub_share_rate,S.sub_channel_rate,C.channelname,G.gamename,U.account')
     			->where($where)
     			->find();
+		if(empty($source)){
+			$source = $this->cpsDefineRate($sourceid);
+		}
 
     	$this->assign('source',$source);
     	$this->display();
     }
+
+	public function cpsDefineRate($sourceid)
+	{
+		$sourceModel = M('cps_source');
+		//获取该资源的相关信息
+		$where = array('id' => $sourceid );
+		$source = $sourceModel->alias('S')
+			->join(C('DB_PREFIX').'tg_channel as C on S.channelid=C.channelid','left')
+			->join(C('DB_PREFIX').'cps_game as G on S.gameid=G.gameid','left')
+			->join(C('DB_PREFIX').'tg_user as U on S.channelid=U.channelid','left')
+			->field('S.id,S.sourcesharerate,S.sourcechannelrate,S.sub_share_rate,S.sub_channel_rate,C.channelname,G.gamename,U.account')
+			->where($where)
+			->find();
+
+		//print_r($source);exit;
+		return $source;
+	}
 
     // 自定义子账号的费率 处理
     public function defineRateHandle(){
@@ -420,6 +603,7 @@ class SourceAction extends CommonAction {
 		$sub_channel_rate = trim($_POST['sub_channel_rate']);
 
 		$sourceModel= M('tg_source');
+		$gameModel = M('tg_game');
 
 		if(!isset($sub_channel_rate)){
             $this->ajaxReturn("fail",'分成比例不能为空',0);
@@ -439,6 +623,12 @@ class SourceAction extends CommonAction {
         //获取原来的资源信息
         $where = array('id'=>$sourceid);
         $oldsource = $sourceModel->field('sourcesharerate,sourcechannelrate,sub_share_rate,sub_channel_rate,channelid,gameid')->where($where)->find();
+
+		if(empty($oldsource)){
+			$sourceModel= M('cps_source');
+			$gameModel= M('cps_game');
+			$oldsource = $sourceModel->field('sourcesharerate,sourcechannelrate,sub_share_rate,sub_channel_rate,channelid,gameid')->where($where)->find();
+		}
 
         //分成比例不能母账号的大
         if($sub_share_rate > $oldsource['sourcesharerate']){
@@ -466,7 +656,6 @@ class SourceAction extends CommonAction {
 	        		->where("C.channelid = '$channelid'")
 	        		->find();
 
-	        $gameModel = M('tg_game');
 	        $game = $gameModel->field('gamename')->where("gameid = '$gameid'")->find();
 
             $this->insertLog($_SESSION['account'],'自定义子账号资源费率', 'SourceAction.class.php', 'defineRateHandle', $time, $_SESSION['account']."编辑了子账户“".$channel['account']."”的渠道名为“".$channel['channelname']."”游戏名为“".$game['gamename']."”，分成比例由“".$oldsource['sub_share_rate']."变为".$data["sub_share_rate"] ."”，通道费由“".$oldsource['sub_channel_rate']."变为".$data['sub_channel_rate']."”");
@@ -475,6 +664,11 @@ class SourceAction extends CommonAction {
 			$this->ajaxReturn('fail','出现一个错误，请联系管理员。',0);
 		}
     }
+
+	public function cpsDefineRateHandle()
+	{
+
+	}
 
 
 }

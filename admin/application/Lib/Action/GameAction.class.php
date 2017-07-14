@@ -1545,6 +1545,18 @@ class GameAction extends CommonAction {
 
 		$sourceModel = M('tg_source');
 		$where = array('sourcesn'=>$sourcesn);
+		$source = $sourceModel->field('userid,gameid,channelid,apkurl')->where($where)->find();
+		if(!empty($source)){
+			$this->updateCdnStatus($sourcesn, $newgamename);
+		}else{
+			A('Cgame')->updateCdnStatus($sourcesn, $newgamename);
+		}
+	}
+
+	public function updateCdnStatus($sourcesn, $newgamename)
+	{
+		$sourceModel = M('tg_source');
+		$where = array('sourcesn'=>$sourcesn);
 		$where['apkurl'] = $newgamename;
 		$data = array('is_cdn_submit'=>1);
 		$result = $sourceModel->where($where)->save($data);
@@ -1566,6 +1578,7 @@ class GameAction extends CommonAction {
 			echo "【sourcesn='".$sourcesn."',newgamename='".$newgamename."'】下载包cdn回调，修改source表的is_cdn_submit成功。";;
 		}
 	}
+
 	// 强更的时候cdn回调函数
 	public function forcecdncallback(){
 		$sourcesn = $_GET['sourcesn'];
@@ -1574,7 +1587,18 @@ class GameAction extends CommonAction {
 		$sourceModel = M('tg_source');
 		$where = array('sourcesn'=>$sourcesn);
 		$source = $sourceModel->field('userid,gameid,channelid,apkurl')->where($where)->find();
-	
+
+		if(!empty($source)){
+			$this->updateForeDownurl($source, $newgamename);
+		}else{
+			A('Cgame')->updateForeDownurl($source, $newgamename);
+		}
+	}
+
+
+	public function updateForeDownurl($source,$newgamename)
+	{
+		$sourcesn = $source['sourcesn'];
 		// cdn回调，可能是强更时间点到了之后，才回调成功。
 		$forcepackageModel = M('tg_forcepackage');
 		$where = array();

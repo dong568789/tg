@@ -103,13 +103,6 @@ class SourceAction extends CommonAction {
 				exit();
 			}
 		}
-        
-		/*
-		} else {
-			$this->ajaxReturn('fail',"无法创建文件，打包失败。",0);
-			exit();
-		}
-		*/
     }
 
     //下载素材包

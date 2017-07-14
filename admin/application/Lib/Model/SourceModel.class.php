@@ -331,8 +331,8 @@ class SourceModel extends CommonModel
 
     // -------------资源包下载-------------------------
     // 生成包
-    public function subpackage($packagename,$newgamename,$sourcesn){
-        $sourcemodel = M('tg_source');
+    public function subpackage($packagename,$newgamename,$sourcesn,$model='tg_source'){
+        $sourcemodel = M($model);
         $map["sourcesn"] = $sourcesn;
         $source = $sourcemodel->field('id')->where($map)->find();
 
@@ -377,9 +377,9 @@ class SourceModel extends CommonModel
     }
 
     // cdn提交接口
-    public function cdnsubmit($sourcesn,$newgamename,$isforce){
+    public function cdnsubmit($sourcesn,$newgamename,$isforce,$model='tg_source'){
         // 允许用户提交cdn才提交cdn
-        $sourceModel = M('tg_source');
+        $sourceModel = M($model);
         $where = array('sourcesn'=>$sourcesn);
         $is_allow_cdn = $sourceModel->alias('S')
                     ->field('U.is_allow_cdn')
@@ -428,7 +428,7 @@ class SourceModel extends CommonModel
                 $rs = httpreqCommon($Url, http_build_query($Params),'post');
                 /****************CDN*******************/
             }
-           
+
         }
     }
 

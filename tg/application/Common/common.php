@@ -432,4 +432,14 @@ function app_channel($path, $source_id)
 }
 
 
+//手机号码验证
+function isMobile($str){
+	$exp = "/^13[0-9]{1}[0-9]{8}$|15[012356789]{1}[0-9]{8}$|18[012356789]{1}[0-9]{8}$|14[57]{1}[0-9]$/";
+	if(preg_match($exp,$str)){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 ?>

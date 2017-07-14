@@ -42,6 +42,12 @@ class RechargeAction extends CommonAction {
 
         $sourcemodel = M("tg_source");
         $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "JOIN")->where($sourcecondition)->field('G.gameid,G.gamename')->order("S.createtime desc")->select();
+
+        $cpsSourcemodel = M("cps_source");
+        $cpsgamelist = $cpsSourcemodel->alias("S")->join(C('DB_PREFIX')."cps_game G on S.gameid = G.gameid", "JOIN")
+            ->where($sourcecondition)->field('G.gameid,G.gamename')->order("S.createtime desc")->select();
+
+        $gamelist = array_merge((array)$gamelist,(array)$cpsgamelist);
         $data = array(
             'data' => $gamelist,
             'status' => 1
@@ -117,14 +123,20 @@ class RechargeAction extends CommonAction {
         }
 
         $sourcemodel = M("tg_source");
+        $cpssourcemodel = M("cps_source");
         // 并且 用户的注册渠道 也是当前用户的渠道
         if (isset($this->userpid) && $this->userpid > 0) {
             // 获取该子账号渠道的的资源
             $source = $sourcemodel->where(" channelid='$channelid' ")->select();
+            $cpssource = $cpssourcemodel->where(" channelid='$channelid' ")->select();
+
+
         }else{
             // 获取该用户该渠道的的资源
             $source = $sourcemodel->where("userid = '{$userid}' ")->select();
+            $cpssource = $cpssourcemodel->where("userid = '{$userid}' ")->select();
         }
+        $source = array_merge((array)$source,(array)$cpssource);
         $sourcelist = array();
         foreach($source as $k => $v){
             $sourcelist[] = $v["sourcesn"];
@@ -141,8 +153,12 @@ class RechargeAction extends CommonAction {
     {
         $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
 
-        foreach($sort as $k => $v){
-            $order = "{$k} {$v}";
+        if(empty($sort)){
+            $order = "create_time desc";
+        }else{
+            foreach($sort as $k => $v){
+                $order = "{$k} {$v}";
+            }
         }
 
         return $order;
@@ -151,6 +167,7 @@ class RechargeAction extends CommonAction {
     protected function getUserRecharge($condition, $order, $current='', $rowCount='')
     {
         $paymodel = M("all_pay");
+        $cpsPayModel = M("cps_pay");
         $count = $paymodel->alias("D")
             ->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT")
             ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
@@ -160,17 +177,44 @@ class RechargeAction extends CommonAction {
             ->where($condition)
             ->field('count(*) as count,sum(amount) as allmoney')
             ->find();
+
+        $cpsCount = $cpsPayModel->alias("D")
+            ->join(C('DB_PREFIX')."cps_source S on D.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
+            ->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT")
+            ->where($condition)
+            ->field('count(*) as count,sum(amount) as allmoney')
+            ->find();
+
+        $cpsPay = $cpsPayModel->alias("D");
+        $cpsPay->join(C('DB_PREFIX')."cps_source S on D.agent = S.sourcesn", "LEFT");
+        $cpsPay->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT");
+        $cpsPay->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT");
+        $cpsPay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
+        $cpsPay->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT");
+        $cpsPay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
+        .channelname,G.gamename,P.payname');
+        $cpsPay->where($condition);
+        $cpsPaySql = $cpsPay->buildSql();
         $pay = $paymodel->alias("D");
         $pay->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT");
         $pay->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT");
         $pay->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT");
         $pay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
         $pay->join(C('DB_PREFIX')."all_user U on D.username = U.username", "LEFT");
-        $pay->field('D.orderid,D.regagent,D.agent,D.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname');
+        $pay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
+        .channelname,G.gamename,P.payname');
         $pay->where($condition);
-        $pay->order($order);
-        ($current > 0 && $rowCount > 0) && $pay->page($current, $rowCount);
-        $payList = $pay->select();
+        $pay->union($cpsPaySql);
+        $paySql = $pay->buildSql();
+
+        $allPay = M('')->table($paySql." A");
+        ($current > 0 && $rowCount > 0) && $allPay->page($current, $rowCount);
+
+        $allPay->order($order);
+        $payList = $allPay->select();
         empty($payList) && $payList = array();
         foreach($payList as $k => $v){
             $payList[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);
@@ -182,7 +226,8 @@ class RechargeAction extends CommonAction {
                 $payList[$k]['status'] = "待支付";
             }
         }
-        return array('list' => $payList, 'count' => (int)$count['count'], 'allmoney' => !empty($count['allmoney']) ? $count['allmoney'] : 0);
+        return array('list' => $payList, 'count' => (int)$count['count']+(int)$cpsCount['count'], 'allmoney' =>
+            (int)$count['allmoney']+ $cpsCount['allmoney']);
     }
 
     // 导出

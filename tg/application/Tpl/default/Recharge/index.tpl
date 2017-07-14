@@ -101,14 +101,13 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                     <table id="grid-keep-selection" class="table table-hover table-vmiddle" aria-busy="false">
                                         <thead>
                                         <tr>
-                                            <th data-column-id="orderid" data-type="numeric" data-order="desc" data-visible="false">订单号</th>
                                             <th data-column-id="gamename">游戏</th>
                                             <th data-column-id="channelname">渠道</th>
                                             <th data-column-id="username">账号</th>
                                             <th data-column-id="amount">金额（汇总：）</th>
                                             <th data-column-id="status">状态</th>
                                             <th data-column-id="serverid">游戏区服</th>
-                                            <th data-column-id="create_time" data-formatter="create_time">时间</th>
+                                            <th data-column-id="create_time" data-formatter="create_time" data-order="desc">时间</th>
                                             <th data-column-id="payname" data-sortable="false">充值方式</th>
                                         </tr>
                                         </thead>
