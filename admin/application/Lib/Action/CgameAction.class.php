@@ -1149,7 +1149,10 @@ class CgameAction extends CommonAction {
     }
 
     // 强更的时候cdn回调函数
-    public function updateForeDownurl($source, $newgamename){
+    public function updateForeDownurl($sourcesn, $newgamename){
+        $sourceModel = M('cps_source');
+        $where = array('sourcesn'=>$sourcesn);
+        $source = $sourceModel->field('userid,gameid,channelid,apkurl')->where($where)->find();
         $sourcesn = $source['sourcesn'];
         // cdn回调，可能是强更时间点到了之后，才回调成功。
         $forcepackageModel = M('cps_forcepackage');
@@ -1160,10 +1163,8 @@ class CgameAction extends CommonAction {
         $where['apkurl'] = $newgamename;
         $data = array('is_cdn_submit'=>1);
         $result = $forcepackageModel->where($where)->save($data);
-
         // 更新tgsource表
         $data = array('is_cdn_submit'=>1);
-        $sourceModel = M('cps_source');
         $result1 = $sourceModel->where($where)->save($data);
 
         $log_file = $_SERVER['DOCUMENT_ROOT'].'/../tg/log/cdn/'.date('Y-m-d').'-call.log';

@@ -18,10 +18,9 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 <section id="main" data-layout="layout-1">
     <include file="Inc:sidemenuconfig" />
     <?php
-	//个人资料页面用$profile_nav
-	//功能页面用$page_nav
-	$page_nav["用户查询"]["active"] = true;
-        $page_nav["用户查询"]["sub"]["注册查询"]["active"] = true;
+    //功能页面用$page_nav
+    $page_nav["游戏管理"]["active"] = true;
+    $page_nav["游戏管理"]["sub"]["所有游戏"]["active"] = true;
     ?>
     <include file="Inc:sidemenu" />
     <section id="content">

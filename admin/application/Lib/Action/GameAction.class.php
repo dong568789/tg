@@ -1591,7 +1591,7 @@ class GameAction extends CommonAction {
 		if(!empty($source)){
 			$this->updateForeDownurl($source, $newgamename);
 		}else{
-			A('Cgame')->updateForeDownurl($source, $newgamename);
+			A('Cgame')->updateForeDownurl($sourcesn, $newgamename);
 		}
 	}
 
