@@ -94,6 +94,11 @@ class CpsapiAction
         if(!empty($check)){
             return false;
         }
+        $isPtb = $this->checkPtb();
+        if(!$isPtb){
+            return false;
+        }
+
         if(isMobile($username)){
             $username = $user['username'];
         }
@@ -153,7 +158,7 @@ class CpsapiAction
 
         $data = array(
             'stauts' => 'success',
-            'url' => "http://www.baidu.com"
+            'url' => $url
         );
 
         exit(json_encode($data));

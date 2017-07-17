@@ -248,7 +248,7 @@ class SourceModel extends CommonModel
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
             ->where($where)
-            ->field('G.gamecategory,G.gametag,G,gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G.sharerate,G.isonstack,G.gameid,C.categoryname,T.tagname,S.id as sourceid')
+            ->field('G.gamecategory,G.gametag,G.gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G.sharerate,G.isonstack,G.gameid,C.categoryname,T.tagname,S.id as sourceid')
             ->order("G.gameauthority desc")
             ->select();
 
@@ -261,7 +261,7 @@ class SourceModel extends CommonModel
             ->field('G.gamecategory,G.gametag,G.gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G.sharerate,G.isonstack,G.gameid,C.categoryname,T.tagname,S.id as sourceid')
             ->order("G.gameauthority desc")
             ->select();
-
+echo $sourcemodel->getLastSql();exit;
         $games = array_merge((array)$games,(array)$cgames);
 
         $item = array();
