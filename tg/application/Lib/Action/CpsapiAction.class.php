@@ -134,11 +134,11 @@ class CpsapiAction
         $ip = isset($_POST['i']) ? $_POST['i'] : '';
         $username = isset($_POST['un']) ? $_POST['un'] : '';
         $mobile = isset($_POST['p']) ? $_POST['p'] : '';
-
+        $userModel = $this->_user;
         $user = $this->getUserNameByMobile($mobile);
 
         if(!empty($user)){
-            $this->_user->where(array('id'=>$user['id']))->save(array('mobile'=>''))->save();
+            $userModel->where(array('id'=>$user['id']))->save(array('mobile'=>''))->save();
         }
 
         $this->_user->username = $username;
