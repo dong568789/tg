@@ -27,6 +27,7 @@ class CpsapiAction
         $this->init();
         /**
          * http://192.168.1.145/Yx/tg/tg/index.php/Cpsapi/u
+         * http://tg.yxgames.com/Cpsapi/u
          *
          */
     }
@@ -49,13 +50,16 @@ class CpsapiAction
             case 'update':
                 $this->downUrl();
                 break;
-            case 'register':
+            case 'onekey_register':
+                $this->createUser();
+                break;
+            case 'phone_register':
                 $this->createUser();
                 break;
             case 'pay':
                 $this->createPay();
                 break;
-            case 'bindphone':
+            case 'bind_phone':
                 $this->bindPhone();
                 break;
             case 'set_username':
@@ -79,15 +83,22 @@ class CpsapiAction
         $payType    = isset($_POST['pw']) ? $_POST['pw'] : '';
         $amount     = isset($_POST['c']) ? $_POST['c'] : '';
         $pn         = isset($_POST['pn']) ? $_POST['pn'] : '';
+        $orderid    = isset($_POST['oi']) ? $_POST['oi'] : '';
 
         $user = $this->getUserByName($username);
 
         $payModel = M('cps_pay');
-        if(isMobile($username)){
 
+        $check = $payModel->where(array('orderid'=>$orderid))->find();
+
+        if(!empty($check)){
+            return false;
+        }
+        if(isMobile($username)){
             $username = $user['username'];
         }
 
+        $payModel->orderid = $orderid;
         $payModel->username = $username;
         $payModel->amount = $amount;
         $payModel->agent = $agent;
@@ -171,8 +182,10 @@ class CpsapiAction
     {
         $config = array(
             'alipay' => 'zfb',
-            'wx' => 'wx',
-            'unionpay_success'=>'unionpay'
+            'wxpay_success' => 'wx',
+            'unionpay_success'=>'union',
+            'epay'=>'ptb',
+            'tenpay'=>'tenpay'
         );
 
         return isset($config[$paytype]) ? $config[$paytype] : '';
