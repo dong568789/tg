@@ -261,7 +261,6 @@ class SourceModel extends CommonModel
             ->field('G.gamecategory,G.gametag,G.gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G.sharerate,G.isonstack,G.gameid,C.categoryname,T.tagname,S.id as sourceid')
             ->order("G.gameauthority desc")
             ->select();
-echo $sourcemodel->getLastSql();exit;
         $games = array_merge((array)$games,(array)$cgames);
 
         $item = array();
