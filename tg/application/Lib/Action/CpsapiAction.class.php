@@ -172,7 +172,7 @@ class CpsapiAction
         $config = array(
             'alipay' => 'zfb',
             'wx' => 'wx',
-            ''
+            'unionpay_success'=>'unionpay'
         );
 
         return isset($config[$paytype]) ? $config[$paytype] : '';

@@ -213,27 +213,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-									<div class="form-group m-t-5">
-                                        <label class="col-sm-3 f-15 control-label">是否能使用代金券</label>
-                                        <div class="col-sm-7">
-                                            <div class="fg-line">
-                                                <label class="radio radio-inline m-r-20">
-                                                    <input class="radioclass" type="radio" name="isusedvoucher" value="0">
-                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
-                                                    否
-                                                </label>
-
-                                                <label class="radio radio-inline m-r-20">
-                                                    <input class="radioclass" type="radio" name="isusedvoucher" value="1" checked="true">
-                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
-                                                    是
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
 									<div class="form-group m-t-25">
 										<label class="col-sm-3 f-15 control-label">上传素材包</label>
 										<div class="col-sm-7 p-t-5">
