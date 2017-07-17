@@ -226,6 +226,14 @@ class CpsapiAction
         }
     }
 
+    protected function checkPtb($pn)
+    {
+        if($pn == '平台币'){
+            return false;
+        }
+        return true;
+    }
+
 
     private function error()
     {

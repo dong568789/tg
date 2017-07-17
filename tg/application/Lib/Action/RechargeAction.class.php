@@ -215,6 +215,7 @@ class RechargeAction extends CommonAction {
 
         $allPay->order($order);
         $payList = $allPay->select();
+        //echo $allPay->getlastsql();exit;
         empty($payList) && $payList = array();
         foreach($payList as $k => $v){
             $payList[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);
