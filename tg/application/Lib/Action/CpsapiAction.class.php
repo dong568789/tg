@@ -21,7 +21,7 @@ class CpsapiAction
     {
         $this->_game = M('cps_game');
 
-        $this->_user = M('cps_user');
+
 
 
         $this->init();
@@ -134,22 +134,23 @@ class CpsapiAction
         $ip = isset($_POST['i']) ? $_POST['i'] : '';
         $username = isset($_POST['un']) ? $_POST['un'] : '';
         $mobile = isset($_POST['p']) ? $_POST['p'] : '';
-        $userModel = $this->_user;
-        $user = $this->getUserNameByMobile($mobile);
+        $this->_user = M('cps_user');
+        //$user = $this->getUserNameByMobile($mobile);
 
-        if(!empty($user)){
-            $userModel->where(array('id'=>$user['id']))->save(array('mobile'=>''))->save();
+        if(!empty($mobile)){
+            $this->_user->where(array('mobile'=>$mobile))->save(array('mobile'=>''));
         }
+        unset($userModel);
 
-        $this->_user->username = $username;
-        $this->_user->mobile = isset($mobile) ? $mobile : '';
-        $this->_user->ip = $ip;
-        $this->_user->agent = $agent;
-        $this->_user->gameid = $this->gameid;
-        $this->_user->source = $this->publisher;
-        $this->_user->reg_time = time();
-
-        $this->_user->add();
+        $userModel = M('cps_user');
+        $userModel->username = $username;
+        $userModel->mobile = isset($mobile) ? $mobile : '';
+        $userModel->ip = $ip;
+        $userModel->agent = $agent;
+        $userModel->gameid = $this->gameid;
+        $userModel->source = $this->publisher;
+        $userModel->reg_time = time();
+        $userModel->add();
         return true;
     }
 
@@ -176,6 +177,7 @@ class CpsapiAction
 
     protected function getUserNameByMobile($mobile)
     {
+        $this->_user = M('cps_user');
         $where['mobile'] = $mobile;
         $where['publisher'] = $this->publisher;
         return $this->_user->where($where)->find();
@@ -183,6 +185,7 @@ class CpsapiAction
 
     protected function getUserByName($username)
     {
+        $this->_user = M('cps_user');
         $where['username'] = $username;
         $where['mobile'] = $username;
         $where['_logic'] = 'OR';
@@ -213,7 +216,7 @@ class CpsapiAction
     {
         $username = isset($_POST['un']) ? $_POST['un'] : '';
         $mobile = isset($_POST['p']) ? $_POST['p'] : '';
-
+        $this->_user = M('cps_user');
         $user = $this->getUserNameByMobile($mobile);
 
         if(!empty($user) && $user['username'] <> $username){
@@ -232,7 +235,7 @@ class CpsapiAction
     {
         $username = isset($_POST['un']) ? $_POST['un'] : '';
         $mobile = isset($_POST['p']) ? $_POST['p'] : '';
-
+        $this->_user = M('cps_user');
         $where['mobile'] = $mobile;
         $where['publisher'] = $this->publisher;
         return $this->_user->where($where)->save(array('username'=>$username));
