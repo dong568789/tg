@@ -135,6 +135,11 @@ class CpsapiAction
         $username = isset($_POST['un']) ? $_POST['un'] : '';
         $mobile = isset($_POST['p']) ? $_POST['p'] : '';
 
+        $user = $this->getUserNameByMobile($mobile);
+
+        if(!empty($user)){
+            $this->_user->where(array('id'=>$user['id']))->save(array('mobile'=>''))->save();
+        }
 
         $this->_user->username = $username;
         $this->_user->mobile = isset($mobile) ? $mobile : '';
@@ -228,12 +233,10 @@ class CpsapiAction
         $username = isset($_POST['un']) ? $_POST['un'] : '';
         $mobile = isset($_POST['p']) ? $_POST['p'] : '';
 
-        $user = $this->getUserNameByMobile($mobile);
-        if(!empty($user) && $user['username'] <> $username){
-            $where['mobile'] = $mobile;
-            $where['publisher'] = $this->publisher;
-            return $this->_user->where($where)->save(array('username'=>$username));
-        }
+        $where['mobile'] = $mobile;
+        $where['publisher'] = $this->publisher;
+        return $this->_user->where($where)->save(array('username'=>$username));
+
     }
 
     protected function checkPtb($pn)
