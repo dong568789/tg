@@ -94,8 +94,13 @@ class CpsapiAction
         if(!empty($check)){
             return false;
         }
-        $isPtb = $this->checkPtb();
+        $isPtb = $this->checkPtb($pn);
         if(!$isPtb){
+            return false;
+        }
+
+        $isPw = $this->checkPw($payType);
+        if(!$isPw){
             return false;
         }
 
@@ -238,6 +243,17 @@ class CpsapiAction
         }
         return true;
     }
+
+    protected function checkPw($pw)
+    {
+        if($pw == 'wxpay_cancel'){
+            return false;
+        }elseif($pw == 'unionpay_cancel'){
+            return false;
+        }
+        return true;
+    }
+
 
 
     private function error()
