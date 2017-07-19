@@ -10,6 +10,15 @@ class StatisticsAction extends CommonAction
 {
     const HIDE_DEP = 31;
 
+    public $sourceType = array(
+        1 => '公会',
+        2 => '买量',
+        3 => '平台',
+        4 => 'CPS',
+        5 => '应用商店',
+        6 => '其它'
+    );
+
     public function __construct()
     {
         parent::__construct();
@@ -73,7 +82,7 @@ class StatisticsAction extends CommonAction
         $dailCount = $dailyaccountModel->alias('a')
             ->join('left join ' . C('DB_PREFIX') . 'tg_user as b on a.userid=b.userid')
             ->where($where)
-            ->field('a.userid,a.channelid,sum(a.dailyjournal) as sum_dailyjournal,b.realname,sum(a.newpeople) as sum_newpeople,sum(a.dailyincome) as sum_dailyincome,b.channelbusiness')
+            ->field('a.userid,a.channelid,sum(a.dailyjournal) as sum_dailyjournal,b.realname,sum(a.newpeople) as sum_newpeople,sum(a.dailyincome) as sum_dailyincome,b.channelbusiness,b.sourcetype')
             ->group('a.userid')
             ->select();
 
@@ -152,7 +161,7 @@ class StatisticsAction extends CommonAction
             $value['rate_amount'] = ($value['sum_amount'] * 0.025);//通道费
             $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje'] + $itemVoucher[$value['userid']]['sum_amount']);
             $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]['sum_amount']) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
-
+            $value['sourcename'] = isset($this->sourceType[$value['sourcetype']]) ? $this->sourceType[$value['sourcetype']] : '';
             if($value['sum_amount'] <= 0 && $value['sum_newpeople'] <= 0){
                 unset($dailCount[$key]);
             }
@@ -185,6 +194,7 @@ class StatisticsAction extends CommonAction
         $title['timeZone'] = '日期';
         $title['channelbusiness'] = '部门';
         $title['realname'] = '客户名称';
+        $title['sourcename'] = '客户类型';
         $title['sum_newpeople'] = '注册数';
         $check && $title['sum_cpamount'] = 'CP结算';
         $title['sum_voucherje'] = '优惠券';

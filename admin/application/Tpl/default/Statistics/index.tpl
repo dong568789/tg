@@ -66,6 +66,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th data-column-id="timeZone" data-sortable=false>日期</th>
                                             <th data-column-id="channelbusiness">部门</th>
                                             <th data-column-id="realname">客户名称</th>
+                                            <th data-column-id="sourcename">客户类型</th>
                                             <th data-column-id="sum_newpeople" ddata-type="numeric">新增数</th>
                                             <if condition="$hideDep">
                                                 <th data-column-id="sum_cpamount" data-type="numeric">CP结算</th>
