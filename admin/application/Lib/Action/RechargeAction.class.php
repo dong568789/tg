@@ -145,7 +145,6 @@ class RechargeAction extends CommonAction {
             ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
             ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
             ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
-            ->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT")
             ->where($condition)
             ->field('count(*) as count,sum(amount) as allmoney')
             ->find();
@@ -155,9 +154,7 @@ class RechargeAction extends CommonAction {
         $cpsPay->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT");
         $cpsPay->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT");
         $cpsPay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
-        $cpsPay->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT");
-        $cpsPay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
-        .channelname,G.gamename,P.payname');
+        $cpsPay->field('D.orderid,D.regagent,D.agent,D.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname');
         $cpsPay->where($condition);
         $cpsPay->order($order);
 
