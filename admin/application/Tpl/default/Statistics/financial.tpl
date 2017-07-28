@@ -6,7 +6,9 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
 ?>
-
+<style>
+    #data-table-basic tr th{text-align:center;font-weight:bold;}
+</style>
 <include file="Inc:head" />
 <body>
 <include file="Inc:logged-header" />
@@ -16,7 +18,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
     <?php
     //功能页面用$page_nav
     $page_nav["财务管理"]["active"] = true;
-    $page_nav["财务管理"]["sub"]["渠道流水汇总"]["active"] = true;
+    $page_nav["财务管理"]["sub"]["财务统计"]["active"] = true;
     ?>
     <include file="Inc:sidemenu" />
 
@@ -24,7 +26,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         <div class="container">
             <!--内容-->
             <div class="block-header">
-                <h2>渠道流水汇总</h2>
+                <h2>财务统计</h2>
             </div>
 
             <div class="row">
@@ -35,17 +37,6 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                         <div class="card-body ">
                             <div  class="p-20">
                                 <div id="data-table-basic-header" class="bootgrid-header container-fluid">
-                                    <div class="search form-group col-sm-9 m-0 p-l-0">
-                                        <div class="input-group">
-                                            <span class="zmdi icon input-group-addon glyphicon-search"></span>
-                                            <input type="text" class="form-control search-content" id="account" placeholder="输入账号搜索">
-                                        </div>
-                                    </div>
-                                    <div class="actions btn-group">
-                                        <div class="dropdown btn-group">
-                                            <a class="btn btn-default" href="javascript:void(0);" id="viewaccount">搜索</a>
-                                        </div>
-                                    </div>
                                     <div class="daterange form-group">
                                         <div class="input-group">
                                             <span class="zmdi input-group-addon zmdi-calendar"></span>
@@ -53,40 +44,51 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <a id="viewdaterange" class="input-group-addon btn-info">查看</a>
                                         </div>
                                     </div>
-                                    <div class="daterange form-group" style="width:90px;float: right">
+                                    <!--<div class="daterange form-group" style="width:90px;float: right">
                                         <div class="input-group">
                                             <button type="button" class="btn btn-primary pull-right waves-effect" id="export" data-result="" style="text-transform: none;">导出EXCEL</button>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="table-responsive">
-                                    <table id="data-table-basic" class="table table-hover table-bordered table-vmiddle">
+
+                                    <table id="data-table-basic" class="table table-hover table-bordered
+                                    table-vmiddle" style="text-align: center">
                                         <thead>
                                         <tr>
-                                            <th data-column-id="timeZone" data-sortable=false>日期</th>
-                                            <th data-column-id="channelbusiness">部门</th>
-                                            <th data-column-id="realname">客户名称</th>
-                                            <th data-column-id="sourcename">客户类型</th>
-                                            <th data-column-id="sum_newpeople" ddata-type="numeric">新增数</th>
-                                            <if condition="$hideDep">
-                                                <th data-column-id="sum_cpamount" data-type="numeric">CP结算</th>
-                                            </if>
-                                            <th data-column-id="sum_voucherje" data-type="numeric">优惠券</th>
-                                            <th data-column-id="sum_dailyincome" data-type="numeric">渠道收益</th>
-                                            <th data-column-id="buyer_voucher" data-type="numeric">购买代金券</th>
-                                            <if condition="$hideDep">
-                                                <th data-column-id="yx_amount" data-type="numeric">官方流水</th>
-                                            </if>
-                                            <th data-column-id="sum_amount" data-type="numeric">总充值</th>
-                                            <if condition="$hideDep">
-                                                <th data-column-id="yx_earnings" data-type="numeric">收益</th>
-                                            </if>
+                                            <th rowspan="2">日期</th>
+                                            <th colspan="3">玩家</th>
+                                            <th  colspan="3">渠道</th>
+                                            <th colspan="2">CP</th>
+                                            <th  colspan="2">现金汇总</th>
+                                            <th colspan="4" >库存</th>
+                                            <th  colspan="2">汇总</th>
+                                        </tr>
+                                        <tr>
+                                            <th data-column-id="amount" style="background-color: green;">游戏直充</th>
+                                            <th data-column-id="buy_coin" style="background-color: green;">买币直充</th>
+                                            <th data-column-id="app" style="background-color: green;">APP活动</th>
+                                            <th data-column-id="cash_over" style="background-color: yellow;">现金结算</th>
+                                            <th data-column-id="buy_voucher" style="background-color: green;">买券</th>
+                                            <th data-column-id="offline_coin">线下买币</th>
+                                            <th data-column-id="cp_into" style="background-color: yellow;">分成</th>
+                                            <th data-column-id="cps_into" style="background-color: green;">CPS分成</th>
+                                            <th data-column-id="earning" style="background-color: green;">收入</th>
+                                            <th data-column-id="expend" style="background-color: yellow;">支出</th>
+                                            <th data-column-id="balance_wait">待结算</th>
+                                            <th data-column-id="agent_coin">渠道币</th>
+                                            <th data-column-id="game_coin">玩家币</th>
+                                            <th data-column-id="voucher">代金券总额</th>
+                                            <th data-column-id="expend_qz">潜在支出</th>
+                                            <th data-column-id="earning_qz" style="background-color: green;">潜在收入</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="J_content">
 
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="text-center holder" id="pages">
                                 </div>
                             </div>
                         </div>
@@ -103,7 +105,8 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
 <script src="__ROOT__/plus/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="__ROOT__/plus/vendors/bower_components/daterangepicker/daterangepicker.js"></script>
-<script src="__ROOT__/plus/vendors/bootgrid/jquery.bootgrid.updated.js"></script>
+<script src="__ROOT__/plus/vendors/bower_components/jpages/js/jPages.js"></script>
+<script src="__ROOT__/plus/js/clipboard.min.js"></script>
 
 <script type="text/javascript">
     function notify(message, type){
@@ -132,29 +135,12 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
     $(document).ready(function(){
         loadData('','');
-        $("#data-table-basic").bootgrid({
-            css: {
-                icon: 'zmdi',
-                iconColumns: 'zmdi-menu',
-                iconDown: 'zmdi-caret-down-circle',
-                iconRefresh: 'zmdi-refresh',
-                iconUp: 'zmdi-caret-up-circle'
-            },
-            formatters: {
 
-            },
-            templates: {
-                header: ""
-            }
-        });
 
         $('#viewdaterange').click(function() {
             loadData();
         });
 
-        $('#viewaccount').click(function(){
-            loadData();
-        });
 
         $('#daterange').daterangepicker({
             format: 'YYYY-MM-DD',
@@ -216,7 +202,6 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
     function loadData()
     {
-        var account = $('#account').val();
         var date = $('#daterange').val();
         var start,end;
         if (date) {
@@ -228,20 +213,50 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         $('#data-table-basic').find('tbody').html('<tr><td colspan="8" class="loading" style="padding: 20px 0px 1650px;">加载中...</td></tr>');
         $.ajax({
             type : 'POST',
-            url : "index.php?m=Statistics&a=ajaxData",
-            data : {startdate : start, enddate : end, account : account},
+            url : "index.php?m=Financial&a=ajaxData",
+            data : {startdate : start, enddate : end},
             cache : false,
             dataType : 'json',
             success : function (data) {
-               // console.log(data);
-                if (data.status == "1") {
-                    $("#data-table-basic").bootgrid("clear");
-                    $("#data-table-basic").bootgrid("append", data.data);
+               console.log(data);
+                var html = '';
+                if(data.total > 0){
+                    for(var i=0;i<data.rows.length;i++){
+                        var d = data.rows[i];
+                        console.log(d);
+                        html += "<tr>"
+                                + "<td>" + d.time + "</td>"
+                                + "<td>" + d.amount + "</td>"
+                                + "<td>" + d.buy_coin + "</td>"
+                                + "<td>" + d.app + "</td>"
+                                + "<td>" + d.cash_over + "</td>"
+                                + "<td>" + d.buy_voucher + "</td>"
+                                + "<td>" + d.offline_coin + "</td>"
+                                + "<td>" + d.cp_into + "</td>"
+                                + "<td>" + d.cps_into + "</td>"
+                                + "<td>" + d.earning + "</td>"
+                                + "<td>" + d.expend + "</td>"
+                                + "<td>" + d.balance_wait + "</td>"
+                                + "<td>" + d.agent_coin + "</td>"
+                                + "<td>" + d.game_coin + "</td>"
+                                + "<td>" + d.voucher + "</td>"
+                                + "<td>" + d.expend_qz + "</td>"
+                                + "<td>" + d.earning_qz + "</td>"
+                                +"</tr>"
+                    }
+                    $("#data-table-basic > tbody").html(html);
+
+                    $("#pages").jPages({
+                        containerID    : "J_content",
+                        scrollBrowse   : false,
+                        perPage: 20
+                    });
                     notify('数据获取成功', 'success');
-                } else {
-                    $("#data-table-basic").bootgrid("clear");
-                    notify('数据获取失败，没有符合条件的数据', 'danger');
+                }else{
+                    $("#data-table-basic > tbody").html(html);
+                    notify('系统错误！', 'danger');
                 }
+
                 return false;
             },
             error : function (xhr) {
