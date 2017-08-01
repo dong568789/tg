@@ -28,7 +28,38 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             <div class="block-header">
                 <h2>财务统计</h2>
             </div>
+            <div class="clearfix modal-preview-demo">
+                <div class="modal" id="editOffline_coin" style="display:none;"> <!-- Inline style just for preview -->
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title f-700 p-b-5 text-center">现金结算</h4>
+                            </div>
 
+                            <fieldset class="col-sm-10">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label ">金额</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control">
+                                            <input type="text" id="offline_coin" class="form-control">
+                                            <input type="hidden" id="financialid" value="">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <a href="javascript:void(0);" role="button" onclick="subFinancial()" class="btn btn-success btn-block btn-lg">提交</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" style="position: absolute;top:0px;right: 0px;" data-dismiss="modal" id="downloadurl-modalclose">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card p-b-25">
@@ -44,11 +75,11 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <a id="viewdaterange" class="input-group-addon btn-info">查看</a>
                                         </div>
                                     </div>
-                                    <!--<div class="daterange form-group" style="width:90px;float: right">
+                                    <div class="daterange form-group" style="width:90px;float: right">
                                         <div class="input-group">
                                             <button type="button" class="btn btn-primary pull-right waves-effect" id="export" data-result="" style="text-transform: none;">导出EXCEL</button>
                                         </div>
-                                    </div>-->
+                                    </div>
                                 </div>
                                 <div class="table-responsive">
 
@@ -59,28 +90,25 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th rowspan="2">日期</th>
                                             <th colspan="3">玩家</th>
                                             <th  colspan="3">渠道</th>
-                                            <th colspan="2">CP</th>
-                                            <th  colspan="2">现金汇总</th>
-                                            <th colspan="4" >库存</th>
-                                            <th  colspan="2">汇总</th>
+                                            <th>CP</th>
+                                            <th colspan="3" >库存</th>
+                                            <th  colspan="4">汇总</th>
                                         </tr>
                                         <tr>
                                             <th data-column-id="amount" style="background-color: green;">游戏直充</th>
                                             <th data-column-id="buy_coin" style="background-color: green;">买币直充</th>
                                             <th data-column-id="app" style="background-color: green;">APP活动</th>
-                                            <th data-column-id="cash_over" style="background-color: yellow;">现金结算</th>
+                                            <th data-column-id="cash_over" style="background-color: green;">渠道分成</th>
                                             <th data-column-id="buy_voucher" style="background-color: green;">买券</th>
-                                            <th data-column-id="offline_coin">线下买币</th>
-                                            <th data-column-id="cp_into" style="background-color: yellow;">分成</th>
-                                            <th data-column-id="cps_into" style="background-color: green;">CPS分成</th>
-                                            <th data-column-id="earning" style="background-color: green;">收入</th>
+                                            <th data-column-id="offline_coin" style="background-color: green;">线下买币</th>
+                                            <th data-column-id="cp_into" style="background-color: green;">分成</th>
+                                            <th data-column-id="agent_coin" style="background-color: green;">渠道币</th>
+                                            <th data-column-id="game_coin" style="background-color: green;">玩家币</th>
+                                            <th data-column-id="voucher" style="background-color: green;">代金券总额</th>
+                                            <th data-column-id="earning" style="background-color: yellow;">收入</th>
                                             <th data-column-id="expend" style="background-color: yellow;">支出</th>
-                                            <th data-column-id="balance_wait">待结算</th>
-                                            <th data-column-id="agent_coin">渠道币</th>
-                                            <th data-column-id="game_coin">玩家币</th>
-                                            <th data-column-id="voucher">代金券总额</th>
-                                            <th data-column-id="expend_qz">潜在支出</th>
-                                            <th data-column-id="earning_qz" style="background-color: green;">潜在收入</th>
+                                            <th data-column-id="expend_qz" style="background-color: yellow;">潜在支出</th>
+                                            <th data-column-id="earning_qz" style="background-color: yellow;">预估收入</th>
                                         </tr>
                                         </thead>
                                         <tbody id="J_content">
@@ -153,19 +181,18 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         });
 
         $('#export').on('click', function(){
-            var account = $('#account').val();
             var date = $('#daterange').val();
             var start = '',end = '';
             if (date != "") {
                 start = date.substr(0, 10);
                 end = date.substr(-10, 10);
             }
-            var url = "<{:U('Statistics/export')}>";
+            var url = "<{:U('Financial/export')}>";
             loading(true);
             $.ajax({
                 type : 'POST',
                 url : url,
-                data : {startdate : start, enddate : end, account : account},
+                data : {startdate : start, enddate : end},
                 cache : false,
                 dataType : 'json',
 
@@ -186,8 +213,56 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 }
             });
         })
+
+        $("#downloadurl-modalclose").click(function() {
+            $("#editCashover").hide();
+        });
+
+        var h = $(window).height();
+        $('.modal-dialog').css("margin-top",(h-237)/2 + 'px');
+
+        $(document).on("dblclick",'.offline_coin',function(){
+            var _t = $(this).html();
+            var id = $(this).attr('lang');
+            $('#financialid').val(id);
+            $('#offline_coin').val(_t);
+            $('#editOffline_coin').show();
+        })
     });
 
+    function subFinancial()
+    {
+        if(!confirm('确认修改？')){
+            return false;
+        }
+        var id = $('#financialid').val();
+        var offlineCoin = $('#offline_coin').val();
+        if(!id){
+            notify('参数错误','danger');
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=Financial&a=editOfflineCoin",
+            data: {id:id,offline_coin:offlineCoin},
+            cache: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if (data.info == "success") {
+                    notify('修改成功!','success');
+                    window.location.reload();
+                } else {
+                    notify('操作失败', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
+        });
+    }
     //loading
     function loading(flag){
         if(flag){
@@ -223,7 +298,6 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 if(data.total > 0){
                     for(var i=0;i<data.rows.length;i++){
                         var d = data.rows[i];
-                        console.log(d);
                         html += "<tr>"
                                 + "<td>" + d.time + "</td>"
                                 + "<td>" + d.amount + "</td>"
@@ -231,15 +305,13 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                 + "<td>" + d.app + "</td>"
                                 + "<td>" + d.cash_over + "</td>"
                                 + "<td>" + d.buy_voucher + "</td>"
-                                + "<td>" + d.offline_coin + "</td>"
+                                + "<td  lang='" + d.id + "' class='offline_coin'>" + d.offline_coin + "</td>"
                                 + "<td>" + d.cp_into + "</td>"
-                                + "<td>" + d.cps_into + "</td>"
-                                + "<td>" + d.earning + "</td>"
-                                + "<td>" + d.expend + "</td>"
-                                + "<td>" + d.balance_wait + "</td>"
                                 + "<td>" + d.agent_coin + "</td>"
                                 + "<td>" + d.game_coin + "</td>"
                                 + "<td>" + d.voucher + "</td>"
+                                + "<td>" + d.earning + "</td>"
+                                + "<td>" + d.expend + "</td>"
                                 + "<td>" + d.expend_qz + "</td>"
                                 + "<td>" + d.earning_qz + "</td>"
                                 +"</tr>"
@@ -254,7 +326,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                     notify('数据获取成功', 'success');
                 }else{
                     $("#data-table-basic > tbody").html(html);
-                    notify('系统错误！', 'danger');
+                    notify('暂无数据！', 'danger');
                 }
 
                 return false;
