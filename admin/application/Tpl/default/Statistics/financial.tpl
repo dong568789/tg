@@ -225,7 +225,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
         })
 
         $("#downloadurl-modalclose").click(function() {
-            $("#editCashover").hide();
+            $("#editOffline_coin").hide();
         });
 
         var h = $(window).height();
