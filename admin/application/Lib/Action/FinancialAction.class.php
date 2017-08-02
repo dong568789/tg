@@ -77,7 +77,7 @@ class FinancialAction extends CommonAction
             $value['agent_coin'] =  intval($value['agent_coin']/10);
             $value['game_coin'] =  intval($value['game_coin']/10);
 
-            $value['expend_qz'] = $value['agent_coin']/10 + $value['game_coin']/10 +
+            $value['expend_qz'] = $value['agent_coin'] + $value['game_coin'] +
                 $value['voucher']/2;
             $value['earning_qz'] = $value['earning'] - $value['expend']-$value['expend_qz'];
 
