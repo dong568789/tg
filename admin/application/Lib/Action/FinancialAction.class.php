@@ -74,11 +74,12 @@ class FinancialAction extends CommonAction
             $value['earning'] = $value['amount'] + $value['buy_coin'] + $value['app'] + $value['buy_voucher'] +
                 $value['offline_coin'];
             $value['expend'] = $value['cash_over'] + $value['cp_into'];
-
+            $value['agent_coin'] =  intval($value['agent_coin']/10);
+            $value['game_coin'] =  intval($value['game_coin']/10);
 
             $value['expend_qz'] = $value['agent_coin']/10 + $value['game_coin']/10 +
-                $value['voucher'];
-            $value['earning_qz'] = $value['earning'] - $value['expend'];
+                $value['voucher']/2;
+            $value['earning_qz'] = $value['earning'] - $value['expend']-$value['expend_qz'];
 
             $sumEarning += $value['earning'];
             $sumExpend += $value['expend'];

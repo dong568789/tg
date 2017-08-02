@@ -74,7 +74,16 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <input type="text" class="search-field form-control" placeholder="请选择日期" name="daterange" id="daterange" readonly="true">
                                             <a id="viewdaterange" class="input-group-addon btn-info">查看</a>
                                         </div>
+
                                     </div>
+                                    <div class="daterange form-group" style="font-weight: bold;width: 880px;
+                                    line-height: 25px;border: none;">
+                                        <span style="margin-right: 10px;">收入 = 游戏直充 + 买币直充 + APP活动 + 买券 + 线下买币</span>
+                                        <span style="margin-right: 10px;">支出 = 渠道分成 + CP分成</span>
+                                        <span style="margin-right: 10px;">潜在支出 = 渠道币 + 玩家币 + 代金券总额/2</span>
+                                        <p>预估收入 = 收入 + 支出 + 潜在支出</p>
+                                    </div>
+
                                     <div class="daterange form-group" style="width:90px;float: right">
                                         <div class="input-group">
                                             <button type="button" class="btn btn-primary pull-right waves-effect" id="export" data-result="" style="text-transform: none;">导出EXCEL</button>
@@ -98,17 +107,18 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th data-column-id="amount" style="background-color: green;">游戏直充</th>
                                             <th data-column-id="buy_coin" style="background-color: green;">买币直充</th>
                                             <th data-column-id="app" style="background-color: green;">APP活动</th>
-                                            <th data-column-id="cash_over" style="background-color: green;">渠道分成</th>
+                                            <th data-column-id="cash_over" style="background-color: yellow;">渠道分成</th>
                                             <th data-column-id="buy_voucher" style="background-color: green;">买券</th>
                                             <th data-column-id="offline_coin" style="background-color: green;">线下买币</th>
-                                            <th data-column-id="cp_into" style="background-color: green;">分成</th>
-                                            <th data-column-id="agent_coin" style="background-color: green;">渠道币</th>
-                                            <th data-column-id="game_coin" style="background-color: green;">玩家币</th>
-                                            <th data-column-id="voucher" style="background-color: green;">代金券总额</th>
-                                            <th data-column-id="earning" style="background-color: yellow;">收入</th>
-                                            <th data-column-id="expend" style="background-color: yellow;">支出</th>
-                                            <th data-column-id="expend_qz" style="background-color: yellow;">潜在支出</th>
-                                            <th data-column-id="earning_qz" style="background-color: yellow;">预估收入</th>
+                                            <th data-column-id="cp_into" style="background-color: yellow;">分成</th>
+                                            <th data-column-id="agent_coin" style="background-color: yellow;">渠道币(RMB)</th>
+                                            <th data-column-id="game_coin" style="background-color: yellow;">玩家币(RMB)
+                                            </th>
+                                            <th data-column-id="voucher" style="background-color: yellow;">代金券总额</th>
+                                            <th data-column-id="earning" style="background-color: #dedede;">收入</th>
+                                            <th data-column-id="expend" style="background-color: #dedede;">支出</th>
+                                            <th data-column-id="expend_qz" style="background-color: #dedede;">潜在支出</th>
+                                            <th data-column-id="earning_qz" style="background-color: #dedede;">预估收入</th>
                                         </tr>
                                         </thead>
                                         <tbody id="J_content">
