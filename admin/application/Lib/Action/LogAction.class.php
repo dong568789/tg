@@ -72,4 +72,41 @@ class LogAction extends CommonAction
 
     }
 
+
+    public function source()
+    {
+        if (IS_AJAX) {
+            $current = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+            $rowCount = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
+            $startdate = isset($_POST['startdate']) ? $_POST['startdate'] : '';
+            $enddate = isset($_POST['enddate']) ? $_POST['enddate'] : '';
+
+            if(empty($startdate) || empty($enddate)){
+                $startdate = date('Y-m-d');
+                $enddate = date('Y-m-d');
+            }
+
+
+            $model = M('tg_log');
+
+            $where['type'] = "申请资源";
+            $where["createtime"]  = array(array('egt',$startdate." 00:00:00"),array('elt',$enddate." 23:59:59"));
+
+            $count = $model->where($where)->count();
+            $operate = $model->order("createtime desc")->where($where)->page($current, $rowCount)->select();
+            echo json_encode(array(
+                'current' => $current,
+                'rowCount' => $rowCount,
+                'rows' => (array)$operate,
+                'total' => $count
+            ));
+            exit;
+        }
+        $this->logincheck();
+        $this->authoritycheck(10126);
+
+        $this->menucheck();
+        $this->display();
+    }
+
 }
