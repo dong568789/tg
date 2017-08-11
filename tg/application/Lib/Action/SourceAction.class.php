@@ -151,6 +151,7 @@ class SourceAction extends CommonAction {
 			if ($sourceid) {
 				$inccondition["channelid"] = $channelid;
 				$channelmodel->where($inccondition)->setInc('gamecount');
+				$channel = $channelmodel->find($channelid);
 				$this->insertLog($_SESSION['account'], '申请资源', 'SourceAction.class.php', 'applyCgame', $time, "用户" . $_SESSION['account'] . "在“" . $channel["channelname"] . "”渠道下申请了“" . $game['gamename'] . "”游戏");
 				$this->ajaxReturn('success', $data, 1);
 				exit();
