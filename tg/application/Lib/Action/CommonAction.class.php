@@ -174,7 +174,7 @@ class CommonAction extends Action {
      * @param $time			操作的时间
      * @param $content	    操作的内容
      */
-    public function insertLog($username,$type,$class,$function,$time,$content) {
+    public function insertLog($username,$type,$class,$function,$time,$content,$sourceid='') {
         $model = M('tg_log');
         $data['username'] = $username;
         $data['type'] = $type;
@@ -182,6 +182,7 @@ class CommonAction extends Action {
         $data['function'] = $function;
         $data['createtime'] = $time;
         $data['content'] = $content;
+        $data['source_id'] = $sourceid;
         $result = $model->data($data)->add();
         return $result;
     }

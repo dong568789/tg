@@ -87,13 +87,21 @@ class LogAction extends CommonAction
             }
 
 
-            $model = M('tg_log');
 
-            $where['type'] = "申请资源";
-            $where["createtime"]  = array(array('egt',$startdate." 00:00:00"),array('elt',$enddate." 23:59:59"));
+            $where['a.type'] = "申请资源";
+            $where["a.createtime"]  = array(array('egt',$startdate." 00:00:00"),array('elt',$enddate." 23:59:59"));
 
-            $count = $model->where($where)->count();
-            $operate = $model->order("createtime desc")->where($where)->page($current, $rowCount)->select();
+            $count = M('')->table('yx_tg_log as a')->join("left join yx_tg_source as b on a.source_id=b.id")->count();
+            $operate = M('')->table('yx_tg_log as a')->join("left join yx_tg_source as b on a.source_id=b.id")
+                ->order("a.createtime desc")
+                ->where($where)
+                ->field('a.id,a.username,a.type,a.class,a.function,a.content,a.source_id,b.sourcesharerate,b.sourcechannelrate,a.createtime')
+                ->page($current, $rowCount)
+                ->select();
+            empty($operate) && $operate = array();
+            foreach($operate as &$value){
+                $value['operation'] = '<a href="javascript:void(0);" onclick="editRate('.$value['source_id'].','.$value['sourcesharerate'].','.$value['sourcechannelrate'].')">修改</a>';
+            }
             echo json_encode(array(
                 'current' => $current,
                 'rowCount' => $rowCount,
@@ -109,4 +117,36 @@ class LogAction extends CommonAction
         $this->display();
     }
 
+
+    public function editRate()
+    {
+        $sourceid = isset($_POST["sourceid"]) ? (int)$_POST["sourceid"] : '';
+        $sourcesharerate = isset($_POST["sourcesharerate"]) ? $_POST["sourcesharerate"] : 0;
+        $sourcechannelrate = isset($_POST["sourcechannelrate"]) ? $_POST["sourcechannelrate"] : 0;
+
+        if (empty($sourceid)) {
+            $this->ajaxReturn('参数错误', 'error', 0);
+        }
+
+        $modal = M('tg_source');
+
+        $condition["id"] = $sourceid;
+
+        $source = $modal->where($condition)->find();
+        $data["sourcesharerate"] = $sourcesharerate;
+        $data["sourcechannelrate"] = $sourcechannelrate;
+        $result = $modal->where($condition)->save($data);
+
+        $this->insertLog($_SESSION['adminname'], '修改分成比例', 'LogAction.class.php', 'editRate',
+            date('Y-m-d H:i:s'),$_SESSION['adminname'] . "重置【" . $source['sourcesn'] . "】分成比例,
+            原始通道费：" . $source["sourcechannelrate"] . ",修改通道费:" . $sourcesharerate.",原始分成比例：" .
+            $source["sourcesharerate"] . ",修改分成比例:" . $sourcesharerate);
+        if ($result) {
+            $this->ajaxReturn($result, 'success', 1);
+            exit();
+        } else {
+            $this->ajaxReturn('未能更新成功', 'fail', 0);
+            exit();
+        }
+    }
 }

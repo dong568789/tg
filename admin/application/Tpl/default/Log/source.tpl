@@ -25,7 +25,46 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             <div class="block-header">
                 <h2>申请资源</h2>
             </div>
+            <div class="clearfix modal-preview-demo">
+                <div class="modal" id="editRate" style="display:none;"> <!-- Inline style just for preview -->
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title f-700 p-b-5 text-center">修改分成比例</h4>
+                            </div>
 
+                            <fieldset class="col-sm-10">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label ">分成比例</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control">
+                                            <input type="text" id="sourcesharerate" class="form-control">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label ">通道费</label>
+                                    <div class="col-sm-7">
+                                        <p class="form-control">
+                                            <input type="text" id="sourcechannelrate" class="form-control">
+                                        </p>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="sourceid" value="">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <a href="javascript:void(0);" role="button" onclick="subRate()" class="btn btn-success btn-block btn-lg">提交</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" style="position: absolute;top:0px;right: 0px;" data-dismiss="modal" id="downloadurl-modalclose">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -51,7 +90,10 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                             <th data-column-id="id" data-type="numeric" data-order="desc">序号</th>
                                             <th data-column-id="username">申请用户</th>
                                             <th data-column-id="content">内容</th>
+                                            <th data-column-id="sourcesharerate">分成比例</th>
+                                            <th data-column-id="sourcechannelrate">通道费</th>
                                             <th data-column-id="createtime" data-formatter="createtime">申请时间</th>
+                                            <th data-column-id="operation">操作</th>
                                         </tr>
                                         </thead>
                                     </table>
@@ -119,7 +161,57 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             $("#data-table-basic").bootgrid('destroy');
             loadData();
         });
+
+        $("#downloadurl-modalclose").click(function() {
+            $("#editRate").hide();
+        });
+
+        var h = $(window).height();
+        $('.modal-dialog').css("margin-top",(h-237)/2 + 'px');
+
     })
+
+    function editRate(sourceid,sourcesharerate,sourcechannelrate){
+        $('#sourceid').val(sourceid);
+        $('#sourcesharerate').val(sourcesharerate);
+        $('#sourcechannelrate').val(sourcechannelrate);
+        $('#editRate').show();
+    }
+
+    function subRate()
+    {
+        if(!confirm('确认修改？')){
+            return false;
+        }
+        var sourceid = $('#sourceid').val();
+        var sourcesharerate = $('#sourcesharerate').val();
+        var sourcechannelrate = $('#sourcechannelrate').val();
+        if(!sourceid){
+            notify('参数错误','danger');
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=Log&a=editRate",
+            data: {sourceid:sourceid,sourcesharerate:sourcesharerate,sourcechannelrate:sourcechannelrate},
+            cache: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if (data.info == "success") {
+                    notify('修改成功!','success');
+                    window.location.reload();
+                } else {
+                    notify('操作失败', 'danger');
+                }
+                return false;
+            },
+            error : function (xhr) {
+                notify('系统错误！', 'danger');
+                return false;
+            }
+        });
+    }
 
     function loadData()
     {
