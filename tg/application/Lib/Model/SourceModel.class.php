@@ -391,7 +391,7 @@ class SourceModel extends CommonModel
 
     //短连接生成请求接口
     function shortenSinaUrl($long_url){
-        $apiKey='209678993';//这里是你申请的应用的API KEY，随便写个应用名就会自动分配给你
+        /*$apiKey='209678993';//这里是你申请的应用的API KEY，随便写个应用名就会自动分配给你
         $apiUrl='http://api.t.sina.com.cn/short_url/shorten.json?source='.$apiKey.'&url_long='.$long_url;
         $curlObj = curl_init();
         curl_setopt($curlObj, CURLOPT_URL, $apiUrl);
@@ -402,7 +402,8 @@ class SourceModel extends CommonModel
         $response = curl_exec($curlObj);
         curl_close($curlObj);
         $json = json_decode($response);
-        return $json[0]->url_short;
+        return $json[0]->url_short;*/
+        return '';
     }
 
     //二维码
