@@ -288,6 +288,8 @@ class UserAction extends CommonAction {
         $data['createtime'] = date('Y-m-d H:i:s',time());
         $data['createuser'] = "Admin";
         $data['projectname'] = $_POST['projectname'];
+        $data['default_sharerate'] = $_POST['default_sharerate'];
+        $data['default_channelrate'] = $_POST['default_channelrate'];
 
         $max_file_size = '1000000000'; //文件小于1GB
         $max_image_size = '5000000'; //图片小于5MB
@@ -421,6 +423,8 @@ class UserAction extends CommonAction {
 		$data['address'] = $_POST['address'];
 		$data['postnumber'] = $_POST['postnumber'];
         $data['channelbusiness'] = $_POST['channelbusiness'];
+        $data['default_sharerate'] = $_POST['default_sharerate'];
+        $data['default_channelrate'] = $_POST['default_channelrate'];
 		if ($_POST['isverified'] != "") {
 			$data['isverified'] = $_POST['isverified'];
 			if ($_POST['isverified'] == 1) {

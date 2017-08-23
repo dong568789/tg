@@ -197,6 +197,22 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 										</div>
 									</div>
 									<div class="form-group m-t-25">
+										<label class="col-sm-3 control-label f-15">默认分成比例</label>
+										<div class="col-sm-7">
+											<div class="fg-line">
+												<input type="text" class="form-control" id="default_sharerate" name="default_sharerate" placeholder="请输入默认分成比例" value="<{$user['default_sharerate']}>">
+											</div>
+										</div>
+									</div>
+									<div class="form-group m-t-25">
+										<label class="col-sm-3 control-label f-15">默认通道费</label>
+										<div class="col-sm-7">
+											<div class="fg-line">
+												<input type="text" class="form-control" id="default_channelrate" name="default_channelrate" placeholder="请输入默认通道费" value="<{$user['default_channelrate']}>">
+											</div>
+										</div>
+									</div>
+									<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">联系地址</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
