@@ -91,7 +91,7 @@ class LogAction extends CommonAction
             $where['a.type'] = "申请资源";
             $where["a.createtime"]  = array(array('egt',$startdate." 00:00:00"),array('elt',$enddate." 23:59:59"));
 
-            $count = M('')->table('yx_tg_log as a')->join("left join yx_tg_source as b on a.source_id=b.id")->count();
+            $count = M('')->table('yx_tg_log as a')->join("left join yx_tg_source as b on a.source_id=b.id") ->where($where)->count();
             $operate = M('')->table('yx_tg_log as a')->join("left join yx_tg_source as b on a.source_id=b.id")
                 ->order("a.createtime desc")
                 ->where($where)
@@ -100,7 +100,8 @@ class LogAction extends CommonAction
                 ->select();
             empty($operate) && $operate = array();
             foreach($operate as &$value){
-                $value['operation'] = '<a href="javascript:void(0);" onclick="editRate('.$value['source_id'].','.$value['sourcesharerate'].','.$value['sourcechannelrate'].')">修改</a>';
+                $value['operation'] = '<a href="javascript:void(0);" onclick="editRate('.$value['source_id'].','
+                    .$value['sourcesharerate'].','.$value['sourcechannelrate'].',this)">修改</a>';
             }
             echo json_encode(array(
                 'current' => $current,

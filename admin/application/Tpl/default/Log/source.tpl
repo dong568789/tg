@@ -171,18 +171,17 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 
     })
 
-    function editRate(sourceid,sourcesharerate,sourcechannelrate){
+    var editObj;
+    function editRate(sourceid,sourcesharerate,sourcechannelrate,o){
         $('#sourceid').val(sourceid);
         $('#sourcesharerate').val(sourcesharerate);
         $('#sourcechannelrate').val(sourcechannelrate);
         $('#editRate').show();
+        editObj = $(o);
     }
 
     function subRate()
     {
-        if(!confirm('确认修改？')){
-            return false;
-        }
         var sourceid = $('#sourceid').val();
         var sourcesharerate = $('#sourcesharerate').val();
         var sourcechannelrate = $('#sourcechannelrate').val();
@@ -199,8 +198,11 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             success: function (data) {
                 console.log(data);
                 if (data.info == "success") {
+                    editObj.parents('tr').find('td:eq(3)').html(sourcesharerate);
+                    editObj.parents('tr').find('td:eq(4)').html(sourcechannelrate);
+                    $("#editRate").hide();
+
                     notify('修改成功!','success');
-                    window.location.reload();
                 } else {
                     notify('操作失败', 'danger');
                 }
@@ -221,6 +223,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             startdate = date.substr(0, 10);
             enddate = date.substr(-10, 10);
         }
+
         $("#data-table-basic").bootgrid({
             ajax: true,
             post: function () {
