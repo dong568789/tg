@@ -78,7 +78,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                     </div>
                                     <div class="daterange form-group" style="font-weight: bold;width: 880px;
                                     line-height: 25px;border: none;">
-                                        <span style="margin-right: 10px;">收入 = 游戏直充 + 买币直充 + APP活动 + 买券 + 线下买币</span>
+                                        <span style="margin-right: 10px;">收入 = 游戏直充 + 买币直充 + APP活动 + 买券 + 线下买币 + 游侠币结算</span>
                                         <span style="margin-right: 10px;">支出 = 渠道分成 + CP分成</span>
                                         <span style="margin-right: 10px;">潜在支出 = 渠道币 + 玩家币 + 代金券总额/2</span>
                                         <p>预估收入 = 收入 + 支出 + 潜在支出</p>
@@ -98,22 +98,22 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                         <tr>
                                             <th rowspan="2">日期</th>
                                             <th colspan="3">玩家</th>
-                                            <th  colspan="3">渠道</th>
+                                            <th colspan="4">渠道</th>
                                             <th>CP</th>
                                             <th colspan="3" >库存</th>
-                                            <th  colspan="4">汇总</th>
+                                            <th colspan="4">汇总</th>
                                         </tr>
                                         <tr>
                                             <th data-column-id="amount" style="background-color: green;">游戏直充</th>
                                             <th data-column-id="buy_coin" style="background-color: green;">买币直充</th>
                                             <th data-column-id="app" style="background-color: green;">APP活动</th>
+                                            <th data-column-id="balance_coin" style="background-color: green;">游侠币结算</th>
                                             <th data-column-id="cash_over" style="background-color: yellow;">渠道分成</th>
                                             <th data-column-id="buy_voucher" style="background-color: green;">买券</th>
                                             <th data-column-id="offline_coin" style="background-color: green;">线下买币</th>
                                             <th data-column-id="cp_into" style="background-color: yellow;">分成</th>
                                             <th data-column-id="agent_coin" style="background-color: yellow;">渠道币(RMB)</th>
-                                            <th data-column-id="game_coin" style="background-color: yellow;">玩家币(RMB)
-                                            </th>
+                                            <th data-column-id="game_coin" style="background-color: yellow;">玩家币(RMB)</th>
                                             <th data-column-id="voucher" style="background-color: yellow;">代金券总额</th>
                                             <th data-column-id="earning" style="background-color: #dedede;">收入</th>
                                             <th data-column-id="expend" style="background-color: #dedede;">支出</th>
@@ -313,6 +313,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                 + "<td>" + d.amount + "</td>"
                                 + "<td>" + d.buy_coin + "</td>"
                                 + "<td>" + d.app + "</td>"
+                                + "<td>" + d.balance_coin + "</td>"
                                 + "<td>" + d.cash_over + "</td>"
                                 + "<td>" + d.buy_voucher + "</td>"
                                 + "<td  lang='" + d.id + "' class='offline_coin'>" + d.offline_coin + "</td>"

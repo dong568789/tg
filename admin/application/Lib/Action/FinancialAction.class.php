@@ -43,6 +43,7 @@ class FinancialAction extends CommonAction
         $title['amount'] = '游戏直充';
         $title['buy_coin'] = '买币直充';
         $title['app'] = 'APP活动';
+        $title['balance_coin'] = '游侠币结算';
         $title['cash_over'] = '渠道分成';
         $title['buy_voucher'] = '买券';
         $title['offline_coin'] = '线下买币';
@@ -72,7 +73,7 @@ class FinancialAction extends CommonAction
         $sumEarning = $sumExpend = $sumExpend_qz = $smEarning_qz = $sumAgentCoin = $sumGameCoin = $sumVoucher = 0;
         foreach ($financial as &$value) {
             $value['earning'] = $value['amount'] + $value['buy_coin'] + $value['app'] + $value['buy_voucher'] +
-                $value['offline_coin'];
+                $value['offline_coin'] + $value['balance_coin'];
             $value['expend'] = $value['cash_over'] + $value['cp_into'];
             $value['agent_coin'] = intval($value['agent_coin'] / 10);
             $value['game_coin'] = intval($value['game_coin'] / 10);
@@ -97,6 +98,7 @@ class FinancialAction extends CommonAction
             'amount' => '-',
             'buy_coin' => '-',
             'app' => '-',
+            'balance_coin' => '-',
             'cash_over' => '-',
             'buy_voucher' => '-',
             'offline_coin' => '-',
