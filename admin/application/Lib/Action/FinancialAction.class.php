@@ -70,7 +70,9 @@ class FinancialAction extends CommonAction
             ->order($sort)
             ->select();
 
-        $sumEarning = $sumExpend = $sumExpend_qz = $smEarning_qz = $sumAgentCoin = $sumGameCoin = $sumVoucher = 0;
+        $sumEarning = $sumExpend = $sumExpend_qz = $smEarning_qz = $sumAgentCoin = $sumGameCoin = $sumVoucher =
+            $sumAmount = $sumBuyCoin = $sumApp = $sumBalanceCoin = $sumCashOver = $sumBuyVoucher = $sumLineCoin =
+                $sumCpInto = 0;
         foreach ($financial as &$value) {
             $value['earning'] = $value['amount'] + $value['buy_coin'] + $value['app'] + $value['buy_voucher'] +
                 $value['offline_coin'] + $value['balance_coin'];
@@ -82,6 +84,14 @@ class FinancialAction extends CommonAction
                 $value['voucher'] / 2;
             $value['earning_qz'] = $value['earning'] - $value['expend'] - $value['expend_qz'];
 
+            $sumAmount += $value['amount'];
+            $sumBuyCoin += $value['buy_coin'];
+            $sumApp += $value['app'];
+            $sumBalanceCoin += $value['balance_coin'];
+            $sumCashOver += $value['cash_over'];
+            $sumBuyVoucher += $value['buy_voucher'];
+            $sumLineCoin += $value['offline_coin'];
+            $sumCpInto += $value['cp_into'];
             $sumEarning += $value['earning'];
             $sumExpend += $value['expend'];
             $sumExpend_qz += $value['expend_qz'];
@@ -95,14 +105,14 @@ class FinancialAction extends CommonAction
 
         array_unshift($financial, array(
             'time' => '统计',
-            'amount' => '-',
-            'buy_coin' => '-',
-            'app' => '-',
-            'balance_coin' => '-',
-            'cash_over' => '-',
-            'buy_voucher' => '-',
-            'offline_coin' => '-',
-            'cp_into' => '-',
+            'amount' => $sumAmount,
+            'buy_coin' => $sumBuyCoin,
+            'app' => $sumApp,
+            'balance_coin' => $sumBalanceCoin,
+            'cash_over' => $sumCashOver,
+            'buy_voucher' => $sumBuyVoucher,
+            'offline_coin' => $sumLineCoin,
+            'cp_into' => $sumCpInto,
             'agent_coin' => $sumAgentCoin,
             'game_coin' => $sumGameCoin,
             'voucher' => $sumVoucher,
