@@ -81,7 +81,7 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                                         <span style="margin-right: 10px;">收入 = 游戏直充 + 买币直充 + APP活动 + 买券 + 线下买币 + 游侠币结算</span>
                                         <span style="margin-right: 10px;">支出 = 渠道分成 + CP分成</span>
                                         <span style="margin-right: 10px;">潜在支出 = 渠道币 + 玩家币 + 代金券总额/2</span>
-                                        <p>预估收入 = 收入 + 支出 + 潜在支出</p>
+                                        <p>预估收入 = 收入 - 支出 - 潜在支出</p>
                                     </div>
 
                                     <div class="daterange form-group" style="width:90px;float: right">
