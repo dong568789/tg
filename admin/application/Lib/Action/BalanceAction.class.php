@@ -840,9 +840,9 @@ class BalanceAction extends CommonAction {
             $secondContent.='纳税识别号：91420100303481622A '."\n";
             $secondContent.='开户银行：招商银行股份有限公司武汉光谷科技支行'."\n";
             $secondContent.='银行账户：1279 0736 3810 506'."\n";
-            $secondContent.='开票地址：武汉市东湖开发区关山一路1号曙光软件园内恒隆大楼'."\n";
+            $secondContent.='开票地址：武汉市洪山区东湖开发区关山大道465号中国光谷创意产业基地光谷创意大厦（三号楼）第十三层 1303'."\n";
             $secondContent.='电话：027-87782538'."\n";
-            $secondContent.='联系地址：湖北省武汉市洪山区东湖开发区关山大道465号光谷创意基地C-1303'."\n";
+            $secondContent.='联系地址：武汉市洪山区东湖开发区关山大道465号中国光谷创意产业基地光谷创意大厦（三号楼）第十三层 1303'."\n";
             $secondContent.='联系人：'.$user['channelbusiness'].' '.$system['mobile']."\n";
             $secondContent.='盖章：'."\n";
             $objPHPExcel->getActiveSheet()->mergeCells('E'.$current_line.':H'.$current_line);
