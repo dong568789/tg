@@ -93,6 +93,10 @@ class SourceAction extends CommonAction {
 			if ($sourceid && $agentid) {
 				$inccondition["channelid"] = $channelid;
 				$channelmodel->where($inccondition)->setInc('gamecount');
+				//李梦君
+				if($_SESSION['userid'] == 73){
+					file_get_contents(C('admindomain')."/game/syncGameInfo?gameid=".$gameid);
+				}
                 $this->insertLog($_SESSION['account'],'申请资源', 'SourceAction.class.php', 'applyGame', $time, "用户" .$_SESSION['account']."在“".$channel["channelname"]."”渠道下申请了“".$game['gamename']."”游戏",$sourceid);
                 $this->ajaxReturn('success',$data,1);
 				exit();

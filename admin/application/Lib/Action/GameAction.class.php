@@ -1075,6 +1075,8 @@ class GameAction extends CommonAction {
 							$gameresult = $gameModel->where($gamecondition)->save($data);
 							$gameresult = $gameModel->where($gamecondition)->save($infodata);
 							if ($oldactiveresult && $activeresult && ($sourceresult || $sourceresult == 0) && ($gameresult || $gameresult == 0)) {
+								//更新游戏信息
+								A('Game','Event')->syncGameInfo($gameid);
 								$this->ajaxReturn('success','success',1);
 								exit();
 							} else {
@@ -1761,6 +1763,15 @@ class GameAction extends CommonAction {
 		}else{
 			$this->ajaxReturn('fail','强更包不存在',0);
 		}
+	}
+
+	public function syncGameInfo()
+	{
+		$gameId = isset($_GET['gameid']) ? (int)$_GET['gameid'] : 0;
+
+		if(empty($gameId)) return false;
+
+		A('Game', 'Event')->syncGameInfo($gameId);
 	}
 
 	private function checkGameForce($current_package)

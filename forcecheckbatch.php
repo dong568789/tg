@@ -38,6 +38,8 @@ foreach ($force as $k => $v) {
 			$forcepackageupdatequery = "update yx_tg_forcepackage set isforce = 1 where id = ".$v1["id"];
 			mysql_query($forcepackageupdatequery);
 		}
+
+		file_get_contents("http://tgadmin.yxgames.com/game/syncGameInfo?gameid=".$v['gameid']);
 	} else {
 		continue;
 	}
