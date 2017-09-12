@@ -168,7 +168,8 @@ class BalanceAction extends CommonAction {
 			$this->assign('bankaccount',$bankaccount);
 		}
 		foreach($sourceaccount as $k => $v){
-            $sourceaccount[$k]['sourceincome'] = str_replace(",", "", number_format($v['sourcejournal']*$v['sharerate']*(1-$v['channelrate']), 2));
+            $sourceincome = ($v['sourcejournal']*$v['sharerate']*(1-$v['channelrate']))*(1-$balance['taxrate']);
+            $sourceaccount[$k]['sourceincome'] = str_replace(",", "", number_format($sourceincome, 2));
 			$sourceaccount[$k]['sourcejournal'] = str_replace(",", "", number_format($v['sourcejournal'], 2));
 		}
 
@@ -721,6 +722,7 @@ class BalanceAction extends CommonAction {
                 } else if ($user["invoicetype"] == 0 && $user['usertype'] ==1 ) {
                     $taxrateContent = '0.03(个人用户)';
                 }
+                $taxrate = substr($taxrateContent,0,strpos($taxrateContent,'('));
 
                 $balancePeriodContent = $balance['startdate'].'到'.$balance['enddate'];
                 $totalChargeContent=$totalSourceincome=0;
@@ -750,7 +752,8 @@ class BalanceAction extends CommonAction {
 
                         $sourcesharerateContent = $value1['sourcesharerate'];
                         $objPHPExcel->getActiveSheet()->setCellValue('G'.$current_line, $sourcesharerateContent);
-                        $sourceincome = $value1['sourcejournal']*$sourcesharerateContent* (1-$sourcechannelrateContent);
+                        $sourceincome = ($value1['sourcejournal']*$sourcesharerateContent*
+                            (1-$sourcechannelrateContent)) * (1 - $taxrate);
 
                         $totalSourceincome += $sourceincome;
                         $sourceincomeContent = '￥'.number_format($sourceincome,2);
