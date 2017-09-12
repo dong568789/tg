@@ -158,7 +158,8 @@ class BalanceAction extends CommonAction {
                     ->join(C('DB_PREFIX')."tg_source S on SA.sourceid = S.id", "LEFT")
                     ->where($condition)
                     ->order("SA.createtime desc")
-                    ->field("SA.sourceid,SA.gameid,SA.sharerate,SA.channelrate,SA.sourceincome,SA.sourcejournal,SA.actualpaid,G.gameicon,G.gamename,C.channelname")
+                    ->field("SA.sourceid,SA.gameid,SA.sharerate,SA.channelrate,SA.sourceincome,SA.sourcejournal,SA
+                    .actualpaid,G.gameicon,G.gamename,C.channelname,S.sourcechannelrate as channelrate,S.sourcesharerate as sharerate")
                     ->select();
 
 		if ($balance["accounttype"] == 1) {
@@ -167,7 +168,7 @@ class BalanceAction extends CommonAction {
 			$this->assign('bankaccount',$bankaccount);
 		}
 		foreach($sourceaccount as $k => $v){
-            $sourceaccount[$k]['sourceincome'] = str_replace(",", "", number_format($v['sourceincome'], 2));
+            $sourceaccount[$k]['sourceincome'] = str_replace(",", "", number_format($v['sourcejournal']*$v['sharerate']*(1-$v['channelrate']), 2));
 			$sourceaccount[$k]['sourcejournal'] = str_replace(",", "", number_format($v['sourcejournal'], 2));
 		}
 
@@ -722,7 +723,7 @@ class BalanceAction extends CommonAction {
                 }
 
                 $balancePeriodContent = $balance['startdate'].'到'.$balance['enddate'];
-                $totalChargeContent=0;
+                $totalChargeContent=$totalSourceincome=0;
 
                 foreach ($sourceaccount as $key => $value) {
                     $objPHPExcel->getActiveSheet()->mergeCells('B'.$current_line.':B'.($current_line+$value['detailNum']-1));
@@ -749,8 +750,10 @@ class BalanceAction extends CommonAction {
 
                         $sourcesharerateContent = $value1['sourcesharerate'];
                         $objPHPExcel->getActiveSheet()->setCellValue('G'.$current_line, $sourcesharerateContent);
+                        $sourceincome = $value1['sourcejournal']*$sourcesharerateContent* (1-$sourcechannelrateContent);
 
-                        $sourceincomeContent = '￥'.number_format($value1['sourceincome'],2);
+                        $totalSourceincome += $sourceincome;
+                        $sourceincomeContent = '￥'.number_format($sourceincome,2);
                         $objPHPExcel->getActiveSheet()->setCellValue('H'.$current_line, $sourceincomeContent);
                         $objPHPExcel->getActiveSheet()->getStyle('H'.$current_line)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
@@ -776,7 +779,7 @@ class BalanceAction extends CommonAction {
             $objPHPExcel->getActiveSheet()->getStyle('D'.$current_line)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
             // $totalBalanceContent = '=SUM(H4:H'.($current_line-1).')';
-            $totalBalanceContent = '￥'.number_format($balance['actualamount'],2);
+            $totalBalanceContent = '￥'.number_format($totalSourceincome,2);
             $objPHPExcel->getActiveSheet()->setCellValue('H'.$current_line, $totalBalanceContent);
             $objPHPExcel->getActiveSheet()->getStyle('H'.$current_line)->applyFromArray($boldSmallStyle);
             $objPHPExcel->getActiveSheet()->getStyle('H'.$current_line)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
