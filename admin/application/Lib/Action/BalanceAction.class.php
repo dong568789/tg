@@ -165,6 +165,21 @@ class BalanceAction extends CommonAction {
 		if ($balance["accounttype"] == 1) {
 			$this->assign('aliaccount',$aliaccount);
 		} else if ($balance["accounttype"] == 2) {
+            //申请结算金额
+            $prefix = C('DB_PREFIX');
+            $where = 'a.balanceid='.$id.' and a.activeflag=1  and a.sourcejournal!=0 ';
+            $sql="SELECT
+                      sum(
+                      case WHEN a.sourcejournal > 0 THEN a.sourcejournal*d.sourcesharerate*(1-d.sourcechannelrate)
+                      END
+                      ) as actualamount
+
+                FROM {$prefix}tg_sourceaccount a
+                LEFT JOIN {$prefix}tg_source d ON  a.sourceid=d.id
+                WHERE {$where}";
+            $detail=M()->query($sql);
+            $balance['actualamount'] =  number_format($detail[0]['actualamount'],2);
+
 			$this->assign('bankaccount',$bankaccount);
 		}
 		foreach($sourceaccount as $k => $v){
