@@ -136,8 +136,8 @@ class LogAction extends CommonAction
         $source = $modal->where($condition)->find();
         $data["sourcesharerate"] = $sourcesharerate;
         $data["sourcechannelrate"] = $sourcechannelrate;
-        $result = $modal->where($condition)->save($data);
-
+        $sourceModel = D('Source');
+        $result = $sourceModel->updateSourceRate($source['userid'], $sourceid, $data);
         $this->insertLog($_SESSION['adminname'], '修改分成比例', 'LogAction.class.php', 'editRate',
             date('Y-m-d H:i:s'),$_SESSION['adminname'] . "重置【" . $source['sourcesn'] . "】分成比例,
             原始通道费：" . $source["sourcechannelrate"] . ",修改通道费:" . $sourcesharerate.",原始分成比例：" .

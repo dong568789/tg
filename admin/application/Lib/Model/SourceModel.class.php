@@ -432,5 +432,49 @@ class SourceModel extends CommonModel
         }
     }
 
+    //更新渠道分成比例
+    public function updateSourceRate($userid, $sourceid, $data)
+    {
+        $sourceModel = M('tg_source');
+        $where = array(
+            'id' => $sourceid
+        );
+
+        $data = array(
+            'isfixrate' => 1,
+            'sourcesharerate' => $data['sourcesharerate'],
+            'sourcechannelrate' => $data['sourcechannelrate']
+        );
+        $res = $sourceModel->where($where)->save($data);
+
+        if($res && $data['sourcesharerate'] > 0){
+
+
+            // 对于未结算的，该资源的每日统计进行重新统计
+            // 自定义税率不再修改以前的每日统计
+             $balanceModel= M('tg_balance');
+             $balance=$balanceModel->field('enddate')->where(array('userid' => $userid))->order('enddate desc')->find();
+             $enddate=$balance['enddate'];
+
+             $dailyaccountModel = M('tg_dailyaccount');
+
+             $dailWhere = array('sourceid' => $sourceid);
+             !empty($enddate) && $dailWhere['date'] = array('gt', $enddate);
+             $dailyaccount=$dailyaccountModel->where($dailWhere)->select();
+
+             foreach ($dailyaccount as $key => $value) {
+             	$dailyincome=$value['dailyjournal'] * $data["sourcesharerate"] * (1 - $data["sourcechannelrate"]);
+             	$dailyaccountData=array(
+             		'sharerate' => $data["sourcesharerate"],
+             		'channelrate' => $data["sourcechannelrate"],
+             		'dailyincome' =>$dailyincome
+             	);
+             	$dailyaccountModel->where(array('id='.$value['id']))->save($dailyaccountData);
+             }
+        }
+
+        return $res;
+    }
+
 }
 ?>

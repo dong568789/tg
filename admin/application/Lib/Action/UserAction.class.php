@@ -1036,30 +1036,11 @@ class UserAction extends CommonAction {
 		if ($_POST['sourcechannelrate'] != "") {
 			$data["sourcechannelrate"] = $_POST['sourcechannelrate'];
 		}
-        $data['isfixrate']=1;
         $time = date('Y-m-d H:i:s',time());
-		$source = $sourceModel->where($condition)->save($data);
+
+        $sourceModel = D('Source');
+        $source = $sourceModel->updateSourceRate($userid, $sourceid, $data);
 		if ($source || $source == 0) {
-
-			// 对于未结算的，该资源的每日统计进行重新统计
-			// 自定义税率不再修改以前的每日统计
-			// $balanceModel= M('tg_balance');
-			// $balance=$balanceModel->field('enddate')->where('userid='.$userid)->order('enddate desc')->find();
-			// $enddate=$balance['enddate'];
-
-			// $dailyaccountModel= M('tg_dailyaccount');
-			// $dailyaccount=$dailyaccountModel->where(' sourceid='.$sourceid.' and date>"'.$enddate.'"')->select();
-			// foreach ($dailyaccount as $key => $value) {
-			// 	$dailyincome=$value['dailyjournal'] * $data["sourcesharerate"] * (1 - $data["sourcechannelrate"]);
-
-			// 	$dailyaccountData=array(
-			// 		'sharerate' => $data["sourcesharerate"], 
-			// 		'channelrate' => $data["sourcechannelrate"], 
-			// 		'dailyincome' =>$dailyincome 
-			// 	);
-			// 	$dailyaccountModel->where('id='.$value['id'])->save($dailyaccountData);
-			// }
-
             $this->insertLog($_SESSION['adminname'],'自定义分成比例', 'UserAction.class.php', 'modifyUserRate', $time, $_SESSION['adminname']."编辑了用户“".$user['account']."”的渠道名为“".$channel['channelname']."”游戏名为“".$game['gamename']."”，分成比例由“".$oldsource['sourcesharerate']."变为".$data["sourcesharerate"] ."”，通道费由“".$oldsource['sourcechannelrate']."变为".$data['sourcechannelrate']."”");
             $this->ajaxReturn('success',"成功。",1);
 			exit();
