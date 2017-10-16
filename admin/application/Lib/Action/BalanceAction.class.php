@@ -161,33 +161,23 @@ class BalanceAction extends CommonAction {
                     ->field("SA.sourceid,SA.gameid,SA.sharerate,SA.channelrate,SA.sourceincome,SA.sourcejournal,SA
                     .actualpaid,G.gameicon,G.gamename,C.channelname,S.sourcechannelrate as channelrate,S.sourcesharerate as sharerate")
                     ->select();
+        //print_r($balance);exit;
 
 		if ($balance["accounttype"] == 1) {
 			$this->assign('aliaccount',$aliaccount);
 		} else if ($balance["accounttype"] == 2) {
-            //申请结算金额
-            $prefix = C('DB_PREFIX');
-            $where = 'a.balanceid='.$id.' and a.activeflag=1  and a.sourcejournal!=0 ';
-            $sql="SELECT
-                      sum(
-                      case WHEN a.sourcejournal > 0 THEN a.sourcejournal*d.sourcesharerate*(1-d.sourcechannelrate)
-                      END
-                      ) as actualamount
-
-                FROM {$prefix}tg_sourceaccount a
-                LEFT JOIN {$prefix}tg_source d ON  a.sourceid=d.id
-                WHERE {$where}";
-            $detail=M()->query($sql);
-            $balance['actualamount'] =  number_format($detail[0]['actualamount'],2);
 
 			$this->assign('bankaccount',$bankaccount);
 		}
+
+        $balanceModel = D('Balance');
+        //申请结算金额
+        $balance['actualamount'] =  $balanceModel->getUserBalanceMoney($id, $user);
 		foreach($sourceaccount as $k => $v){
             $sourceincome = ($v['sourcejournal']*$v['sharerate']*(1-$v['channelrate']))*(1-$balance['taxrate']);
             $sourceaccount[$k]['sourceincome'] = str_replace(",", "", number_format($sourceincome, 2));
 			$sourceaccount[$k]['sourcejournal'] = str_replace(",", "", number_format($v['sourcejournal'], 2));
 		}
-
         $this->assign('source',$sourceaccount);
         $this->assign('balance',$balance);
         $this->assign('user',$user);
@@ -769,7 +759,7 @@ class BalanceAction extends CommonAction {
                         $objPHPExcel->getActiveSheet()->setCellValue('G'.$current_line, $sourcesharerateContent);
                         $sourceincome = ($value1['sourcejournal']*$sourcesharerateContent*
                             (1-$sourcechannelrateContent)) * (1 - $taxrate);
-
+                       //error_log('----'.$sourceincome.'---',3,'./a.log');
                         $totalSourceincome += $sourceincome;
                         $sourceincomeContent = '￥'.number_format($sourceincome,2);
                         $objPHPExcel->getActiveSheet()->setCellValue('H'.$current_line, $sourceincomeContent);

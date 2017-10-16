@@ -69,6 +69,46 @@ class BalanceModel extends Model
         return $money;
     }
 
+    public function getUserBalanceMoney($balanceid, $user)
+    {
+        $taxrate = $this->getUserRate($user);
+
+        $prefix = C('DB_PREFIX');
+        $where = 'a.balanceid='.$balanceid.' and a.activeflag=1  and a.sourcejournal!=0 ';
+        $sql="SELECT
+                      sum(
+                      case WHEN a.sourcejournal > 0 THEN a.sourcejournal*d.sourcesharerate*(1-d.sourcechannelrate)*
+                      (1-{$taxrate})
+                      END
+                      ) as actualamount
+                FROM {$prefix}tg_sourceaccount a
+                LEFT JOIN {$prefix}tg_source d ON  a.sourceid=d.id
+                WHERE {$where}";
+        $detail=M()->query($sql);
+
+        return number_format($detail[0]['actualamount'], 2, '.', '');
+    }
+    /**
+     * 用户税率
+     * @param $user
+     * @return string
+     */
+    public function getUserRate($user)
+    {
+        if ($user["invoicetype"] == 1) {
+            $taxrateContent = '0.0672';
+        } else if ($user["invoicetype"] == 2) {
+            $taxrateContent = '0.0336';
+        } else if ($user["invoicetype"] == 3) {
+            $taxrateContent = '0';
+        } else if ($user["invoicetype"] == 0 && $user['usertype'] ==2 ) {
+            $taxrateContent = '0.0672';
+        } else if ($user["invoicetype"] == 0 && $user['usertype'] ==1 ) {
+            $taxrateContent = '0.03';
+        }
+
+        return $taxrateContent;
+    }
 
 }
 ?>
