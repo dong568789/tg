@@ -61,9 +61,14 @@ class FinancialAction extends CommonAction
 
     public function getData()
     {
-        $financialModel = M('static_financial');
         $condition = $this->parseWhere();
         $sort = $this->parseOrder();
+
+        if(isset($condition['sourcetype'])){
+            $financialModel = M('static_earnings');
+        }else{
+            $financialModel = M('static_financial');
+        }
 
         $financial = $financialModel
             ->where($condition)
@@ -158,6 +163,8 @@ class FinancialAction extends CommonAction
     {
         $startTime = I('request.startdate');
         $endTime = I('request.enddate');
+        $sourceType = I('request.sourcetype');
+
         $where = array();
         if (empty($startTime) || empty($endTime)) {
             $startTime = date('Y-m-01');
@@ -175,6 +182,10 @@ class FinancialAction extends CommonAction
         }
 
         $where['time'] = array(array('EGT', $startTime), array('ELT', $endTime));
+
+        if($sourceType > 0){
+            $where['sourcetype'] = $sourceType;
+        }
 
         return $where;
     }

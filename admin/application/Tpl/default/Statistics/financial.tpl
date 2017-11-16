@@ -68,6 +68,14 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                         <div class="card-body ">
                             <div  class="p-20">
                                 <div id="data-table-basic-header" class="bootgrid-header container-fluid">
+                                    <div class='daterange form-group' style="border:none;">
+                                        <select class='selectpicker form-group' id='select-sourcetype'>
+                                            <option value='0'>全部</option>
+                                            <option value='1'>公会</option>
+                                            <option value='4'>CPS</option>
+                                            <option value='3'>称动MM</option>
+                                        </select>
+                                    </div>
                                     <div class="daterange form-group">
                                         <div class="input-group">
                                             <span class="zmdi input-group-addon zmdi-calendar"></span>
@@ -237,7 +245,12 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             $('#financialid').val(id);
             $('#offline_coin').val(_t);
             $('#editOffline_coin').show();
-        })
+        });
+
+
+        $('#select-sourcetype').change(function(){
+            loadData();
+        });
     });
 
     function subFinancial()
@@ -293,13 +306,13 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             start = date.substr(0, 10);
             end = date.substr(-10, 10);
         }
-
+        var sourceType = $('#select-sourcetype').val();
 
         $('#data-table-basic').find('tbody').html('<tr><td colspan="8" class="loading" style="padding: 20px 0px 1650px;">加载中...</td></tr>');
         $.ajax({
             type : 'POST',
             url : "index.php?m=Financial&a=ajaxData",
-            data : {startdate : start, enddate : end},
+            data : {startdate : start, enddate : end, sourcetype:sourceType},
             cache : false,
             dataType : 'json',
             success : function (data) {

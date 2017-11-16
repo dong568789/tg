@@ -56,8 +56,11 @@ class GameEvent
         $where = array(
             'name' => $game['gamename']
         );
+
+        $gwebGame = $gwebGameModel->where($where)->find();
+
         $gwebPackage->add(array(
-            'gameid' => $game['gamepinyin'],
+            'gameid' => $gwebGame['id'],
             'name' => $package['packageversion'],
             'size' => $package['gamesize'],
             'vername' => $package['gameversion'],
