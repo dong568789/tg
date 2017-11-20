@@ -1649,20 +1649,8 @@ class CgameAction extends CommonAction {
             }
 
             if ($game) {
-                /*$packageModel = M('cps_package');
-                $packagedata['gameid'] = $game;
-                $packagedata['gamename'] = $data['gamename'];
-                $packagedata['gameversion'] = $data['gameversion'];
-                $packagedata['gamesize'] = $data['gamesize'];
-                $packagedata['packagename'] = $data['packagename'];
-                $packagedata['packageversion'] = $data['packageversion'];
-                $packagedata['viewname'] = $data["gamepinyin"]."_".$data["gameversion"]."_".date("md")."_".createstr(4).".apk";
-                $packagedata['activeflag'] = 1;
-                $packagedata['createtime'] = date('Y-m-d H:i:s',time());
-                $packagedata['createuser'] = "Admin";
-                $packagedata['isnowactive'] = 1;
-                $packageModel->add($packagedata);*/
-
+                //添加包、资源
+                $this->createGameSource($data, $game);
                 $this->insertLog($_SESSION['adminname'],'新增游戏', 'GameAction.class.php', 'addgame',  $data['createtime'], $_SESSION['adminname']."添加游戏名为：“".$data['gamename']."”游戏");
                 $this->ajaxReturn('success','游戏上传成功。',1);
                 exit();
@@ -1671,6 +1659,52 @@ class CgameAction extends CommonAction {
                 exit();
             }
         }
+    }
+
+    /**
+     * 新增推广游戏
+     * @param $game
+     * @param $gameid
+     * @return mixed
+     */
+    protected function createGameSource(&$game, $gameid)
+    {
+        $account = 'yxtest';
+
+        $agent = $game['gamepinyin'].'-'.$gameid.'-01';
+
+        /** 添加游戏package信息 **/
+        $packagedata['gameid'] = $gameid;
+        $packagedata['gamename'] = $game['gamename'];
+        $packagedata['gamesize'] =  0;
+        $packagedata['viewname'] = $game["gamepinyin"]."_".date("md")."_".mt_rand(1111, 9999).".apk";
+        $packagedata['activeflag'] = 1;
+        $packagedata['createtime'] = date('Y-m-d H:i:s',time());
+        $packagedata['createuser'] = $_COOKIE['cyadmin2015'];
+        $packagedata['isnowactive'] = 1;
+        $packageid = M('cps_package')->add($packagedata);
+        $this->insertLog($_COOKIE['cyadmin2015'],1, 'CGameAction.class.php', 'createGameSource', time(), "添加了pageage:{$packageid},data:".json_encode($packagedata));
+
+
+        $tgUser = M('tg_user')->where(array('account' => $account))->find();
+        $channelid = M('tg_user')->where(array('pid' => $tgUser['userid']))->getField('channelid');
+
+        //添加资源
+        $data = array(
+            'sourcesn' => $agent,
+            'userid' => $tgUser['userid'],
+            'channelid' => $channelid,
+            'gameid' => $gameid,
+            'activeflag' => 1,
+            'sourcesharerate' => 0,
+            'sourcechannelrate' => 0,
+            'isupload' => 0,
+            'createtime' => date('Y-m-d H:i:s'),
+            'createuser' => $_COOKIE['cyadmin2015']
+        );
+        $re = M('cps_source')->add($data);
+        $this->insertLog($_COOKIE['cyadmin2015'],1, 'GameAction.class.php', 'createGameSource', time(),"生成白包资源:{$re},data:".json_encode($data));
+        return $re;
     }
 
     private function checkGameForce($current_package)

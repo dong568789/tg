@@ -90,11 +90,13 @@ class RechargeAction extends CommonAction {
         $enddate    = isset($_POST["enddate"]) ? $_POST["enddate"] : '';
 
         $condition = array(); //条件
+        $sourceWhere = '';
         //根据渠道的 游戏列表
         // 渠道条件
         if ($channelid > 0) {
             $condition["S.channelid"] = $channelid;
             $condition["S.activeflag"] = 1;
+            $sourceWhere .= " AND channelid={$channelid}";
         } else {
             $condition["S.userid"] = $userid;
         }
@@ -102,6 +104,7 @@ class RechargeAction extends CommonAction {
         // 游戏条件
         if ($gameid > 0) {
             $condition["S.gameid"] = $gameid;
+            $sourceWhere .= " AND gameid={$gameid}";
         }
 
         // 时间条件
@@ -127,21 +130,29 @@ class RechargeAction extends CommonAction {
         // 并且 用户的注册渠道 也是当前用户的渠道
         if (isset($this->userpid) && $this->userpid > 0) {
             // 获取该子账号渠道的的资源
-            $source = $sourcemodel->where(" channelid='$channelid' ")->select();
-            $cpssource = $cpssourcemodel->where(" channelid='$channelid' ")->select();
+            $source = $sourcemodel->where($sourceWhere)->select();
+            $cpssource = $cpssourcemodel->where($sourceWhere)->select();
 
 
         }else{
             // 获取该用户该渠道的的资源
-            $source = $sourcemodel->where("userid = '{$userid}' ")->select();
-            $cpssource = $cpssourcemodel->where("userid = '{$userid}' ")->select();
+            $source = $sourcemodel->where("userid = '{$userid}' {$sourceWhere}")->select();
+            $cpssource = $cpssourcemodel->where("userid = '{$userid}' {$sourceWhere}")->select();
         }
-        $source = array_merge((array)$source,(array)$cpssource);
+
         $sourcelist = array();
         foreach($source as $k => $v){
             $sourcelist[] = $v["sourcesn"];
         }
-        $condition['D.regagent'] = array('in',$sourcelist);
+
+        $cpssourcelist = array();
+        foreach($cpssource as $k => $v){
+            $cpssourcelist[] = $v["sourcesn"];
+        }
+        empty($sourcelist) && $sourcelist = '99999';
+        empty($cpssourcelist) && $cpssourcelist = '99999';
+        $condition['SDK.regagent'] = array('in',$sourcelist);
+        $condition['CPS.regagent'] = array('in',$cpssourcelist);
 
         $condition['D.status'] = 1;
         $condition['_logic'] = 'AND';
@@ -168,6 +179,15 @@ class RechargeAction extends CommonAction {
     {
         $paymodel = M("all_pay");
         $cpsPayModel = M("cps_pay");
+
+        $cpsWhere = $condition;
+        $condition['D.regagent'] = $condition['SDK.regagent'];
+        unset($condition['SDK.regagent']);
+        unset($condition['CPS.regagent']);
+
+        $cpsWhere['D.regagent'] =  $cpsWhere['CPS.regagent'];
+        unset($cpsWhere['SDK.regagent']);
+        unset($cpsWhere['CPS.regagent']);
         $count = $paymodel->alias("D")
             ->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT")
             ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
@@ -184,7 +204,7 @@ class RechargeAction extends CommonAction {
             ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
             ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
             ->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT")
-            ->where($condition)
+            ->where($cpsWhere)
             ->field('count(*) as count,sum(amount) as allmoney')
             ->find();
 
@@ -196,7 +216,7 @@ class RechargeAction extends CommonAction {
         $cpsPay->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT");
         $cpsPay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
         .channelname,G.gamename,P.payname');
-        $cpsPay->where($condition);
+        $cpsPay->where($cpsWhere);
         $cpsPaySql = $cpsPay->buildSql();
         $pay = $paymodel->alias("D");
         $pay->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT");
@@ -215,7 +235,8 @@ class RechargeAction extends CommonAction {
 
         $allPay->order($order);
         $payList = $allPay->select();
-        //echo $allPay->getlastsql();exit;
+
+
         empty($payList) && $payList = array();
         foreach($payList as $k => $v){
             $payList[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);

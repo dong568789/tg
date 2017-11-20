@@ -200,8 +200,8 @@ class CpsapiAction
     {
         $config = array(
             'alipay' => 'zfb',
-            'wxpay_success' => 'wx',
-            'unionpay_success'=>'union',
+            'wxpay' => 'wx',
+            'unionpay'=>'union',
             'epay'=>'ptb',
             'tenpay'=>'tenpay'
         );
