@@ -130,8 +130,8 @@ class RechargeAction extends CommonAction {
         // 并且 用户的注册渠道 也是当前用户的渠道
         if (isset($this->userpid) && $this->userpid > 0) {
             // 获取该子账号渠道的的资源
-            $source = $sourcemodel->where($sourceWhere)->select();
-            $cpssource = $cpssourcemodel->where($sourceWhere)->select();
+            $source = $sourcemodel->where("userid = '{$this->userpid}' {$sourceWhere}")->select();
+            $cpssource = $cpssourcemodel->where("userid = '{$this->userpid}' {$sourceWhere}")->select();
 
 
         }else{
@@ -179,7 +179,6 @@ class RechargeAction extends CommonAction {
     {
         $paymodel = M("all_pay");
         $cpsPayModel = M("cps_pay");
-
         $cpsWhere = $condition;
         $condition['D.regagent'] = $condition['SDK.regagent'];
         unset($condition['SDK.regagent']);
