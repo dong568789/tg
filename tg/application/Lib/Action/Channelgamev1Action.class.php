@@ -59,7 +59,7 @@ class Channelgamev1Action extends CommonAction
                 ORDER  BY a.createtime
                 DESC LIMIT {$offset},{$pageSize}";
             $rs = M('')->query($sql);
-            $data = array();
+            $sourceData = array();
 
             // $sourceAction = new SourceAction();
             foreach ($rs as $row) {
@@ -71,7 +71,7 @@ class Channelgamev1Action extends CommonAction
                 !empty($row['screenshot3']) && $screenshot[] = $this->screenshoturl.$row['screenshot3'];
                 !empty($row['screenshot4']) && $screenshot[] = $this->screenshoturl.$row['screenshot4'];
                 !empty($row['screenshot5']) && $screenshot[] = $this->screenshoturl.$row['screenshot5'];
-                $data[] = array(
+                $sourceData[] = array(
                     'gameid' => $row['gameid'],
                     'gamename' => $row['gamename'],
                     'version' => $row['gameversion'],
@@ -86,7 +86,7 @@ class Channelgamev1Action extends CommonAction
                 );
             }
         }
-
+        return $sourceData;
     }
 
     /**
