@@ -47,7 +47,7 @@ class Channelgamev1Action extends CommonAction
         $sourceData = S('API_SOURCE_DATA_'.$channelid);
 
         if(empty($sourceData)){
-            $where = "a.channelid='{$channelid}' AND b.isonstack=0 and b.activeflag=1";
+            $where = "a.channelid='{$channelid}' AND a.activeflag=1 AND b.isonstack=0 and b.activeflag=1";
            /* $sql = "SELECT count(*) as count FROM yx_tg_source as a INNER JOIN yx_tg_game as b on a.gameid=b.gameid WHERE {$where}";
             $count = M('')->query($sql);*/
 
