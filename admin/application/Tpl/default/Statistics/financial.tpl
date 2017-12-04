@@ -205,12 +205,13 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
                 start = date.substr(0, 10);
                 end = date.substr(-10, 10);
             }
+            var sourceType = $('#select-sourcetype').val();
             var url = "<{:U('Financial/export')}>";
             loading(true);
             $.ajax({
                 type : 'POST',
                 url : url,
-                data : {startdate : start, enddate : end},
+                data : {startdate : start, enddate : end, sourcetype:sourceType},
                 cache : false,
                 dataType : 'json',
 
