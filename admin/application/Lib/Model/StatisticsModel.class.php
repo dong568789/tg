@@ -7,10 +7,10 @@ class StatisticsModel extends Model
 	public function getTodayData($userid, $channelid, $gameid){
 
 		// 32服务器
-		$SDKdbhost = '192.168.1.32';
-		$SDKdbuser = 'root';
-		$SDKdbpw   = 'hy123456';
-		$SDKdbname = 'db_youxia_new';
+		$SDKdbhost = C('DB_HOST');
+		$SDKdbuser = C('DB_USER');
+		$SDKdbpw   = C('DB_PWD');
+		$SDKdbname = C('DB_NAME');
 
 		mysql_connect($SDKdbhost,$SDKdbuser,$SDKdbpw);
 		mysql_select_db($SDKdbname);

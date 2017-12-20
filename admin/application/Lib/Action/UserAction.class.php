@@ -1,7 +1,16 @@
 ﻿<?php
 class UserAction extends CommonAction {
+
+    /**
+     * 合作者id
+     * @var bool
+     */
+    protected $cooperative;
+
     public function __construct(){
         parent::__construct();
+
+        $this->cooperative = $this->getCooperative();
     }
 	
 	//新增用户页面
@@ -14,7 +23,7 @@ class UserAction extends CommonAction {
         $map['department_id'] = array('in',array('4','21','24','25','26','38','28','29','31','32','35','36','37'));
         $userlist = $usermodel->where($map)->order("create_time desc")->select();
         $this->assign("userlist",$userlist);
-        
+        $this->assign('cooperative', $this->cooperative);
         $this->display();
     }
 	
@@ -91,6 +100,10 @@ class UserAction extends CommonAction {
             $accoutWhere['U.companyname'] = array('like','%'.$account.'%');
             $accoutWhere['_logic'] = 'OR';
             $condition['_complex'] = $accoutWhere;
+        }
+
+        if($this->cooperative > 0){
+            $condition['U.cooperative'] = $this->cooperative;
         }
 
         $users = $model->alias('U')
@@ -330,6 +343,7 @@ class UserAction extends CommonAction {
         $data['diy_webname'] = $_POST['diy_webname'];
         $data['diy_isshow_homeheader'] = $_POST['diy_isshow_homeheader'];
         $data['is_allow_cdn'] = $_POST['is_allow_cdn'];
+        $data['cooperative'] = $this->cooperative;
 
         $model = M('tg_user');
 
@@ -383,6 +397,7 @@ class UserAction extends CommonAction {
                 $userlist = $adminmodel->where($map)->order("create_time desc")->select();
                 $this->assign("userlist",$userlist);
                 $this->assign('user',$user);
+                $this->assign('cooperative', $this->cooperative);
                 $this->menucheck();
                 $this->display();
             }

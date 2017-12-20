@@ -19,303 +19,418 @@ class StatisticsAction extends CommonAction
         6 => '其它'
     );
 
+    public $cooperative;
+
     public function __construct()
     {
         parent::__construct();
+        $this->menucheck();
+        $this->cooperative = $this->getCooperative();
+
     }
 
     public function index()
     {
-        $this->menucheck();
 
-        $this->assign('hideDep', $this->checkUserDep());
+
+        $games = $this->getGames();
+        $users = $this->getUsers();
+       // print_r($users);exit;
+        $this->assign('games', $games);
+        $this->assign('users', $users);
         $this->display('index');
+    }
+
+    public function register()
+    {
+
+        $games = $this->getGames();
+        $this->assign('games', $games);
+        $this->display();
+    }
+
+    public function recharge()
+    {
+        $games = $this->getGames();
+        $this->assign('games', $games);
+        $this->display();
     }
 
 
     public function ajaxData()
     {
-        $dailCount = $this->getData();
+        $result = $this->getData();
 
-        $this->totalData($dailCount);
-
-        sort($dailCount);
-
-        if(count($dailCount) <= 0){
-            $this->ajaxReturn($dailCount,'error',0);
-            exit;
+        if(count($result["daily"] ) <= 0){
+            $this->ajaxReturn($result, 'error', 0);
         }
-        $this->ajaxReturn($dailCount,'success',1);
-        exit;
+        $this->ajaxReturn($result, 'success', 1);
     }
 
     public function getData()
     {
-        $startTime = I('request.startdate');
-        $endTime = I('request.enddate');
-        $channel = I('request.channel','','intval');
-        $realname = I('request.account','','trim');
+        $result = array();
 
-
-        if(empty($startTime) || empty($endTime)){
-            $startTime =date('Y-m-01');
-            $endTime = date('Y-m-d');
+        $verify = $this->verifyParam();
+        if($verify != 'success'){
+            return $verify;
         }
 
-        if(strtotime($endTime)  >= mktime(0,0,0)){
-            $endTime = date('Y-m-d', strtotime('-1 day', mktime(0,0,0)));
-        }
+        $where = $this->parseWhere();
 
-        $where['a.date'] = array(array('EGT', $startTime), array('ELT', $endTime));
-
-        !empty($channel) && $where['a.channelid'] = $channel;
-
-        if(!empty($realname)){
-            $where['b.channelbusiness'] = array(array('like', '%'.$realname.'%'));
-            //$complex['b.realname'] = array(array('like', '%'.$realname.'%'));
-            //$complex['_logic'] = 'OR';
-            //$where['_complex'] = $complex;
-        }
-
-        //每个渠道流水
-        $dailyaccountModel = M('TgDailyaccount');
-        $dailCount = $dailyaccountModel->alias('a')
-            ->join('left join ' . C('DB_PREFIX') . 'tg_user as b on a.userid=b.userid')
+        $daily = M('')->table(C('DB_PREFIX').'tg_dailyaccount as D')
             ->where($where)
-            ->field('a.userid,a.channelid,sum(a.dailyjournal) as sum_dailyjournal,b.realname,sum(a.newpeople) as sum_newpeople,sum(a.dailyincome) as sum_dailyincome,b.channelbusiness,b.sourcetype')
-            ->group('a.userid')
+            ->field('D.date,sum(D.newpeople) as newpeople,sum(D.dailyactive) as dailyactive,sum(D.paypeople) as paypeople,sum(D.dailyjournal) as dailyjournal, sum(D.dailyincome) as dailyincome, sum(D.voucherje) as voucherje')
+            ->group('date')
+            ->order('date desc')
             ->select();
 
-        $where = array(
-            'a.status' => 1,
-            'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59')))
-        );
-
-        //推广用户总流水
-        !empty($channel) && $where['b.channelid'] = $channel;
-        $data = M('')->table(C('DB_PREFIX') . 'all_pay as a')
-            ->join("left join " . C('DB_PREFIX') . "tg_source as b on b.sourcesn=a.agent ")
-            ->join("left join " . C('DB_PREFIX') . "tg_game as c on a.gameid=c.sdkgameid ")
-            ->where($where)
-            ->field('b.userid,
-                    sum(
-                        CASE
-                        WHEN a.voucherje > 0 THEN
-                            a.amount - a.voucherje
-                        ELSE
-                            a.amount
-                        END
-                    ) AS sum_amount,
-                    sum(a.amount) as sum_all_amount,
-                    sum(a.voucherje) AS sum_voucherje,
-                    sum(
-                        CASE
-                        WHEN a.amount > 0 THEN
-                            a.amount * ((1 - c.channelrate) * (1 - c.joinsharerate))
-                        ELSE
-                            0
-                        END
-                    ) AS cpamount')
-            ->group('b.userid')
-            ->select();
-        $where = array(
-            'a.create_time' =>  array(array('EGT',strtotime($startTime.' 00:00:00')), array('ELT', strtotime($endTime.' 23:59:59'))),
-            'a.status' => 1,
-        );
-        $voucher = M('voucher_buy')->alias('a')
-            ->join(C('DB_PREFIX')."tg_user b on a.buyer = b.account", "LEFT")
-            ->where($where)->group('a.buyer')
-            ->field('b.userid,a.buyer,sum(a.amount) as sum_amount')
-            ->select();
-        $itemVoucher = array();
-        foreach($voucher as $v){
-            $itemVoucher[$v['userid']] = $v;
-        }
-        $itemData = $arrUserid = array();
-        foreach($data as $v){
-            $itemData[$v['userid']] = $v;
-        }
-
-        foreach($dailCount as $v){
-            $arrUserid[] = $v['userid'];
-        }
-
-       // $balancemodel = D('Balance');
-        empty($dailCount) && $dailCount = array();
-        foreach($dailCount as $key => &$value){
-            $sumAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['sum_amount'] : 0;
-            $cpAmount = isset($itemData[$value['userid']]) ? $itemData[$value['userid']]['cpamount'] : 0;
-
-            $yx_amount = (int)($sumAmount - $value['sum_dailyjournal']);
-            $value['yx_amount'] = intval($yx_amount);
-            $value['sum_voucherje'] = intval($itemData[$value['userid']]['sum_voucherje']);
-            $value['sum_amount'] =  intval($itemData[$value['userid']]['sum_all_amount']);
-            $value['timeZone'] = "{$startTime}至{$endTime}";
-            //推广用户未提现金额
-            /*$balance = $balancemodel->money($value['userid']);
-            $value['unwithdraw'] = (int)$balance['unwithdraw'];*/
-            $value['sum_dailyjournal'] = intval($value['sum_dailyjournal']);
-            $value['sum_newpeople'] = (int)$value['sum_newpeople'];
-            $value['sum_dailyincome'] = (int)$value['sum_dailyincome'];
-            $value['sum_cpamount'] = (int)$cpAmount;
-            $value['rate_amount'] = ($value['sum_amount'] * 0.025);//通道费
-            $value['yx_earnings'] = (int)($value['sum_amount'] - $value['sum_cpamount'] - $value['sum_dailyincome'] - $value['sum_voucherje'] + $itemVoucher[$value['userid']]['sum_amount']);
-            $value['buyer_voucher'] = isset($itemVoucher[$value['userid']]['sum_amount']) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
-            $value['sourcename'] = isset($this->sourceType[$value['sourcetype']]) ? $this->sourceType[$value['sourcetype']] : '';
-            if($value['sum_amount'] <= 0 && $value['sum_newpeople'] <= 0){
-                unset($dailCount[$key]);
+        if(!empty($daily)){
+            foreach ($daily as $k => $v) {
+                $daily[$k]["date"] = date("Y-m-d",strtotime($v["date"]));
+                $daily[$k]["datestr"] = date("Y年m月d日",strtotime($v["date"]));
+                $daily[$k]["dailyjournal"] = round($v['dailyjournal'],2);
+                $daily[$k]["dailyincome"] = round($v['dailyincome'],2);
+                $daily[$k]["sub_dailyincome"] = round($v['sub_dailyincome'],2);
             }
-            //$value['buyer_voucher'] = isset($itemVoucher[$value['userid']]) ? (int)$itemVoucher[$value['userid']]['sum_amount'] : 0;
-            //sum(b.dailyjournal*(1-a.channelrate)*(1-a.sharerate)) as sum_cpamount
-            /*if($value['sum_dailyjournal'] <= 0 && $value['yx_amount'] <= 0){
-                unset($dailCount[$key]);
-            }*/
 
-            //合度
+            // 汇总数据
+            $dataall["datestr"] = "数据汇总";
+            $dataall["dailyactive"] = 0;
+            $dataall["newpeople"] = 0;
+            $dataall["paypeople"] = 0;
+            $dataall["dailyjournal"] = 0;
+            $dataall["dailyincome"] = 0;
+            $dataall["sub_dailyincome"] = 0;
+
+
+            foreach ($daily as $k => $v) {
+                $dataall["dailyactive"] += $v["dailyactive"];
+                $dataall["newpeople"] += $v["newpeople"];
+                $dataall["paypeople"] += $v["paypeople"];
+                $dataall["dailyjournal"] += $v["dailyjournal"];
+                $dataall["dailyincome"] += $v["dailyincome"];
+                $dataall["voucherje"] += $v["voucherje"];
+
+                $daily[$k]['action'] = '<a href="'.U('statisticstg/detail', array('date' => $v["date"],'uid'=>$this->tguserid)).'">查看详情</a>';
+            }
+
+            array_unshift($daily,$dataall);
+
+            $result["daily"] = $daily;
         }
 
-        return $dailCount;
+        return $result;
+    }
+
+    protected function verifyParam()
+    {
+        $stardate = isset($_POST['startdate']) ? trim($_POST['startdate']) : '';
+        $enddate = isset($_POST['enddate']) ? trim($_POST['enddate']) : '';
+
+        if(!empty($stardate) && !empty($enddate)){
+            $dateTime1 = new DateTime($stardate);
+            $dateTime2 = new DateTime($enddate);
+
+            $interval = $dateTime1->diff($dateTime2);
+
+          if($interval->days > 31){
+              return '搜索时间区间不能大于31天';
+          }
+
+        }
+        return 'success';
+    }
+
+    protected function parseWhere()
+    {
+        $startTime = isset($_POST['startdate']) ? trim($_POST['startdate']) : '';
+        $enddate = isset($_POST['enddate']) ? trim($_POST['enddate']) : '';
+        $gameid = isset($_POST['gameid']) ? intval($_POST['gameid']) : '';
+        $userid = isset($_POST['userid']) ? intval($_POST['userid']) : '';
+
+        empty($userid) && $userid = array_keys($this->getUserIdByDep());
+
+        if(!empty($userid)){
+            $where['userid'] = array('in', (array)$userid);
+        }
+
+        if(!empty($gameid)){
+            $where['gameid'] = $gameid;
+        }
+
+        if(!empty($startTime) && !empty($enddate)){
+            $where['date'] = array(array('egt', $startTime), array('elt', $enddate));
+        }else{
+            $where['date'] = array(array('egt', date('Y-m-01')), array('elt', date('Y-m-d')));
+        }
+
+        return $where;
+    }
+
+    // 所有筛选，搜索
+    public function ajaxRegister(){
+
+        $account    = isset($_POST["username"]) ? $_POST["username"] : '';
+        $gameid     = isset($_POST["gameid"]) ? (int)$_POST["gameid"] : 0;
+        $startdate  = isset($_POST["startdate"]) ? $_POST["startdate"] : '';
+        $enddate    = isset($_POST["enddate"]) ? $_POST["enddate"] : '';
+        $current    = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+        $rowCount   = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
+        $sort = $this->parseOrder();
+
+        if(strpos($sort, 'login_time') !== false){
+            unset($sort);
+        }
+
+        $userModel = M('all_user');
+
+        $condition = array(); //条件
+
+        //根据渠道的 游戏列表
+        // 渠道条件
+        $gameresult = array(); //游戏列表
+
+        // 游戏条件
+        if (isset($gameid) && $gameid > 0) {
+            $condition["S.gameid"] = $gameid;
+        }
+
+        // 时间条件
+        if ($startdate != "" && $enddate != "") {
+            $strat = strtotime($startdate.' 00:00:00');
+            $end = strtotime($enddate.' 23:59:59');
+            $condition["AU.reg_time"]  = array(array('egt',$strat),array('elt',$end),'and');
+        }
+
+        $tgUser = $this->getUserIdByDep();
+        if(!empty($tgUser)){
+            $condition['S.userid'] = array('in', array_keys($tgUser));
+        }
+
+        // 充值用户条件
+        if ((isset($account) && $account != "" && $account != null)) {
+            // 支持模糊搜索
+            $complex = array();
+            $complex["AU.username"] = array('like','%'.$account.'%');
+            $complex["AU.email"] = array('like','%'.$account.'%');
+            $complex["AU.mobile"] = array('like','%'.$account.'%');
+            $complex['_logic'] = 'OR';
+
+            $condition['_complex'] = $complex;
+        }
+        $condition['_logic'] = 'AND';
+        // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
+        $count = $userModel->alias("AU")
+            ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->where($condition)
+            ->count();
+
+
+        $user = $userModel->alias("AU")
+            ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,AU.agent,AU.mobile,AU.ip,C.channelname,G
+            .gamename')
+            ->where($condition)
+            ->order($sort)
+            ->page($current, $rowCount)
+            ->select();
+
+        $result = array(); //返回结果
+        $result["game"] = $gameresult;//根据渠道的 游戏列表
+        $result["userall"] = array(); //注册列表
+
+        empty($user) && $user = array();
+        foreach($user as $k => $v){
+            $user[$k]['reg_time'] = date('Y-m-d H:i',$v['reg_time']);
+        }
+
+        echo json_encode(array(
+            'current' => $current,
+            'rowCount' => $rowCount,
+            'rows' => $user,
+            'total' => $count
+        ));
+    }
+
+    // 所有筛选，搜索
+    public function ajaxRecharge(){
+        $current    = isset($_POST['current']) ? (int)$_POST['current'] : 1;
+        $rowCount   = isset($_POST['rowCount']) ? (int)$_POST['rowCount'] : 1;
+
+        // 没有搜索用户的情况，不需要关连all_user表，所以放在前面的条件判断中
+        // 根据筛选条件，读取相关信息，关联表都是显示时候的提取数据
+        $condition = $this->parseRechargeWhere();
+        $order = $this->parseRechargeOrder();
+        $data = $this->getUserRecharge($condition, $order, $current, $rowCount);
+
+
+
+        echo json_encode(array(
+            'current' => $current,
+            'rowCount' => $rowCount,
+            'rows' => $data['list'],
+            'allmoney' => $data['allmoney'],
+            'total' => $data['count']
+        ));
+
+        exit();
+    }
+
+    protected function parseRechargeWhere()
+    {
+        $account    = isset($_POST["username"]) ? $_POST["username"] : '';
+        $channelid  = isset($_POST["channelid"]) ? (int)$_POST["channelid"] : 0;
+        $gameid     = isset($_POST["gameid"]) ? (int)$_POST["gameid"] : 0;
+        $startdate  = isset($_POST["startdate"]) ? $_POST["startdate"] : '';
+        $enddate    = isset($_POST["enddate"]) ? $_POST["enddate"] : '';
+
+        $condition = array(); //条件
+        // 游戏条件
+        if ($gameid > 0) {
+            $condition["S.gameid"] = $gameid;
+        }
+
+        $tgUser = $this->getUserIdByDep();
+        if(!empty($tgUser)){
+            $condition['S.userid'] = array('in', array_keys($tgUser));
+        }
+
+        // 时间条件
+        if (!empty($startdate) && !empty($enddate)) {
+            $strat = strtotime($startdate.' 00:00:00');
+            $end = strtotime($enddate.' 23:59:59');
+            $condition["D.create_time"]  = array(array('egt',$strat),array('elt',$end),'and');
+        }
+
+        // 充值用户条件
+        if (!empty($account)) {
+            // 支持模糊搜索
+            $condition["D.username"] = array('like','%'.$account.'%');
+        }
+
+        $condition['D.status'] = 1;
+        $condition['_logic'] = 'AND';
+        return $condition;
     }
 
 
-    public function export()
+    protected function parseRechargeOrder()
     {
-        $dailCount = $this->getData();
-        if(empty($dailCount)){
-           $this->error('数据获取失败，没有符合条件的数据');
+        $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
+
+        if(empty($sort)){
+            $order = "create_time desc";
+        }else{
+            foreach($sort as $k => $v){
+                $order = "{$k} {$v}";
+            }
         }
 
-        $this->totalData($dailCount);
+        return $order;
+    }
 
-        $check = false;
-        if($this->checkUserDep()){
-            $check = true;
+    protected function getUserRecharge($condition, $order, $current='', $rowCount='')
+    {
+        $payModel = M("all_pay");
+        $count = $payModel->alias("D")
+            ->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT")
+            ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
+            ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
+            ->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT")
+            ->where($condition)
+            ->field('count(*) as count,sum(amount) as allmoney')
+            ->find();
+
+        $cpsPay = $payModel->alias("D");
+        $cpsPay->join(C('DB_PREFIX')."tg_source S on D.agent = S.sourcesn", "LEFT");
+        $cpsPay->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT");
+        $cpsPay->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT");
+        $cpsPay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
+        $cpsPay->field('D.orderid,D.regagent,D.agent,D.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname');
+        $cpsPay->where($condition);
+        $cpsPay->order($order);
+        ($current > 0 && $rowCount > 0) && $cpsPay->page($current, $rowCount);
+
+        $payList = $cpsPay->select();
+
+        //echo $cpsPay->_sql();exit;
+        empty($payList) && $payList = array();
+        foreach($payList as $k => $v){
+            $payList[$k]['create_time'] = date('Y-m-d H:i',$v['create_time']);
+            if ($v['status'] == 1) {
+                $payList[$k]['status'] = "<span style='color:#F00'>成功</span>";
+            } else if ($v['status'] == 2) {
+                $payList[$k]['status'] = "<span style='color:#F00'>失败</span>";
+            }  else if ($v['status'] == 0) {
+                $payList[$k]['status'] = "待支付";
+            }
         }
-        $title['timeZone'] = '日期';
-        $title['channelbusiness'] = '部门';
-        $title['realname'] = '客户名称';
-        $title['sourcename'] = '客户类型';
-        $title['sum_newpeople'] = '注册数';
-        $check && $title['sum_cpamount'] = 'CP结算';
-        $title['sum_voucherje'] = '优惠券';
-        $title['sum_dailyincome'] = '渠道收益';
-        $title['buyer_voucher'] = '购买代金券';
-        $check && $title['yx_amount'] = '官方流水';
-        $title['sum_amount'] = '总充值';
-        $check && $title['yx_earnings'] = '收益';
-        $this->exportFile($title, $dailCount);
+        return array('list' => $payList, 'count' => (int)$count['count'], 'allmoney' =>
+            (int)$count['allmoney']);
+    }
+
+
+    protected function parseOrder()
+    {
+        $sort = isset($_POST['sort']) ? $_POST['sort'] : '';
+
+        if(empty($sort)){
+            $order = "reg_time desc";
+        }else{
+            foreach($sort as $k => $v){
+                $order = "{$k} {$v}";
+            }
+        }
+
+        return $order;
     }
 
     /**
-     * @param $dailCount
+     * 获取合作用户
      * @return array
      */
-    protected function totalData(&$dailCount)
+    protected function getUsers()
     {
-        $sum_newpeople = $sum_cpamount = $sum_voucherje = $sum_dailyincome = $yx_amount = $sum_amount = $yx_earnings = $buyer_voucher =  0;
-        foreach($dailCount as $v3){
-            $sum_newpeople += $v3['sum_newpeople'];
-            $sum_cpamount += $v3['sum_cpamount'];
-            $sum_voucherje += $v3['sum_voucherje'];
-            $sum_dailyincome += $v3['sum_dailyincome'];
-            $yx_amount += $v3['yx_amount'];
-            $sum_amount += $v3['sum_amount'];
-            $yx_earnings += $v3['yx_earnings'];
-            $buyer_voucher += $v3['buyer_voucher'];
-        }
-        $dailCount[] = array(
-            'timeZone' => '总计：',
-            'realname' => '',
-            'sum_newpeople' => $sum_newpeople,
-            'sum_cpamount' => $sum_cpamount,
-            'sum_voucherje' => $sum_voucherje,
-            'sum_dailyincome' => $sum_dailyincome,
-            'yx_amount' => $yx_amount,
-            'sum_amount' => $sum_amount,
-            'yx_earnings' => $yx_earnings,
-            'buyer_voucher' => $buyer_voucher
-        );
+
+        $users = $this->getUserIdByDep();
+
+        return $users;
     }
 
 
-    /**
-     * 导出数据
-     * @param array $title 第一行显示的数据 array('pid'==>'父id','sex'=>'性别');
-     * @param array $data
-     * @param string $outputFileName 要保存的文件名
-     * @param string $sheetTitle 工作表名称
-     */
-    public function exportFile(array $title, array $data,$outputFileName='')
+    protected function getUserIdByDep()
     {
-        ob_clean();
-        if (empty($outputFileName)){
-            $outputFileName = date('Y-m-d').'-'.md5(time()).'.xls';
-        }
-        include_once dirname(__FILE__) . "/../../ORG/PHPExcel.php";
-        include_once dirname(__FILE__) . "/../../ORG/PHPExcel/IOFactory.php";
-        $objExcel = new PHPExcel();
-        $path = pathinfo($outputFileName);
-        if($path['extension'] == 'xlsx'){
-            Vendor("PHPExcel.PHPExcel.Writer.Excel2007");
-            $objWriter = new PHPExcel_Writer_Excel2007($objExcel);
-        }else{
-            Vendor("PHPExcel.PHPExcel.Writer.Excel2007");
-            $objWriter = new PHPExcel_Writer_Excel2007($objExcel);
-        }
+        $cooperative = $this->getCooperative();
 
-        //设置活动的工作表
-        $objExcel->setActiveSheetIndex(0);
-        //获取活动的表对象
-        $objActSheet = $objExcel->getActiveSheet();
-        //设置工作表的名称
-        $objActSheet->setTitle('sheet0');
-        //为第一行赋值
-        $i = 0;
-        foreach ($title as $key=>$value)
-        {
-            $index = 65+$i;
-            $objActSheet->setCellValue(chr($index).'1', $value);
-            $i++;
-        }
-        $arrKeys = array_keys($title);
-        $data = array_values($data);
-        foreach ($data as $key=>$value)
-        {
-            for ($m=0;$m<=$i;$m++)
-            {
-                $objActSheet->setCellValueExplicit(chr($m+65).($key+2),$value[$arrKeys[$m]],\PHPExcel_Cell_DataType::TYPE_STRING);
+        $userids = array();
+        if(!empty($cooperative)){
+            $tgUserModel = M('tg_user');
+            $users = $tgUserModel->where(array('cooperative' => $cooperative))->field('userid,account')->select();
+
+            foreach($users as $v){
+                $userids[$v['userid']] = $v;
             }
+
         }
-        $today = date('Y/m/d/');
-        $save_path = 'upfiles/exportBalance/' . $today;
-        Dir::create_dir_auto($save_path);
-        // 文件名
-        $file_name = md5(time());
-        $file_all_path = $save_path . $file_name . '.xlsx';
-
-        $objWriter->save($file_all_path);
-
-        $return['status'] = 1;
-        $return['info'] = 'success';
-        $return['url'] = $file_all_path;
-        $return['msg'] = '导出成功';
-        echo json_encode($return, true);
+        return $userids;
     }
 
-    /**
-     * is hide dep
-     * @return bool
-     */
-    protected function checkUserDep()
+    protected function getGames()
     {
-        $usermodel = M('sys_admin');
-        $user = $usermodel->where("id = '{$_SESSION['adminid']}'")->find();   //用户
-        if($user['department_id'] == self::HIDE_DEP){
-            return false;
-        }
-        return true;
-    }
+        $gameModel = M('tg_game');
 
+        $where['activeflag'] = 1;
+        $where['isonstack'] = 0;
+
+        $games = $gameModel->where($where)->field('gameid,gamename')->select();
+
+        return $games;
+    }
 }
 
 class Dir{

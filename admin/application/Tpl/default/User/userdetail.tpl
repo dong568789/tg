@@ -63,11 +63,13 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 										<div class="col-sm-7">
 											<select class="selectpicker" id="sourcetype" name="sourcetype">
 												<option value="1" <if condition="$user['sourcetype'] eq '1'"> selected </if>>公会</option>
+												<if condition="empty($cooperative)">
 												<option value="2" <if condition="$user['sourcetype'] eq '2'"> selected </if>>买量</option>
 												<option value="3" <if condition="$user['sourcetype'] eq '3'"> selected </if>>平台YXGAMES</option>
 												<option value="4" <if condition="$user['sourcetype'] eq '4'"> selected </if>>CPS</option>
 												<option value="5" <if condition="$user['sourcetype'] eq '5'"> selected </if>>应用商店</option>
 												<option value="0" <if condition="$user['sourcetype'] eq '0'"> selected </if>>其它</option>
+												</if>
 											</select>
 										</div>
 									</div>
@@ -196,7 +198,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 											</div>
 										</div>
 									</div>
-									<div class="form-group m-t-25">
+									<!--<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">默认分成比例</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
@@ -211,7 +213,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 												<input type="text" class="form-control" id="default_channelrate" name="default_channelrate" placeholder="请输入默认通道费" value="<{$user['default_channelrate']}>">
 											</div>
 										</div>
-									</div>
+									</div>-->
 									<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">联系地址</label>
 										<div class="col-sm-7">
@@ -233,17 +235,24 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
                                         <label class="col-sm-3 control-label f-15">渠道商务</label>
                                         <div class="col-sm-7">
                                             <div class="fg-line">
-                                                <select class="chosen" name="channelbusiness" id="channelbusiness" data-placeholder="请选择对应的商务人员">
-                                                    <option value="" selected="true">请选择对应的商务人员</option>
-                                                    <foreach name="userlist" item="vo" key="k">
-                                                        <option value="<{$vo['beizhu']}>" <if condition="$user['channelbusiness'] eq $vo['beizhu']"> selected </if>><{$vo['mobile']}> <{$vo['beizhu']}></option>
-                                                    </foreach>
-                                                </select>
+
+
+												<if condition="empty($cooperative)">
+													<select class="chosen" name="channelbusiness" id="channelbusiness" data-placeholder="请选择对应的商务人员">
+														<option value="" selected="true">请选择对应的商务人员</option>
+														<foreach name="userlist" item="vo" key="k">
+															<option value="<{$vo['beizhu']}>" <if condition="$user['channelbusiness'] eq $vo['beizhu']"> selected </if>><{$vo['mobile']}> <{$vo['beizhu']}></option>
+														</foreach>
+													</select>
+
+													<else />
+													<input type="text" class="form-control" id="channelbusiness" value="<{$user['channelbusiness']}>"  name="channelbusiness" placeholder="请输入商务人员">
+												</if>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group m-t-25">
+                                   <!-- <div class="form-group m-t-25">
                                         <label class="col-sm-3 control-label f-15">合作会员的自定义网站名称</label>
                                         <div class="col-sm-7">
                                             <div class="fg-line">
@@ -295,7 +304,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="form-group m-t-25">
                                         <label class="col-sm-3 control-label f-15">是否允许cdn提交</label>

@@ -71,12 +71,16 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 										<label for="account" class="col-sm-3 control-label f-15 m-t-5">渠道类型</label>
 										<div class="col-sm-7">
 											<select class="selectpicker" id="sourcetype" name="sourcetype">
+
 												<option value="1" >公会</option>
-												<option value="2" >买量</option>
-												<option value="3" >平台YXGAMES</option>
-												<option value="4" >CPS</option>
-												<option value="5" >应用商店</option>
-												<option value="0" >其它</option>
+												<if condition="empty($cooperative)">
+													<option value="2" >买量</option>
+													<option value="3" >平台YXGAMES</option>
+													<option value="4" >CPS</option>
+													<option value="5" >应用商店</option>
+													<option value="0" >其它</option>
+												</if>
+
 											</select>
 										</div>
 									</div>
@@ -144,7 +148,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 											</select>
 										</div>
 									</div>
-									<div class="form-group m-t-25">
+									<!--<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">默认分成比例</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
@@ -159,7 +163,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 												<input type="text" class="form-control" id="default_channelrate" name="default_channelrate" placeholder="请输入默认通道费" value="<{$user['default_channelrate']}>">
 											</div>
 										</div>
-									</div>
+									</div>-->
 									<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">联系人姓名</label>
 										<div class="col-sm-7">
@@ -230,65 +234,70 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
                                         <label class="col-sm-3 control-label f-15">渠道商务</label>
                                         <div class="col-sm-7">
                                             <div class="fg-line">
-                                                <select class="chosen" name="channelbusiness" id="channelbusiness" data-placeholder="请选择对应的商务人员">
-                                                    <option value="" selected="true">请选择对应的商务人员</option>
-                                                    <foreach name="userlist" item="vo" key="k">
-                                                        <option value="<{$vo['beizhu']}>"><{$vo['mobile']}> <{$vo['beizhu']}></option>
-                                                    </foreach>
-                                                </select>
+												<if condition="empty($cooperative)">
+													<select class="chosen" name="channelbusiness" id="channelbusiness" data-placeholder="请选择对应的商务人员">
+														<option value="" selected="true">请选择对应的商务人员</option>
+														<foreach name="userlist" item="vo" key="k">
+															<option value="<{$vo['beizhu']}>"><{$vo['mobile']}> <{$vo['beizhu']}></option>
+														</foreach>
+													</select>
+
+												<else />
+													<input type="text" class="form-control" id="channelbusiness" name="channelbusiness" placeholder="请输入商务人员">
+												</if>
 
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group m-t-25">
-                                        <label class="col-sm-3 control-label f-15">合作会员的自定义网站名称</label>
-                                        <div class="col-sm-7">
-                                            <div class="fg-line">
-                                                <input type="text" class="form-control" id="diy_webname" name="diy_webname" placeholder="请自定义网站名称" value="">
-                                            </div>
-                                        </div>
-                                    </div>
+									<!-- <div class="form-group m-t-25">
+                                         <label class="col-sm-3 control-label f-15">合作会员的自定义网站名称</label>
+                                         <div class="col-sm-7">
+                                             <div class="fg-line">
+                                                 <input type="text" class="form-control" id="diy_webname" name="diy_webname" placeholder="请自定义网站名称" value="">
+                                             </div>
+                                         </div>
+                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 f-15 control-label">合作会员的自定义logo(200*50)</label>
-                                        <div class="col-sm-9 p-t-5">
-                                            <div class="fg-line">
-                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                                    </div>
-                                                    <div>
-                                                        <span class="btn btn-info btn-file">
-                                                            <span class="fileinput-new">选择一张图片</span>
-                                                            <span class="fileinput-exists">更改</span>
-                                                            <input type="file" name="diy_logo" id="diy_logo" class="radioclass">
-                                                        </span>
-                                                        <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">移除</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                     <div class="form-group">
+                                         <label class="col-sm-3 f-15 control-label">合作会员的自定义logo(200*50)</label>
+                                         <div class="col-sm-9 p-t-5">
+                                             <div class="fg-line">
+                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                                                     </div>
+                                                     <div>
+                                                         <span class="btn btn-info btn-file">
+                                                             <span class="fileinput-new">选择一张图片</span>
+                                                             <span class="fileinput-exists">更改</span>
+                                                             <input type="file" name="diy_logo" id="diy_logo" class="radioclass">
+                                                         </span>
+                                                         <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">移除</a>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
 
-                                    <div class="form-group m-t-25">
-                                        <label class="col-sm-3 control-label f-15">合作会员的自定义是否显示首页头</label>
-                                        <div class="col-sm-7">
-                                            <div class="fg-line">
-                                                <label class="radio radio-inline m-r-20">
-                                                    <input class="radioclass" type="radio" name="diy_isshow_homeheader" value="1" >
-                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
-                                                    是
-                                                </label>
+                                     <div class="form-group m-t-25">
+                                         <label class="col-sm-3 control-label f-15">合作会员的自定义是否显示首页头</label>
+                                         <div class="col-sm-7">
+                                             <div class="fg-line">
+                                                 <label class="radio radio-inline m-r-20">
+                                                     <input class="radioclass" type="radio" name="diy_isshow_homeheader" value="1" >
+                                                     <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                     是
+                                                 </label>
 
-                                                <label class="radio radio-inline m-r-20">
-                                                    <input class="radioclass" type="radio" name="diy_isshow_homeheader" value="-1">
-                                                    <i class="input-helper p-relative" style="left:-26px;"></i>
-                                                    否
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                                 <label class="radio radio-inline m-r-20">
+                                                     <input class="radioclass" type="radio" name="diy_isshow_homeheader" value="-1">
+                                                     <i class="input-helper p-relative" style="left:-26px;"></i>
+                                                     否
+                                                 </label>
+                                             </div>
+                                         </div>
+                                     </div>
+ -->
                                     <div class="form-group m-t-25">
                                         <label class="col-sm-3 control-label f-15">是否允许cdn提交</label>
                                         <div class="col-sm-7">

@@ -75,13 +75,30 @@ class SourceModel extends CommonModel
             ->order($ordrestr)
             ->select();
 
+        /*$cpsGamemodel = M("cps_game");
+        $cpsGames = $cpsGamemodel->alias("G")
+            ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
+            ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
+            ->field('G.*,C.categoryname,T.tagname')
+            ->where($map)
+            ->order($ordrestr)
+            ->select();*/
+
+        //$games = array_merge($games, (array)$cpsGames);
+
         $sourcecondition["userid"] = $userid;
-        $sourcecondition["channelid"] = $channelid;
-        $source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
+		$sourcecondition["channelid"] = $channelid;
+
+        //$csourceModel = M('cps_source');
+       // $cpsSql = $csourceModel->where($sourcecondition)->field('gameid')->buildSql();
+        $source = $sourcemodel->where($sourcecondition)
+            ->field('gameid')
+            ->select();
         $sourceItem = array();
         foreach($source as $value){
             $sourceItem[] = $value['gameid'];
         }
+
         foreach($games as $k1 =>$v1){
             $games[$k1]['isapply'] = 0;
             if(in_array($v1['gameid'], $sourceItem)){
@@ -105,8 +122,7 @@ class SourceModel extends CommonModel
         return $gamestr;
     }
     //搜索游戏
-    public function searchGame($content,$channelid){
-        $userid = $_SESSION['userid'];
+    public function searchGame($content,$channelid, $userid){
         $gamemodel = M("tg_game");
         $sourcemodel = M("tg_source");
         $where = '';
@@ -118,16 +134,24 @@ class SourceModel extends CommonModel
         $where.= "OR gametag like '%".$content."%'";
         $where.= "OR gamesize like '%".$content."%'";
         $where.= "OR sharetype like '%".$content."%')";
+
+        if(!empty($source_type)){
+            $where .= ' AND G.guard like "%,'.$source_type.',%"';
+        }
+
         $games = $gamemodel->alias("G")
+            ->where($where)
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
-            ->where($where)
-            ->field('G.*,C.categoryname,T.tagname')
-            ->order("G.gameauthority desc")
+            ->order("gameauthority desc")
+            ->field("G.gamecategory,G.gametag,G.gameicon,G.gamename,G.gameversion,G.publishtime,G.gameauthority,G.gamesize,G.sharerate,G.isonstack,G.gameid,C.categoryname,T.tagname")
             ->select();
+
         $sourcecondition["userid"] = $userid;
-        $sourcecondition["channelid"] = $channelid;
-        $source = $sourcemodel->where($sourcecondition)->order("id desc")->select();
+		$sourcecondition["channelid"] = $channelid;
+		$source = $sourcemodel->where($sourcecondition)
+            ->field('gameid')
+            ->select();
         foreach($games as $k1 =>$v1){
             $games[$k1]['isapply'] = 0;
             foreach($source as $k2 =>$v2){
@@ -155,9 +179,17 @@ class SourceModel extends CommonModel
             ->join(C('DB_PREFIX')."tg_gamecategory C on G.gamecategory = C.id", "LEFT")
             ->join(C('DB_PREFIX')."tg_gametag T on G.gametag = T.id", "LEFT")
             ->where($map)
-            ->field('*,S.id as sourceid')
-            ->order("G.gameauthority desc")
+            ->field('*,S.id as sourceid,S.createtime as stime')
+            ->order("S.id desc")
             ->select();
+
+        $item = array();
+        foreach($games as $key=>$value){
+            $item[$key] = $value['stime'];
+        }
+
+        array_multisort($item,SORT_DESC,$games);
+
         $sourcestr = $this->createGameStr($games,"my");
         return $sourcestr;
     }
@@ -177,14 +209,16 @@ class SourceModel extends CommonModel
             $where['_complex'] = $condition;
         }
 
-        $source = $sourcemodel
+        $games = $sourcemodel
             ->field("S.id as sourceid,G.gameicon,G.gamename,G.gameversion,C.channelname,S.sourcesn,S.sourcesharerate,S.sourcechannelrate,S.sub_share_rate,S.sub_channel_rate")
             ->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")
             ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
             ->where($where)
-            ->order("G.gameauthority desc")
+            ->order("S.id desc")
             ->select();
-        $sourcestr = $this->createGameStr($source,"my");
+
+
+        $sourcestr = $this->createGameStr($games,"my");
         return $sourcestr;
     }
 
@@ -265,15 +299,15 @@ class SourceModel extends CommonModel
                 $gamestr .= "<td class=\"text-right\">".$v["sub_share_rate"]."</td>";
                 $gamestr .= "<td class=\"text-right\">".$v["sub_channel_rate"]."</td>";
 
-                if($customRateRight == 'ok'){
+                if($customRateRight == 'ok' && $v['is_cps'] != 1){
                     $gamestr .= "<td class=\"text-center\"><a style='margin-top:3px;' id='link' href='/userrate/".$v['sourceid']."/'>修改</a></td>";
                 }
 
-                if($childRateRight == 'ok'){
+                if($childRateRight == 'ok' && $v['is_cps'] != 1){
                     $gamestr .= "<td class=\"text-center\"><a style='margin-top:3px;' id='link' href='/definerate/".$v['sourceid']."/'>修改</a></td>";
                 }
 
-                if($seeDevelopRight == 'ok') {
+                if($seeDevelopRight == 'ok' && $v['is_cps'] != 1) {
                     $gamestr .= "<td class=\"text-center\"><a style='margin-top:3px;' id='link' href='/material/" . $v['sourceid'] . "/'>查看</a></td>";
                 }
                 $gamestr .= "</tr>";
@@ -287,14 +321,24 @@ class SourceModel extends CommonModel
         $sourcemodel = M("tg_source");
         $where = array('activeflag' =>1);
         $where = array('id' =>$sourceid);
-        $games = $sourcemodel->field('sourcesn')->where($where)->find();
-        $url = $this->tgdomain."/publicdownload/".$games["sourcesn"];
+        $games = $sourcemodel->field('sourcesn,apkurl')->where($where)->find();
+
+        if(empty($games)){
+            $sourcemodel = M("cps_source");
+            $games = $sourcemodel->field('sourcesn,apkurl')->where($where)->find();
+        }
+       // print_r($games);exit;
+        if(strpos($games['apkurl'],'http') !== false){
+            $url = $games['apkurl'];
+        }else{
+            $url = $this->tgdomain."/publicdownload/".$games["sourcesn"];
+        }
         return $url;
     }
 
     //短连接生成请求接口
     function shortenSinaUrl($long_url){
-        $apiKey='209678993';//这里是你申请的应用的API KEY，随便写个应用名就会自动分配给你
+        /*$apiKey='209678993';//这里是你申请的应用的API KEY，随便写个应用名就会自动分配给你
         $apiUrl='http://api.t.sina.com.cn/short_url/shorten.json?source='.$apiKey.'&url_long='.$long_url;
         $curlObj = curl_init();
         curl_setopt($curlObj, CURLOPT_URL, $apiUrl);
@@ -305,7 +349,8 @@ class SourceModel extends CommonModel
         $response = curl_exec($curlObj);
         curl_close($curlObj);
         $json = json_decode($response);
-        return $json[0]->url_short;
+        return $json[0]->url_short;*/
+        return '';
     }
 
     //二维码

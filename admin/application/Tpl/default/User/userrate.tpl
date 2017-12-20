@@ -105,14 +105,19 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
 											<div>
 												<div class="col-sm-6" style="padding-left:0;">
 													<div class="fg-line">
-														<input type="text" class="form-control" name="sourcesharerate" id="sourcesharerate" placeholder="资源分成比例" autocomplete="off">
+														<input type="text" class="form-control"
+															   name="sourcesharerate" id="sourcesharerate"
+															   placeholder="资源分成比例" value="<{$source['sourcesharerate']}>"
+															   autocomplete="off">
 													</div>
 												</div>
 											</div>
 											<div>
 												<div class="col-sm-6" style="padding-right:0;">
 													<div class="fg-line">
-														<input type="text" class="form-control" name="sourcechannelrate" id="sourcechannelrate" placeholder="资源渠道费" autocomplete="off">
+														<input type="text" class="form-control"
+															   name="sourcechannelrate" id="sourcechannelrate" value="<{$source['sourcechannelrate']}>"
+															   placeholder="资源渠道费" autocomplete="off">
 													</div>
 												</div>
 											</div>

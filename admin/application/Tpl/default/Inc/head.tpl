@@ -16,6 +16,7 @@
 	<link href="__ROOT__/plus/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
 	<link href="__ROOT__/plus/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
 	<link href="__ROOT__/plus/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
+	<link href="__ROOT__/plus/select2/css/select2.min.css" rel="stylesheet" />
 	<!-- Main CSS -->
 	<link href="__ROOT__/plus/css/app.min.1.css" rel="stylesheet">
 	<link href="__ROOT__/plus/css/app.min.2.css" rel="stylesheet">

@@ -58,8 +58,9 @@ class StatisticstgAction extends CommonAction {
             $sourcecondition["S.activeflag"] = 1;
             $sourcecondition["G.activeflag"] = 1;
             $sourcecondition["G.isonstack"] = 0;
-            $gamelist = $sourcemodel->alias("S")->join(C('DB_PREFIX')."tg_game G on S.gameid = G.gameid", "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
-
+            $gamelist = $sourcemodel->alias("S")->field('G.gameid,G.gamename')->join(C('DB_PREFIX')."tg_game G on S.gameid = G
+            .gameid",
+                    "LEFT")->where($sourcecondition)->order("S.createtime desc")->select();
             if ($gamelist) {
                 foreach ($gamelist as $k => $v) {
                     $checkstate='';
@@ -112,7 +113,6 @@ class StatisticstgAction extends CommonAction {
                 ->field('D.*,G.gamename,C.channelname,S.sub_share_rate,S.sub_channel_rate')
                 ->order("D.createtime desc")
                 ->select();
-                // vde($model->getlastsql());
         // 获取今天数据
         if( strtotime($enddate)  >= strtotime( date('Y-m-d') )) { //如果结束日期，大于当前的日期
     		$Statistics = D("Statistics");
@@ -210,7 +210,7 @@ class StatisticstgAction extends CommonAction {
             ->order("D.date desc")
             ->group('D.date')
             ->select();
-            // vde($model->getlastsql());
+
         foreach ($daily as $key => $value) {
             $daily[$key]['sub_dailyincome'] = 0;
         }

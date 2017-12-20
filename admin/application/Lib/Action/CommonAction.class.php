@@ -124,6 +124,25 @@ class CommonAction extends Action {
     }
 
     /**
+     * 是否合作者
+     */
+    public function getCooperative()
+    {
+        $usermodel = M('sys_admin');
+
+        $where = array(
+            'id' => $_SESSION['adminid']
+        );
+        $admin = $usermodel->where($where)->field('id,department_id,status')->find();
+
+        if(in_array($admin['department_id'], array(41))){
+            return $admin['department_id'];
+        }
+
+        return false;
+    }
+
+    /**
      * HTTP请求
      * @param string $Url       地址
      * @param string $Params    请求参数

@@ -47,12 +47,8 @@ class PermissionsEvent
         if(empty($adminpermissions)){
             $departmentModel = M('sys_department');
             $menumodel = M('sys_menu');
-            $usermodel = M('sys_admin');
 
-            $where = array(
-                'id' => $_SESSION['adminid']
-            );
-            $admin = $usermodel->where($where)->field('id,department_id,status')->find();
+            $admin = $this->getUserById($_SESSION['adminid']);
 
             if(empty($admin['department_id'])){
                 return array();
@@ -84,6 +80,22 @@ class PermissionsEvent
         }
         //print_r($adminpermissions);exit;
         return $adminpermissions;
+    }
+
+    public function getUserById($userid)
+    {
+        $sysUserInfo = session('sys_user_info');
+        if(empty($sysUserInfo)){
+            $usermodel = M('sys_admin');
+
+            $where = array(
+                'id' => $userid
+            );
+            $sysUserInfo = $usermodel->where($where)->field('id,department_id,status')->find();
+            session('sys_user_info', $sysUserInfo);
+        }
+        return $sysUserInfo;
+
     }
 
     public function updateParent(&$menu, $allperm)
