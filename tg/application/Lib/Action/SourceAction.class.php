@@ -68,12 +68,9 @@ class SourceAction extends CommonAction {
 			$newgamename = $newgamename.".apk";
 			$texturename = $game["texturename"];
 			$data['sourcesn'] = $sourcesn;
-			if (!empty($user["default_sharerate"])) {
-				$data['sourcesharerate'] = $user["default_sharerate"];
-			}
-			if (!empty($user["default_channelrate"])) {
-				$data['sourcechannelrate'] = $user["default_channelrate"];
-			}
+
+			$data['sourcesharerate'] = !empty($user["default_sharerate"]) ? $user["default_sharerate"] : 0;
+			$data['sourcechannelrate'] = !empty($user["default_channelrate"]) ? $user["default_channelrate"] : 0;
 			$data['textureurl'] = $texturename;
 			$data['isupload'] = 0;
 			$data['createuser'] = $user["realname"];

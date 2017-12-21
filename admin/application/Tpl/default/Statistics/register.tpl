@@ -71,6 +71,15 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             </volist>
                                         </select>
                                     </div>
+                                    <div class="col-sm-2">
+                                        <select class="js-example-basic-multiple js-states form-control search-field"
+                                                name="userid" id="select_user">
+                                            <option value="">所有用户</option>
+                                            <volist name="users" id="vo">
+                                                <option value="<{$vo.userid}>" data-select2-id="<{$vo.userid}>"><{$vo.account}></option>
+                                            </volist>
+                                        </select>
+                                    </div>
                                     <div class="daterange form-group pull-right">
                                         <div class="input-group">
                                             <span class="zmdi input-group-addon zmdi-calendar"></span>
@@ -167,6 +176,11 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             loadData();
         });
 
+        $('#select_user').change(function() {
+            $("#data-table-basic").bootgrid('destroy');
+            loadData();
+        });
+
         <if condition="$userpid GT 0">
             getGame(<{$userchannelid}>);
         </if>
@@ -187,6 +201,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         });
 
         $("#gameselect").select2();
+        $("#select_user").select2();
     });
 
     function notify(message, type){
@@ -224,6 +239,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         var channelid = $('#channelselect').val();
         var username = $('#account').val().trim();
         var gameid = $('#gameselect').val();
+        var userid = $('#select_user').val();
 
 
         $("#data-table-basic").bootgrid({
@@ -248,7 +264,8 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                     gameid:gameid,
                     channelid:channelid,
                     startdate:startdate,
-                    enddate:enddate
+                    enddate:enddate,
+                    userid:userid
 
                 };
             },

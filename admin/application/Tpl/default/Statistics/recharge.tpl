@@ -76,13 +76,21 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                                 name="gameid" id="gameselect" style="height: 50px;">
                                             <option value="">所有游戏</option>
                                             <volist name="games" id="vo">
-                                                <option value="<{$vo.gameid}>" data-select2-id="<{$vo.gameid}>"><{$vo
+                                                <option value="<{$vo.sdkgameid}>" data-select2-id="<{$vo.sdkgameid}>"><{$vo
                                                     .gamename}></option>
                                             </volist>
                                         </select>
                                             <div class="clear"></div>
                                     </div>
-
+                                    <div class="col-sm-2">
+                                        <select class="js-example-basic-multiple js-states form-control search-field"
+                                                name="userid" id="select_user">
+                                            <option value="">所有用户</option>
+                                            <volist name="users" id="vo">
+                                                <option value="<{$vo.userid}>" data-select2-id="<{$vo.userid}>"><{$vo.account}></option>
+                                            </volist>
+                                        </select>
+                                    </div>
                                     <div class="daterange form-group pull-right">
                                         <div class="input-group">
                                             <span class="zmdi input-group-addon zmdi-calendar"></span>
@@ -158,6 +166,10 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
             loadData();
         });
 
+        $('#select_user').change(function() {
+            $("#grid-keep-selection").bootgrid('destroy');
+            loadData();
+        });
 
         //下拉框区分大小写
         $(".btn").css("text-transform","none");
@@ -175,6 +187,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         });
 
         $("#gameselect").select2();
+        $("#select_user").select2();
 
         // 导出excel表
         $('#export').click(function() {
@@ -198,10 +211,11 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                 var channelid = $('#channelselect').val();
                 var username = $('#account').val().trim();
                 var gameid = $('#gameselect').val();
+                var userid = $('#select_user').val();
                 $.ajax({
                     type : 'POST',
-                    url : "index.php?m=recharge&a=export",
-                    data : {username:username,gameid:gameid,channelid:channelid,startdate:startdate,enddate:enddate},
+                    url : "<{:U('statistics/export')}>",
+                    data : {username:username,gameid:gameid,startdate:startdate,enddate:enddate,userid:userid},
                     cache : false,
                     dataType : 'json',
                     success : function (data) {
@@ -257,6 +271,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
         var channelid = $('#channelselect').val();
         var username = $('#account').val().trim();
         var gameid = $('#gameselect').val();
+        var userid = $('#select_user').val();
 
 
         $("#grid-keep-selection").bootgrid({
@@ -279,9 +294,9 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                 return {
                     username:username,
                     gameid:gameid,
-                    channelid:channelid,
                     startdate:startdate,
-                    enddate:enddate
+                    enddate:enddate,
+                    userid:userid
 
                 };
             },

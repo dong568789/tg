@@ -148,7 +148,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 											</select>
 										</div>
 									</div>
-									<!--<div class="form-group m-t-25">
+									<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">默认分成比例</label>
 										<div class="col-sm-7">
 											<div class="fg-line">
@@ -163,7 +163,7 @@ $page_css[] = "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/
 												<input type="text" class="form-control" id="default_channelrate" name="default_channelrate" placeholder="请输入默认通道费" value="<{$user['default_channelrate']}>">
 											</div>
 										</div>
-									</div>-->
+									</div>
 									<div class="form-group m-t-25">
 										<label class="col-sm-3 control-label f-15">联系人姓名</label>
 										<div class="col-sm-7">

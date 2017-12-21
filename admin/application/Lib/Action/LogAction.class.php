@@ -86,13 +86,18 @@ class LogAction extends CommonAction
                 $enddate = date('Y-m-d');
             }
 
-
-
             $where['a.type'] = "申请资源";
             $where["a.createtime"]  = array(array('egt',$startdate." 00:00:00"),array('elt',$enddate." 23:59:59"));
 
-            $count = M('')->table('yx_tg_log as a')->join("left join yx_tg_source as b on a.source_id=b.id") ->where($where)->count();
-            $operate = M('')->table('yx_tg_log as a')->join("left join yx_tg_source as b on a.source_id=b.id")
+            $users = $this->getUserIdByDep();
+            if(!empty($users)){
+               $where['b.userid'] = array('in', array_keys($users));
+            }
+
+            $count = M('')->table('yx_tg_log as a')
+                ->join("left join yx_tg_source as b on a.source_id=b.id") ->where($where)->count();
+            $operate = M('')->table('yx_tg_log as a')
+                ->join("left join yx_tg_source as b on a.source_id=b.id")
                 ->order("a.createtime desc")
                 ->where($where)
                 ->field('a.id,a.username,a.type,a.class,a.function,a.content,a.source_id,b.sourcesharerate,b.sourcechannelrate,a.createtime')

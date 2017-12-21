@@ -142,6 +142,23 @@ class CommonAction extends Action {
         return false;
     }
 
+    protected function getUserIdByDep()
+    {
+        $cooperative = $this->getCooperative();
+
+        $userids = array();
+        if(!empty($cooperative)){
+            $tgUserModel = M('tg_user');
+            $users = $tgUserModel->where(array('cooperative' => $cooperative))->field('userid,account')->select();
+
+            foreach($users as $v){
+                $userids[$v['userid']] = $v;
+            }
+
+        }
+        return $userids;
+    }
+
     /**
      * HTTP请求
      * @param string $Url       地址

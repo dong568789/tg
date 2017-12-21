@@ -63,7 +63,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                 </div>
 
                                 <div class="actionBar m-t-20">
-                                    <div class="col-sm-4 p-0">
+                                    <div class="col-sm-2 p-0">
                                             <select class="btn btn-default dropdown-menu f-14" id="gameselect">
                                                 <option value="0">选择游戏</option>
                                                 <volist name="gameall" id="vo">
@@ -72,7 +72,15 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             </select>
                                             <div class="clear"></div>
                                     </div>
-
+                                    <div class="col-sm-2">
+                                        <select class="js-example-basic-multiple js-states form-control search-field"
+                                                name="userid" id="select_user">
+                                            <option value="">所有用户</option>
+                                            <volist name="users" id="vo">
+                                                <option value="<{$vo.userid}>" data-select2-id="<{$vo.userid}>"><{$vo.account}></option>
+                                            </volist>
+                                        </select>
+                                    </div>
                                     <div class="daterange form-group pull-right">
                                         <div class="input-group">
                                             <span class="zmdi input-group-addon zmdi-calendar"></span>

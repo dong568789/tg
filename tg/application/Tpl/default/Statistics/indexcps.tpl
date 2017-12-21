@@ -84,9 +84,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 											
 												<th data-column-id="dailyjournal" >每日流水</th>
 
-                                                <if condition="$sourcetype eq '1' ">
-                                                    <th data-column-id="voucherje">代金券使用</th>
-                                                </if>
+                                                <th data-column-id="voucherje">代金券使用</th>
 
                                                 <if condition="$userpid gt 0" >
                                                     <th data-column-id="sub_dailyincome" >每日收益</th>
