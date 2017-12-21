@@ -178,11 +178,11 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
 	    var choose_time = $('#choose-time').val();
         var channelid = $('#channelselect').val();
         var gameid = $('#select_game').val();
-
+        var userid = $('#select_user').val();
         $.ajax({
             type: "POST",
             url: "<{:U('statistics/ajaxData')}>",
-            data: {channelid:channelid, gameid:gameid, startdate:startdate, enddate:enddate,choose_time:choose_time},
+            data: {channelid:channelid, gameid:gameid, startdate:startdate, enddate:enddate,choose_time:choose_time,userid:userid},
             cache: false,
             dataType: 'json',
             beforeSend: function () {
