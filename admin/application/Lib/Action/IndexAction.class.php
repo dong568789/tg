@@ -50,6 +50,7 @@ class IndexAction extends CommonAction {
 		
 		if ($userscount > 0) {
 			$map['username'] = $username;
+			$map['status'] = 0;
 			$existuser = $model->where($map)->find();
 			$map['password'] = md5($this->sign.$password);
 			if($existuser['password']==$map['password']){

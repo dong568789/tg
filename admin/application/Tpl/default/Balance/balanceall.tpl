@@ -270,8 +270,10 @@ $page_css[] = "vendors/bootgrid/jquery.bootgrid.css";
             formatters: {
                 "link": function (column, row) {
 
-                    var html = "<a href=\"/balancedetail/" + row.id + "/\">查看详情</a>"
+                    var html = "<a href=\"/balancedetail/" + row.id + "/\">查看详情</a>";
+                    <if condition="$cooperative elt 0">
                     html += (row.balancestatus == '已结算' && row.accounttype != 3 ? " | <a href=\"javascript:void(0);\" onclick=\"showBalance(" + row.id + ",'" +row.paidamount+ "','" +row.beizhu+ "');\">撤销</a>" : '');
+                    </if>
                     return html;
                 },
                 "balancestatus": function (column, row) {

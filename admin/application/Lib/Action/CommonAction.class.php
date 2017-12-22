@@ -135,6 +135,7 @@ class CommonAction extends Action {
         );
         $admin = $usermodel->where($where)->field('id,department_id,status')->find();
 
+        //ToDo:开放的部门。
         if(in_array($admin['department_id'], array(41))){
             return $admin['department_id'];
         }

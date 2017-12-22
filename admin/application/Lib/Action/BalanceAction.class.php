@@ -1,7 +1,12 @@
 ﻿<?php
 class BalanceAction extends CommonAction {
+
+    protected $cooperative;
+
     public function __construct(){
         parent::__construct();
+
+        $this->cooperative = $this->getCooperative();
     }
 
     //所有结算单显示
@@ -30,6 +35,7 @@ class BalanceAction extends CommonAction {
             $usertype = I('get.usertype','','intval');
             $this->menucheck();
             $this->assign('usertype',$usertype);
+            $this->assign('cooperative', $this->cooperative);
             $this->display();
         } else{
             Header("Location: /error505/ ");
@@ -73,6 +79,11 @@ class BalanceAction extends CommonAction {
 
         if($usertype > 0){
             $where['U.usertype'] = $usertype;
+        }
+
+
+        if(!empty($this->cooperative)){
+            $where['U.cooperative'] = $this->cooperative;
         }
 
         $where["B.activeflag"] = 1;
