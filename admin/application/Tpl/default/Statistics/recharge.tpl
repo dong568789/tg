@@ -113,6 +113,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             <th data-column-id="status">状态</th>
                                             <th data-column-id="agent">充值渠道</th>
                                             <th data-column-id="regagent">注册渠道</th>
+                                            <th data-column-id="voucherje">优惠券</th>
                                             <th data-column-id="create_time" data-formatter="create_time" data-order="desc">时间</th>
                                             <th data-column-id="payname" data-sortable="false">充值方式</th>
                                         </tr>
