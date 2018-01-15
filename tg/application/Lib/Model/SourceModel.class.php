@@ -300,7 +300,12 @@ class SourceModel extends CommonModel
                 }else{*/
                     $gamestr .= "<td>".($v["gamesize"] <= 0 ? "0" : $v["gamesize"])." MB</td>";
 /*                    $gamestr .= "<td>".$v["sharetype"]."</td>";*/
-                    $gamestr .= "<td style='position: relative;top: -1px;'>".$v["sharerate"]."</td>";
+                if($_SESSION["cooperative"] > 0){
+                    $sharerate = 0;
+                }else{
+                    $sharerate = $v["sharerate"];
+                }
+                    $gamestr .= "<td style='position: relative;top: -1px;'>".$sharerate."</td>";
                 //}
 				
 				if ($v["isonstack"] == 0) {
