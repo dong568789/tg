@@ -372,7 +372,10 @@ class SourceAction extends CommonAction {
     // 用户-资源-推广链接-手机页面
     public function page(){
     	$sourceid = $_GET['sourceid'];
-	
+
+		//选择模板
+		$tpl = $this->selectTemplate($sourceid);
+
         $prefix = C('DB_PREFIX');
         $where=' and a.id="'.$sourceid.'"';
         $sql="SELECT
@@ -410,8 +413,26 @@ class SourceAction extends CommonAction {
 
         $this->assign("sourceid",$sourceid);
 
-        $this->display();
+        $this->display($tpl);
     }
+
+
+	private function selectTemplate($sourceid)
+	{
+		$gamePage = array(
+			316 => 'jlb'
+		);
+		$sourceMode = M('tg_source');
+		$source = $sourceMode->find($sourceid);
+
+
+		if(array_key_exists($source['gameid'], $gamePage)){
+
+
+			return $gamePage[$source['gameid']];
+		}
+		return 'page';
+	}
 
     public function llq(){
         $this->display();
