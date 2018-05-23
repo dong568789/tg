@@ -420,15 +420,14 @@ class SourceAction extends CommonAction {
 	private function selectTemplate($sourceid)
 	{
 		$gamePage = array(
-			520 => 'jlb'
+			520 => 'jlb',
+			536 => 'jlb'
 		);
 		$sourceMode = M('tg_source');
 		$source = $sourceMode->find($sourceid);
 
 
 		if(array_key_exists($source['gameid'], $gamePage)){
-
-
 			return $gamePage[$source['gameid']];
 		}
 		return 'page';
