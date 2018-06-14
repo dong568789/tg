@@ -213,8 +213,7 @@ class RechargeAction extends CommonAction {
         $cpsPay->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT");
         $cpsPay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
         $cpsPay->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT");
-        $cpsPay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
-        .channelname,G.gamename,P.payname');
+        $cpsPay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname,D.voucherje');
         $cpsPay->where($cpsWhere);
         $cpsPaySql = $cpsPay->buildSql();
         $pay = $paymodel->alias("D");
@@ -224,7 +223,7 @@ class RechargeAction extends CommonAction {
         $pay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
         $pay->join(C('DB_PREFIX')."all_user U on D.username = U.username", "LEFT");
         $pay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
-        .channelname,G.gamename,P.payname');
+        .channelname,G.gamename,P.payname,D.voucherje');
         $pay->where($condition);
         $pay->union($cpsPaySql);
         $paySql = $pay->buildSql();
@@ -234,7 +233,6 @@ class RechargeAction extends CommonAction {
 
         $allPay->order($order);
         $payList = $allPay->select();
-
 
         empty($payList) && $payList = array();
         foreach($payList as $k => $v){
@@ -327,7 +325,7 @@ class RechargeAction extends CommonAction {
 
         // 设置单元格的值
         $titleContent = '充值查询';
-        $objPHPExcel->getActiveSheet()->mergeCells('A1:H1');
+        $objPHPExcel->getActiveSheet()->mergeCells('A1:I1');
         $objPHPExcel->getActiveSheet()->setCellValue('A1', $titleContent);
         // 设置样式
         $objPHPExcel->getActiveSheet()->getStyle('A1' )->applyFromArray($centerBoldStyle);
@@ -335,7 +333,7 @@ class RechargeAction extends CommonAction {
         $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(50);
 
         $typeDateContent='打印日期：'.date('Y年m月d日',time());
-        $objPHPExcel->getActiveSheet()->mergeCells('A2:H2');
+        $objPHPExcel->getActiveSheet()->mergeCells('A2:I2');
         $objPHPExcel->getActiveSheet()->setCellValue('A2', $typeDateContent);
         // 设置样式
         $objPHPExcel->getActiveSheet()->getStyle('A2' )->applyFromArray($boldStyle);
@@ -346,12 +344,13 @@ class RechargeAction extends CommonAction {
         $objPHPExcel->getActiveSheet()->setCellValue('B3', '渠道');
         $objPHPExcel->getActiveSheet()->setCellValue('C3', '账号');
         $objPHPExcel->getActiveSheet()->setCellValue('D3', '金额（汇总：'.$data['allmoney'].'）');
-        $objPHPExcel->getActiveSheet()->setCellValue('E3', '状态');
-        $objPHPExcel->getActiveSheet()->setCellValue('F3', '游戏区服');
-        $objPHPExcel->getActiveSheet()->setCellValue('G3', '时间');
-        $objPHPExcel->getActiveSheet()->setCellValue('H3', '充值方式');
+        $objPHPExcel->getActiveSheet()->setCellValue('E3', '优惠券（汇总：'.$data['allmoney'].'）');
+        $objPHPExcel->getActiveSheet()->setCellValue('F3', '状态');
+        $objPHPExcel->getActiveSheet()->setCellValue('G3', '游戏区服');
+        $objPHPExcel->getActiveSheet()->setCellValue('H3', '时间');
+        $objPHPExcel->getActiveSheet()->setCellValue('I3', '充值方式');
         // 设置样式
-        $objPHPExcel->getActiveSheet()->getStyle('A3:H3' )->applyFromArray($centerBoldStyle);
+        $objPHPExcel->getActiveSheet()->getStyle('A3:I3' )->applyFromArray($centerBoldStyle);
         $objPHPExcel->getActiveSheet()->getRowDimension('3')->setRowHeight(25);
 
         $current_line=4;
@@ -362,17 +361,18 @@ class RechargeAction extends CommonAction {
                 $objPHPExcel->getActiveSheet()->setCellValue('B'.$current_line, $value['channelname']);
                 $objPHPExcel->getActiveSheet()->setCellValue('C'.$current_line, $value['username']);
                 $objPHPExcel->getActiveSheet()->setCellValue('D'.$current_line, $value['amount']);
+                $objPHPExcel->getActiveSheet()->setCellValue('E'.$current_line, $value['voucherje']);
 
                 $statusStr='成功';
-                $objPHPExcel->getActiveSheet()->setCellValue('E'.$current_line, $statusStr);
+                $objPHPExcel->getActiveSheet()->setCellValue('F'.$current_line, $statusStr);
 
-                $objPHPExcel->getActiveSheet()->setCellValue('F'.$current_line, $value['serverid']);
-                $objPHPExcel->getActiveSheet()->setCellValue('G'.$current_line, $value['create_time']);
-                $objPHPExcel->getActiveSheet()->setCellValue('H'.$current_line, $value['payname']);
+                $objPHPExcel->getActiveSheet()->setCellValue('G'.$current_line, $value['serverid']);
+                $objPHPExcel->getActiveSheet()->setCellValue('H'.$current_line, $value['create_time']);
+                $objPHPExcel->getActiveSheet()->setCellValue('I'.$current_line, $value['payname']);
 
                 //设置样式
                 $objPHPExcel->getActiveSheet()->getStyle('A'.$current_line.':C'.$current_line)->applyFromArray($centerStyle);
-                $objPHPExcel->getActiveSheet()->getStyle('E'.$current_line.':H'.$current_line)->applyFromArray($centerStyle);
+                $objPHPExcel->getActiveSheet()->getStyle('E'.$current_line.':I'.$current_line)->applyFromArray($centerStyle);
                 $objPHPExcel->getActiveSheet()->getRowDimension($current_line)->setRowHeight(25);
 
                 $current_line++;
@@ -388,6 +388,7 @@ class RechargeAction extends CommonAction {
         $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
         $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
         $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(20);
         // 设置高度
         $objPHPExcel->getActiveSheet()->getRowDimension($current_line)->setRowHeight(180);
 
