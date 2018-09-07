@@ -100,6 +100,7 @@ $page_css[] = "vendors/bower_components/daterangepicker/daterangepicker-bs3.css"
                                             <th data-column-id="gamename">游戏</th>
                                             <th data-column-id="reg_time">注册时间</th>
                                             <th data-column-id="login_time" >最近登录</th>
+                                            <th data-column-id="ip" >Ip</th>
                                         </tr>
                                         </thead>
                                         <tbody id="statisticcontainer">

@@ -213,7 +213,8 @@ class RechargeAction extends CommonAction {
         $cpsPay->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT");
         $cpsPay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
         $cpsPay->join(C('DB_PREFIX')."cps_user U on D.username = U.username", "LEFT");
-        $cpsPay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C.channelname,G.gamename,P.payname,D.voucherje');
+        $cpsPay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
+        .channelname,G.gamename,P.payname,D.voucherje,D.ip');
         $cpsPay->where($cpsWhere);
         $cpsPaySql = $cpsPay->buildSql();
         $pay = $paymodel->alias("D");
@@ -223,7 +224,7 @@ class RechargeAction extends CommonAction {
         $pay->join(C('DB_PREFIX')."dic_paytype P on P.paytype = D.paytype", "LEFT");
         $pay->join(C('DB_PREFIX')."all_user U on D.username = U.username", "LEFT");
         $pay->field('D.orderid,D.regagent,D.agent,U.username,D.amount,D.status,D.serverid,D.create_time,C
-        .channelname,G.gamename,P.payname,D.voucherje');
+        .channelname,G.gamename,P.payname,D.voucherje,D.ip');
         $pay->where($condition);
         $pay->union($cpsPaySql);
         $paySql = $pay->buildSql();

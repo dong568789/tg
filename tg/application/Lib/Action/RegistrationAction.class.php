@@ -98,7 +98,7 @@ class RegistrationAction extends CommonAction {
             ->join(C('DB_PREFIX')."cps_source S on AU.agent = S.sourcesn", "LEFT")
             ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
             ->join(C('DB_PREFIX')."cps_game G on G.gameid = S.gameid", "LEFT")
-            ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename')
+            ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename,AU.ip')
             ->where($condition)
             ->buildSql();
 
@@ -106,7 +106,7 @@ class RegistrationAction extends CommonAction {
             ->join(C('DB_PREFIX')."tg_source S on AU.agent = S.sourcesn", "LEFT")
             ->join(C('DB_PREFIX')."tg_channel C on S.channelid = C.channelid", "LEFT")
             ->join(C('DB_PREFIX')."tg_game G on G.gameid = S.gameid", "LEFT")
-            ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename')
+            ->field('AU.id,AU.username,AU.reg_time,AU.agent,AU.gameid,C.channelname,G.gamename,AU.ip')
             ->where($condition)
             ->union($cpsUserSql)
             ->buildSql();
