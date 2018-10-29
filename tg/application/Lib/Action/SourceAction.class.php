@@ -406,6 +406,9 @@ class SourceAction extends CommonAction {
         $this->assign("half_num",$half_num);
         $this->assign("grey_num",$grey_num);
 
+		if(!empty($game)){
+			$this->downloadLog($sourceid);
+		}
         $Source = D('Source');
         $long_url = $Source->getDownloadURL($sourceid);
         $long_url .= '/'.rand(0,9).rand(0,9).rand(0,9).rand(0,9);
@@ -415,6 +418,34 @@ class SourceAction extends CommonAction {
 
         $this->display($tpl);
     }
+
+	public function log()
+	{
+		$sourceid = intval($_POST['sourceid']);
+		if(empty($sourceid)){
+			return false;
+		}
+
+		$this->downloadLog($sourceid, 'download');
+	}
+
+	/**
+	 * 记录推广页面日志
+	 * @param $sourceid
+	 * @param int $type
+	 */
+	private function downloadLog($sourceid, $type='access')
+	{
+		$ip = get_client_ip();
+		$downLogModel = M('tg_downlog');
+
+		$data['sourceid'] = $sourceid;
+		$data['ip'] = $ip;
+		$data['type'] = $type;
+		$data['created_at'] = date('Y-m-d H:i:s');
+
+		$downLogModel->add($data);
+	}
 
 
 	private function selectTemplate($sourceid)

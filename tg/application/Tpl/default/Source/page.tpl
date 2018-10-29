@@ -180,7 +180,13 @@
             games_intro_content.css('height','80px');
             show_more.show();
             hide_more.hide();
-        })
+        });
+
+        $('.games-download a').click(function(){
+            $.post("<{:U('source/log')}>", {sourceid:"<{$_GET['sourceid']}>"}, function(){
+
+            });
+        });
     })
 </script>
 </body>
