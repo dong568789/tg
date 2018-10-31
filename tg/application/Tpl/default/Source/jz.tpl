@@ -15,7 +15,7 @@
     <a href="javascript:void(0);" onclick="commonDown('','<{$long_url}>')" class="download_btn"></a>
 </div>
 
-<div class="focus swiper-container" style="overflow: initial;">
+<div class="focus swiper-container">
     <div class="swiper-wrapper">
         <div class="swiper-slide"><img src="http://img.yxgames.com/gamemobile4/games/images/jz/index_1.png" onerror="this.src='http://img.yxgames.com/gamemobile4/games/images/jlb/oribanner.jpg'" alt="1" width="100%" /></div>
         <div class="swiper-slide"><img src="http://img.yxgames.com/gamemobile4/games/images/jz/index_2.png" onerror="this.src='http://img.yxgames.com/gamemobile4/games/images/jlb/oribanner.jpg'" alt="1" width="100%" /></div>
@@ -37,8 +37,8 @@
         // 轮播图
         var slider = new Swiper('.swiper-container', {
             speed: 500,
-            spaceBetween: 30,
             slidesPerView: 2,
+            spaceBetween: 10,
             pagination: {
                 el: '.swiper-pagination',
             },
