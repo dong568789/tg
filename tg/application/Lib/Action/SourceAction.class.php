@@ -452,7 +452,8 @@ class SourceAction extends CommonAction {
 	{
 		$gamePage = array(
 			520 => 'jlb',
-			536 => 'jlb'
+			536 => 'jlb',
+			545 => 'jz'
 		);
 		$sourceMode = M('tg_source');
 		$source = $sourceMode->find($sourceid);
