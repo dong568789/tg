@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="warp">
-    <a href="javascript:void(0);" onclick="commonDown('','<{$long_url}>')" class="btn"></a>
+    <a href="javascript:void(0);" onclick="commonDown('','<{$long_url}>')" class="btn download_btn"></a>
 </div>
 <div class="focus">
         <div class="focusbox" id="focusbox" >
@@ -56,6 +56,12 @@
         var slider = new Swipe(document.getElementById('focusbox'), {
             speed: 500,
             auto: 4000
+        });
+		
+		$('.download_btn').click(function(){
+            $.post("<{:U('source/log')}>", {sourceid:"<{$_GET['sourceid']}>"}, function(){
+
+            });
         });
     })
 </script>
